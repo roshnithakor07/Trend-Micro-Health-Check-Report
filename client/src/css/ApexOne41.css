@@ -1,0 +1,74 @@
+
+#apexone41 {
+    position: relative;
+    top: 150px;
+}
+.container11{
+    position: relative;
+   bottom: 10px;
+}
+.con5 {
+    height: 25px;
+    padding: 4px;
+}
+
+.c5 {
+    height: 0px;
+    padding: 0px;
+}
+
+#table41 select {
+    height: 25px;
+    padding: 4px;
+}
+
+
+/* #AgentSU #time{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+} */
+
+#lk {
+    background-color: #add8e6;
+    font-weight: bold;
+}
+
+.container11 img,
+.container3 img,
+.PolicyOverview img {
+    position: relative;
+    top: 5px;
+}
+
+.one {
+    background-color: black;
+    color: white;
+}
+
+#t1,
+#t2 {
+    display: none;
+}
+
+#t1 select,
+#t2 select {
+    height: 25px;
+    padding: 4px;
+}
+
+
+/*  productArchitecture section  */
+
+#productArchitecture{
+    position: relative;
+    top: 120px;
+  }
+
+  #outputPA{
+    width: 450px;
+    height: 350px;
+  }
+  .cLogoPA{
+      text-align: center;
+  }

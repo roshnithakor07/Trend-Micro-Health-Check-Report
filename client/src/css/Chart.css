@@ -1,0 +1,361 @@
+:root {
+    --bg: #49858F;
+    --navColor: #fff;
+    --left: 74px;
+
+}
+
+.chart-section {
+    width: 100%;
+    height: 100px;
+}
+
+.topnav {
+    position: relative;
+    top: 40px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.topnav a {
+    float: left;
+    color: var(--bg);
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.all-Chart-section {
+    width: 100%;
+    min-height: 100%;
+    /* background-color: #dfe4e4; */
+    position: relative;
+    top: 80px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 60px;
+    padding-top: 20px;
+
+}
+
+.all-Chart-section .common-chart {
+    width: 1200px;
+    min-height: 100%;
+    background-color: #49858F;
+    background-color: #EFF6FA;
+    padding: 10px;
+
+}
+
+.common-chart h3 {
+    color: #2e6b75;
+    text-decoration: none;
+}
+
+.common-chart .main-chart {
+    width: 100%;
+    margin-bottom: 20px;
+    min-height: 30px;
+    background-color: #fff;
+    position: relative;
+    top: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    padding: 15px;
+
+}
+
+.common-chart .main-chart .chart-wrapper {
+    width: 500px;
+    min-height: 100%;
+    display: none;
+    position: relative;
+    /* background-color: #49858F; */
+
+}
+
+
+.chart-section #logDetails {
+    text-align: center;
+    position: relative;
+    top: 60px;
+}
+
+
+
+.chart-wrapper canvas {
+    box-shadow: rgba(0, 0, 0, 0.176) 0px 6px 12px 0px;
+    display: none;
+}
+
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px 12px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown {
+    position: relative;
+    /* display: inline-block; */
+    /* display: none; */
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    /* min-width: 120px; */
+    min-width: 230px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    /* padding: 10px 10px; */
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+}
+
+
+#icon {
+    display: inline-block;
+    cursor: pointer;
+    position: relative;
+    top: 04px;
+    color: #000000;
+}
+
+#icon:hover,
+#icon.active {
+    color: red;
+}
+
+
+.chartMenu #chartMenuItem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+
+}
+
+
+.chart-section ul>li {
+    color: gray;
+    list-style-type: none;
+}
+
+#chartFirstLine1,
+#chartFirstLine2,
+#chartFirstLine3,
+#chartFirstLine4,
+#chartFirstLine5,
+#chartFirstLine6,
+#chartFirstLine7,
+#chartFirstLine8 {
+    padding-top: 10px;
+    display: none;
+    text-align: center;
+}
+
+
+#additionalInfo1,
+#additionalInfo2,
+#additionalInfo3,
+#addInfo1,
+#addInfo2,
+#addInfo3 {
+    display: none;
+}
+
+
+.additionalInfo>* {
+    margin: 6px 0;
+}
+
+.additionalInfo textarea {
+    font-size: 16px;
+    padding: 0px 0 0 5px;
+    width: 100%;
+}
+
+.additionalInfo input {
+    font-size: 16px;
+    width: 60%;
+}
+
+#addDes,
+.addDes {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.inner h4 {
+    padding-bottom: 7px;
+}
+
+.Chartbutton {
+    display: none;
+}
+
+input[type="file"] {
+    position: relative;
+    top: 5px;
+    /* left: 10px; */
+    font-size: 14px;
+    display: block;
+    width: 400px;
+    /* background-color: blue; */
+}
+
+
+.further-information {
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 60px;
+    padding-top: 20px;
+}
+
+.fI1 {
+    /* display: none; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 4px;
+
+}
+
+.further-information .common-chart,
+.Add-Chart-Section {
+    width: 1200px;
+    min-height: 100%;
+    background-color: #49858F;
+    background-color: #EFF6FA;
+    padding: 10px;
+}
+
+.further-information li {
+    list-style: none;
+}
+
+#points textarea {
+    width: 100%;
+    min-height: 50px;
+    word-wrap: break-word;
+    word-break: break-all;
+    margin: 8px 0;
+    text-align: left;
+    word-break: keep-all;
+    padding: 0px 0 0 5px;
+    border: 1px solid #0FB8CE;
+}
+
+.showLinks ul {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin: 0;
+    padding: 0;
+    text-align: justify;
+}
+
+.showLinks ul>* {
+    padding-top: 10px;
+}
+
+
+.showLinks ul .handle-icons {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    gap: 2px;
+    cursor: pointer;
+}
+
+
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    height: 450px;
+    /* width: 600px; */
+    width: 700px;
+}
+
+.popup-content {
+    padding: 10px 0;
+    display: flex;
+    flex-flow: column;
+    gap: 10px;
+}
+
+.popup h2 {
+    margin-top: 0;
+}
+
+.popup input,
+.popup button {
+    margin-bottom: 10px;
+}
+
+.close-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.close-icon img {
+    width: 20px;
+    height: 20px;
+}
+
+
+
+.close-icon1 {
+    position: absolute;
+    top: 20;
+    right: 0;
+    cursor: pointer;
+    font-size: 20px;
+    color: red;
+}

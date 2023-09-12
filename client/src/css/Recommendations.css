@@ -1,0 +1,19 @@
+#Recommendations {
+    position: relative;
+    top: 230px;
+}
+
+/* .container8,
+.policy2Sentence,
+.commonSentences {
+    margin-left: 20px;
+} */
+
+.MainDiv  ul>li{
+    color: gray;
+}
+
+.Recommended-Procedure{
+    position: relative;
+    top: 210px;
+}

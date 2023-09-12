@@ -1,0 +1,82 @@
+.po1,
+#po2 {
+    position: relative;
+    top: 60px;
+}
+
+
+#PolicyOverview {
+    position: relative;
+    top: 170px;
+}
+
+
+/* .dvr,
+.table3 td,
+.table3 th {
+    border: 2px solid black;
+    border-collapse: collapse;
+    padding:4px;
+    font-size: 14px;
+}
+
+.table3 {
+    border: 2px solid black;
+    border-collapse: collapse;
+   
+} */
+
+.table3 {
+    width: 100%;
+
+}
+
+.con6 {
+    height: 25px;
+}
+
+
+/* #table2 {
+    border: 1px solid black;
+    border-collapse: collapse;
+} */
+
+.table2 {
+    width: 100%;
+}
+
+#ch {
+    padding: 2px;
+    text-align: center;
+}
+
+
+
+.addPolicyOverviewTable {
+    position: relative;
+    top: 180px;
+    cursor: pointer;
+}
+
+#PolicyOverviewTwo {
+    position: relative;
+    top: 160px;
+}
+
+#head55{
+    position: relative;
+    top: 20px;
+}
+
+.closePolicyOverviewTable {
+    position: relative;
+    top: 20px;
+}
+
+#close-details {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    
+}

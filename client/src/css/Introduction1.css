@@ -1,0 +1,78 @@
+:root {
+    --gap : 60px;
+    --report-heading-gap:15px;
+  
+}
+
+.intro1 {
+    position: relative;
+    top: 70px;
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+#Endpoints {
+    height: 40px;
+    font-size: 20px;
+    position: relative;
+    top: 5px;
+}
+
+.cLogo{
+    text-align: center;
+}
+
+#file,#filePA {
+    display: none;
+}
+
+.cName {
+    position: relative;
+    top: 20px;
+    text-align: center;
+}
+
+#lname {
+    width: 90%;
+    height: 25px;
+    text-align: center;
+}
+
+#review {
+    display: none;
+}
+
+#container {
+    position: relative;
+    top: 35px;
+    right: 100px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+#con0 {
+    padding-top: 10px;
+}
+
+.documentVersion {
+    position: relative;
+    top:var(--gap);
+}
+
+.report-heading2{
+    margin-bottom:var(--report-heading-gap);
+}
+
+#vivo {
+    width: 100%;
+}
+
+#rTitle {
+    display: none;
+}
+
+

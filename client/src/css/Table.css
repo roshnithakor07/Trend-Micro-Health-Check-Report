@@ -1,0 +1,59 @@
+
+#documentV {
+    border: 2px solid black;
+    border-collapse: collapse;
+}
+
+#documentV th ,#documentV td,.dvr{
+    border: 2px solid black;
+    border-collapse: collapse;
+    padding: 5px;
+}
+
+
+#documentV{
+    width: 100%;
+}
+
+#documentV{
+    width: 100%;
+}
+
+
+#documentV1,#BMdocumentV,#DCdocumentV ,#IPdocumentV{
+    border: 2px solid black;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#documentV1 th ,#documentV1 td{
+    border: 2px solid black;
+    border-collapse: collapse;
+    padding: 5px;
+}
+
+#BMdocumentV th ,#BMdocumentV td{
+    border: 2px solid black;
+    border-collapse: collapse;
+    padding: 5px;
+}
+
+#DCdocumentV th ,#DCdocumentV td{
+    border: 2px solid black;
+    border-collapse: collapse;
+    padding: 5px;
+}
+
+#IPdocumentV th ,#IPdocumentV td{
+    border: 2px solid black;
+    border-collapse: collapse;
+    padding: 5px;
+}
+
+
+
+
+
+
+
+

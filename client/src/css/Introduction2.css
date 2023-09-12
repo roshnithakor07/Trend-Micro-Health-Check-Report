@@ -1,0 +1,32 @@
+#intro2 {
+    position: relative;
+    top: 90px;
+}
+
+
+#indexcss{
+   text-align: center;
+}
+
+
+#content{
+    position: relative;
+    top: 70px;
+}
+#contentValue{
+    position: relative;
+    top: 20px;
+}
+dl{
+    display: flex;
+    justify-content: flex-start;
+    flex-flow: column;
+    gap: 5px;
+}
+
+dl > dd{
+    margin-left: 20px;
+}
+
+
+

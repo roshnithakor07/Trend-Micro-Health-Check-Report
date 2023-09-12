@@ -1,0 +1,51 @@
+#ExecutiveSummery {
+    position: relative;
+    top: 100px;
+}
+
+.container8{
+    width: 100%;
+   /* background-color: darkmagenta; */
+}
+
+.container8 ul {
+    width: 100%;
+    /* background-color: blueviolet; */
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    gap:20px;
+    text-align: justify;
+}
+
+.container8 ul .summerImg{
+    display: flex;
+    justify-content: flex-start;
+    position: relative;
+    cursor: pointer;
+}
+
+#myUl {
+    color: rgb(128, 128, 128);
+}
+
+.container8 textarea {
+    width: 100%;
+    min-height: 50px;
+    word-wrap: break-word;
+    word-break: break-all;
+    margin: 8px 0;
+    text-align: left;
+    word-break: keep-all;
+    padding: 0px 0 0 5px;
+    border: 1px solid #0FB8CE;
+}
+
+
+
+.same-sentence {
+    background-color: #d7f9d7; /* Light green */
+  }
+
+  

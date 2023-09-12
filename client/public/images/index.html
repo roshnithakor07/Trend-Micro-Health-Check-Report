@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+
+<body class="body">
+    <header>
+
+        <div class="logosec">
+            <div class="logo">Eventus Techsol </div>
+            <img src="/menu.png" class="icn menuicn" id="menuicn" alt="menu-icon">
+        </div>
+
+        <div class="searchbar">
+            <input type="text" placeholder="Search">
+        </div>
+
+        <div class="message">
+
+            <div class="dp">
+                <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210180014/profile-removebg-preview.png"
+                    class="dpicn" alt="dp">
+            </div>
+        </div>
+
+    </header>
+
+    <div class="main-container">
+        <div class="navcontainer">
+            <nav class="nav">
+                <div class="nav-upper-options">
+                    <div class="nav-option option1">
+                        <img src="./dashboard.png" class="nav-img" alt="dashboard">
+                        <h3> Dashboard</h3>
+                    </div>
+
+                    <div class="option2 nav-option">
+                        <img src="./report.png" class="nav-img" alt="articles">
+                        <h3>Reports</h3>
+                    </div>
+
+                    <div class="nav-option option3">
+                        <img src="./user.png" class="nav-img" alt="report">
+                        <h3>Users</h3>
+                    </div>
+                    <div class="nav-option option6">
+                        <img src="./automatic.png" class="nav-img" alt="settings">
+                        <h3> Settings</h3>
+                    </div>
+
+                    <div class="nav-option logout">
+                        <img src="./logout.png" class="nav-img" alt="logout">
+                        <h3>Logout</h3>
+                    </div>
+
+                </div>
+            </nav>
+        </div>
+
+        <div class="main">
+
+
+
+            <div class="box-container">
+
+                <div class="box box1">
+                    <div class="text">
+                        <h2 class="topic-heading">60.5k</h2>
+                        <h2 class="topic">Total Views</h2>
+                    </div>
+
+                    <img src="./view.png" alt="Views">
+                </div>
+
+                <div class="box box2">
+                    <div class="text">
+                        <h2 class="topic-heading">150</h2>
+                        <h2 class="topic">Total Reports</h2>
+                    </div>
+
+                    <img src="./report.png" alt="reports">
+                </div>
+
+                <div class="box box3">
+                    <div class="text">
+                        <h2 class="topic-heading">320</h2>
+                        <h2 class="topic">Comments</h2>
+                    </div>
+
+                    <img src="./comments.png" alt="comments">
+                </div>
+
+
+            </div>
+
+            <div class="report-container">
+                <div class="report-header">
+                    <h1 class="recent-Articles">Recent Reports</h1>
+                    <button class="view">View All</button>
+                </div>
+
+                <div class="report-body">
+
+                    <table border="1">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Date</th>
+                                <th>Report Type</th>
+                                <th>Company Name</th>
+                                <th>Created By</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>January</td>
+                                <td>$100</td>
+                                <td>January</td>
+                                <td>$100</td>
+                                <td>January</td>
+                                <td>$100</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+
+    </div>
+
+    <script>
+        let menuicn = document.querySelector(".menuicn");
+        let nav = document.querySelector(".navcontainer");
+
+        menuicn.addEventListener("click", () => {
+            nav.classList.toggle("navclose");
+        })
+    </script>
+
+</body>
+
+</html>

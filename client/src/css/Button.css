@@ -1,0 +1,185 @@
+#nexPreBtn,#nexPreBtn-fi,#nexPreBtn-admin {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    top: 280px;
+    padding-bottom: 70px;
+  }
+  
+  #nexPreBtn-fi{
+    position: relative;
+    top: 80px;
+  
+  }
+
+  #nexPreBtn-admin{
+    position: relative;
+    top: 10px;
+  }
+  
+  #nexPreBtn .button,#nexPreBtn-fi .button ,#nexPreBtn-admin .button{
+    color: #fff;
+    text-decoration: none;
+    padding: 5px 60px;
+  }
+  
+  
+  
+  .btn {
+    padding: 8px 20px;
+    background-color: #191c24;
+    border-radius: 4px;
+  }
+  
+  .updatebtn {
+    color: #1A73E1;
+    border: 1px dotted #1A73E1;
+  }
+  
+  .deletebtn {
+    color: #fc424a;
+    border: 1px dotted #fc424a;
+  }
+  
+  .downloadbtn {
+    color: #00d25b;
+    border: 1px dotted #00d25b;
+  }
+  
+  .updatebtn:hover {
+    color: #fff;
+    background-color: #1A73E1;
+  }
+  
+  .deletebtn:hover {
+    color: #fff;
+    background-color: #fc424a;
+  }
+  
+  .downloadbtn:hover {
+    color: #fff;
+    background-color: #00d25b;
+  
+  }
+  
+  
+  
+  #action {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  #downloadpdf {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .spinner:before {
+    content: "Preparing PDF...";
+    font-size: 20px;
+    margin-right: 20px;
+  }
+  
+  .spinner:after {
+    content: "";
+    display: inline-block;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    border: 6px solid #fff;
+    border-top-color: #000;
+    animation: spin 1s linear infinite;
+  }
+  
+  .spinner-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+    bottom: 400px;
+  }
+  
+  .spinner-button:before {
+    content: "Loading Data...";
+    font-size: 20px;
+    margin-right: 20px;
+  }
+  
+  .spinner-button:after {
+    content: "";
+    display: inline-block;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    border: 6px solid #fff;
+    border-top-color: #000;
+    animation: spin 1s linear infinite;
+  }
+  
+  
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+  
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .admin {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+  
+  .admin td,
+  .admin th {
+    border: 1px solid black;
+    /* border-collapse: collapse; */
+    padding: 2px;
+  
+  }
+  
+  
+  .admin table {
+    border: 1px solid black;
+    border-collapse: collapse;
+    width: 70%;
+    text-align: center;
+  }
+  
+  
+  .adminButton {
+    display: flex;
+    gap: 20px;
+    position: relative;
+    top: 20px;
+  }
+  
+  .styleOFLoader{
+    display: flex;
+    position: relative;
+    top: 30px;
+    left: 20px;
+    gap: 20px;
+  }
+  
+  /* .button-pdf {
+    position: relative;
+    top: 30px;
+    left: 20px;
+  } */
