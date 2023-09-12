@@ -29,10 +29,10 @@ function App() {
     <>
       <Router>
         <Routes>
+          
           {/* <Route path='/' element={<Home />} /> */}
           <Route path='/' element={<Report />} />
           <Route path='/admin' element={<Admin />} />
-          <Route path="/report" element={<Report />} />
           <Route path="/charts" element={<Charts />} />
           <Route path="/update-report/:id" element={<UpdateReport />} />
           <Route path="/demo" element={<Demo />} />
