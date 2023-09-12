@@ -411,11 +411,11 @@ export default function Virus(props) {
                 if (top5Keys2[0] === actionName) {
                     actionVal0 = top5Keys2[0];
                 } else {
-                    actionVal0 = "the file was successfully " + top5Keys2[0];
+                    actionVal0 = "the files were successfully " + top5Keys2[0];
                 }
 
             } else {
-                actionVal0 = "no action required ";
+                actionVal0 = "no action was required";
             }
         }
 
@@ -427,22 +427,25 @@ export default function Virus(props) {
                     actionVal1 = top5Keys3[0];
                 } else {
 
-                    actionVal1 = "the file was successfully " + top5Keys3[0];
+                    actionVal1 = "the files were successfully " + top5Keys3[0];
                 }
 
             } else {
-                actionVal1 = "no action required"
+                actionVal1 = "no action was required"
             }
 
         }
 
 
+        const yValue0 = (y1[0] > 1) ? `${y1[0]} times` : `${y1[0]} time`;
+        const yValue1 = (y1[1] > 1) ? `${y1[1]} times` : `${y1[1]} time`;
+
         if (columnsNames === vm[0]) {
-            description[0][0] = `${x[0]} ${cTitle} was detected ${y1[0]} times on ${endPointVal0} and ${actionVal0} by Apex One.`;
-            description[0][1] = `${x[1]} ${cTitle} was detected ${y1[1]} times on ${endPointVal1} and ${actionVal1} by Apex One.`;
+            description[0][0] = `${x[0]} ${cTitle} was detected ${yValue0} on ${endPointVal0} and ${actionVal0} by Apex One.`;
+            description[0][1] = `${x[1]} ${cTitle} was detected ${yValue1} on ${endPointVal1} and ${actionVal1} by Apex One.`;
         } else if (columnsNames === vm[1]) {
-            description[1][0] = `${y1[0]} times ${cTitle} was detected on the ${x[0]} endpoint, and ${actionVal0} by Apex One.`;
-            description[1][1] = `${y1[1]} times ${cTitle} was detected on the ${x[1]} endpoint, and ${actionVal1} by Apex One.`;
+            description[1][0] = `${yValue0} ${cTitle} was detected on the ${x[0]} endpoint, and ${actionVal0} by Apex One.`;
+            description[1][1] = `${yValue1} ${cTitle} was detected on the ${x[1]} endpoint, and ${actionVal1} by Apex One.`;
         }
 
 
@@ -481,9 +484,15 @@ export default function Virus(props) {
         if (columnsNames === vm[0]) {
             setChartFirstLine(line);
             document.getElementById('chartFirstLine1').style.display = "block";
+            if (x.length > 1) {
 
-            link1[0][0] = description[0][0];
-            link1[0][1] = description[0][1];
+                link1[0][0] = description[0][0];
+                link1[0][1] = description[0][1];
+            } else {
+                link1[0][0] = description[0][0];
+
+            }
+
 
             createCharts(0, x, y1, wrapperId[0], canavaId[0])
 
@@ -497,7 +506,6 @@ export default function Virus(props) {
                 link1[1][1] = description[1][1];
             } else {
                 link1[1][0] = description[1][0];
-                
             }
 
             createCharts(1, x, y1, wrapperId[1], canavaId[1])
@@ -611,6 +619,7 @@ export default function Virus(props) {
         document.getElementById('additionalInfo1').style.display = "block"
         document.getElementById('addDes1').style.display = "none"
     }
+
     const handleImage = (e) => {
         const element = document.getElementById("file1");
         //document.getElementById('chartOutput1').display = "block"
@@ -706,7 +715,6 @@ export default function Virus(props) {
     };
 
 
-
     //Sub Point Section
     const deleteSubPoint = (e, index, subIndex, linkArrNo) => {
         const subPoints = [...SubPointArr];
@@ -727,8 +735,6 @@ export default function Virus(props) {
         setSubPointArr(subPoints);
         setIsSubPopupOpen(false)
     };
-
-
 
 
     return (

@@ -24,6 +24,7 @@ app.use("/charts" ,charts);
 app.use("/report" ,report);
 app.use("/pdf" ,pdf);
 
+
 app.get('/',function(req,res,next){
     res.send("<h1>this is home page</h1>");
 });

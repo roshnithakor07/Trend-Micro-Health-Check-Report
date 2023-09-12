@@ -38,8 +38,11 @@ const apex41pdf = async (req, res) => {
     }
 
     const preReport = [];
-    const global_agents_settings = [];
-    
+    const global_agents_settings = [
+        [{ text: 'Global Agents Settings', rowSpan: 2, margin: [0, 30, 0, 0] }, 'Enable Clean / Delete Infected Files within Compressed Files', { text: `${Report[0].global_agents_settings1}` }, { image: `${Report[0].apeximgglobal_agents_settings1}`, style: "imgStyle", width: 15 }],
+        ['', 'Enable resume schedule scan options under global agent settings', `Resume an Interrupted Scheduled Scan- ${Report[0].global_agents_settings2} & Resume a missed Scheduled Scan at the same time the next day- ${Report[0].global_agents_settings3}`, { image: `${Report[0].apeximgglobal_agents_settings2}`, style: "imgStyle", width: 15 }]
+    ];
+
     let Apex41Para = {
         style: "common",
         alignment: 'justify',
@@ -53,6 +56,8 @@ const apex41pdf = async (req, res) => {
     };
 
     if (Report[0].report_type === "On-Premises") {
+
+        global_agents_settings = [];
 
         Apex41Para =
         {
@@ -78,17 +83,11 @@ const apex41pdf = async (req, res) => {
         );
 
         global_agents_settings.push(
-            [{ text: 'Global Agents Settings', rowSpan: 3}, 'Enable Clean / Delete Infected Files within Compressed Files', { text: `${Report[0].global_agents_settings1}` }, { image: `${Report[0].apeximgglobal_agents_settings1}`, style: "imgStyle", width: 15 }],
+            [{ text: 'Global Agents Settings', rowSpan: 3 }, 'Enable Clean / Delete Infected Files within Compressed Files', { text: `${Report[0].global_agents_settings1}` }, { image: `${Report[0].apeximgglobal_agents_settings1}`, style: "imgStyle", width: 15 }],
             ['', 'Enable resume schedule scan options under global agent settings', `Resume an Interrupted Scheduled Scan- ${Report[0].global_agents_settings2} & Resume a missed Scheduled Scan at the same time the next day- ${Report[0].global_agents_settings3}`, { image: `${Report[0].apeximgglobal_agents_settings2}`, style: "imgStyle", width: 15 }],
             ['', 'Enable Smart Protection Service Proxy', `${Report[0].global_agents_settings4}`, { image: `${Report[0].apeximgglobal_agents_settings3}`, style: "imgStyle", width: 15 }],
         )
-    }else{
-       global_agents_settings.push([
-            [{ text: 'Global Agents Settings', rowSpan: 2, margin : [0,30,0,0]}, 'Enable Clean / Delete Infected Files within Compressed Files', { text: `${Report[0].global_agents_settings1}` }, { image: `${Report[0].apeximgglobal_agents_settings1}`, style: "imgStyle", width: 15 }],
-            ['', 'Enable resume schedule scan options under global agent settings', `Resume an Interrupted Scheduled Scan- ${Report[0].global_agents_settings2} & Resume a missed Scheduled Scan at the same time the next day- ${Report[0].global_agents_settings3}`, { image: `${Report[0].apeximgglobal_agents_settings2}`, style: "imgStyle", width: 15 }]  
-        ])
     }
-
 
 
     try {
@@ -170,10 +169,8 @@ const apex41pdf = async (req, res) => {
         return content;
 
     } catch (error) {
-
+        console.log("Apex-41 - error")
     }
-
-
 
 }
 

@@ -30,7 +30,6 @@ export default function WR(props) {
     checkDescriptionAdded: false,
     total_detection: 0,
     chartDescription: '[]',
-    wrText: '[]',
     chartSubPoints: "[]"
 
   });
@@ -52,12 +51,11 @@ export default function WR(props) {
   });
 
   let canavaId = ["myChart31", "myChart32", "myChart33"];
-  const [wrText, setWrText] = useState(['Top 10 URL Detections in WRS', 'Top 10 Endpoints in WRS Detection', 'Protocol Detection'])
 
   let wrapperId = ["wrapper31", "wrapper32", "wrapper33"];
   let cTitle = "Web Reputation Detections";
   let vm = ['URL', 'Product Entity', "Protocol"]
-
+  const wrText = ['Top 10 URL Detections in WRS', 'Top 10 Endpoints in WRS Detection', 'Protocol Detection'];
   const [total_detection, setTotalDetections] = useState(0)
 
   const [chartFirstLine, setChartFirstLine] = useState("")
@@ -407,10 +405,10 @@ export default function WR(props) {
       actionVal0 = "the files were successfully " + top5Keys2.slice(0, -1).join(", ") + " and " + top5Keys2[top5Keys2.length - 1];
     } else {
       if (top5Keys2.length) {
-        actionVal0 = "the file was successfully " + top5Keys2[0];
+        actionVal0 = "the files were successfully " + top5Keys2[0];
 
       } else {
-        actionVal0 = "no action required ";
+        actionVal0 = "no action was required";
       }
     }
 
@@ -418,19 +416,21 @@ export default function WR(props) {
       actionVal1 = "the files were successfully " + top5Keys3.slice(0, -1).join(", ") + " and " + top5Keys3[top5Keys3.length - 1];
     } else {
       if (top5Keys3.length) {
-        actionVal1 = "the file was successfully " + top5Keys3[0];
+        actionVal1 = "the files were successfully " + top5Keys3[0];
       } else {
-        actionVal1 = "no action required"
+        actionVal1 = "no action was required"
       }
 
     }
 
+    const yValue0 = (y1[0] > 1) ? `${y1[0]} times` : `${y1[0]} time`;
+    const yValue1 = (y1[1] > 1) ? `${y1[1]} times` : `${y1[1]} time`;
 
     if (columnsNames === vm[0]) {
 
       description[0][0] = `${count['HTTP']} times HTTP sites are detected in WRS detection, and ${actionVal0} by apex one. Check whether it's secure or not if it's secure then add it to the approved list otherwise block it. `;
-      description[0][1] = `${x[0]} This site is detected ${y1[0]} times on ${endPointVal0} and ${actionVal0} by apex one.`;
-      description[0][2] = `${x[1]} This site is detected ${y1[1]} times on ${endPointVal1} and ${actionVal1} by apex one.`;
+      description[0][1] = `${x[0]} This site is detected ${yValue0} on ${endPointVal0} and ${actionVal0} by apex one.`;
+      description[0][2] = `${x[1]} This site is detected ${yValue1} on ${endPointVal1} and ${actionVal1} by apex one.`;
 
     } else if (columnsNames === vm[1]) {
       description[1][0] = `All the web violation events were successfully blocked by apex one.`;
@@ -444,18 +444,17 @@ export default function WR(props) {
     document.getElementById('addInfo3').style.display = "block"
     document.getElementById('Chartbutton').style.display = "block"
     const link1 = [...PointArr]
-    const names = [...wrText]
+   
     if (columnsNames === vm[0]) {
-      link1[0][0] = description[0][0];
-      link1[0][1] = description[0][1];
-      link1[0][2] = description[0][2];
-
-      if (y1.length >= 10) {
-        names[0] = 'Top 10 URL Detections in WRS'
+      if (x.length > 1) {
+        link1[0][0] = description[0][0];
+        link1[0][1] = description[0][1];
+        link1[0][2] = description[0][2];
       } else {
-        names[0] = 'URL Detections in WRS'
+        link1[0][0] = description[0][0];
+        link1[0][1] = description[0][1];
       }
-      setWrText(names);
+      
       let urls = [...x]
       for (let i = 0; i < urls.length; i++) {
         if (urls[i].length > 15) {
@@ -469,21 +468,18 @@ export default function WR(props) {
       myChartData['url_count'] = JSON.stringify(y1)
 
     } else if (columnsNames === vm[1]) {
+      if (x.length >= 1) {
+        link1[1][0] = description[1][0];
+    }
+
       link1[1][0] = description[1][0];
 
-      if (y1.length >= 10) {
-        names[1] = 'Top 10 Endpoints in WRS Detection'
-      } else {
-        names[1] = 'Endpoints in WRS Detection'
-      }
-      setWrText(names);
       createCharts(1, x, y1, wrapperId[1], canavaId[1])
       myChartData['endpoint'] = JSON.stringify(x)
       myChartData['endpoint_count'] = JSON.stringify(y1)
 
     } else if (columnsNames === vm[2]) {
-      names[2] = 'Protocol Detection'
-      setWrText(names);
+      
       createCharts(2, x, y1, wrapperId[2], canavaId[2])
       myChartData['protocol'] = JSON.stringify(x)
       myChartData['protocol_count'] = JSON.stringify(y1)
@@ -535,7 +531,7 @@ export default function WR(props) {
           datalabels: chartType === 'outlabeledPie' ? pieDatalabels : barDatalabels,
           title: {
             display: true,
-            text: wrText[no],
+            text : wrText[no],
             position: 'top',
             align: 'center',
             font: {
@@ -590,13 +586,12 @@ export default function WR(props) {
   //process database
   const handleCharts = () => {
     myChartData["chartDescription"] = JSON.stringify(PointArr)
-    myChartData["wrText"] = JSON.stringify(wrText)
     myChartData.total_detection = total_detection;
     myChartData["chartSubPoints"] = JSON.stringify(SubPointArr)
     myChartData.chartFirstLine = chartFirstLine;
     myChartData.chartTypes = JSON.stringify(chartTypes)
 
-    console.log(wrText)
+    
     const getProductById = async (e) => {
       try {
         console.log("hello inside handlevirus", myChartData)

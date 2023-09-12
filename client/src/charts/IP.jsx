@@ -421,7 +421,7 @@ export default function IP(props) {
       actionVal0 = "the files were successfully " + top5Keys2.slice(0, -1).join(", ") + ", and " + top5Keys2[top5Keys2.length - 1];
     } else {
       if (top5Keys2.length) {
-        actionVal0 = "the file was successfully " + top5Keys2[0];
+        actionVal0 = "the files were successfully " + top5Keys2[0];
 
       } else {
         actionVal0 = "no action required ";
@@ -432,7 +432,7 @@ export default function IP(props) {
       actionVal1 = "the files were successfully " + top5Keys3.slice(0, -1).join(", ") + ", and " + top5Keys3[top5Keys3.length - 1];
     } else {
       if (top5Keys3.length) {
-        actionVal1 = "the file was successfully " + top5Keys3[0];
+        actionVal1 = "the files were successfully " + top5Keys3[0];
       } else {
         actionVal1 = "no action required"
       }
@@ -452,12 +452,15 @@ export default function IP(props) {
       scanVal1 = top5Keys5[0];
     }
 
+    const yValue0 = (y1[0] > 1) ? `${y1[0]} times` : `${y1[0]} time`;
+    const yValue1 = (y1[1] > 1) ? `${y1[1]} times` : `${y1[1]} time`;
+
     if (columnsNames === vm[0]) {
-      description[0][0] = `${x[0]} triggered ${y1[0]} times with ${scanVal0} severity, and it is in ${endPointVal0} mode and ${actionVal0} by Apex One.`;
-      description[0][1] = `${x[1]} triggered ${y1[1]} times with ${scanVal1} severity, and it is in ${endPointVal1} mode and ${actionVal1} by Apex One.`;
+      description[0][0] = `${x[0]} triggered ${yValue0} with ${scanVal0} severity, and it is in ${endPointVal0} mode and ${actionVal0} by Apex One.`;
+      description[0][1] = `${x[1]} triggered ${yValue1} with ${scanVal1} severity, and it is in ${endPointVal1} mode and ${actionVal1} by Apex One.`;
     } else if (columnsNames === vm[1]) {
-      description[1][0] = `${cTitle} was detected ${y1[0]} times on the ${x[0]} endpoint, and ${actionVal0} by Apex One.`;
-      description[1][1] = `${cTitle} was detected ${y1[1]} times on the ${x[1]} endpoint, and ${actionVal1} by Apex One.`;
+      description[1][0] = `${cTitle} was detected ${yValue0} on the ${x[0]} endpoint, and ${actionVal0} by Apex One.`;
+      description[1][1] = `${cTitle} was detected ${yValue1} on the ${x[1]} endpoint, and ${actionVal1} by Apex One.`;
     }
   }
 
@@ -576,9 +579,13 @@ export default function IP(props) {
     document.getElementById('Chartbutton').style.display = "block"
     const link1 = [...PointArr]
     if (columnsNames === vm[0]) {
-      link1[0][0] = description[0][0];
-      link1[0][1] = description[0][1];
 
+      if (x.length > 1) {
+        link1[0][0] = description[0][0];
+        link1[0][1] = description[0][1];
+      } else {
+        link1[0][0] = description[0][0];
+      }
       let rule = [...x]
       for (let i = 0; i < rule.length; i++) {
         if (rule[i].length > 15) {
@@ -593,8 +600,13 @@ export default function IP(props) {
       myChartData['rule_count'] = JSON.stringify(y1)
 
     } else if (columnsNames === vm[1]) {
-      link1[1][0] = description[1][0];
-      link1[1][1] = description[1][1];
+
+      if (x.length > 1) {
+        link1[1][0] = description[1][0];
+        link1[1][1] = description[1][1];
+      } else {
+        link1[1][0] = description[1][0];
+      }
 
 
       createCharts(1, x, y1, wrapperId[1], canavaId[1], "Top 10 Endpoints in IPS Detection")

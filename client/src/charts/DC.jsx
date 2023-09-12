@@ -12,10 +12,7 @@ const save = green[900];
 
 export default function DC(props) {
     const { dcApi, getReportData } = Endpoints();
-
-
-
-
+    
     //database data : 
     const [myChartData, setMycharts] = useState({
         r_id: "",
@@ -302,9 +299,6 @@ export default function DC(props) {
 
         }
 
-
-
-
         totalPermissionArr.pop();
 
         const separatorIndex1 = totalPermissionArr.indexOf('-');
@@ -353,7 +347,7 @@ export default function DC(props) {
             if (top5Keys2.length) {
                 actionVal0 = top5Keys2[0];
             } else {
-                actionVal0 = "no action required ";
+                actionVal0 = "no action was required";
             }
         }
 
@@ -363,7 +357,7 @@ export default function DC(props) {
             if (top5Keys3.length) {
                 actionVal1 = top5Keys3[0];
             } else {
-                actionVal1 = "no action required"
+                actionVal1 = "no action was required"
             }
 
         }
@@ -528,7 +522,7 @@ export default function DC(props) {
 
         } else if (columnsNames === vm[1]) {
             link1[1][0] = description[1][0];
-            // link1[1][1] = description[1][1];
+            
             createCharts(1, x, y1, wrapperId[1], canavaId[1], "Top 10 Endpoints in DC Detection")
 
             myChartData['product_endpoint'] = JSON.stringify(x)

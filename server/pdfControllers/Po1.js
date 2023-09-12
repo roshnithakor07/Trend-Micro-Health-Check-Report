@@ -252,7 +252,7 @@ const getPo1 = async (req, res) => {
             ['', 'Enable program inspection to detect and block compromised executable files', `${Report[0].bm4}`, { image: `${Report[0].tab51BM4}`, style: "imgStyle", width: 15 }],
             ['', 'Anti-exploit Protection Terminate programs that. exhibit abnormal behavior. associated with exploit attacks', `${Report[0].bm5}`, { image: `${Report[0].tab51BM5}`, style: "imgStyle", width: 15 }],
             ['', 'Newly Encountered Programs Monitor newly encountered programs downloaded through web or email application channels -> Prompt User', `${Report[0].bm6}`, { image: `${Report[0].tab51BM6}`, style: "imgStyle", width: 15 }],
-            ['', 'Exceptions (specify exception if any)',bm7, { image: `${Report[0].tab51BM7}`, style: "imgStyle", width: 15 }],
+            ['', 'Exceptions (specify exception if any)', bm7, { image: `${Report[0].tab51BM7}`, style: "imgStyle", width: 15 }],
 
             [{ text: 'Predictive Machine Learning', rowSpan: 3, margin: [0, 30, 0, 0] }, 'Enable', `${Report[0].predictiveMl}`, { image: `${Report[0].tab52}`, style: "imgStyle", width: 15 }],
             ['', 'Action\nFile: quarantine \nProcess: Terminate', `Action Set \nFile: ${Report[0].predictiveMl1}\nProcess: ${Report[0].predictiveMl2}`, { image: `${Report[0].tab52ML1}`, style: "imgStyle", width: 15 }],
@@ -330,6 +330,7 @@ const getPo1 = async (req, res) => {
   try {
 
     let content = [
+
       // 4.2 Policy overview
       {
         margin: preMargin,

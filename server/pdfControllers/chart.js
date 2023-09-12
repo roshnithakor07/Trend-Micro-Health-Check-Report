@@ -902,7 +902,6 @@ const getCharts = async (req, res) => {
             {
                 id: 'closingParagraph',
                 stack: [
-
                     {
                         text: chartTitle[8] ? chartTitle[8] : "6.9 Smart Scan Agent Pattern Coverage Details",
                         tocItem: ['subToc'],
@@ -911,7 +910,7 @@ const getCharts = async (req, res) => {
                         tocStyle: { italics: true },
                     },
                     {
-                        unbreakable: 'true',
+                        
                         margin: [0, 11, 0, 0],
                         table: {
                             widths: ['*', 100],
@@ -964,10 +963,11 @@ const getCharts = async (req, res) => {
             // 6 Apex One & Apex Central Further Information
 
             {
-                margin: [0, 15, 0, 0],
+
                 id: 'closingParagraph',
                 stack: [
                     {
+                        margin : [0,30,0,0],
                         text: '7 Apex One & Apex Central Further Information',
                         style: ['heading'],
                         tocItem: ['mainToc', 'subToc'],
@@ -976,10 +976,9 @@ const getCharts = async (req, res) => {
                     },
                     ...link1,
                     {
-
-                        margin: [0, 40, 0, 0],
+                        margin : [0,30,0,0],
                         text: '8 End of Life for Trend Micro Products information',
-                        style: 'heading',
+                        style: ['heading'],
                         tocItem: ['mainToc', 'subToc'],
                         tocStyle: { bold: true },
                         tocMargin: [0, 10, 0, 0],
@@ -993,9 +992,9 @@ const getCharts = async (req, res) => {
                 id: 'closingParagraph',
                 stack: [
                     {
-                        margin: [0, 40, 0, 0],
+                        margin : [0,30,0,0],
                         text: '9 Other documentation',
-                        style: 'heading',
+                        style: ['heading'],
                         tocItem: ['mainToc', 'subToc'],
                         tocStyle: { bold: true },
                         tocMargin: [0, 10, 0, 0]

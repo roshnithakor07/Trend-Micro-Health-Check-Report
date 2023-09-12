@@ -96,7 +96,6 @@ const wrSchema = new mongoose.Schema({
     checkDescriptionAdded: { type: Boolean, default: false },
     desDescription: { type: String, default: "" },
     total_detection: { type: Number, default: 0 },
-    wrText: { type: String, default: "[]" },
     chartSubPoints: { type: String, default: "[]" }
 
 });

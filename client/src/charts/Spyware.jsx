@@ -138,7 +138,7 @@ export default function Spyware(props) {
     },
     color: '#fff',
   }
-  
+
 
   let barDatalabels = {
     anchor: 'end',
@@ -403,11 +403,11 @@ export default function Spyware(props) {
         if (top5Keys2[0] === actionName) {
           actionVal0 = top5Keys2[0];
         } else {
-          actionVal0 = "the file was successfully " + top5Keys2[0];
+          actionVal0 = "the files were successfully " + top5Keys2[0];
         }
 
       } else {
-        actionVal0 = "no action required ";
+        actionVal0 = "no action was required";
       }
     }
 
@@ -419,24 +419,26 @@ export default function Spyware(props) {
           actionVal1 = top5Keys3[0];
         } else {
 
-          actionVal1 = "the file was successfully " + top5Keys3[0];
+          actionVal1 = "the files were successfully " + top5Keys3[0];
         }
 
       } else {
-        actionVal1 = "no action required"
+        actionVal1 = "no action was required"
       }
 
     }
 
 
-    if (columnsNames === vm[0]) {
-      description[0][0] = `${x[0]} ${cTitle} was detected ${y1[0]} times on ${endPointVal0} and ${actionVal0} by Apex One.`;
-      description[0][1] = `${x[1]} ${cTitle} was detected ${y1[1]} times on ${endPointVal1} and ${actionVal1} by Apex One.`;
-    } else if (columnsNames === vm[1]) {
-      description[1][0] = `${y1[0]} times ${cTitle} was detected on the ${x[0]} endpoint, and ${actionVal0} by Apex One.`;
-      description[1][1] = `${y1[1]} times ${cTitle} was detected on the ${x[1]} endpoint, and ${actionVal1} by Apex One.`;
-    }
+    const yValue0 = (y1[0] > 1) ? `${y1[0]} times` : `${y1[0]} time`;
+    const yValue1 = (y1[1] > 1) ? `${y1[1]} times` : `${y1[1]} time`;
 
+    if (columnsNames === vm[0]) {
+      description[0][0] = `${x[0]} ${cTitle} was detected ${yValue0} on ${endPointVal0} and ${actionVal0} by Apex One.`;
+      description[0][1] = `${x[1]} ${cTitle} was detected ${yValue1} on ${endPointVal1} and ${actionVal1} by Apex One.`;
+    } else if (columnsNames === vm[1]) {
+      description[1][0] = `${yValue0} ${cTitle} was detected on the ${x[0]} endpoint, and ${actionVal0} by Apex One.`;
+      description[1][1] = `${yValue1} ${cTitle} was detected on the ${x[1]} endpoint, and ${actionVal1} by Apex One.`;
+    }
 
   }
 
@@ -509,16 +511,26 @@ export default function Spyware(props) {
     if (columnsNames === vm[0]) {
       document.getElementById('chartFirstLine2').style.display = "block";
       setChartFirstLine(line);
-      link1[0][0] = description[0][0];
-      link1[0][1] = description[0][1];
+      if (x.length > 1) {
+        link1[0][0] = description[0][0];
+        link1[0][1] = description[0][1];
+      } else {
+        link1[0][0] = description[0][0];
+      }
       createCharts(0, x, y1, wrapperId[0], canavaId[0], text[0])
 
       myChartData['spyware'] = JSON.stringify(x)
       myChartData['spyware_count'] = JSON.stringify(y1)
     } else if (columnsNames === vm[1]) {
 
-      link1[1][0] = description[1][0];
-      link1[1][1] = description[1][1];
+      if (x.length > 1) {
+        link1[1][0] = description[1][0];
+        link1[1][1] = description[1][1];
+      } else {
+        link1[1][0] = description[1][0];
+      }
+
+
       createCharts(1, x, y1, wrapperId[1], canavaId[1], text[1])
       myChartData['endpoint'] = JSON.stringify(x)
       myChartData['endpoint_count'] = JSON.stringify(y1)
@@ -627,8 +639,6 @@ export default function Spyware(props) {
 
 
   }
-
-
 
   const addDes = (e) => {
     document.getElementById('additionalInfo2').style.display = "block"

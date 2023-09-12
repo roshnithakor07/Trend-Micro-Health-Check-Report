@@ -378,7 +378,7 @@ export default function BM(props) {
       }
     }
 
-    
+
     updateKeys(top5Keys2);
     updateKeys(top5Keys3);
 
@@ -430,15 +430,16 @@ export default function BM(props) {
       scanVal1 = top5Keys5[0];
     }
 
+    const yValue0 = (y1[0] > 1) ? `${y1[0]} times` : `${y1[0]} time`;
+    const yValue1 = (y1[1] > 1) ? `${y1[1]} times` : `${y1[1]} time`;
 
     if (columnsNames === vm[0]) {
-      description[0][0] = `On the endpoint, ${x[0]} Behavior Monitoring was triggered ${y1[0]} times with ${scanVal0} Severity. Processes were ${actionVal0} by Apex One. `;
-      description[0][1] = `On the endpoint, ${x[1]} Behavior Monitoring was triggered ${y1[1]} times with ${scanVal1} Severity. Processes were ${actionVal1} by Apex One. `;
+      description[0][0] = `On the endpoint, ${x[0]} Behavior Monitoring was triggered ${yValue0} with ${scanVal0} Severity. Processes were ${actionVal0} by Apex One. `;
+      description[0][1] = `On the endpoint, ${x[1]} Behavior Monitoring was triggered ${yValue1} with ${scanVal1} Severity. Processes were ${actionVal1} by Apex One. `;
     } else if (columnsNames === vm[1]) {
-      description[1][0] = `${y1[0]} times ${x[0]} is triggered on ${endPointVal0} and it was ${actionVal0} by Apex One.`;
-      description[1][1] = `${y1[1]} times ${x[1]} is triggered on ${endPointVal1} and it was ${actionVal1} by Apex One.`;
+      description[1][0] = `${yValue0} ${x[0]} was triggered on ${endPointVal0} and it was ${actionVal0} by Apex One.`;
+      description[1][1] = `${yValue1} ${x[1]} was triggered on ${endPointVal1} and it was ${actionVal1} by Apex One.`;
     }
-
 
   }
 
@@ -537,9 +538,15 @@ export default function BM(props) {
     document.getElementById('Chartbutton').style.display = "block"
     const link1 = [...PointArr]
     if (columnsNames === vm[0]) {
-      link1[0][0] = description[0][0];
-      link1[0][1] = description[0][1];
 
+      if (x.length > 1) {
+
+        link1[0][0] = description[0][0];
+        link1[0][1] = description[0][1];
+      } else {
+        link1[0][0] = description[0][0];
+
+      }
       createCharts(0, x, y1, wrapperId[0], canavaId[0], "BM Detection on Endpoints")
       document.getElementById('chartFirstLine7').style.display = "block";
       setChartFirstLine(line);
@@ -550,8 +557,14 @@ export default function BM(props) {
     } else if (columnsNames === vm[1]) {
 
       setbmPolicyRiskTable([...updatedPolicyRiskTable])
-      link1[1][0] = description[1][0];
-      link1[1][1] = description[1][1];
+
+      if (x.length > 1) {
+        link1[1][0] = description[1][0];
+        link1[1][1] = description[1][1];
+      } else {
+        link1[1][0] = description[1][0];
+      }
+
       createCharts(1, x, y1, wrapperId[1], canavaId[1], "BM Detection By Policy");
       myChartData['policy'] = JSON.stringify(x);
       myChartData['policy_count'] = JSON.stringify(y1);
@@ -725,7 +738,7 @@ export default function BM(props) {
   }
 
 
- 
+
 
   //process database
 

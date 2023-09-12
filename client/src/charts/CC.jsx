@@ -232,13 +232,15 @@ export default function CC(props) {
     </a>
   ));
 
+  const yValue0 = (y1[0] > 1) ? `${y1[0]} times` : `${y1[0]} time`;
+  const yValue1 = (y1[1] > 1) ? `${y1[1]} times` : `${y1[1]} time`;
 
   if (columnsNames === vm[0]) {
-    description[0][0] = `${y1[0]} times ${cTitle} were detected on the ${x[0]} endpoint.`;
-    description[0][1] = `${y1[1]} times ${cTitle} were detected on the ${x[1]} endpoint.`;
+    description[0][0] = `${yValue0} ${cTitle} were detected on the ${x[0]} endpoint.`;
+    description[0][1] = `${yValue1} ${cTitle} were detected on the ${x[1]} endpoint.`;
   } else if (columnsNames === vm[1]) {
-    description[1][0] = `${x[0]} callback address detected ${y1[0]} times, check this IP Address to if it's a secure connection then add it to the suspicious approve list otherwise block this IP address. `;
-    description[1][1] = `${x[1]} callback address detected ${y1[1]} times, check this IP Address to if it's a secure connection then add it to the suspicious approve list otherwise block this IP address. `;
+    description[1][0] = `${x[0]} callback address detected ${yValue0}, check this IP Address to if it's a secure connection then add it to the suspicious approve list otherwise block this IP address. `;
+    description[1][1] = `${x[1]} callback address detected ${yValue1}, check this IP Address to if it's a secure connection then add it to the suspicious approve list otherwise block this IP address. `;
   }
 
 
@@ -249,8 +251,15 @@ export default function CC(props) {
     document.getElementById('Chartbutton').style.display = "block"
     const link1 = [...PointArr]
     if (columnsNames === vm[0]) {
-      link1[0][0] = description[0][0];
-      link1[0][1] = description[0][1];
+
+      if (x.length > 1) {
+        link1[0][0] = description[0][0];
+        link1[0][1] = description[0][1];
+      } else {
+        link1[0][0] = description[0][0];
+
+      }
+
       createCharts(0, x, y1, wrapperId[0], canavaId[0], text[0])
       document.getElementById('chartFirstLine6').style.display = "block";
       setChartFirstLine(line);
@@ -258,8 +267,14 @@ export default function CC(props) {
       myChartData['product_endpoint_count'] = JSON.stringify(y1)
 
     } else if (columnsNames === vm[1]) {
-      link1[1][0] = description[1][0];
-      link1[1][1] = description[1][1];
+
+      if (x.length > 1) {
+        link1[1][0] = description[1][0];
+        link1[1][1] = description[1][1];
+      } else {
+        link1[1][0] = description[1][0];
+      }
+
       createCharts(1, x, y1, wrapperId[1], canavaId[1], text[1])
       myChartData['callback_address'] = JSON.stringify(x)
       myChartData['callback_address_count'] = JSON.stringify(y1)
@@ -334,7 +349,7 @@ export default function CC(props) {
   }
 
 
- 
+
   //process database
   const handleCharts = () => {
 

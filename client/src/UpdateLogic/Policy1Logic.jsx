@@ -250,7 +250,6 @@ function PolicyOverviewLogic1() {
     };
 
 
-    console.log(myPo1ImgData["checkPolicyOverviewTwoAdded"])
 
     const closeValue1 = (label) => {
         const existingIndex = reqSummarySenPolicy1Arr.findIndex((item) => item.label === label);
