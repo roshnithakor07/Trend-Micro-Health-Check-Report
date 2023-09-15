@@ -12,7 +12,7 @@ const success = indigo[700];
 const save = green[900];
 
 export default function Spyware(props) {
-  const { spywareApi, getReportData } = Endpoints();
+  const { spywareApi } = Endpoints();
 
 
 
@@ -34,14 +34,15 @@ export default function Spyware(props) {
     checkDescriptionAdded: false,
     total_detection: 0,
     chartDescription: '[]',
-    chartSubPoints: "[]"
+    chartSubPoints: "[]",
+    showChart: "[false,false,false]",
   });
 
   let canavaId = ["myChart21", "myChart22", "myChart23"];
 
   let wrapperId = ["wrapper21", "wrapper22", "wrapper23"];
   let cTitle = "Spyware/Grayware";
-
+  const [showChart, setShowChart] = useState([false, false, false])
   let text = [
     "Spyware/Grayware Detection",
     "Endpoints in Spyware/Grayware Detection",
@@ -65,7 +66,7 @@ export default function Spyware(props) {
   const [x, setX] = useState([]);
   const [y1, setY1] = useState([]);
   const [myChart, setMyChart] = useState([])
-  const [chartType, setChartType] = useState("bar")
+  const [chartType, setChartType] = useState("horizontalBar")
   const [description, setDescription] = useState([[], [], []]);
   const [chartTypes, setChartTypes] = useState(['', '', '',])
 
@@ -107,21 +108,7 @@ export default function Spyware(props) {
 
   const closePopup = () => { setIsPopupOpen(false); setIsSubPopupOpen(false); }
 
-  useEffect(() => {
-    const getProductById = async () => {
-      await axios({
-        url: getReportData,
-        method: "GET",
-      })
-        .then((res) => {
-          myChartData.r_id = res.data[0]._id;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
-    getProductById();
-  });
+
 
   let pieChartColor = ['rgb(67,114,204)', "#f07f34", "gray", "#ffa600"];
   let barChartColor = ['rgb(67,114,204)'];
@@ -289,6 +276,7 @@ export default function Spyware(props) {
     totalActions.pop();
 
 
+
     const separatorIndex = totalEndpoints.indexOf('-');
     const endPoint0 = totalEndpoints.slice(0, separatorIndex).filter((endpoint, index, self) => self.indexOf(endpoint) === index);
     const endPoint1 = totalEndpoints.slice(separatorIndex + 1).filter((endpoint, index, self) => self.indexOf(endpoint) === index);
@@ -298,6 +286,7 @@ export default function Spyware(props) {
     const actionPoint0 = totalActions.slice(0, separatorIndex1).filter((endpoint, index, self) => self.indexOf(endpoint) === index);
     const actionPoint1 = totalActions.slice(separatorIndex1 + 1).filter((endpoint, index, self) => self.indexOf(endpoint) === index);
 
+    console.log(endPoint0, endPoint1)
 
 
     const frequencyMap0 = new Map();
@@ -328,9 +317,6 @@ export default function Spyware(props) {
       frequencyMap3.set(element, count + 1);
     }
 
-
-
-
     function getTop5Keys(frequencyMap) {
       const sortedEntries = [...frequencyMap.entries()].sort((a, b) => b[1] - a[1]);
       const top5Keys = sortedEntries.slice(0, 5).map(([key]) => key);
@@ -358,8 +344,6 @@ export default function Spyware(props) {
       top5Keys2.push(actionName);
     }
 
-
-
     for (let i = 0; i < top5Keys3.length; i++) {
       top5Keys3[i] = transformKey(top5Keys3[i]);
     }
@@ -385,12 +369,11 @@ export default function Spyware(props) {
       }
     }
 
-
     if (top5Keys1.length > 1) {
       endPointVal1 = top5Keys1.slice(0, -1).join(", ") + " and " + top5Keys1[top5Keys1.length - 1] + " endpoints,";
     } else {
       if (top5Keys1.length) {
-        endPointVal1 = "the " + top5Keys0[0] + " endpoint,";
+        endPointVal1 = "the " + top5Keys1[0] + " endpoint,";
       } else {
         endPointVal1 = "no endpoint,"
       }
@@ -464,7 +447,7 @@ export default function Spyware(props) {
       top5Keys2[i] = transformKey(top5Keys2[i]);
     }
 
-    PointArr[2][0] = `Files were ${top5Keys2.join(', ').replace(/,([^,]*)$/, ', and$1')} by Apex One.`
+    description[2][0] = `Files were ${top5Keys2.join(', ').replace(/,([^,]*)$/, ', and$1')} by Apex One.`
   }
 
 
@@ -497,18 +480,20 @@ export default function Spyware(props) {
   }
 
   const dropdownOptions = lable.map((e) => (
-    <a href="/#" key={e}>
+    <span key={e}>
       <input type="checkbox" name="messageCheckbox0" defaultChecked={e} defaultValue={e} onChange={handleCheckboxChange} />
       {e}
-    </a>
+    </span>
   ));
 
   function handleSubmit() {
+    const link = [...showChart];
     document.getElementById('addInfo2').style.display = "block"
     document.getElementById('Chartbutton').style.display = "block"
     const link1 = [...PointArr]
 
     if (columnsNames === vm[0]) {
+      link[0] = true
       document.getElementById('chartFirstLine2').style.display = "block";
       setChartFirstLine(line);
       if (x.length > 1) {
@@ -522,7 +507,7 @@ export default function Spyware(props) {
       myChartData['spyware'] = JSON.stringify(x)
       myChartData['spyware_count'] = JSON.stringify(y1)
     } else if (columnsNames === vm[1]) {
-
+      link[1] = true
       if (x.length > 1) {
         link1[1][0] = description[1][0];
         link1[1][1] = description[1][1];
@@ -536,7 +521,8 @@ export default function Spyware(props) {
       myChartData['endpoint_count'] = JSON.stringify(y1)
 
     } else if (columnsNames === vm[2]) {
-
+      link1[2][0] = description[2][0];
+      link[2] = true
       createCharts(2, x, y1, wrapperId[2], canavaId[2], text[2])
       myChartData['action'] = JSON.stringify(x)
       myChartData['action_count'] = JSON.stringify(y1)
@@ -559,7 +545,7 @@ export default function Spyware(props) {
     }
 
     setPointArr(link1);
-
+    setShowChart(link)
 
 
   }
@@ -663,7 +649,8 @@ export default function Spyware(props) {
   //process database
 
   const handleCharts = () => {
-
+    myChartData["r_id"] = props.report_id;
+    myChartData["showChart"] = JSON.stringify(showChart);
     myChartData["chartDescription"] = JSON.stringify(PointArr);
     myChartData["chartSubPoints"] = JSON.stringify(SubPointArr)
     myChartData.total_detection = total_detection;
@@ -741,6 +728,13 @@ export default function Spyware(props) {
   };
 
 
+  const closeChart = (e, idVal, index) => {
+    const link = [...showChart];
+    document.getElementById(idVal).style.display = "none"
+    link[index] = false
+    setShowChart(link)
+  }
+
 
 
   return (
@@ -778,8 +772,8 @@ export default function Spyware(props) {
             <li>
               <select name="chartType" id="chartType" onChange={(e) => { setChartType(e.target.value) }}>
 
-                <option value="bar">Bar</option>
                 <option value="horizontalBar">Horizontal Bar</option>
+                <option value="bar">Bar</option>
                 <option value="outlabeledPie">Pie</option>
               </select>
             </li>
@@ -795,7 +789,7 @@ export default function Spyware(props) {
 
         <div className="main-chart">
           <div className="chart-wrapper" id="wrapper21">
-            {/* <!-- <canvas id="myChart" className="myChart" width="400" height="400"></canvas> --> */}
+            <div className="close-icon1" onClick={(e) => { closeChart(e, "wrapper21", 0) }}>✖</div>
             <canvas
               id="myChart21"
               width="500"
@@ -874,6 +868,7 @@ export default function Spyware(props) {
             </div>
           </div>
           <div className="chart-wrapper" id="wrapper22">
+            <div className="close-icon1" onClick={(e) => { closeChart(e, "wrapper22", 1) }}>✖</div>
             <canvas
               id="myChart22"
               className="myChart"
@@ -949,6 +944,7 @@ export default function Spyware(props) {
             </div>
           </div>
           <div className="chart-wrapper" id="wrapper23">
+            <div className="close-icon1" onClick={(e) => { closeChart(e, "wrapper23", 2) }}>✖</div>
             <canvas
               id="myChart23"
               className="myChart"

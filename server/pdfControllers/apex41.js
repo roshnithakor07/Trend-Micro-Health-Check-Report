@@ -78,7 +78,6 @@ const apex41pdf = async (req, res) => {
             ['CPU', `${Report[0].cpu1} cores`, { text: `${Report[0].cpu2} cores` }, { image: `${tab1}`, style: "imgStyle", width: 15 }],
             ['Hostname / IP', '', { text: `${Report[0].ip1}` }, { image: tab1, style: "imgStyle", width: 15 }],
             ['Apex One Build Version', `${Report[0].version1}`, { text: `${Report[0].version2}` }, { image: `${Report[0].apeximgversions}`, style: "imgStyle", width: 15 }],
-            ['Patterns Update Status', 'Up to Date', `Up to Date- ${Report[0].patterns_update_status_uptodate} Outdated- ${Report[0].outdated}`, { image: `${Report[0].apeximgsuperman}`, style: "imgStyle", width: 15 }],
             ['Agent Management tree', 'AD / Custom / NetBIOS grouping', { text: `${Report[0].agent_management_tree}` }, { image: tab1, style: "imgStyle", width: 15 }]
         );
 
@@ -140,14 +139,13 @@ const apex41pdf = async (req, res) => {
                     body: [
                         [{ text: 'Component', style: "apexone41" }, { text: 'Trend Recommended', style: "apexone41" }, { text: 'Deployed', style: "apexone41" }, { text: 'Status', style: "apexone41" }],
                         [{ text: 'Apex one Administration Configuration Health-Overview', bold: true, colSpan: 2, fillColor: 'lightblue', }, {}, '', ''],
-
+                        
                         ...preReport,
 
                         ['License', 'Within Term', { text: `${moment(Report[0].license_date1).format('DD/MM/YYYY')}` }, { image: `${Report[0].apeximglicense_date}`, style: "imgStyle", width: 15 }],
-
                         ['Deployed Agents', `Total Purchased Licensed Seat is ${Report[0].total_purchased_licensed}`, `${Report[0].total_deployed_licensed}`, { image: `${Report[0].apeximgDeployed_Agents}`, style: "imgStyle", width: 15 }],
-
                         ['Certified Safe Software Service', 'Enable Certified Safe Software Service', { text: `${Report[0].certified_safe_software_service}` }, { image: `${Report[0].apeximgCertified_Safe_Software_Service}`, style: "imgStyle", width: 15 }],
+                        ['Patterns Update Status', 'Up to Date', `Up to Date- ${Report[0].patterns_update_status_uptodate} Outdated- ${Report[0].outdated}`, { image: `${Report[0].apeximgsuperman}`, style: "imgStyle", width: 15 }],
 
                         ['Apex Central Integration', 'Register Apex One to Apex Central', { text: `${Report[0].apex_central_integration}` }, { image: `${Report[0].apeximgapex_central_integration}`, style: "imgStyle", width: 15 }],
 

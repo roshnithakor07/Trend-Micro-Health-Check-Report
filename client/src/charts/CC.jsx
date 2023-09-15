@@ -11,7 +11,7 @@ const success = indigo[700];
 const save = green[900];
 
 export default function CC(props) {
-  const { ccApi, getReportData } = Endpoints();
+  const { ccApi} = Endpoints();
 
 
 
@@ -26,24 +26,11 @@ export default function CC(props) {
     chartFirstLine: '',
     total_detection: 0,
     chartDescription: '[]',
-    chartSubPoints: "[]"
+    chartSubPoints: "[]",
+    showChart: "[false,false]",
   });
 
-  useEffect(() => {
-    const getProductById = async () => {
-      await axios({
-        url: getReportData,
-        method: "GET",
-      })
-        .then((res) => {
-          myChartData.r_id = res.data[0]._id;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
-    getProductById();
-  });
+ 
 
   let canavaId = ["myChart61", "myChart62"];
 
@@ -67,7 +54,7 @@ export default function CC(props) {
   const [x, setX] = useState([]);
   const [y1, setY1] = useState([]);
   const [myChart, setMyChart] = useState([])
-  const [chartType, setChartType] = useState("bar")
+  const [chartType, setChartType] = useState("horizontalBar")
   const [description, setDescription] = useState([[], []]);
   const [chartTypes, setChartTypes] = useState(['', ''])
 
@@ -79,6 +66,7 @@ export default function CC(props) {
   const [chartDes, setchartDess] = useState("");
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [popupIndex, setPopupIndex] = useState(0);
+  const [showChart, setShowChart] = useState([false, false])
 
   //sub points
   const [isSubPointPopupOpen, setIsSubPopupOpen] = useState(false);
@@ -226,10 +214,10 @@ export default function CC(props) {
   }
 
   const dropdownOptions = lable.map((e) => (
-    <a href="/#" key={e}>
+    <span key={e}>
       <input type="checkbox" name="messageCheckbox0" defaultChecked={e} defaultValue={e} onChange={handleCheckboxChange} />
       {e}
-    </a>
+    </span>
   ));
 
   const yValue0 = (y1[0] > 1) ? `${y1[0]} times` : `${y1[0]} time`;
@@ -247,11 +235,11 @@ export default function CC(props) {
 
 
   function handleSubmit() {
-
+    const link = [...showChart];
     document.getElementById('Chartbutton').style.display = "block"
     const link1 = [...PointArr]
     if (columnsNames === vm[0]) {
-
+      link[0] = true
       if (x.length > 1) {
         link1[0][0] = description[0][0];
         link1[0][1] = description[0][1];
@@ -267,7 +255,7 @@ export default function CC(props) {
       myChartData['product_endpoint_count'] = JSON.stringify(y1)
 
     } else if (columnsNames === vm[1]) {
-
+      link[1] = true
       if (x.length > 1) {
         link1[1][0] = description[1][0];
         link1[1][1] = description[1][1];
@@ -280,7 +268,7 @@ export default function CC(props) {
       myChartData['callback_address_count'] = JSON.stringify(y1)
     }
     setPointArr(link1);
-    //setSum(sum)
+    setShowChart(link)
   }
 
 
@@ -352,12 +340,14 @@ export default function CC(props) {
 
   //process database
   const handleCharts = () => {
-
+    
+    myChartData["r_id"] = props.report_id;
     myChartData["chartDescription"] = JSON.stringify(PointArr)
     myChartData["chartSubPoints"] = JSON.stringify(SubPointArr)
     myChartData.total_detection = total_detection;
     myChartData.chartFirstLine = chartFirstLine;
     myChartData.chartTypes = JSON.stringify(chartTypes)
+    myChartData["showChart"] = JSON.stringify(showChart);
 
     const getProductById = async (e) => {
       try {
@@ -429,6 +419,14 @@ export default function CC(props) {
     console.log(index, no)
   };
 
+  const closeChart = (e, idVal, index) => {
+    const link = [...showChart];
+    document.getElementById(idVal).style.display = "none"
+    link[index] = false
+    setShowChart(link)
+}
+
+
 
   return (
     <>
@@ -465,8 +463,8 @@ export default function CC(props) {
             <li>
               <select name="chartType" id="chartType" onChange={(e) => { setChartType(e.target.value) }}>
 
-                <option value="bar">Bar</option>
                 <option value="horizontalBar">Horizontal Bar</option>
+                <option value="bar">Bar</option>
                 <option value="outlabeledPie">Pie</option>
               </select>
             </li>
@@ -483,7 +481,7 @@ export default function CC(props) {
         <div className="main-chart">
 
           <div className="chart-wrapper" id="wrapper61">
-            {/* <!-- <canvas id="myChart" className="myChart" width="400" height="400"></canvas> --> */}
+          <div className="close-icon1" onClick={(e) => { closeChart(e, "wrapper61", 0) }}>✖</div>  
             <canvas
               id="myChart61"
               width="500"
@@ -560,6 +558,8 @@ export default function CC(props) {
             </div>
           </div>
           <div className="chart-wrapper" id="wrapper62">
+          <div className="close-icon1" onClick={(e) => { closeChart(e, "wrapper62", 1) }}>✖</div>
+         
             <canvas
               id="myChart62"
               className="myChart"

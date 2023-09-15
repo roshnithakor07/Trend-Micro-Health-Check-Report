@@ -11,10 +11,7 @@ const success = indigo[700];
 const save = green[900];
 
 export default function IP(props) {
-  const { ipsApi, getReportData } = Endpoints();
-
-
-
+  const { ipsApi } = Endpoints();
 
   //database data : 
   const [myChartData, setMycharts] = useState({
@@ -33,24 +30,10 @@ export default function IP(props) {
     chartDescription: '[]',
     updatedIPTable: '[]',
     chartSubPoints: "[]",
-    showChart: true,
+    showChart: "[false, false, false,false]",
   });
 
-  useEffect(() => {
-    const getProductById = async () => {
-      await axios({
-        url: getReportData,
-        method: "GET",
-      })
-        .then((res) => {
-          myChartData.r_id = res.data[0]._id;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
-    getProductById();
-  });
+
 
   let canavaId = ["myChart41", "myChart42", "myChart43"];
 
@@ -62,7 +45,6 @@ export default function IP(props) {
   const [total_detection, setTotalDetections] = useState(0)
   const [chartFirstLine, setChartFirstLine] = useState("")
   let line = `We generated an ${cTitle} Event of the last ${props.logDays} ${props.logDuration} on ${props.logCollectionDate} from Apex central/Apex One. There was a total of ${total_detection} detections.`
-
   const [dataPoints, setDataPoints] = useState([])
   const [columnsNames, setCoulmnsName] = useState(vm[0]);
   const [fieldNames, setFieldNames] = useState([]);
@@ -72,12 +54,14 @@ export default function IP(props) {
   const [x, setX] = useState([]);
   const [y1, setY1] = useState([]);
   const [myChart, setMyChart] = useState([])
-  const [chartType, setChartType] = useState("bar")
+  const [chartType, setChartType] = useState("horizontalBar")
   const [description, setDescription] = useState([[], [], []]);
   const [chartTypes, setChartTypes] = useState(['', '', '',])
 
   const IPHeading = ["IPS DETECTION & SEVERITY", "ACTION"]
-  let updatedIPTable = []
+  let updatedIPTable = [];
+
+  const [showChart, setShowChart] = useState([false, false, false, false])
 
 
   //chart Points
@@ -93,7 +77,7 @@ export default function IP(props) {
   const [isSubPointPopupOpen, setIsSubPopupOpen] = useState(false);
   const [subPointIndex, setSubPointIndex] = useState(0);
   const [SubPointArr, setSubPointArr] = useState([[[], [], []], [[], [], []], [[], [], []]]);
-  const [showChart, setShowChart] = useState(true)
+
 
   //Sub Point Section
   const deleteSubPoint = (e, index, subIndex, linkArrNo) => {
@@ -263,10 +247,10 @@ export default function IP(props) {
   }
 
   const dropdownOptions = lable.map((e) => (
-    <a href="/#" key={e}>
+    <span key={e}>
       <input type="checkbox" name="messageCheckbox0" defaultChecked={e} defaultValue={e} onChange={handleCheckboxChange} />
       {e}
-    </a>
+    </span>
   ));
 
   function transformKey(key) {
@@ -575,11 +559,11 @@ export default function IP(props) {
   }
 
   function handleSubmit() {
-
+    const link = [...showChart];
     document.getElementById('Chartbutton').style.display = "block"
     const link1 = [...PointArr]
     if (columnsNames === vm[0]) {
-
+      link[0] = true
       if (x.length > 1) {
         link1[0][0] = description[0][0];
         link1[0][1] = description[0][1];
@@ -600,7 +584,7 @@ export default function IP(props) {
       myChartData['rule_count'] = JSON.stringify(y1)
 
     } else if (columnsNames === vm[1]) {
-
+      link[1] = true
       if (x.length > 1) {
         link1[1][0] = description[1][0];
         link1[1][1] = description[1][1];
@@ -614,8 +598,10 @@ export default function IP(props) {
       myChartData['product_endpoint_count'] = JSON.stringify(y1)
 
     } else if (columnsNames === vm[2]) {
-      link1[2][0] = description[2][0];
 
+      link[2] = true
+      link[3] = true
+      link1[2][0] = description[2][0];
       createCharts(2, x, y1, wrapperId[2], canavaId[2], "Action")
       myChartData['action'] = JSON.stringify(x)
       myChartData['action_count'] = JSON.stringify(y1);
@@ -739,7 +725,7 @@ export default function IP(props) {
 
     }
     setPointArr(link1);
-    //setSum(sum)
+    setShowChart(link)
   }
 
 
@@ -811,13 +797,14 @@ export default function IP(props) {
   //process database
 
   const handleCharts = () => {
+    myChartData["r_id"] = props.report_id;
     myChartData["chartDescription"] = JSON.stringify(PointArr)
     myChartData["chartSubPoints"] = JSON.stringify(SubPointArr)
     myChartData.total_detection = total_detection;
     myChartData.chartFirstLine = chartFirstLine;
     myChartData.chartTypes = JSON.stringify(chartTypes)
     myChartData.updatedIPTable = JSON.stringify(updatedIPTable);
-    myChartData["showChart"] = showChart;
+    myChartData["showChart"] = JSON.stringify(showChart);
 
     const getProductById = async (e) => {
       try {
@@ -889,9 +876,13 @@ export default function IP(props) {
     setPopupIndex(no);
     console.log(index, no)
   };
-  const closeChart = (e) => {
-    document.getElementById("wrapper44").style.display = "none"
-    setShowChart(false)
+
+
+  const closeChart = (e, idVal, index) => {
+    const link = [...showChart];
+    document.getElementById(idVal).style.display = "none"
+    link[index] = false
+    setShowChart(link)
   }
 
   return (
@@ -929,8 +920,8 @@ export default function IP(props) {
             <li>
               <select name="chartType" id="chartType" onChange={(e) => { setChartType(e.target.value) }}>
 
-                <option value="bar">Bar</option>
                 <option value="horizontalBar">Horizontal Bar</option>
+                <option value="bar">Bar</option>
                 <option value="outlabeledPie">Pie</option>
               </select>
             </li>
@@ -946,7 +937,7 @@ export default function IP(props) {
 
         <div className="main-chart">
           <div className="chart-wrapper" id="wrapper41">
-            {/* <!-- <canvas id="myChart" className="myChart" width="400" height="400"></canvas> --> */}
+            <div className="close-icon1" onClick={(e) => { closeChart(e, "wrapper41", 0) }}>✖</div>
             <canvas
               id="myChart41"
               width="500"
@@ -1022,6 +1013,7 @@ export default function IP(props) {
             </div>
           </div>
           <div className="chart-wrapper" id="wrapper42">
+            <div className="close-icon1" onClick={(e) => { closeChart(e, "wrapper42", 1) }}>✖</div>
             <canvas
               id="myChart42"
               className="myChart"
@@ -1096,6 +1088,7 @@ export default function IP(props) {
             </div>
           </div>
           <div className="chart-wrapper" id="wrapper43">
+            <div className="close-icon1" onClick={(e) => { closeChart(e, "wrapper43", 2) }}>✖</div>
             <canvas
               id="myChart43"
               className="myChart"
@@ -1170,7 +1163,8 @@ export default function IP(props) {
             </div>
           </div>
           <div className="chart-wrapper" id="wrapper44">
-            <div className="close-icon1" onClick={(e) => { closeChart(e) }}>✖</div>
+
+            <div className="close-icon1" onClick={(e) => { closeChart(e, "wrapper44", 3) }}>✖</div>
             <div id="wrapper-child44"></div>
 
           </div>

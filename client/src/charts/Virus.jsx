@@ -11,26 +11,9 @@ const success = indigo[700];
 const save = green[900];
 
 export default function Virus(props) {
-    const { virusApi, getReportData } = Endpoints();
+    const { virusApi} = Endpoints();
     let cTitle = "Virus/Malware";
     const [total_detection, setTotalDetections] = useState(0)
-
-    useEffect(() => {
-        const getProductById = async () => {
-            await axios({
-                url: getReportData,
-                method: "GET",
-            })
-                .then((res) => {
-                    myChartData.r_id = res.data[0]._id;
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-        };
-        getProductById();
-    });
-
 
     //database data : 
     const [myChartData, setMycharts] = useState({
@@ -53,12 +36,11 @@ export default function Virus(props) {
         chartSubPoints: "[]",
         logDays: `${props.logDays}`,
         logDuration: `${props.logDuration}`,
-        logCollectionDate: `${props.logCollectionDate}`
+        logCollectionDate: `${props.logCollectionDate}`,
+        showChart: "[false,false,false]",
     });
 
-    const wrText = ["Virus/Malware Detection",
-        "Endpoints in Virus/Malware Detection",
-        "Action"]
+    const wrText = ["Virus/Malware Detection","Endpoints in Virus/Malware Detection","Action"]
     let canavaId = ["myChart11", "myChart12", "myChart13"];
     let wrapperId = ["wrapper11", "wrapper12", "wrapper13"];
 
@@ -74,10 +56,10 @@ export default function Virus(props) {
     const [x, setX] = useState([]);
     const [y1, setY1] = useState([]);
     const [myChart, setMyChart] = useState([])
-    const [chartType, setChartType] = useState("bar")
-    const [description, setDescription] = useState([[], [], []]);
+    const [chartType, setChartType] = useState("horizontalBar")
+    const [description, setDescription] = useState([[], [],[]]);
     const [chartTypes, setChartTypes] = useState(['', '', '',])
-
+    const [showChart, setShowChart] = useState([false, false, false])
     //chart Points
     const [PointArr, setPointArr] = useState([[], [], []]);
     const [updatechartDes, setUpdatechartDes] = useState("");;
@@ -189,14 +171,11 @@ export default function Virus(props) {
     }
 
     const dropdownOptions = lable.map((e) => (
-        <p key={e}>
-            <input key={e} type="checkbox" name="messageCheckbox0" defaultChecked={e} defaultValue={e} onChange={handleCheckboxChange} />
-            {e}
-        </p>
-    ));
-
-
-
+        <span key={e}>
+          <input type="checkbox" name="messageCheckbox0" defaultChecked={e} defaultValue={e} onChange={handleCheckboxChange} />
+          {e}
+        </span>
+      ));
 
     const load = (e) => {
         if (e.target.value === "select") return;
@@ -398,7 +377,7 @@ export default function Virus(props) {
             endPointVal1 = top5Keys1.slice(0, -1).join(", ") + " and " + top5Keys1[top5Keys1.length - 1] + " endpoints,";
         } else {
             if (top5Keys1.length) {
-                endPointVal1 = "the " + top5Keys0[0] + " endpoint,";
+                endPointVal1 = "the " + top5Keys1[0] + " endpoint,";
             } else {
                 endPointVal1 = "no endpoint,"
             }
@@ -448,7 +427,6 @@ export default function Virus(props) {
             description[1][1] = `${yValue1} ${cTitle} was detected on the ${x[1]} endpoint, and ${actionVal1} by Apex One.`;
         }
 
-
     }
 
     switch (columnsNames) {
@@ -473,15 +451,17 @@ export default function Virus(props) {
             top5Keys2[i] = transformKey(top5Keys2[i]);
         }
 
-        PointArr[2][0] = `Files were ${top5Keys2.join(', ').replace(/,([^,]*)$/, ', and$1')} by Apex One.`
+        description[2][0] = `Files were ${top5Keys2.join(', ').replace(/,([^,]*)$/, ', and$1')} by Apex One.`
     }
 
     function handleSubmit() {
+        const link = [...showChart];
         document.getElementById('addInfo1').style.display = "block"
         document.getElementById('Chartbutton').style.display = "block"
         const link1 = [...PointArr]
 
         if (columnsNames === vm[0]) {
+            link[0] = true
             setChartFirstLine(line);
             document.getElementById('chartFirstLine1').style.display = "block";
             if (x.length > 1) {
@@ -501,6 +481,7 @@ export default function Virus(props) {
 
 
         } else if (columnsNames === vm[1]) {
+            link[1] = true
             if (x.length > 1) {
                 link1[1][0] = description[1][0];
                 link1[1][1] = description[1][1];
@@ -514,7 +495,8 @@ export default function Virus(props) {
 
 
         } else if (columnsNames === vm[2]) {
-
+            link1[2][0] = description[2][0];
+            link[2] = true
             createCharts(2, x, y1, wrapperId[2], canavaId[2])
             myChartData['action'] = JSON.stringify(x)
             myChartData['action_count'] = JSON.stringify(y1)
@@ -538,8 +520,7 @@ export default function Virus(props) {
 
         }
         setPointArr(link1);
-
-
+        setShowChart(link)
     }
 
 
@@ -635,13 +616,14 @@ export default function Virus(props) {
 
     //process database
     const handleCharts = () => {
-
+        myChartData["r_id"] = props.report_id;
         myChartData["chartDescription"] = JSON.stringify(PointArr)
         myChartData["chartSubPoints"] = JSON.stringify(SubPointArr)
-
+        myChartData["showChart"] = JSON.stringify(showChart);
         myChartData.total_detection = total_detection;
         myChartData.chartTypes = JSON.stringify(chartTypes);
         myChartData.chartFirstLine = chartFirstLine;
+        
         const getProductById = async (e) => {
             try {
                 console.log("hello inside handlevirus", myChartData)
@@ -684,9 +666,9 @@ export default function Virus(props) {
 
     const updateValue = () => {
         const link1 = [...PointArr];
-
         switch (popupIndex) {
             case 0:
+                
                 link1[0][updateLinkId] = updatechartDes;
                 break;
             case 1:
@@ -699,24 +681,26 @@ export default function Virus(props) {
                 break;
 
         };
+        console.log(link1)
         setPointArr(link1);
         setUpdatechartDes("");
         setUpdateLinkId('');
         closePopup()
     }
 
-    const closePopup = () => { setIsPopupOpen(false); setIsSubPopupOpen(false) }
+    const closePopup = () => { setIsPopupOpen(false); setIsSubPopupOpen(false) };
+
     const openPopup = (e, index, chartDes, no) => {
         setIsPopupOpen(true);
         setUpdatechartDes(chartDes);
         setUpdateLinkId(index);
         setPopupIndex(no);
-        console.log(index, no)
+      
     };
-
 
     //Sub Point Section
     const deleteSubPoint = (e, index, subIndex, linkArrNo) => {
+      
         const subPoints = [...SubPointArr];
         subPoints[linkArrNo][index].splice(subIndex, 1);
         setSubPointArr(subPoints);
@@ -736,6 +720,14 @@ export default function Virus(props) {
         setIsSubPopupOpen(false)
     };
 
+    const closeChart = (e, idVal, index) => {
+        const link = [...showChart];
+        document.getElementById(idVal).style.display = "none"
+        link[index] = false
+        setShowChart(link)
+    }
+
+   
 
     return (
         <>
@@ -772,8 +764,8 @@ export default function Virus(props) {
                         <li>
                             <select name="chartType" id="chartType" onChange={(e) => { setChartType(e.target.value) }}>
 
-                                <option value="bar">Bar</option>
                                 <option value="horizontalBar">Horizontal Bar</option>
+                                <option value="bar">Bar</option>
                                 <option value="outlabeledPie">Pie</option>
                             </select>
                         </li>
@@ -790,7 +782,7 @@ export default function Virus(props) {
                 <div className="main-chart">
 
                     <div className="chart-wrapper" id="wrapper11">
-                        {/* <!-- <canvas id="myChart" className="myChart" width="400" height="400"></canvas> --> */}
+                    <div className="close-icon1" onClick={(e) => { closeChart(e, "wrapper11", 0) }}>✖</div>
                         <canvas
                             id="myChart11"
                             width="500"
@@ -866,8 +858,9 @@ export default function Virus(props) {
                             </div>
 
                         </div>
-                    </div>
+                    </div>   
                     <div className="chart-wrapper" id="wrapper12">
+                    <div className="close-icon1" onClick={(e) => { closeChart(e, "wrapper12", 1) }}>✖</div>
                         <canvas
                             id="myChart12"
                             className="myChart"
@@ -943,6 +936,7 @@ export default function Virus(props) {
                         </div>
                     </div>
                     <div className="chart-wrapper" id="wrapper13">
+                    <div className="close-icon1" onClick={(e) => { closeChart(e, "wrapper13", 2) }}>✖</div>
                         <canvas
                             id="myChart13"
                             className="myChart"
@@ -969,7 +963,7 @@ export default function Virus(props) {
                                                 <img
                                                     src="images/edit.png"
                                                     onClick={(e) => {
-                                                        openPopup(e, index, artist, 2);
+                                                        openPopup(e,index, artist, 2);
                                                     }}
                                                     alt=""
                                                 />
@@ -1016,7 +1010,6 @@ export default function Virus(props) {
                             </div>
                         </div>
                     </div>
-
 
                 </div>
 

@@ -22,7 +22,7 @@ const agSchema = new mongoose.Schema({
     platform_count_sum: { type: Number, default: "" },
     agent_Program: { type: String, default: "" },
     agent_Program_Count: { type: String, default: "" },
-    chartDescription: { type: String, default: "[]" },
+    chartDescription: { type: String, default: "[]" }
 });
 
 let Ag = new mongoose.model("Ag", agSchema);
@@ -45,7 +45,9 @@ const virusSchema = new mongoose.Schema({
     checkDescriptionAdded: { type: Boolean, default: false },
     total_detection: { type: Number, default: "0" },
     chartDescription: { type: String, default: "[]" },
-    chartSubPoints: { type: String, default: "[]" }
+    chartSubPoints: { type: String, default: "[]" },
+    showChart: { type: String, default: "[]" }
+
 });
 
 let Virus = new mongoose.model("Virus", virusSchema);
@@ -69,9 +71,8 @@ const spywareSchema = new mongoose.Schema({
     checkDescriptionAdded: { type: Boolean, default: false },
     total_detection: { type: Number, default: "0" },
     chartDescription: { type: String, default: "[]" },
-    chartSubPoints: { type: String, default: "[]" }
-
-
+    chartSubPoints: { type: String, default: "[]" },
+    showChart: { type: String, default: "[]" }
 });
 
 let Spyware = new mongoose.model("Spyware", spywareSchema);
@@ -96,8 +97,8 @@ const wrSchema = new mongoose.Schema({
     checkDescriptionAdded: { type: Boolean, default: false },
     desDescription: { type: String, default: "" },
     total_detection: { type: Number, default: 0 },
-    chartSubPoints: { type: String, default: "[]" }
-
+    chartSubPoints: { type: String, default: "[]" },
+    showChart: { type: String, default: "[]" }
 });
 
 let Wr = new mongoose.model("Wr", wrSchema);
@@ -118,7 +119,7 @@ const ipsSchema = new mongoose.Schema({
     chartDescription: { type: String, default: "[]" },
     updatedIPTable: { type: String, default: "[]" },
     chartSubPoints: { type: String, default: "[]" },
-    showChart: { type: Boolean, default: true }
+    showChart: { type: String, default: "[]" }
 });
 
 let Ips = new mongoose.model("Ips", ipsSchema);
@@ -135,10 +136,10 @@ const ccSchema = new mongoose.Schema({
     total_detection: { type: Number, default: "" },
     chartDescription: { type: String, default: "[]" },
     chartSubPoints: { type: String, default: "[]" },
+    showChart: { type: String, default: "[]" }
 });
 
 //cc
-
 let Cc = new mongoose.model("Cc", ccSchema);
 
 //bm
@@ -157,7 +158,7 @@ const bmSchema = new mongoose.Schema({
     chartDescription: { type: String, default: "[]" },
     updatedPolicyRiskTable: { type: String, default: "[]" },
     chartSubPoints: { type: String, default: "[]" },
-    showChart: { type: Boolean, default: true }
+    showChart: { type: String, default: "[]" }
 });
 
 let Bm = new mongoose.model("Bm", bmSchema);
@@ -179,7 +180,7 @@ const dcSchema = new mongoose.Schema({
     chartDescription: { type: String, default: "[]" },
     updatedDCVendorTable: { type: String, default: "[]" },
     chartSubPoints: { type: String, default: "[]" },
-    showChart: { type: Boolean, default: true }
+    showChart: { type: String, default: "[]" }
 });
 
 let Dc = new mongoose.model("Dc", dcSchema);
@@ -248,5 +249,5 @@ const BlobPdf = mongoose.model('Blob', blobSchema);
 
 
 module.exports = {
-    Chart1, Ag, Virus, Spyware, Bm, Dc, Ips, Smartscan, Wr, Cc, FurtherInformation,BlobPdf
+    Chart1, Ag, Virus, Spyware, Bm, Dc, Ips, Smartscan, Wr, Cc, FurtherInformation, BlobPdf
 }

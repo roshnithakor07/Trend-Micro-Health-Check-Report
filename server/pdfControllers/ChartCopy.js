@@ -98,14 +98,6 @@ const getCharts = async (req, res) => {
     }
 
     const showCharts = JSON.parse(chart1[0].showCharts);
-    const showChartVirus = JSON.parse(virus1[0].showChart);
-    const showChartSpyware = JSON.parse(spyware1[0].showChart);
-    const showChartsWr = JSON.parse(wr1[0].showChart);
-    const showChartsIp = JSON.parse(ips1[0].showChart);
-    const showChartsDc = JSON.parse(dc1[0].showChart);
-    const showChartsCc = JSON.parse(cc1[0].showChart);
-    const showChartsBm = JSON.parse(bm1[0].showChart);
-
     const chartTitle = JSON.parse(chart1[0].chartTitles);
 
 
@@ -129,8 +121,8 @@ const getCharts = async (req, res) => {
 
         agChart.push(
             {
+                // margin: [0, 11, 0, 0],
                 id: 'closingParagraph',
-                margin: [0, 11, 0, 0],
                 stack: [
                     {
                         text: '6 Apex One Product Efficacy',
@@ -149,7 +141,7 @@ const getCharts = async (req, res) => {
                     },
                     {
                         margin: [50, 15, 0, 0],
-                        lineHeight: 1.3,
+                        lineHeight: 1.5,
                         table: {
                             fontSize: 11,
                             widths: [200, 200],
@@ -172,32 +164,31 @@ const getCharts = async (req, res) => {
                 style: "chartText"
             }
         )
-
     }
 
     //6.2 VIRUS 
     if (showCharts[1]) {
 
-        let vDesTitle = "", vDesImages = "";
+        let vDesTitle = "", vDesImages = ""; 
         const vDescription = [];
 
         try {
             if (virus1[0].checkDescriptionAdded) {
-
+                
                 if (virus1[0].desTitle.length >= 0) {
                     vDesTitle = virus1[0].desTitle;
-
+                  
                     vDescription.push({
                         text: vDesTitle,
                         fontSize: 11,
-                        margin: [0, 2, 0, 0],
+                        margin: [0,2, 0, 0],
                         alignment: 'justify',
                     })
                 }
 
                 if (virus1[0].desImages.length >= 0) {
                     vDesImages = virus1[0].desImages;
-
+                 
                     vDescription.push({
                         image: vDesImages,
                         margin: [0, 10, 0, 10],
@@ -225,80 +216,53 @@ const getCharts = async (req, res) => {
         const v_des1 = chartDescriptionFun(1, virus1);
         const v_des2 = chartDescriptionFun(2, virus1);
 
-        if (showChartVirus[0]) {
-            vChart.push(
-                {
-                    id: 'closingParagraph',
-                    stack: [
-                        {
-                            text: chartTitle[1] ? chartTitle[1] : "6.2 Virus/Malware",
-                            tocItem: ['subToc'],
-                            style: ['heading', 'commonGap'],
-                            tocStyle: { italics: true },
-                            tocMargin: [20, 5, 0, 0],
-                        },
-                        {
-                            text: `${virus1[0].chartFirstLine}`,
-                            style: "chartFirstLine"
-
-                        },
-                        { image: `${chartFolderName}/v_img1.png`, style: "chartImage", width: 350, height: 200 }
-                    ]
-                },
-                {
-                    ul: [
-                        ...v_des0
-                    ],
-                    style: "chartText"
-                }
-            )
-
-        } else {
-            vChart.push(
-                {
-                    id: 'closingParagraph',
-                    stack: [
-                        {
-                            text: chartTitle[1] ? chartTitle[1] : "6.2 Virus/Malware",
-                            tocItem: ['subToc'],
-                            style: ['heading', 'commonGap'],
-                            tocStyle: { italics: true },
-                            tocMargin: [20, 5, 0, 0],
-                        },
-
-                    ]
-                }
-            )
-        }
-
-        if (showChartVirus[1]) {
-            vChart.push({ image: `${chartFolderName}/v_img2.png`, style: "chartImage", width: 350, height: 200, id: 'closingParagraph' },
-                {
-                    ul: [
-                        ...v_des1
-                    ],
-                    style: "chartText"
-
-                })
-        }
-
-        if (showChartVirus[2]) {
-            vChart.push(
-                { image: `${chartFolderName}/v_img3.png`, style: "chartImage", width: 350, height: 200, id: 'closingParagraph' },
-
-                {
-                    ul: [
-                        ...v_des2
-                    ],
-                    style: "chartText"
-                }
-            )
-
-        }
-
         vChart.push(
+            {
+                id: 'closingParagraph',
+                stack: [
+                    {
+                        text: chartTitle[1] ? chartTitle[1] : "6.2 Virus/Malware",
+                        tocItem: ['subToc'],
+                        style: ['heading', 'commonGap'],
+                        tocStyle: { italics: true },
+                        tocMargin: [20, 5, 0, 0],
+                    },
+                    {
+                        text: `${virus1[0].chartFirstLine}`,
+                        style: "chartFirstLine"
+
+                    },
+                    { image: `${chartFolderName}/v_img1.png`, style: "chartImage", width: 350, height: 200 }
+                ]
+            },
+            {
+                ul: [
+                    ...v_des0
+                ],
+                style: "chartText"
+            },
+
+            { image: `${chartFolderName}/v_img2.png`, style: "chartImage", width: 350, height: 200, id: 'closingParagraph' },
+
+            {
+                ul: [
+                    ...v_des1
+                ],
+                style: "chartText"
+
+            },
+
+            { image: `${chartFolderName}/v_img3.png`, style: "chartImage", width: 350, height: 200, id: 'closingParagraph' },
+
+            {
+                ul: [
+                    ...v_des2
+                ],
+                style: "chartText"
+            },
+
             ...vDescription
-        );
+        )
 
     }
 
@@ -349,8 +313,9 @@ const getCharts = async (req, res) => {
         const sp_des2 = chartDescriptionFun(1, spyware1);
         const sp_des3 = chartDescriptionFun(2, spyware1);
 
-        if (showChartSpyware[0]) {
-            spChart.push({
+        spChart.push(
+
+            {
                 id: 'closingParagraph',
                 stack: [
                     {
@@ -368,57 +333,30 @@ const getCharts = async (req, res) => {
                     { image: `${chartFolderName}/s_img1.png`, style: "chartImage", width: 350, height: 200 }
                 ]
             },
-                {
-                    ul: [
-                        ...sp_des1
-                    ],
-                    style: "chartText"
-                },
-            )
-        } else {
-            spChart.push(
-                {
-                    id: 'closingParagraph',
-                    stack: [
-                        {
-                            text: chartTitle[2] ? chartTitle[2] : "6.3 Spyware/Grayware",
-                            tocItem: ['subToc'],
-                            style: ['heading', 'commonGap'],
-                            tocStyle: { italics: true },
-                            tocMargin: [20, 5, 0, 0],
+            {
+                ul: [
+                    ...sp_des1
+                ],
+                style: "chartText"
+            },
 
-                        },
-                        {
-                            text: `${spyware1[0].chartFirstLine}`,
-                            style: "chartFirstLine"
-                        }
+            { image: `${chartFolderName}/s_img2.png`, style: "chartImage", width: 350, height: 200, id: 'closingParagraph' },
 
-                    ]
-                }
-            )
-        }
-        if (showChartSpyware[1]) {
-            spChart.push({ image: `${chartFolderName}/s_img2.png`, style: "chartImage", width: 350, height: 200, id: 'closingParagraph' },
+            {
+                ul: [
+                    ...sp_des2
+                ],
+                style: "chartText"
+            },
+            { image: `${chartFolderName}/s_img3.png`, style: "chartImage", width: 350, height: 200, id: 'closingParagraph' },
 
-                {
-                    ul: [
-                        ...sp_des2
-                    ],
-                    style: "chartText"
-                })
-        }
-        if (showChartSpyware[2]) {
-            spChart.push({ image: `${chartFolderName}/s_img3.png`, style: "chartImage", width: 350, height: 200, id: 'closingParagraph' },
+            {
+                ul: [
+                    ...sp_des3
+                ],
+                style: "chartText"
+            },
 
-                {
-                    ul: [
-                        ...sp_des3
-                    ],
-                    style: "chartText"
-                })
-        }
-
-        spChart.push(
             ...sDescription
         )
     }
@@ -471,80 +409,52 @@ const getCharts = async (req, res) => {
         const wr_des2 = chartDescriptionFun(2, wr1);
 
 
-        if (showChartsWr[0]) {
-            wrChart.push(
-                {
-                    id: 'closingParagraph',
-                    stack: [
-
-                        {
-                            text: chartTitle[3] ? chartTitle[3] : "6.4 Web Reputation",
-                            tocItem: ['subToc'],
-                            style: ['heading', "commonGap"],
-                            tocStyle: { italics: true },
-                            tocMargin: [20, 5, 0, 0],
-                        },
-
-                        {
-                            text: `${wr1[0].chartFirstLine}`,
-                            style: "chartFirstLine"
-
-
-                        },
-                        { image: `${chartFolderName}/wr_img1.png`, style: "chartImage", width: 350, height: 200 }
-                    ]
-                },
-
-                {
-                    ul: [
-                        ...wr_des0
-                    ],
-                    style: "chartText"
-                }
-            )
-        } else {
-            wrChart.push(
-                {
-                    id: 'closingParagraph',
-                    stack: [
-
-                        {
-                            text: chartTitle[3] ? chartTitle[3] : "6.4 Web Reputation",
-                            tocItem: ['subToc'],
-                            style: ['heading', "commonGap"],
-                            tocStyle: { italics: true },
-                            tocMargin: [20, 5, 0, 0],
-                        }
-
-                    ]
-                }
-            )
-        }
-        if (showChartsWr[1]) {
-            wrChart.push(
-                { image: `${chartFolderName}/wr_img2.png`, style: "chartImage", width: 350, height: 200, id: 'closingParagraph' },
-
-                {
-                    ul: [
-                        ...wr_des1
-                    ],
-                    style: "chartText"
-                }
-            )
-        }
-        if (showChartsWr[2]) {
-            wrChart.push(
-                { image: `${chartFolderName}/wr_img3.png`, style: "chartImage", width: 350, height: 200, id: 'closingParagraph' },
-                {
-                    ul: [
-                        ...wr_des2
-                    ],
-                    style: "chartText"
-                }
-            )
-        }
-
         wrChart.push(
+
+            {
+                id: 'closingParagraph',
+                stack: [
+
+                    {
+                        text: chartTitle[3] ? chartTitle[3] : "6.4 Web Reputation",
+                        tocItem: ['subToc'],
+                        style: ['heading', "commonGap"],
+                        tocStyle: { italics: true },
+                        tocMargin: [20, 5, 0, 0],
+                    },
+
+                    {
+                        text: `${wr1[0].chartFirstLine}`,
+                        style: "chartFirstLine"
+
+
+                    },
+                    { image: `${chartFolderName}/wr_img1.png`, style: "chartImage", width: 350, height: 200 }
+                ]
+            },
+
+            {
+                ul: [
+                    ...wr_des0
+                ],
+                style: "chartText"
+            },
+            { image: `${chartFolderName}/wr_img2.png`, style: "chartImage", width: 350, height: 200, id: 'closingParagraph' },
+
+            {
+                ul: [
+                    ...wr_des1
+                ],
+                style: "chartText"
+            },
+            { image: `${chartFolderName}/wr_img3.png`, style: "chartImage", width: 350, height: 200, id: 'closingParagraph' },
+            {
+                ul: [
+                    ...wr_des2
+                ],
+                style: "chartText"
+            },
+
             ...wrDescription
         )
     }
@@ -553,6 +463,7 @@ const getCharts = async (req, res) => {
 
     if (showCharts[4]) {
 
+        const showChart = ips1[0].showChart;
         const ip_des0 = chartDescriptionFun(0, ips1);
         const ip_des1 = chartDescriptionFun(1, ips1);
         const ip_des2 = chartDescriptionFun(2, ips1);
@@ -560,17 +471,15 @@ const getCharts = async (req, res) => {
         const IpTable = []
 
         try {
-            if (showChartsIp[3]) {
+            if (showChart) {
 
                 //IP TABLE
                 let updatedIPTable = JSON.parse(ips1[0].updatedIPTable)
                 const totalIPActionName = Object.keys(updatedIPTable[0].allActionNameArr);
                 const totalIPActionCount = Object.values(updatedIPTable[0].allActionNameArr);
                 //Header part done
-                IPBody.push(
-                    [{ text: "IPS DETECTION & SEVERITY", rowSpan: 2, alignment: "center", bold: true }, { text: "ACTION", colSpan: totalIPActionName.length, alignment: "center", bold: true }],
-                    ["", ...totalIPActionName]
-                );
+                IPBody.push([{ text: "IPS DETECTION & SEVERITY", rowSpan: 2, alignment: "center", bold: true }, { text: "ACTION", colSpan: totalIPActionName.length, alignment: "center", bold: true }],
+                    ["", ...totalIPActionName]);
                 for (var i = 0; i < totalIPActionName.length - 1; i++) { IPBody[0].push('') }
                 //body Part
                 let IPContent = [];
@@ -602,7 +511,8 @@ const getCharts = async (req, res) => {
 
                 IPBody = [...IPBody, ...IPContent];
                 IpTable.push({
-                    margin: [0, 17, 0, 0],
+                    id: 'closingParagraph',
+                    margin: [0,15, 0, 0],
                     table: {
                         fontSize: 11,
                         body: IPBody
@@ -616,78 +526,53 @@ const getCharts = async (req, res) => {
             console.log({ "error": "ip table" })
         }
 
-        if (showChartsIp[0]) {
-            ipChart.push(
-                {
-                    id: 'closingParagraph',
-                    stack: [
 
-                        {
-                            text: chartTitle[4] ? chartTitle[4] : "6.5 Intrusion Prevention",
-                            tocItem: ['subToc'],
-                            style: ['heading', "commonGap"],
-                            tocStyle: { italics: true },
-                            tocMargin: [20, 5, 0, 0],
-
-                        },
-                        {
-                            text: `${ips1[0].chartFirstLine}`,
-                            style: "chartFirstLine"
-                        },
-
-                        { image: `${chartFolderName}/ip_img1.png`, style: "chartImage", width: 350, height: 200 }
-                    ]
-                },
-                {
-                    ul: [
-                        ...ip_des0
-                    ],
-                    style: "chartText"
-                })
-        } else {
-            ipChart.push(
-                {
-                    id: 'closingParagraph',
-                    stack: [
-
-                        {
-                            text: chartTitle[4] ? chartTitle[4] : "6.5 Intrusion Prevention",
-                            tocItem: ['subToc'],
-                            style: ['heading', "commonGap"],
-                            tocStyle: { italics: true },
-                            tocMargin: [20, 5, 0, 0],
-
-                        },
-                    ]
-                }
-            )
-        }
-
-        if (showChartsIp[1]) {
-            ipChart.push(
-                { image: `${chartFolderName}/ip_img2.png`, style: "chartImage", width: 350, height: 200, id: 'closingParagraph' },
-                {
-                    ul: [
-                        ...ip_des1
-                    ],
-                    style: "chartText"
-                }
-            )
-        }
-        if (showChartsIp[2]) {
-            ipChart.push(
-                { image: `${chartFolderName}/ip_img3.png`, style: "chartImage", width: 350, height: 200, id: 'closingParagraph' },
-                {
-                    ul: [
-                        ...ip_des2
-                    ],
-                    style: "chartText"
-                }
-            )
-        }
 
         ipChart.push(
+            {
+                id: 'closingParagraph',
+                stack: [
+
+                    {
+                        text: chartTitle[4] ? chartTitle[4] : "6.5 Intrusion Prevention",
+                        tocItem: ['subToc'],
+                        style: ['heading', "commonGap"],
+                        tocStyle: { italics: true },
+                        tocMargin: [20, 5, 0, 0],
+
+                    },
+                    {
+                        text: `${ips1[0].chartFirstLine}`,
+                        style: "chartFirstLine"
+                    },
+
+                    { image: `${chartFolderName}/ip_img1.png`, style: "chartImage", width: 350, height: 200 }
+                ]
+            },
+            {
+                ul: [
+                    ...ip_des0
+                ],
+                style: "chartText"
+            },
+
+            { image: `${chartFolderName}/ip_img2.png`, style: "chartImage", width: 350, height: 200, id: 'closingParagraph' },
+            {
+                ul: [
+                    ...ip_des1
+                ],
+                style: "chartText"
+            },
+
+            { image: `${chartFolderName}/ip_img3.png`, style: "chartImage", width: 350, height: 200, id: 'closingParagraph' },
+            {
+                ul: [
+                    ...ip_des2
+                ],
+                style: "chartText"
+            },
             ...IpTable
+           
         )
     }
 
@@ -703,7 +588,7 @@ const getCharts = async (req, res) => {
         const DCTable = []
 
         try {
-            if (showChartsDc[3]) {
+            if (showChart) {
 
                 let updatedDCVendorTable = JSON.parse(dc1[0].updatedDCVendorTable)
                 const totalPermissionName = Object.keys(updatedDCVendorTable[0].allPermissionsName);
@@ -752,7 +637,8 @@ const getCharts = async (req, res) => {
 
                 DCTable.push(
                     {
-                        margin: [107, 17, 0, 0],
+                        unbreakable: true,
+                        margin: [107, 50, 0, 0],
                         table: {
                             fontSize: 11,
                             body: DCBody
@@ -763,8 +649,9 @@ const getCharts = async (req, res) => {
             console.log({ "error": "dc table" })
         }
 
-        if (showChartsDc[0]) {
-            dcChart.push({
+
+        dcChart.push(
+            {
 
                 id: 'closingParagraph',
                 stack: [
@@ -788,64 +675,33 @@ const getCharts = async (req, res) => {
                 ]
 
             },
-                {
-                    ul: [
-                        ...dc_des0
-                    ],
-                    style: "chartText"
-                })
-        } else {
-            dcChart.push(
-                {
+            {
+                ul: [
+                    ...dc_des0
+                ],
+                style: "chartText"
+            },
+            { image: `${chartFolderName}/d_img2.png`, style: "chartImage", width: 350, height: 200, id: 'closingParagraph' },
 
-                    id: 'closingParagraph',
-                    stack: [
+            {
+                ul: [
+                    ...dc_des1
+                ],
+                style: "chartText"
+            },
+            { image: `${chartFolderName}/d_img3.png`, style: "chartImage", width: 350, height: 200, id: 'closingParagraph' },
 
-                        {
-                            text: chartTitle[5] ? chartTitle[5] : "6.6 Device Control Detection",
-                            tocItem: ['subToc'],
-                            style: ['heading', 'commonGap'],
-                            tocStyle: { italics: true },
-                            tocMargin: [20, 5, 0, 0],
-                        },
+            {
+                ul: [
+                    ...dc_des2
+                ],
+                style: "chartText"
+            },
 
-                    ]
-
-                },
-                {
-                    ul: [
-                        ...dc_des0
-                    ],
-                    style: "chartText"
-                })
-        }
-        if (showChartsDc[1]) {
-            dcChart.push({ image: `${chartFolderName}/d_img2.png`, style: "chartImage", width: 350, height: 200, id: 'closingParagraph' },
-
-                {
-                    ul: [
-                        ...dc_des1
-                    ],
-                    style: "chartText"
-                })
-        }
-        if (showChartsDc[2]) {
-            dcChart.push(
-                { image: `${chartFolderName}/d_img3.png`, style: "chartImage", width: 350, height: 200, id: 'closingParagraph' },
-
-                {
-                    ul: [
-                        ...dc_des2
-                    ],
-                    style: "chartText"
-                })
-        }
-
-        dcChart.push(
             ...DCTable
+
+
         )
-
-
     }
 
 
@@ -854,70 +710,47 @@ const getCharts = async (req, res) => {
 
         const cc_des0 = chartDescriptionFun(0, cc1);
         const cc_des1 = chartDescriptionFun(1, cc1);
-        
-        if (showChartsCc[0]) {
-            ccChart.push(
-                {
-                    id: 'closingParagraph',
-                    stack: [
-                        {
-                            text: chartTitle[6] ? chartTitle[6] : "6.7 C&C Callback",
-                            tocItem: ['subToc'],
-                            style: ['heading', 'commonGap'],
-                            tocStyle: { italics: true },
-                            tocMargin: [20, 5, 0, 0],
 
-                        },
-
-                        {
-                            text: `${cc1[0].chartFirstLine}`,
-                            style: "chartFirstLine"
-
-
-                        },
-                        { image: `${chartFolderName}/cc_img1.png`, style: "chartImage", width: 350, height: 200 },
-                    ]
-
-                },
-                {
-                    ul: [
-                        ...cc_des0
-                    ],
-                    style: "chartText"
-                }
-            )
-        } else {
-            ccChart.push(
-                {
-                    id: 'closingParagraph',
-                    stack: [
-                        {
-                            text: chartTitle[6] ? chartTitle[6] : "6.7 C&C Callback",
-                            tocItem: ['subToc'],
-                            style: ['heading', 'commonGap'],
-                            tocStyle: { italics: true },
-                            tocMargin: [20, 5, 0, 0],
-
-                        }
-                    ]
-
-                }
-            )
-        }
-        if (showChartsCc[1]) {
-            ccChart.push(
-                { image: `${chartFolderName}/cc_img2.png`, style: "chartImage", width: 350, height: 200, id: 'closingParagraph' },
-
-                {
-                    ul: [
-                        ...cc_des1
-                    ],
-                    style: "chartText"
-                }
-            )
-        }
 
         ccChart.push(
+            {
+                id: 'closingParagraph',
+                stack: [
+                    {
+                        text: chartTitle[6] ? chartTitle[6] : "6.7 C&C Callback",
+                        tocItem: ['subToc'],
+                        style: ['heading', 'commonGap'],
+                        tocStyle: { italics: true },
+                        tocMargin: [20, 5, 0, 0],
+
+                    },
+
+                    {
+                        text: `${cc1[0].chartFirstLine}`,
+                        style: "chartFirstLine"
+
+
+                    },
+                    { image: `${chartFolderName}/cc_img1.png`, style: "chartImage", width: 350, height: 200 },
+                ]
+
+            },
+            {
+                ul: [
+                    ...cc_des0
+                ],
+                style: "chartText"
+            },
+
+            { image: `${chartFolderName}/cc_img2.png`, style: "chartImage", width: 350, height: 200, id: 'closingParagraph' },
+
+            {
+                ul: [
+                    ...cc_des1
+                ],
+                style: "chartText"
+            },
+
             {
                 unbreakable: 'true',
                 ul: [
@@ -964,74 +797,93 @@ const getCharts = async (req, res) => {
 
         const b_des0 = chartDescriptionFun(0, bm1);
         const b_des1 = chartDescriptionFun(1, bm1);
-
+        // const showChart = bm1[0].showChart;
         const showChart = false;
 
         let BMBody = [];
         const BMTable = [];
 
-        if (showChartsBm[0]) {
-            bmChart.push(
-                {
-                    id: 'closingParagraph',
-                    stack: [
 
-                        {
-                            text: chartTitle[7] ? chartTitle[7] : "6.8 Behavior Monitoring",
-                            tocItem: ['subToc'],
-                            style: ['heading', "commonGap"],
-                            tocStyle: { italics: true },
-                            tocMargin: [20, 5, 0, 0],
+        try {
+            if (showChart) {
 
-                        },
-                        {
-                            text: `${bm1[0].chartFirstLine}`,
-                            style: "chartFirstLine"
+                //BM TABLE
+                const BMheading = ["Risk Level", "Subject", "Event Type", "Target", "Action", "Operation", "EndPoint"]
+
+                let updatedPolicyRiskTable = JSON.parse(bm1[0].updatedPolicyRiskTable)
+                const totalActionName = Object.keys(updatedPolicyRiskTable[0].allActionNameArr);
+                const totalActionCount = Object.values(updatedPolicyRiskTable[0].allActionNameArr);
+                //Header part done
+                BMBody.push([
+                    { text: BMheading[0], alignment: "center", bold: true },
+                    { text: BMheading[1], alignment: "center", bold: true },
+                    { text: BMheading[2], alignment: "center", bold: true },
+                    { text: BMheading[3], alignment: "center", bold: true },
+                    { text: BMheading[4], alignment: "center", bold: true },
+                    { text: BMheading[5], alignment: "center", bold: true },
+                    { text: BMheading[6], alignment: "center", bold: true }
+                ]);
 
 
-                        },
-                        { image: `${chartFolderName}/bm_img1.png`, style: "chartImage", width: 350, height: 200 },
-                    ]
-                },
-                {
-                    ul: [
-                        ...b_des0
-                    ],
-                    style: "chartText"
-                }
-            )
-        } else {
-            bmChart.push(
-                {
-                    id: 'closingParagraph',
-                    stack: [
+                //body Part
+                let BMContent = [["High", "C:\\Windows\\System32\\Taskmgr.exe", "File system", "C:\\Users\\Admin\\AppData\\Local\\Temp\\lsass.DMP", "Deny", "Create File", "DIVGI-NB39"]];
 
-                        {
-                            text: chartTitle[7] ? chartTitle[7] : "6.8 Behavior Monitoring",
-                            tocItem: ['subToc'],
-                            style: ['heading', "commonGap"],
-                            tocStyle: { italics: true },
-                            tocMargin: [20, 5, 0, 0],
 
-                        }
-                    ]
-                }
-            )
-        }
-        if (showChartsBm[1]) {
-            bmChart.push(
-                { image: `${chartFolderName}/bm_img2.png`, style: "chartImage", width: 350, height: 200, id: 'closingParagraph' },
-                {
-                    ul: [
-                        ...b_des1
-                    ],
-                    style: "chartText"
-                }
-            )
+                BMBody = [...BMBody, ...BMContent];
+
+                BMTable.push({
+                    unbreakable: true,
+                    margin: [10, 50, 0, 0],
+                    table: {
+                        fontSize: 10,
+                        widths: [50, 100, 50, 50, 50, 100, 60],
+                        body: BMBody
+                    }
+                });
+
+            }
+        } catch (error) {
+            console.log({ "error": "bm table" })
         }
 
         bmChart.push(
+            {
+                id: 'closingParagraph',
+                stack: [
+
+                    {
+                        text: chartTitle[7] ? chartTitle[7] : "6.8 Behavior Monitoring",
+                        tocItem: ['subToc'],
+                        style: ['heading', "commonGap"],
+                        tocStyle: { italics: true },
+                        tocMargin: [20, 5, 0, 0],
+
+                    },
+                    {
+                        text: `${bm1[0].chartFirstLine}`,
+                        style: "chartFirstLine"
+
+
+                    },
+                    { image: `${chartFolderName}/bm_img1.png`, style: "chartImage", width: 350, height: 200 },
+                ]
+            },
+            {
+                ul: [
+                    ...b_des0
+                ],
+                style: "chartText"
+            },
+            { image: `${chartFolderName}/bm_img2.png`, style: "chartImage", width: 350, height: 200, id: 'closingParagraph' },
+            {
+                ul: [
+                    ...b_des1
+                ],
+                style: "chartText"
+            },
+
             ...BMTable
+
         )
     }
 
@@ -1062,7 +914,7 @@ const getCharts = async (req, res) => {
                         tocStyle: { italics: true },
                     },
                     {
-
+                        
                         margin: [0, 11, 0, 0],
                         table: {
                             widths: ['*', 100],
@@ -1119,7 +971,7 @@ const getCharts = async (req, res) => {
                 id: 'closingParagraph',
                 stack: [
                     {
-                        margin: [0, 20, 0, 0],
+                        margin : [0,20,0,0],
                         text: '7 Apex One & Apex Central Further Information',
                         style: ['heading'],
                         tocItem: ['mainToc', 'subToc'],
@@ -1128,7 +980,7 @@ const getCharts = async (req, res) => {
                     },
                     ...link1,
                     {
-                        margin: [0, 30, 0, 0],
+                        margin : [0,30,0,0],
                         text: '8 End of Life for Trend Micro Products information',
                         style: ['heading'],
                         tocItem: ['mainToc', 'subToc'],
@@ -1144,7 +996,7 @@ const getCharts = async (req, res) => {
                 id: 'closingParagraph',
                 stack: [
                     {
-                        margin: [0, 30, 0, 0],
+                        margin : [0,30,0,0],
                         text: '9 Other documentation',
                         style: ['heading'],
                         tocItem: ['mainToc', 'subToc'],

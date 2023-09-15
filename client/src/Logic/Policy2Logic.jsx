@@ -330,8 +330,8 @@ function Po2Logic() {
                     link[no].push(policyName)
             }
             setpolicyActionArr1(link)
-            a = `In ${policyActionArr1[0].join(', ').replace(/,([^,]*)$/, ' and$1')} Action Settings, active Action is selected, recommended to select Use a specific action for each virus/malware type.`;
-            b = `In ${policyActionArr1[1].join(', ').replace(/,([^,]*)$/, ' and$1')} Action Settings, same Action for all malware-Virus types is selected, recommended to select Use a specific action for each virus/malware type.`
+            a = `In ${policyActionArr1[0].join(', ').replace(/,([^,]*)$/, ' and$1')} Scan Action Settings, active Action is selected, recommended to select Use a specific action for each virus/malware type.`;
+            b = `In ${policyActionArr1[1].join(', ').replace(/,([^,]*)$/, ' and$1')} Scan Action Settings, same Action for all malware-Virus types is selected, recommended to select Use a specific action for each virus/malware type.`
         } else {
 
             if (policyActionArr1[0].includes(policyName)) {
@@ -340,8 +340,8 @@ function Po2Logic() {
                 link[1].splice(link[1].indexOf(policyName), 1);
             }
             setpolicyActionArr1(link)
-            a = `In ${policyActionArr1[0].join(', ').replace(/,([^,]*)$/, ' and$1')} Action Settings, active Action is selected, recommended to select Use a specific action for each virus/malware type.`;
-            b = `In ${policyActionArr1[1].join(', ').replace(/,([^,]*)$/, ' and$1')} Action Settings, same Action for all malware-Virus types is selected, recommended to select Use a specific action for each virus/malware type.`
+            a = `In ${policyActionArr1[0].join(', ').replace(/,([^,]*)$/, ' and$1')} Scan Action Settings, active Action is selected, recommended to select Use a specific action for each virus/malware type.`;
+            b = `In ${policyActionArr1[1].join(', ').replace(/,([^,]*)$/, ' and$1')} Scan Action Settings, same Action for all malware-Virus types is selected, recommended to select Use a specific action for each virus/malware type.`
         }
 
         if (policyActionArr1[0].length > 0) {
@@ -383,7 +383,7 @@ function Po2Logic() {
         }
 
         if (checkBackUpFiles1 >= 1) {
-            const a = `In ${nameOfPolicy2[5].join(', ').replace(/,([^,]*)$/, ' and$1')} Action Settings, back up files before cleaning is disabled, recommended to enable it.`;
+            const a = `In ${nameOfPolicy2[5].join(', ').replace(/,([^,]*)$/, ' and$1')} Scan Action Settings, back up files before cleaning is disabled, recommended to enable it.`;
             addValuePolicy21("rSummary17",a)
         }
         else {
@@ -403,7 +403,7 @@ function Po2Logic() {
         }
 
         if (checkDamageCleanup1 >= 1) {
-            const a = `In ${nameOfPolicy2[6].join(', ').replace(/,([^,]*)$/, ' and$1')} Action Settings, Damage Cleanup Services enabled with standard clean up, recommended to enable with advance clean up as The Security Agent uses advanced cleanup rules to proactively detect and stop applications that exhibit Fake AV and rootkit behavior.`;
+            const a = `In ${nameOfPolicy2[6].join(', ').replace(/,([^,]*)$/, ' and$1')} Scan Action Settings, Damage Cleanup Services enabled with standard clean up, recommended to enable with advance clean up as The Security Agent uses advanced cleanup rules to proactively detect and stop applications that exhibit Fake AV and rootkit behavior.`;
             addValuePolicy21("rSummary18", a)
         }
         else {
@@ -424,7 +424,7 @@ function Po2Logic() {
         }
 
         if (checkRunCleanup1 >= 1) {
-            const a = `In ${nameOfPolicy2[7].join(', ').replace(/,([^,]*)$/, ' and$1')} Action Settings, run cleanup when probable virus/malware is detected' is disabled, recommended to enable it as probable viruses/malware are suspicious files that have some of the characteristics of viruses/malware.`;
+            const a = `In ${nameOfPolicy2[7].join(', ').replace(/,([^,]*)$/, ' and$1')} Scan Action Settings, run cleanup when probable virus/malware is detected' is disabled, recommended to enable it as probable viruses/malware are suspicious files that have some of the characteristics of viruses/malware.`;
             addValuePolicy21("rSummary19", a)
         }
         else {
@@ -445,7 +445,7 @@ function Po2Logic() {
         }
 
         if (checkSpywareApexOneTerminates1 >= 1) {
-            const a = `In ${nameOfPolicy2[8].join(', ').replace(/,([^,]*)$/, ' and$1')} Action Settings, in Spyware/Grayware settings Clean: Apex One terminates processes are not enabled, recommended to enable it.`;
+            const a = `In ${nameOfPolicy2[8].join(', ').replace(/,([^,]*)$/, ' and$1')} Scan Action Settings, in Spyware/Grayware settings Clean: Apex One terminates processes are not enabled, recommended to enable it.`;
             addValuePolicy21("rSummary20", a)
         }
         else {

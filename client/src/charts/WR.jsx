@@ -10,10 +10,8 @@ const success = indigo[700]; // #f44336
 const save = green[900];
 
 export default function WR(props) {
-  const { wrApi, getReportData } = Endpoints();
-
-
-  //database data : 
+  const { wrApi } = Endpoints();
+  //database data: 
   const [myChartData, setMycharts] = useState({
     r_id: "",
     url: "[]",
@@ -30,24 +28,8 @@ export default function WR(props) {
     checkDescriptionAdded: false,
     total_detection: 0,
     chartDescription: '[]',
-    chartSubPoints: "[]"
-
-  });
-
-  useEffect(() => {
-    const getProductById = async () => {
-      await axios({
-        url: getReportData,
-        method: "GET",
-      })
-        .then((res) => {
-          myChartData.r_id = res.data[0]._id;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
-    getProductById();
+    chartSubPoints: "[]",
+    showChart: "[false,false,false]",
   });
 
   let canavaId = ["myChart31", "myChart32", "myChart33"];
@@ -65,11 +47,12 @@ export default function WR(props) {
   const [columnsNames, setCoulmnsName] = useState(vm[0]);
   const [lable, setLableData] = useState([])
   const [data, setData] = useState([])
+  const [showChart, setShowChart] = useState([false, false, false])
 
   const [x, setX] = useState([]);
   const [y1, setY1] = useState([]);
   const [myChart, setMyChart] = useState([])
-  const [chartType, setChartType] = useState("bar")
+  const [chartType, setChartType] = useState("horizontalBar")
   const [description, setDescription] = useState([[], [], []]);
   const [chartTypes, setChartTypes] = useState(['', '', '',])
 
@@ -250,13 +233,13 @@ export default function WR(props) {
   }
 
   const dropdownOptions = lable.map((e) => (
-    <a href="/#" key={e}>
+    <span key={e}>
       <input type="checkbox" name="messageCheckbox0" defaultChecked={e} defaultValue={e} onChange={handleCheckboxChange} />
       {e}
-    </a>
+    </span>
   ));
 
- 
+
 
   if (columnsNames === vm[0] || columnsNames === vm[1]) {
 
@@ -350,7 +333,7 @@ export default function WR(props) {
 
     function transformKey(key) {
       const currentKey = key.toLowerCase();
-  
+
       if (currentKey.includes("assess")) {
         return "Assessed";
       } else if (currentKey.includes("deny")) {
@@ -362,10 +345,10 @@ export default function WR(props) {
       } else if (currentKey.includes("block")) {
         return "Blocked";
       }
-  
+
       return key; // If none of the conditions match, return the original key
     }
-    
+
     for (let i = 0; i < top5Keys2.length; i++) {
       top5Keys2[i] = transformKey(top5Keys2[i]);
     }
@@ -394,7 +377,7 @@ export default function WR(props) {
       endPointVal1 = top5Keys1.slice(0, -1).join(", ") + " and " + top5Keys1[top5Keys1.length - 1] + " endpoints,";
     } else {
       if (top5Keys1.length) {
-        endPointVal1 = "the " + top5Keys0[0] + " endpoint,";
+        endPointVal1 = "the " + top5Keys1[0] + " endpoint,";
       } else {
         endPointVal1 = "no endpoint,"
       }
@@ -441,11 +424,13 @@ export default function WR(props) {
 
 
   function handleSubmit() {
+    const link = [...showChart];
     document.getElementById('addInfo3').style.display = "block"
     document.getElementById('Chartbutton').style.display = "block"
     const link1 = [...PointArr]
-   
+
     if (columnsNames === vm[0]) {
+      link[0] = true
       if (x.length > 1) {
         link1[0][0] = description[0][0];
         link1[0][1] = description[0][1];
@@ -454,11 +439,11 @@ export default function WR(props) {
         link1[0][0] = description[0][0];
         link1[0][1] = description[0][1];
       }
-      
+
       let urls = [...x]
       for (let i = 0; i < urls.length; i++) {
         if (urls[i].length > 15) {
-          urls[i] = urls[i].slice(0, 25) + "..."
+          urls[i] = urls[i].slice(0, 30) + "..."
         }
       }
       createCharts(0, urls, y1, wrapperId[0], canavaId[0])
@@ -468,9 +453,10 @@ export default function WR(props) {
       myChartData['url_count'] = JSON.stringify(y1)
 
     } else if (columnsNames === vm[1]) {
+      link[1] = true
       if (x.length >= 1) {
         link1[1][0] = description[1][0];
-    }
+      }
 
       link1[1][0] = description[1][0];
 
@@ -479,7 +465,7 @@ export default function WR(props) {
       myChartData['endpoint_count'] = JSON.stringify(y1)
 
     } else if (columnsNames === vm[2]) {
-      
+      link[2] = true
       createCharts(2, x, y1, wrapperId[2], canavaId[2])
       myChartData['protocol'] = JSON.stringify(x)
       myChartData['protocol_count'] = JSON.stringify(y1)
@@ -487,10 +473,8 @@ export default function WR(props) {
     }
 
     setPointArr(link1);
+    setShowChart(link)
 
-
-
-    //setSum(sum)
   }
 
   function createCharts(no, x, y1, wrapper, canvas) {
@@ -531,7 +515,7 @@ export default function WR(props) {
           datalabels: chartType === 'outlabeledPie' ? pieDatalabels : barDatalabels,
           title: {
             display: true,
-            text : wrText[no],
+            text: wrText[no],
             position: 'top',
             align: 'center',
             font: {
@@ -585,16 +569,18 @@ export default function WR(props) {
   }
   //process database
   const handleCharts = () => {
+    myChartData["showChart"] = JSON.stringify(showChart);
+    myChartData["r_id"] = props.report_id;
     myChartData["chartDescription"] = JSON.stringify(PointArr)
     myChartData.total_detection = total_detection;
     myChartData["chartSubPoints"] = JSON.stringify(SubPointArr)
     myChartData.chartFirstLine = chartFirstLine;
     myChartData.chartTypes = JSON.stringify(chartTypes)
 
-    
+
     const getProductById = async (e) => {
       try {
-        console.log("hello inside handlevirus", myChartData)
+      
         await axios.post(wrApi, myChartData);
 
       } catch (error) {
@@ -652,7 +638,6 @@ export default function WR(props) {
     closePopup()
   }
 
-
   const openPopup = (e, index, chartDes, no) => {
     setIsPopupOpen(true);
     setUpdatechartDes(chartDes);
@@ -661,8 +646,12 @@ export default function WR(props) {
     console.log(index, no)
   };
 
-
-
+  const closeChart = (e, idVal, index) => {
+    const link = [...showChart];
+    document.getElementById(idVal).style.display = "none"
+    link[index] = false
+    setShowChart(link)
+}
 
   return (
     <>
@@ -699,8 +688,8 @@ export default function WR(props) {
             <li>
               <select name="chartType" id="chartType" onChange={(e) => { setChartType(e.target.value) }}>
 
-                <option value="bar">Bar</option>
                 <option value="horizontalBar">Horizontal Bar</option>
+                <option value="bar">Bar</option>
                 <option value="outlabeledPie">Pie</option>
               </select>
             </li>
@@ -717,7 +706,7 @@ export default function WR(props) {
         <div className="main-chart">
 
           <div className="chart-wrapper" id="wrapper31">
-            {/* <!-- <canvas id="myChart" className="myChart" width="400" height="400"></canvas> --> */}
+          <div className="close-icon1" onClick={(e) => { closeChart(e, "wrapper31", 0) }}>✖</div>
             <canvas
               id="myChart31"
               width="500"
@@ -798,6 +787,7 @@ export default function WR(props) {
 
           </div>
           <div className="chart-wrapper" id="wrapper32">
+          <div className="close-icon1" onClick={(e) => { closeChart(e, "wrapper32", 1) }}>✖</div>
             <canvas
               id="myChart32"
               className="myChart"
@@ -872,6 +862,7 @@ export default function WR(props) {
             </div>
           </div>
           <div className="chart-wrapper" id="wrapper33">
+          <div className="close-icon1" onClick={(e) => { closeChart(e, "wrapper33", 2) }}>✖</div>
             <canvas
               id="myChart33"
               className="myChart"

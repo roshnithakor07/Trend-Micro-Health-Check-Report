@@ -18,6 +18,7 @@ const getES = async (req, res) => {
   const cc1 = await Cc.find({}).sort({ _id: -1 }).limit(1);
 
 
+  const showCharts = JSON.parse(chart1[0].showCharts);
 
   let arr1 = JSON.parse(Report[0].allApex41ExecutiveSummary)
   let arr2 = JSON.parse(Report[0].allApex43ExecutiveSummary)
@@ -36,32 +37,53 @@ const getES = async (req, res) => {
   let virusDetection = "", spyDetection = "", wrDetection = "", dcDetection = "";
   let ipsDetection = "", ccDetection = "", bmDetection = ""
 
-  if (virus1[0].total_detection) {
-    virusDetection = `${virus1[0].total_detection} Virus/Malware Detected`;
+  if (showCharts[1]) {
+    if (virus1[0].total_detection) {
+      virusDetection = `${virus1[0].total_detection} Virus/Malware Detected`;
+    }
   }
 
-  if (spyware1[0].total_detection) {
-    spyDetection = `${spyware1[0].total_detection} Spyware/Grayware Detected`;
+  if (showCharts[2]) {
+    if (spyware1[0].total_detection) {
+      spyDetection = `${spyware1[0].total_detection} Spyware/Grayware Detected`;
+    }
+
   }
 
-  if (wr1[0].total_detection) {
-    wrDetection = `${wr1[0].total_detection} Web Reputation Detected`;
+  if (showCharts[3]) {
+
+    if (wr1[0].total_detection) {
+      wrDetection = `${wr1[0].total_detection} Web Reputation Detected`;
+    }
   }
 
-  if (dc1[0].total_detection) {
-    dcDetection = `${dc1[0].total_detection} Device Control Detected`;
+
+  if (showCharts[4]) {
+
+    if (dc1[0].total_detection) {
+      dcDetection = `${dc1[0].total_detection} Device Control Detected`;
+    }
   }
 
-  if (ips1[0].total_detection) {
-    ipsDetection = `${ips1[0].total_detection} Intrusion Prevention Detected`;
+  if (showCharts[5]) {
+
+    if (ips1[0].total_detection) {
+      ipsDetection = `${ips1[0].total_detection} Intrusion Prevention Detected`;
+    }
   }
 
-  if (cc1[0].total_detection) {
-    ccDetection = `${cc1[0].total_detection} C&C Callback Detected`;
+  if (showCharts[6]) {
+
+    if (cc1[0].total_detection) {
+      ccDetection = `${cc1[0].total_detection} C&C Callback Detected`;
+    }
   }
 
-  if (bm1[0].total_detection) {
-    bmDetection = `${bm1[0].total_detection} Behavior Monitoring Detected`;
+  if (showCharts[7]) {
+
+    if (bm1[0].total_detection) {
+      bmDetection = `${bm1[0].total_detection} Behavior Monitoring Detected`;
+    }
   }
 
 

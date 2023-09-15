@@ -287,38 +287,6 @@ export default function Apex41({
                   </tr>
 
                   <tr className="con5">
-                    <td className="con5">Patterns Update Status </td>
-                    <td className="con5">Up to Date </td>
-                    <td className="con5" id="uptodate">
-                      Up to Date:-{" "}
-                      <input
-                        type="number"
-                        id="patterns_update_status_uptodate"
-                        name="patterns_update_status_uptodate"
-                        style={{ width: "25%" }}
-                        onChange={(e) => {
-                          handleChange(e);
-                          superman(e);
-                        }}
-                      />
-                      Outdated:-{" "}
-                      <input
-                        type="number"
-                        id="outdated"
-                        name="outdated"
-                        style={{ width: "25%" }}
-                        onChange={(e) => {
-                          handleChange(e);
-                          superman(e);
-                        }}
-                      />
-                    </td>
-                    <td className="con5" style={{ textAlign: "center" }}>
-                      <img src="images/tab1.png" id="super" alt="" />
-                    </td>
-                  </tr>
-
-                  <tr className="con5">
                     <td className="con5">Agent Management tree</td>
                     <td className="con5">AD / Custom / NetBIOS grouping</td>
                     <td className="con5">
@@ -552,6 +520,7 @@ export default function Apex41({
                         }}
                       >
                         <option value="Daily">Daily</option>
+                        <option value="Hourly">Hourly</option>
                         <option value="Weekly">Weekly</option>
                         <option value="Monthly">Monthly</option>
                       </select>
@@ -573,6 +542,37 @@ export default function Apex41({
                 </td>
                 <td className="con5" style={{ textAlign: "center" }}>
                   <img src="images/tab1.png" id="sep6" alt="" />
+                </td>
+              </tr>
+              <tr className="con5">
+                <td className="con5">Patterns Update Status </td>
+                <td className="con5">Up to Date </td>
+                <td className="con5" id="uptodate">
+                  Up to Date:-{" "}
+                  <input
+                    type="number"
+                    id="patterns_update_status_uptodate"
+                    name="patterns_update_status_uptodate"
+                    style={{ width: "25%" }}
+                    onChange={(e) => {
+                      handleChange(e);
+                      superman(e);
+                    }}
+                  />
+                  Outdated:-{" "}
+                  <input
+                    type="number"
+                    id="outdated"
+                    name="outdated"
+                    style={{ width: "25%" }}
+                    onChange={(e) => {
+                      handleChange(e);
+                      superman(e);
+                    }}
+                  />
+                </td>
+                <td className="con5" style={{ textAlign: "center" }}>
+                  <img src="images/tab1.png" id="super" alt="" />
                 </td>
               </tr>
               <tr className="con5">

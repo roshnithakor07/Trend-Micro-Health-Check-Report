@@ -7,7 +7,7 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 import Endpoints from '../API/Endpoints'
 
 export default function SmartScan(props) {
-    const {smartscanApi, getReportData } = Endpoints();
+    const {smartscanApi} = Endpoints();
 
    
     let vm = ["Smart Scan Agent Pattern"];
@@ -23,21 +23,7 @@ export default function SmartScan(props) {
         tablePatternData: "[]",
     });
 
-    useEffect(() => {
-        const getProductById = async () => {
-            await axios({
-                url: getReportData,
-                method: "GET",
-            })
-                .then((res) => {
-                    myChartData.r_id = res.data[0]._id;
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-        };
-        getProductById();
-    });
+    
 
 
 
@@ -172,11 +158,11 @@ export default function SmartScan(props) {
     }
 
     const dropdownOptions = lable.map((e) => (
-        <a href="/#" key={e}>
-            <input type="checkbox" name="messageCheckbox0" defaultChecked={e} defaultValue={e} onChange={handleCheckboxChange} />
-            {e}
-        </a>
-    ));
+        <span key={e}>
+          <input type="checkbox" name="messageCheckbox0" defaultChecked={e} defaultValue={e} onChange={handleCheckboxChange} />
+          {e}
+        </span>
+      ));
 
     const handleDes = (e) => {
         setMycharts((prev) => ({
@@ -322,7 +308,7 @@ export default function SmartScan(props) {
     //process database
 
     const handleCharts = () => {
-
+        myChartData["r_id"] = props.report_id;
         myChartData["chartTitle"] = props.chartTitle;
         myChartData.total_detection = total_detection;
 

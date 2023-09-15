@@ -83,10 +83,13 @@ const saveDataag = async (req, res) => {
 // virus
 const getvirusModel = async (req, res) => {
     try {
+
         const virus1 = await Virus.find({}).sort({ _id: -1 }).limit(1);
         virusText[0] = JSON.parse(virus1[0].virus).length === 10 ? virusText[0] : "Virus/Malware Detection";
         virusText[1] = JSON.parse(virus1[0].endpoint).length === 10 ? virusText[1] : "Endpoints in Virus/Malware Detection";
+
         let chartTypes = JSON.parse(virus1[0].chartTypes)
+
         createChart(JSON.parse(virus1[0].virus), JSON.parse(virus1[0].virus_count), virusText[0], "v_img1", chartTypes[0])
         createChart(JSON.parse(virus1[0].endpoint), JSON.parse(virus1[0].endpoint_count), virusText[1], "v_img2", chartTypes[1])
         createChart(JSON.parse(virus1[0].action), JSON.parse(virus1[0].action_count), virusText[2], "v_img3", chartTypes[2])
@@ -356,6 +359,8 @@ const saveDatafurtherinformation = async (req, res) => {
 
 
 function createChart(l, d, title, img, type = 'bar') {
+
+    if (l.length < 1 || d.length < 1) return;
 
     chart.setWidth(500)
     chart.setHeight(300);

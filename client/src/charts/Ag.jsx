@@ -5,14 +5,14 @@ import axios from "axios";
 import Chart from "chart.js/auto";
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import Endpoints from '../API/Endpoints'
-import { green,indigo } from "@mui/material/colors";
+import { green, indigo } from "@mui/material/colors";
 
 
 const success = indigo[700]; // #f44336
 const save = green[900];
 
 export default function Ag(props) {
-  const { agApi, getReportData } = Endpoints();
+  const { agApi} = Endpoints();
   let ag = ["Platform", "Agent Program"];
   const [dataPoints, setDataPoints] = useState([1, 2, 3])
   const [columnsNames, setCoulmnsName] = useState("Platform");
@@ -50,25 +50,6 @@ export default function Ag(props) {
     agent_Program_Count: "[]",
     chartDescription: "[]",
   });
-
-
-  useEffect(() => {
-    getProductById();
-  });
-
-  const getProductById = async () => {
-    await axios({
-      url: getReportData,
-      method: "GET",
-    })
-      .then((res) => {
-        myChartData.r_id = res.data[0]._id;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
 
   let topValue = {}
   let arr = [], count = {}
@@ -164,10 +145,10 @@ export default function Ag(props) {
   }
 
   const dropdownOptions = lable.map((e) => (
-    <a href="/#" key={e}>
+    <span key={e}>
       <input type="checkbox" name="messageCheckbox0" defaultChecked={e} defaultValue={e} onChange={handleCheckboxChange} />
       {e}
-    </a>
+    </span>
   ));
 
 
@@ -176,7 +157,7 @@ export default function Ag(props) {
     const link = [...PointArr];
 
     if (columnsNames === "Platform") {
-    
+
       myChartData["platform"] = JSON.stringify(x);
       myChartData["platform_count"] = JSON.stringify(y1);
 
@@ -206,7 +187,7 @@ export default function Ag(props) {
       th1.appendChild(text1);
 
       th2.appendChild(text2);
-      
+
       tr.appendChild(th1);
 
       tr.appendChild(th2);
@@ -241,9 +222,9 @@ export default function Ag(props) {
       document.getElementById('wrapper-child00').appendChild(table)
     } else if (columnsNames === "Agent Program") {
       link[0] = `${x[0]} is the latest agent Program version recommended to upgrade all the older agents to the latest version.`
-      
+
       setPointArr(link)
-      
+
       myChartData["agent_Program"] = JSON.stringify(x);
       myChartData["agent_Program_Count"] = JSON.stringify(y1);
       createChart(x, y1)
@@ -315,9 +296,9 @@ export default function Ag(props) {
   }
 
   const handleCharts = () => {
-
+    myChartData["r_id"] = props.report_id;
     myChartData["chartDescription"] = JSON.stringify(PointArr);
-  
+
     const getProductById = async (e) => {
       try {
         await axios.post(agApi, myChartData);
@@ -345,7 +326,7 @@ export default function Ag(props) {
   };
 
   const deletePopup = (e, index, linkArrNo) => {
-    
+
     const link1 = [...PointArr];
     link1.splice(index, 1);
     setPointArr(link1);
@@ -353,7 +334,7 @@ export default function Ag(props) {
   };
 
   const updateValue = () => {
-    
+
     const link1 = [...PointArr];
 
     link1[updateLinkId] = updatechartDes;
@@ -362,7 +343,6 @@ export default function Ag(props) {
     setUpdateLinkId('');
     closePopup()
   }
-
 
   const closePopup = () => { setIsPopupOpen(false) }
   const openPopup = (e, index, chartDes, no) => {

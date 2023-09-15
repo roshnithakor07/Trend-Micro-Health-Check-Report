@@ -1,55 +1,267 @@
-
-const Pdfmake = require("pdfmake");
-var pdfMake = require("pdfmake/build/pdfmake");
-var pdfFonts = require("pdfmake/build/vfs_fonts");
-const fs = require('fs');;
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
+const fs = require("fs");
+const { AlignmentType, convertInchesToTwip, Document, HeadingLevel, LevelFormat, Packer, Paragraph, TextRun, UnderlineType } = require("docx");
 
 
-
-var fonts = {
-  Roboto: {
-    normal: "fonts/roboto/calibri-regular.ttf",
-    bold: "fonts/roboto/calibri-bold.ttf",
-    italics: "fonts/roboto/calibri-italic.ttf",
-    bolditalics: "fonts/roboto/calibri-bold-italic.ttf",
+const doc = new Document({
+  creator: "Clippy",
+  title: "Sample Document",
+  description: "A brief example of using docx",
+  styles: {
+    default: {
+      heading1: {
+        run: {
+          size: 28,
+          bold: true,
+          italics: true,
+          color: "FF0000",
+        },
+        paragraph: {
+          spacing: {
+            after: 120,
+          },
+        },
+      },
+      heading2: {
+        run: {
+          size: 26,
+          bold: true,
+          underline: {
+            type: UnderlineType.DOUBLE,
+            color: "FF0000",
+          },
+        },
+        paragraph: {
+          spacing: {
+            before: 240,
+            after: 120,
+          },
+        },
+      },
+      listParagraph: {
+        run: {
+          color: "#FF0000",
+        },
+      },
+      document: {
+        run: {
+          size: "11pt",
+          font: "Arial",
+        },
+        paragraph: {
+          alignment: AlignmentType.RIGHT,
+        },
+      },
+    },
+    paragraphStyles: [
+      {
+        id: "aside",
+        name: "Aside",
+        basedOn: "Normal",
+        next: "Normal",
+        run: {
+          color: "999999",
+          italics: true,
+        },
+        paragraph: {
+          indent: {
+            left: convertInchesToTwip(0.5),
+          },
+          spacing: {
+            line: 276,
+          },
+        },
+      },
+      {
+        id: "wellSpaced",
+        name: "Well Spaced",
+        basedOn: "Normal",
+        quickFormat: true,
+        paragraph: {
+          spacing: { line: 276, before: 20 * 72 * 0.1, after: 20 * 72 * 0.05 },
+        },
+      },
+      {
+        id: "strikeUnderline",
+        name: "Strike Underline",
+        basedOn: "Normal",
+        quickFormat: true,
+        run: {
+          strike: true,
+          underline: {
+            type: UnderlineType.SINGLE,
+          },
+        },
+      },
+    ],
+    characterStyles: [
+      {
+        id: "strikeUnderlineCharacter",
+        name: "Strike Underline",
+        basedOn: "Normal",
+        quickFormat: true,
+        run: {
+          strike: true,
+          underline: {
+            type: UnderlineType.SINGLE,
+          },
+        },
+      },
+    ],
   },
-};
-
-
-let pdfmake = new Pdfmake(fonts);
-
-var dd = {
-  content: [
+  numbering: {
+    config: [
+      {
+        reference: "my-crazy-numbering",
+        levels: [
+          {
+            level: 0,
+            format: LevelFormat.LOWER_LETTER,
+            text: "%1)",
+            alignment: AlignmentType.LEFT,
+          },
+        ],
+      },
+    ],
+  },
+  sections: [
     {
-     
-      table: {
-
-        body: [
-          [{ text: 'Header 1', style: 'tableHeader' }, { text: 'Header 2', style: 'tableHeader' }, { text: 'Header 3', style: 'tableHeader' }],
-          [
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+      children: [
+        new Paragraph({
+          text: "Test heading1, bold and italicized",
+          heading: HeadingLevel.HEADING_1,
+        }),
+        new Paragraph("Some simple content"),
+        new Paragraph({
+          text: "Test heading2 with double red underline",
+          heading: HeadingLevel.HEADING_2,
+        }),
+        new Paragraph({
+          text: "Option1",
+          numbering: {
+            reference: "my-crazy-numbering",
+            level: 0,
+          },
+          style: "aside",
+        }),
+        new Paragraph({
+          text: "Option5 -- override 2 to 5",
+          numbering: {
+            reference: "my-crazy-numbering",
+            level: 0,
+          },
+        }),
+        new Paragraph({
+          text: "Option3",
+          numbering: {
+            reference: "my-crazy-numbering",
+            level: 0,
+          },
+        }),
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "Some monospaced content",
+              font: {
+                name: "Monospace",
+              },
+            }),
           ],
-          [
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-          ]
-        ]
+        }),
+        new Paragraph({
+          text: "An aside, in light gray italics and indented",
+          style: "aside",
+        }),
+        new Paragraph({
+          text: "This is normal, but well-spaced text",
+          style: "wellSpaced",
+        }),
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "This is a bold run,",
+              bold: true,
+            }),
+            new TextRun(" switching to normal "),
+            new TextRun({
+              text: "and then underlined ",
+              underline: {},
+            }),
+            new TextRun({
+              text: "and then emphasis-mark ",
+              emphasisMark: {},
+            }),
+            new TextRun({
+              text: "and back to normal.",
+            }),
+            new TextRun({
+              text: "This text will be invisible!",
+              vanish: true,
+            }),
+            new TextRun({
+              text: "This text will be VERY invisible! Word processors cannot override this!",
+              specVanish: true,
+            }),
+          ],
+        }),
+        new Paragraph({
+          style: "Strong",
+          children: [
+            new TextRun({
+              text: "Strong Style",
+            }),
+            new TextRun({
+              text: " - Very strong.",
+            }),
+          ],
+        }),
+        new Paragraph({
+          style: "strikeUnderline",
+          children: [
+            new TextRun({
+              text: "Underline and Strike",
+            }),
+            new TextRun({
+              text: " Override Underline ",
+              underline: {
+                type: UnderlineType.NONE,
+              },
+            }),
+            new TextRun({
+              text: "Strike and Underline",
+            }),
+          ],
+        }),
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "Hello World ",
+            }),
+            new TextRun({
+              style: "strikeUnderlineCharacter",
+              text: "Underline and Strike",
+            }),
+            new TextRun({
+              text: " Another Hello World",
+            }),
+            new TextRun({
+              scale: 50,
+              text: " Scaled text",
+            }),
+          ],
+        }),
+        new Paragraph({
+          scale: 200,
+          children: [
+            new TextRun({
+              text: "Scaled paragraph",
+            }),
+          ],
+        }),
+      ],
+    },
+  ],
+});
 
-      }
-    }
-  ]
-};
-
-const pdfDoc = pdfmake.createPdfKitDocument(dd);
-const filePath = 'sample.pdf';
-const fileStream = fs.createWriteStream(filePath);
-pdfDoc.pipe(fileStream);
-pdfDoc.end();
-
-
-
-
+Packer.toBuffer(doc).then((buffer) => {
+  fs.writeFileSync("My Document.docx", buffer);
+});;;

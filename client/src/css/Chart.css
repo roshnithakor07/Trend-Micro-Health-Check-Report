@@ -123,14 +123,18 @@
     z-index: 1;
 }
 
-.dropdown-content a {
+.dropdown-content input {
+    cursor: pointer;
+}
+
+.dropdown-content span {
     color: black;
     /* padding: 10px 10px; */
     text-decoration: none;
     display: block;
 }
 
-.dropdown-content a:hover {
+.dropdown-content span:hover {
     background-color: #f1f1f1
 }
 

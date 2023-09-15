@@ -18,8 +18,8 @@ import moment from "moment";
 import Endpoints from '../API/Endpoints';
 const save = teal[500];
 
-export default function Charts() {
-  const { getReportData, chartApi } = Endpoints();
+export default function CreateCharts() {
+  const {chartApi } = Endpoints();
   const [logDays, setLogDays] = useState(30);
   const [logDuration, setLogDurations] = useState("Days");
   const [logCollectionDate, setLogCollectionDate] = useState("2024-3-4");
@@ -35,25 +35,6 @@ export default function Charts() {
     logDuration: "",
     logCollectionDate: ""
   });
-
-  useEffect(() => {
-    const getProductById = async () => {
-      await axios({
-        url: getReportData,
-        method: "GET",
-      })
-        .then((res) => {
-
-          myChartData.r_id = res.data[0]._id;
-          setReport_id(res.data[0]._id)
-
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
-    getProductById();
-  }, []);
 
 
   const [x, setX] = useState([

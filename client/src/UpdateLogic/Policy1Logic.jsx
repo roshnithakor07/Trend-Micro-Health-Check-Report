@@ -448,8 +448,8 @@ function PolicyOverviewLogic1() {
                     link[no].push(policyName)
             }
             setPolicyActionArr(link)
-            a = `In ${policyActionArr[0].join(", ")} Action Settings, active Action is selected, recommended to select Use a specific action for each virus/malware type.`;
-            b = `In ${policyActionArr[1].join(", ")} Action Settings, same action for all malware-Virus types is selected, recommended to select Use a specific action for each virus/malware type.`
+            a = `In ${policyActionArr[0].join(", ")} Scan Action Settings, active Action is selected, recommended to select Use a specific action for each virus/malware type.`;
+            b = `In ${policyActionArr[1].join(", ")} Scan Action Settings, same action for all malware-Virus types is selected, recommended to select Use a specific action for each virus/malware type.`
         } else {
 
             if (policyActionArr[0].includes(policyName)) {
@@ -458,8 +458,8 @@ function PolicyOverviewLogic1() {
                 link[1].splice(link[1].indexOf(policyName), 1);
             }
             setPolicyActionArr(link)
-            a = `In ${policyActionArr[0].join(", ")} Action Settings, Active Action is selected, recommended to select Use a specific action for each virus/malware type.`;
-            b = `In ${policyActionArr[1].join(", ")} Action Settings, Same action for all malware-Virus types is selected, recommended to select Use a specific action for each virus/malware type.`
+            a = `In ${policyActionArr[0].join(", ")} Scan Action Settings, Active Action is selected, recommended to select Use a specific action for each virus/malware type.`;
+            b = `In ${policyActionArr[1].join(", ")} Scan Action Settings, Same action for all malware-Virus types is selected, recommended to select Use a specific action for each virus/malware type.`
         }
 
         if (policyActionArr[0].length > 0) {
@@ -501,7 +501,7 @@ function PolicyOverviewLogic1() {
         }
 
         if (checkBackUpFiles >= 1) {
-            let a = `In ${nameOfPolicy[5].join(", ")} Action Settings, back up files before cleaning is disabled, recommended to enable it.`;
+            let a = `In ${nameOfPolicy[5].join(", ")} Scan Action Settings, back up files before cleaning is disabled, recommended to enable it.`;
             addValue1("rSummary17", a)
         }
         else {
@@ -522,7 +522,7 @@ function PolicyOverviewLogic1() {
         }
 
         if (checkDamageCleanup >= 1) {
-            let a = `In ${nameOfPolicy[6].join(", ")} Action Settings, damage Clean up Services with Standard clean up, recommended to enable it with Advanced clean up as The Security Agent uses advanced cleanup rules to proactively detect and stop applications that exhibit Fake AV and rootkit behavior.`;
+            let a = `In ${nameOfPolicy[6].join(", ")} Scan Action Settings, damage Clean up Services with Standard clean up, recommended to enable it with Advanced clean up as The Security Agent uses advanced cleanup rules to proactively detect and stop applications that exhibit Fake AV and rootkit behavior.`;
             addValue1("rSummary18", a)
         }
         else {
@@ -543,7 +543,7 @@ function PolicyOverviewLogic1() {
         }
 
         if (checkRunCleanup >= 1) {
-            let a = `In ${nameOfPolicy[7].join(", ")} Action Settings, run cleanup when probable virus/malware is detected' is disabled, recommended to enable it as probable viruses/malware are suspicious files that have some of the characteristics of viruses/malware.`;
+            let a = `In ${nameOfPolicy[7].join(", ")} Scan Action Settings, run cleanup when probable virus/malware is detected' is disabled, recommended to enable it as probable viruses/malware are suspicious files that have some of the characteristics of viruses/malware.`;
             addValue1("rSummary19", a)
         }
         else {
@@ -564,7 +564,7 @@ function PolicyOverviewLogic1() {
         }
 
         if (checkSpywareApexOneTerminates >= 1) {
-            let a = `In ${nameOfPolicy[8].join(", ")} Action Settings, in Spyware/Grayware settings Clean: Apex One terminates processes are not enabled, recommend to enable it.`;
+            let a = `In ${nameOfPolicy[8].join(", ")} Scan Action Settings, in Spyware/Grayware settings Clean: Apex One terminates processes are not enabled, recommend to enable it.`;
             addValue1("rSummary20", a)
         }
         else {

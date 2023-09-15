@@ -11,7 +11,7 @@ const success = indigo[700];
 const save = green[900];
 
 export default function BM(props) {
-  const { bmApi, getReportData } = Endpoints();
+  const { bmApi} = Endpoints();
 
 
 
@@ -28,24 +28,10 @@ export default function BM(props) {
     total_detection: 0,
     chartDescription: '[]',
     chartSubPoints: "[]",
-    showChart: true,
+    showChart: "[false, false, false]",
   });
 
-  useEffect(() => {
-    const getProductById = async () => {
-      await axios({
-        url: getReportData,
-        method: "GET",
-      })
-        .then((res) => {
-          myChartData.r_id = res.data[0]._id;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
-    getProductById();
-  });
+ 
 
   let canavaId = ["myChart71", "myChart72"];
   const heading = ["BM BY POLICY & RISK LEVEL", "Action"]
@@ -71,7 +57,7 @@ export default function BM(props) {
   const [x, setX] = useState([]);
   const [y1, setY1] = useState([]);
   const [myChart, setMyChart] = useState([])
-  const [chartType, setChartType] = useState("bar")
+  const [chartType, setChartType] = useState("horizontalBar")
   const [description, setDescription] = useState([[], []]);
   const [chartTypes, setChartTypes] = useState(['', ''])
 
@@ -83,12 +69,13 @@ export default function BM(props) {
   const [chartDes, setchartDess] = useState("");
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [popupIndex, setPopupIndex] = useState(0);
+  const [showChart, setShowChart] = useState([false, false, false])
 
   //sub points
   const [isSubPointPopupOpen, setIsSubPopupOpen] = useState(false);
   const [subPointIndex, setSubPointIndex] = useState(0);
   const [SubPointArr, setSubPointArr] = useState([[[], [], []], [[], [], []], [[], [], []]]);
-  const [showChart, setShowChart] = useState(true)
+  
 
   //Sub Point Section
   const deleteSubPoint = (e, index, subIndex, linkArrNo) => {
@@ -255,10 +242,10 @@ export default function BM(props) {
   }
 
   const dropdownOptions = lable.map((e) => (
-    <a href="/#" key={e}>
+    <span key={e}>
       <input type="checkbox" name="messageCheckbox0" defaultChecked={e} defaultValue={e} onChange={handleCheckboxChange} />
       {e}
-    </a>
+    </span>
   ));
 
   if (columnsNames === vm[0] || columnsNames === vm[1]) {
@@ -399,7 +386,7 @@ export default function BM(props) {
       endPointVal1 = top5Keys1.slice(0, -1).join(", ") + " and " + top5Keys1[top5Keys1.length - 1] + " endpoints,";
     } else {
       if (top5Keys1.length) {
-        endPointVal1 = "the " + top5Keys0[0] + " endpoint,";
+        endPointVal1 = "the " + top5Keys1[0] + " endpoint,";
       } else {
         endPointVal1 = "no endpoint,"
       }
@@ -535,10 +522,11 @@ export default function BM(props) {
 
 
   function handleSubmit() {
+    const link = [...showChart];
     document.getElementById('Chartbutton').style.display = "block"
     const link1 = [...PointArr]
     if (columnsNames === vm[0]) {
-
+      link[0] = true
       if (x.length > 1) {
 
         link1[0][0] = description[0][0];
@@ -555,7 +543,8 @@ export default function BM(props) {
       console.log(chartType === 'y')
 
     } else if (columnsNames === vm[1]) {
-
+      link[1] = true
+      link[2] = true
       setbmPolicyRiskTable([...updatedPolicyRiskTable])
 
       if (x.length > 1) {
@@ -670,9 +659,8 @@ export default function BM(props) {
 
     }
     setPointArr(link1);
+    setShowChart(link)
   }
-
-
 
   function createCharts(no, x, y1, wrapper, canvas, text) {
     document.getElementById(wrapper).style.display = "block";
@@ -743,14 +731,14 @@ export default function BM(props) {
   //process database
 
   const handleCharts = () => {
+    myChartData["r_id"] = props.report_id;
     myChartData["chartDescription"] = JSON.stringify(PointArr)
     myChartData["chartSubPoints"] = JSON.stringify(SubPointArr)
     myChartData.total_detection = total_detection;
     myChartData.chartFirstLine = chartFirstLine;
     myChartData.chartTypes = JSON.stringify(chartTypes)
     myChartData["updatedPolicyRiskTable"] = JSON.stringify(bmPolicyRiskTable)
-
-    myChartData["showChart"] = showChart;
+    myChartData["showChart"] = JSON.stringify(showChart);
 
     const getProductById = async (e) => {
       try {
@@ -822,10 +810,12 @@ export default function BM(props) {
     console.log(index, no)
   };
 
-  const closeChart = (e) => {
-    document.getElementById("wrapper73").style.display = "none"
-    setShowChart(false)
-  }
+  const closeChart = (e, idVal, index) => {
+    const link = [...showChart];
+    document.getElementById(idVal).style.display = "none"
+    link[index] = false
+    setShowChart(link)
+}
 
 
 
@@ -864,8 +854,8 @@ export default function BM(props) {
             <li>
               <select name="chartType" id="chartType" onChange={(e) => { setChartType(e.target.value) }}>
 
-                <option value="bar">Bar</option>
                 <option value="horizontalBar">Horizontal Bar</option>
+                <option value="bar">Bar</option>
                 <option value="outlabeledPie">Pie</option>
               </select>
             </li>
@@ -882,7 +872,7 @@ export default function BM(props) {
         <div className="main-chart">
 
           <div className="chart-wrapper" id="wrapper71">
-            {/* <!-- <canvas id="myChart" className="myChart" width="400" height="400"></canvas> --> */}
+          <div className="close-icon1" onClick={(e) => { closeChart(e, "wrapper71", 0) }}>✖</div>
             <canvas
               id="myChart71"
               width="500"
@@ -960,6 +950,7 @@ export default function BM(props) {
             </div>
           </div>
           <div className="chart-wrapper" id="wrapper72">
+          <div className="close-icon1" onClick={(e) => { closeChart(e, "wrapper72", 1) }}>✖</div>
             <canvas
               id="myChart72"
               className="myChart"
@@ -1034,7 +1025,7 @@ export default function BM(props) {
             </div>
           </div>
           <div className="chart-wrapper" id="wrapper73">
-            <div className="close-icon1" onClick={(e) => { closeChart(e) }}>✖</div>
+          <div className="close-icon1" onClick={(e) => { closeChart(e, "wrapper73", 2) }}>✖</div>
             <div id="wrapper-child73"></div>
 
           </div>

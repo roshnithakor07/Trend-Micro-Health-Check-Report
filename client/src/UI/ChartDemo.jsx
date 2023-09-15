@@ -11,7 +11,7 @@ const success = indigo[700];
 const save = green[900];
 
 export default function ChartDemo(props) {
-    const { dcApi } = Endpoints();
+    const { dcApi, getReportData } = Endpoints();
 
     //database data : 
     const [myChartData, setMycharts] = useState({
@@ -29,11 +29,25 @@ export default function ChartDemo(props) {
         chartDescription: '[]',
         updatedDCVendorTable: "[]",
         chartSubPoints: "[]",
-        showChart: "[false,false,false,false]",
+        showChart: true,
     });
 
-  
 
+    useEffect(() => {
+        const getProductById = async () => {
+            await axios({
+                url: getReportData,
+                method: "GET",
+            })
+                .then((res) => {
+                    myChartData.r_id = res.data[0]._id;
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        };
+        getProductById();
+    });
 
     let canavaId = ["myChart51", "myChart52", "myChart53"];
 
@@ -68,7 +82,7 @@ export default function ChartDemo(props) {
     const [PointArr, setPointArr] = useState([[], [], []]);
     const [updatechartDes, setUpdatechartDes] = useState("");;
     const [updateLinkId, setUpdateLinkId] = useState("");
-    const [showChart, setShowChart] = useState([false, false, false, false])
+    const [showChart, setShowChart] = useState([false,false,false,false])
 
     const [chartDes, setchartDess] = useState("");
     const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -370,7 +384,7 @@ export default function ChartDemo(props) {
             top5Keys2[i] = transformKey(top5Keys2[i]);
         }
 
-        description[2][0] = `All detections triggered have been ${top5Keys2.join(', ').replace(/,([^,]*)$/, ', and$1')} by Apex One Agent.`
+        PointArr[2][0] = `All detections triggered have been ${top5Keys2.join(', ').replace(/,([^,]*)$/, ', and$1')} by Apex One Agent.`
     }
 
 
@@ -481,7 +495,7 @@ export default function ChartDemo(props) {
 
     function handleSubmit() {
         const link = [...showChart];
-
+        
         document.getElementById('Chartbutton').style.display = "block"
         const link1 = [...PointArr]
         if (columnsNames === vm[0]) {
@@ -516,7 +530,6 @@ export default function ChartDemo(props) {
             myChartData['product_endpoint_count'] = JSON.stringify(y1)
 
         } else if (columnsNames === vm[3]) {
-            link1[2][0] = description[2][0];
             link[3] = true
             setDcVendorTable([...updatedDCVendorTable])
 
@@ -699,14 +712,14 @@ export default function ChartDemo(props) {
     //process database
 
     const handleCharts = () => {
-        myChartData["r_id"] = props.report_id;
+
         myChartData["chartDescription"] = JSON.stringify(PointArr)
         myChartData.total_detection = total_detection;
         myChartData["chartSubPoints"] = JSON.stringify(SubPointArr)
         myChartData.chartFirstLine = chartFirstLine;
         myChartData.chartTypes = JSON.stringify(chartTypes)
         myChartData["updatedDCVendorTable"] = JSON.stringify(dcVendorTable);
-        myChartData["showChart"] = JSON.stringify(showChart);
+        myChartData["showChart"] = showChart;
 
         const getProductById = async (e) => {
             try {
@@ -777,12 +790,19 @@ export default function ChartDemo(props) {
         console.log(index, no)
     };
 
+
     const closeChart = (e, idVal, index) => {
         const link = [...showChart];
         document.getElementById(idVal).style.display = "none"
         link[index] = false
         setShowChart(link)
     }
+
+   
+
+
+    console.log(showChart)
+
 
 
     return (
@@ -802,7 +822,7 @@ export default function ChartDemo(props) {
 
 
                         <li>
-                            <select name="agColumn" id="agColumn" onChange={(e) => { load(e); }}>
+                            <select name="agColumn" id="agColumn" onChange={(e) => { load(e);}}>
                                 <option value="select">----select----</option>
                                 {csvColumnNameOptions}
                             </select>

@@ -10,6 +10,7 @@ function PolicyOverviewLogic1() {
 
     const tab1 = "images/tab1.png";
     const tab2 = "images/tab2.png";
+    const tab4 = "images/tab4.png";
 
 
     const [showComponent, setShowComponent] = useState(false);
@@ -348,8 +349,8 @@ function PolicyOverviewLogic1() {
                     link[no].push(policyName)
             }
             setPolicyActionArr(link)
-            a = `In ${policyActionArr[0].join(', ').replace(/,([^,]*)$/, ' and$1')} Action Settings, active Action is selected, recommended to select Use a specific action for each virus/malware type.`;
-            b = `In ${policyActionArr[1].join(', ').replace(/,([^,]*)$/, ' and$1')} Action Settings, same action for all malware-Virus types is selected, recommended to select Use a specific action for each virus/malware type.`
+            a = `In ${policyActionArr[0].join(', ').replace(/,([^,]*)$/, ' and$1')} Scan Action Settings, active Action is selected, recommended to select Use a specific action for each virus/malware type.`;
+            b = `In ${policyActionArr[1].join(', ').replace(/,([^,]*)$/, ' and$1')} Scan Action Settings, same action for all malware-Virus types is selected, recommended to select Use a specific action for each virus/malware type.`
         } else {
 
             if (policyActionArr[0].includes(policyName)) {
@@ -358,8 +359,8 @@ function PolicyOverviewLogic1() {
                 link[1].splice(link[1].indexOf(policyName), 1);
             }
             setPolicyActionArr(link)
-            a = `In ${policyActionArr[0].join(', ').replace(/,([^,]*)$/, ' and$1')} Action Settings, active Action is selected, recommended to select Use a specific action for each virus/malware type.`;
-            b = `In ${policyActionArr[1].join(', ').replace(/,([^,]*)$/, ' and$1')} Action Settings, same Action for all malware-Virus types is selected, recommended to select Use a specific action for each virus/malware type.`
+            a = `In ${policyActionArr[0].join(', ').replace(/,([^,]*)$/, ' and$1')} Scan Action Settings, active Action is selected, recommended to select Use a specific action for each virus/malware type.`;
+            b = `In ${policyActionArr[1].join(', ').replace(/,([^,]*)$/, ' and$1')} Scan Action Settings, same Action for all malware-Virus types is selected, recommended to select Use a specific action for each virus/malware type.`
         }
 
         if (policyActionArr[0].length > 0) {
@@ -401,7 +402,7 @@ function PolicyOverviewLogic1() {
         }
 
         if (checkBackUpFiles >= 1) {
-            let a = `In ${nameOfPolicy[5].join(', ').replace(/,([^,]*)$/, ' and$1')} Action Settings, back up files before cleaning is disabled, recommended to enable it.`;
+            let a = `In ${nameOfPolicy[5].join(', ').replace(/,([^,]*)$/, ' and$1')} Scan Action Settings, back up files before cleaning is disabled, recommended to enable it.`;
             addValue1("rSummary17", a)
         }
         else {
@@ -422,7 +423,7 @@ function PolicyOverviewLogic1() {
         }
 
         if (checkDamageCleanup >= 1) {
-            let a = `In ${nameOfPolicy[6].join(', ').replace(/,([^,]*)$/, ' and$1')} Action Settings, damage Clean up Services with Standard clean up, recommended to enable it with Advanced clean up as The Security Agent uses advanced cleanup rules to proactively detect and stop applications that exhibit Fake AV and rootkit behavior.`;
+            let a = `In ${nameOfPolicy[6].join(', ').replace(/,([^,]*)$/, ' and$1')} Scan Action Settings, damage Clean up Services with Standard clean up, recommended to enable it with Advanced clean up as The Security Agent uses advanced cleanup rules to proactively detect and stop applications that exhibit Fake AV and rootkit behavior.`;
             addValue1("rSummary18", a)
         }
         else {
@@ -443,7 +444,7 @@ function PolicyOverviewLogic1() {
         }
 
         if (checkRunCleanup >= 1) {
-            let a = `In ${nameOfPolicy[7].join(', ').replace(/,([^,]*)$/, ' and$1')} Action Settings, run cleanup when probable virus/malware is detected' is disabled, recommended to enable it as probable viruses/malware are suspicious files that have some of the characteristics of viruses/malware.`;
+            let a = `In ${nameOfPolicy[7].join(', ').replace(/,([^,]*)$/, ' and$1')} Scan Action Settings, run cleanup when probable virus/malware is detected' is disabled, recommended to enable it as probable viruses/malware are suspicious files that have some of the characteristics of viruses/malware.`;
             addValue1("rSummary19", a)
         }
         else {
@@ -464,7 +465,7 @@ function PolicyOverviewLogic1() {
         }
 
         if (checkSpywareApexOneTerminates >= 1) {
-            let a = `In ${nameOfPolicy[8].join(', ').replace(/,([^,]*)$/, ' and$1')} Action Settings, in Spyware/Grayware settings Clean: Apex One terminates processes are not enabled, recommend to enable it.`;
+            let a = `In ${nameOfPolicy[8].join(', ').replace(/,([^,]*)$/, ' and$1')} Scan Action Settings, in Spyware/Grayware settings Clean: Apex One terminates processes are not enabled, recommend to enable it.`;
             addValue1("rSummary20", a)
         }
         else {
@@ -995,8 +996,8 @@ function PolicyOverviewLogic1() {
             checkPolicyOverview()
             closeValue1("rSummary55")
         } else {
-            myPo1ImgData.tab55 = tab2;
-            document.getElementById("sep55").src = tab2;
+            myPo1ImgData.tab55 = tab4;
+            document.getElementById("sep55").src = tab4;
             addValue1('rSummary55', rsummary55)
             setcheckPolicyOverviewES(++checkPolicyOverviewES)
             checkPolicyOverview()
