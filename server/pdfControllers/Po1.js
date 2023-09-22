@@ -144,22 +144,46 @@ const getPo1 = async (req, res) => {
       break;
     case 'yes3':
       RTable1 = [
-        { text: 'Used specific action for each Virus/Malware type:', lineHeight: 1.2, style: 'common' },
-        {
-          fontSize: 11,
-          margin: [0, 6, 0, 0],
-          table: {
-            body: [
-              [{ text: `Select - Joke: ${Report[0].joke2}` }],
-              [{ text: `Select - Trojans: ${Report[0].trojans2}` }],
-              [{ text: `Select - Virus: ${Report[0].virus12} & ${Report[0].virus22}` }],
-              [{ text: `Select - Test Virus: ${Report[0].test_virus2}` }],
-              [{ text: `Select - Packer: ${Report[0].packer2}` }],
-              [{ text: `Select - Probable Malware: ${Report[0].probable_malware12} & ${Report[0].probable_malware22}` }],
-              [{ text: `Select - Other Malware: ${Report[0].other_malware12} & ${Report[0].other_malware22}` }]
-            ]
-          }
-        }
+        new Paragraph({
+          text: 'Used specific action for each Virus/Malware type:',
+          spacing: { after: 100 }
+        }),
+        new Table({
+          margins: {
+            top: 60,
+            bottom: 60,
+            left: 60,
+            right: 60
+          },
+
+          rows: [
+            new TableRow({
+              children: [new TableCell({
+                children: [new Paragraph(`Select - Joke: ${Report[0].joke2}`)]
+              })]
+            }),
+            new TableRow({
+              children: [new TableCell({ children: [new Paragraph(`Select - Trojans: ${Report[0].trojans2}`)] })]
+            }),
+            new TableRow({
+              children: [new TableCell({ children: [new Paragraph(`Select - Virus: ${Report[0].virus12} & ${Report[0].virus22}`)] })]
+            }),
+            new TableRow({
+              children: [new TableCell({ children: [new Paragraph(`Select - Test Virus: ${Report[0].test_virus2}`)] })]
+            }),
+            new TableRow({
+              children: [new TableCell({ children: [new Paragraph(`Select - Packer: ${Report[0].packer2}`)] })]
+            }),
+            new TableRow({
+              children: [new TableCell({ children: [new Paragraph(`Select - Probable Malware: ${Report[0].probable_malware12} & ${Report[0].probable_malware22}`)] })]
+            }),
+            new TableRow({
+              children: [new TableCell({ children: [new Paragraph(`Select - Other Malware: ${Report[0].other_malware12} & ${Report[0].other_malware22}`)] })]
+            }),
+
+          ]
+        })
+
       ];
       break;
     default:

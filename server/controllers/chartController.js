@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const QuickChart = require('quickchart-js');
 const chart = new QuickChart();
+const fs = require("fs");
 
 const { Chart1, Ag, Virus, Spyware, Bm, Dc, Ips, Smartscan, Wr, Cc, FurtherInformation } = require('../Models/chartModel');
 
@@ -32,6 +33,43 @@ let ssText = ["Smart Scan Agent Pattern"];
 let ccText = ["Endpoints Having C&C Detection", "C&C Callbacks Address"];
 const wrText = ['Top 10 URL Detections in WRS', 'Top 10 Endpoints in WRS Detection', 'Protocol Detection'];
 
+
+const convertChartBase64ToImg = async (req, res) => {
+
+    const virus1 = await Virus.find({}).sort({ _id: -1 }).limit(1);
+    const spyware1 = await Spyware.find({}).sort({ _id: -1 }).limit(1);
+    const wr1 = await Wr.find({}).sort({ _id: -1 }).limit(1);
+    
+    try {
+
+        if (virus1[0].desImages !== "") {
+         
+            let base64Image = virus1[0].desImages.split(';base64,').pop();
+            fs.writeFile('./images/virusIMage.png', base64Image, { encoding: 'base64' }, function (err) {
+                if (err) throw err;
+            });
+        }
+
+        if (spyware1[0].cLogo !== "") {
+            let base64Image = spyware1[0].desImages.split(';base64,').pop();
+            fs.writeFile('./images/spywareIMage.png', base64Image, { encoding: 'base64' }, function (err) {
+                if (err) throw err;
+            });
+        }
+
+        if (wr1[0].cLogo !== "") {
+            let base64Image = wr1[0].desImages.split(';base64,').pop();
+            fs.writeFile('./images/WRIMage.png', base64Image, { encoding: 'base64' }, function (err) {
+                if (err) throw err;
+            });
+        }
+
+
+
+    } catch (error) {
+        // res.status(500).json({ message: error.message });
+    }
+}
 
 //mainChart 
 const getChartModel = async (req, res) => {
@@ -485,6 +523,7 @@ function createChart(l, d, title, img, type = 'bar') {
 
 
 module.exports = {
+    convertChartBase64ToImg,
     getChartModel, saveDataChart,
     getagModel, saveDataag,
     getvirusModel, saveDatavirus,

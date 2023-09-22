@@ -25,7 +25,7 @@ function ExcutiveSummery() {
 
 
     //PO1
-    let rsummary10 = `All the agents are using the Conventional Scan method recommended to use Smart scan Method. Smart Scan leverages threat signatures that are stored in the cloud.`
+    let rsummary10 = `All the agents are using the Conventional Scan method recommended to use the Smart Scan Method. Smart Scan leverages threat signatures that are stored in the cloud.`
     let rsummary11 = `Files to scan are set as File types scanned By IntelliScan, recommended to set it as All Scannable files as Only scan files known to potentially harbor malicious code, including files disguised by a harmless extension name are Scan in IntelliScan.`
     let rsummary12 = `In Manual Scan and policy settings, Scan Hidden Folders is disabled, recommended to enable it.`;
     let rsummary13 = `Detect exploit code in OLE is disabled, recommended to enable it.`;
@@ -79,15 +79,15 @@ function ExcutiveSummery() {
     let esummary60 = `Memory Allocated to the Apex Central server is not as per the Trend Micro Requirement.`
     let rsummary60 = `Memory Allocated to the Apex Central server is not as per the Trend Micro Requirement, recommended to refer to the sizing document for details. https://docs.trendmicro.com/all/ent/apex-one/2019/en-us/apexOne_2019_req.pdf.`
     let esummary61 = `In Apex Central Active Directory is not configured.`;
-    let rsummary61 = `Configure Active Directory Sync to allow administrators to create user accounts for web console access based on Active Directory users or groups.\nFor more information`
+    let rsummary61 = `Configure Active Directory Sync to allow administrators to create user accounts for web console access based on Active Directory users or groups. For more information`
     let esummary62 = `In Apex Central Log Retention is not configured.`
-    let rsummary62 = `In Apex Central Log Retention is not configure recommended to configure it.`
+    let rsummary62 = `In Apex Central Log Retention is not configured recommended to configure it.`
     let esummary63 = `In Apex Central Scheduled Report is not configured.`
     let rsummary63 = `In Apex Central Schedule Reports are not configured, recommended to configure it for better visibility in the console for all types of events.`
     let esummary64 = `In Apex Central Event Notifications are not Enabled.`
     let rsummary64 = `In Apex Central Event Notifications are disabled, recommended to enable it.`
     let esummary65 = "In Apex Central syslog is not configured.";
-    let rsummary65 = `In Apex Central syslog is not configured, recommended to configure them to forward logs to syslog server(For compliance purpose).\nFor more information`;
+    let rsummary65 = `In Apex Central syslog is not configured, recommended to configure them to forward logs to the syslog server (For compliance purposes). For more information`;
     let esummary66 = `In Apex Central Report Maintenance is not configured.`
     let rsummary66 = `In Apex Central Report Maintenance is not configured, recommended to configure it.`
 

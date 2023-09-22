@@ -20,6 +20,8 @@ function Endpoints() {
     const furtherInformation = `${API}/furtherinformation`;
 
     //GET Req...
+    
+    const convertChartBase64ToImg = `${API}/convertChartBase64ToImg`
     const getChartApi = `${API}/getChartValue`
     const getAgApi = `${API}/getAgValue`
     const getVirusApi = `${API}/getVirusValue`
@@ -40,6 +42,7 @@ function Endpoints() {
     const updateReportData = `${RAPI}/updateOneReport`;
     const deleteReportData = `${RAPI}`;
     const deleteAllReportData = `${RAPI}`;
+    const convertBase64ToImg = `${RAPI}/convertBase64ToImg`;
 
 
     //Policy 2 data
@@ -54,6 +57,7 @@ function Endpoints() {
 
 
     return {
+        convertBase64ToImg,convertChartBase64ToImg,
         chartApi, getChartApi,
         furtherInformation,
         agApi, virusApi, spywareApi, wrApi, bmApi, dcApi, ipsApi, ccApi, smartscanApi,

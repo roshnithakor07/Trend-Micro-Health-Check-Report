@@ -50,7 +50,7 @@ function ReportLogic() {
       companyName: "EVENTUS",
 
       // Product Architecture
-      productArchitecture: "images/evenuts-logo.png",
+      productArchitecture: "images/PA.png",
 
       //apex41
       total_service: "0",

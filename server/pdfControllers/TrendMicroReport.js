@@ -47,23 +47,23 @@ const getTrendMicroReportPdf = async (req, res) => {
     ]);
 
 
-    let combinedContent = []
+    let combinedContent = [...charts]
 
-    if (Report[0].checkPolicyOverviewTwoAdded) {
-        const po2 = await getPo2();
-        combinedContent = [...report, ...ES, ...apex41, ...po1, ...po2, ...apex43, ...Recommendation];
-    }
-    else {
-        combinedContent = [...report, ...ES, ...apex41, ...po1, ...apex43, ...Recommendation];
-    }
+    // if (Report[0].checkPolicyOverviewTwoAdded) {
+    //     const po2 = await getPo2();
+    //     combinedContent = [...report, ...ES, ...apex41, ...po1, ...po2, ...apex43, ...Recommendation];
+    // }
+    // else {
+    //     combinedContent = [...report, ...ES, ...apex41, ...po1, ...apex43, ...Recommendation];
+    // }
 
 
-    if (Report[0].showRecommendedProcedure) {
-        const recommendedProcedureArr = await getRecommendedProcedure();
-        combinedContent = [combinedContent, ...recommendedProcedureArr, ...charts];
-    } else {
-        combinedContent = [combinedContent, ...charts];
-    }
+    // if (Report[0].showRecommendedProcedure) {
+    //     const recommendedProcedureArr = await getRecommendedProcedure();
+    //     combinedContent = [combinedContent, ...recommendedProcedureArr, ...charts];
+    // } else {
+    //     combinedContent = [combinedContent, ...charts];
+    // }
 
 
     let headerText = {

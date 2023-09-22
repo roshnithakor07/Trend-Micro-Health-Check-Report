@@ -22,29 +22,27 @@ function useApexOneLogic41() {
     { label: "common1", description: "(input) endpoints are required to restart for the update." },
     { label: "common2", description: `(input) endpoints (input-name-of-endpoints) are required to restart for cleanup.` },
     { label: "common3", description: "(input) agents (input) are using the Windows servers platform." },
-    { label: "common4", description: "(input) agents are installed on Windows 7 (Legacy OS) platform." },
+    { label: "common4", description: "(input) agents are installed on the Windows 7 (Legacy OS) platform." },
     { label: "common5", description: "(input) endpoints are without policy." },
 
   ]);
 
   let [reqSummarySenArr, setReqSummarySenArr] = useState([
     {
-      label: "common0", description: `(input) Agents have outdated Program versions out of (input) agents keep all agent program versions updated.
-      Minimum OS Version requirement for the latest Apex One SaaS agent version:`,
+      label: "common0", description: `(input) Agents have outdated Program versions out of (input) agents keep all agent program versions updated. Minimum OS Version requirement for the latest Apex One SaaS agent version:`,
       linkTitle: "https://success.trendmicro.com/dcx/s/solution/000291904?language=en_US",
       link: "https://success.trendmicro.com/dcx/s/solution/000291904?language=en_US"
     },
-    { label: "common1", description: "(input) endpoints are required to restart for the update. Apex One Agents may need to reboot for engine updates. Recommended to restarting those endpoints.", linkTitle: "", link: "" },
-    { label: "common2", description: `(input) endpoints (input) are required restart for cleanup.`, linkTitle: "", link: "" },
+    { label: "common1", description: "(input) endpoints are required to restart for the update. Apex One Agents may need to reboot for engine updates. Recommend restarting those endpoints.", linkTitle: "", link: "" },
+    { label: "common2", description: `(input) endpoints (input) are required to restart for cleanup.`, linkTitle: "", link: "" },
     {
-      label: "common3", description: `(input) agents are installed on Windows 7 (Legacy OS) platform, recommended to upgrade it to the latest OS.
-      For the Windows 7 & 8.1 machines End-of-Support`,
+      label: "common3", description: `(input) agents are installed on the Windows 7 (Legacy OS) platform, recommended to upgrade it to the latest OS. For the Windows 7 & 8.1 machines End-of-Support`,
       linkTitle: "https://success.trendmicro.com/dcx/s/solution/000291687?language=en_US&sfdcIFrameOrigin=null",
       link: "https://success.trendmicro.com/dcx/s/solution/000291687?language=en_US&sfdcIFrameOrigin=null"
     },
 
     { label: "common4", description: `(input) agents (input) are using the Windows servers platform. recommended to use Cloud One Workload Security for better protection of the server.`, linkTitle: "", link: "" },
-    { label: "common5", description: "(input) Endpoints are without policy, recommended to apply policy to all endpoint on priority for better protection.", linkTitle: "", link: "" }
+    { label: "common5", description: "(input) Endpoints are without policy, recommended to apply policy to all endpoints on priority for better protection.", linkTitle: "", link: "" }
   ]);
 
   let [globalAgentsSettings, setglobalAgentsSettings] = useState(0);

@@ -240,7 +240,6 @@ const getCharts = async (req, res) => {
                         {
                             text: `${virus1[0].chartFirstLine}`,
                             style: "chartFirstLine"
-
                         },
                         { image: `${chartFolderName}/v_img1.png`, style: "chartImage", width: 350, height: 200 }
                     ]
@@ -1079,6 +1078,7 @@ const getCharts = async (req, res) => {
             { image: `${chartFolderName}/ss_img1.png`, style: "chartImage", width: 350, height: 200, id: 'closingParagraph' }
         )
     }
+
 
 
     try {

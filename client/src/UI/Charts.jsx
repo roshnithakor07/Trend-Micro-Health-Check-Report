@@ -19,7 +19,7 @@ import Endpoints from '../API/Endpoints';
 const save = teal[500];
 
 export default function Charts() {
-  const { getReportData, chartApi } = Endpoints();
+  const { getReportData, chartApi,convertBase64ToImg } = Endpoints();
   const [logDays, setLogDays] = useState(30);
   const [logDuration, setLogDurations] = useState("Days");
   const [logCollectionDate, setLogCollectionDate] = useState("2024-3-4");
@@ -55,6 +55,16 @@ export default function Charts() {
     getProductById();
   }, []);
 
+  useEffect(() => {
+    const getProductById1 = async () => {
+      fetch(convertBase64ToImg)
+        .then(res => res.blob())
+        .then(data => {
+        });
+    }
+    getProductById1();
+
+  }, []);
 
   const [x, setX] = useState([
     "Agent Distribution",

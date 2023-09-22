@@ -1,6 +1,32 @@
 const ReportModel = require('../Models/reportModel')
+const fs = require("fs")
 
 
+const convertBase64ToImg = async (req, res) => {
+    const Report = await ReportModel.find({}).sort({ _id: -1 }).limit(1);
+    
+    try {
+
+        if (Report[0].productArchitecture !== "images/PA.png") {
+            let base64Image = Report[0].productArchitecture.split(';base64,').pop();
+            fs.writeFile('./images/productArchitecture.png', base64Image, { encoding: 'base64' }, function (err) {
+                if (err) throw err;
+            });
+        }
+
+        if (Report[0].cLogo !== "images/evenuts-logo.png") {
+            let base64Image = Report[0].cLogo.split(';base64,').pop();
+            fs.writeFile('./images/companyLogo.png', base64Image, { encoding: 'base64' }, function (err) {
+                if (err) throw err;
+            });
+        }
+
+
+
+    } catch (error) {
+        // res.status(500).json({ message: error.message });
+    }
+}
 
 const getReport = async (req, res) => {
     try {
@@ -12,7 +38,7 @@ const getReport = async (req, res) => {
 }
 
 const getOneReport = async (req, res) => {
-    const id = req.params.id ;
+    const id = req.params.id;
     try {
         const Report = await ReportModel.findById(id);
         res.json(Report);
@@ -77,5 +103,6 @@ const deleteReport = async (req, res) => {
 
 
 module.exports = {
+    convertBase64ToImg,
     getOneReport, getReport, saveData, updateData, deleteAllData, getAllData, deleteReport
 } 

@@ -8,7 +8,7 @@ const bodyParser = require('body-parser');
 const charts = require('./routes/charts');
 const report = require('./routes/report');
 const pdf = require('./routes/pdf')
-
+const docx = require('./routes/docx')
 
 const app = express();
 app.use(cors());
@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({limit: '50mb', extended: true}))
 app.use("/charts" ,charts);
 app.use("/report" ,report);
 app.use("/pdf" ,pdf);
-
+app.use("/docx" ,docx);
 
 app.get('/',function(req,res,next){
     res.send("<h1>this is home page</h1>");

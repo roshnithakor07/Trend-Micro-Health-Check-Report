@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const {
+    convertChartBase64ToImg,
     getChartModel,saveDataChart,
     getagModel, saveDataag,
     getvirusModel, saveDatavirus,
@@ -19,6 +20,7 @@ const {
 
 router.get('/',(req,res)=>{res.send("hello charts")});
 
+router.get('/convertChartBase64ToImg', convertChartBase64ToImg)
 router.get('/getChartValue', getChartModel)
 
 router.get('/getAgValue', getagModel)

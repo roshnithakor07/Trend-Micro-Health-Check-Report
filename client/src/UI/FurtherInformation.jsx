@@ -15,8 +15,19 @@ const save = green[900];
 
 export default function FurtherInformation() {
 
-  const { furtherInformation, getReportData, getAgApi, getVirusApi, getSpywareApi, getWrApi, getBmApi, getDcApi, getIpsApi, getCcApi, getSmartscanApi } = Endpoints();
+  const { convertChartBase64ToImg, furtherInformation, getReportData, getAgApi, getVirusApi, getSpywareApi, getWrApi, getBmApi, getDcApi, getIpsApi, getCcApi, getSmartscanApi } = Endpoints();
 
+
+  useEffect(() => {
+    const getProductById1 = async () => {
+      fetch(convertChartBase64ToImg)
+        .then(res => res.blob())
+        .then(data => {
+        });
+    }
+    getProductById1();
+
+  }, []);
 
   const getProductById1 = async () => {
     fetch(getAgApi)
