@@ -2,7 +2,8 @@ import React from 'react'
 import ExcutiveSummery from "../Logic/ExcutiveSummery"
 
 export default function PolicyOverview1(
-    { myData: {
+    { 
+        myData: {
         visible,
         handleChange,
         handlePolicyOverviewName,

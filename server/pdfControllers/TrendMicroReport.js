@@ -34,8 +34,6 @@ let pdfmake = new Pdfmake(fonts);
 
 const getTrendMicroReportPdf = async (req, res) => {
     const Report = await ReportModel.find({}).sort({ _id: -1 }).limit(1);
-
-
     const [report, ES, apex41, po1, apex43, Recommendation, charts] = await Promise.all([
         getReportpdf(),
         getES(),
@@ -47,23 +45,23 @@ const getTrendMicroReportPdf = async (req, res) => {
     ]);
 
 
-    let combinedContent = [...charts]
+    let combinedContent = []
 
-    // if (Report[0].checkPolicyOverviewTwoAdded) {
-    //     const po2 = await getPo2();
-    //     combinedContent = [...report, ...ES, ...apex41, ...po1, ...po2, ...apex43, ...Recommendation];
-    // }
-    // else {
-    //     combinedContent = [...report, ...ES, ...apex41, ...po1, ...apex43, ...Recommendation];
-    // }
+    if (Report[0].checkPolicyOverviewTwoAdded) {
+        const po2 = await getPo2();
+        combinedContent = [...report, ...ES, ...apex41, ...po1, ...po2, ...apex43, ...Recommendation];
+    }
+    else {
+        combinedContent = [...report, ...ES, ...apex41, ...po1, ...apex43, ...Recommendation];
+    }
 
 
-    // if (Report[0].showRecommendedProcedure) {
-    //     const recommendedProcedureArr = await getRecommendedProcedure();
-    //     combinedContent = [combinedContent, ...recommendedProcedureArr, ...charts];
-    // } else {
-    //     combinedContent = [combinedContent, ...charts];
-    // }
+    if (Report[0].showRecommendedProcedure) {
+        const recommendedProcedureArr = await getRecommendedProcedure();
+        combinedContent = [combinedContent, ...recommendedProcedureArr, ...charts];
+    } else {
+        combinedContent = [combinedContent, ...charts];
+    }
 
 
     let headerText = {
@@ -92,7 +90,7 @@ const getTrendMicroReportPdf = async (req, res) => {
                         image: "images/bg.png",
                         width: 792,
                         // absolutePosition: { x: -10, y: -200 },
-                        absolutePosition: { x: -10, y: -120 },
+                        absolutePosition: { x:-100, y: 320 },
                     }
                 } else {
                     return {}

@@ -31,10 +31,11 @@ export default function PolicyOverview2({ myData: {
     fiftyfourFunction1,
     fiftyfiveFunction1,
     fiftysixFunction1,
-    fiftynineFunction1,
     vulnerabilityProtectionFun1,
     deviceControlFun1,
-    applicationControlFun1
+    applicationControlFun1,
+    vulnerabilityProtectionModeFun1,
+    exception51Fun1,
 
 } }) {
     const {
@@ -62,10 +63,10 @@ export default function PolicyOverview2({ myData: {
                         />
                     </h5>{" "}
                 </div>
-                
+
                 <div className="head5" id="head55">
                     <h2 style={{ color: "red" }} className="report-heading2">
-                        5.2.2 Policy overview
+                        4.2.2 Policy overview
                     </h2>
                     <table className="con6 table1" id="documentV">
                         <thead className="con5">
@@ -95,6 +96,7 @@ export default function PolicyOverview2({ myData: {
                                     &nbsp;Policy
                                 </td>
                             </tr>
+
                             <tr className="con6">
                                 <td className="con6">Agent Scan Mode</td>
                                 <td className="con6">Smart scan</td>
@@ -104,7 +106,7 @@ export default function PolicyOverview2({ myData: {
                                             id="9"
                                             onChange={(e) => {
                                                 eightFunction1(e);
-                                                handlePolicy2(e);
+                                                handlePolicy2(e)
                                             }}
                                             name="agent_scan_mode1"
                                         >
@@ -160,7 +162,6 @@ export default function PolicyOverview2({ myData: {
                                                 tenFunction1(
                                                     e,
                                                     "sep10Policy2",
-                                                    "policyTwo12",
                                                     "tab10",
                                                     "rSummary12",
                                                     rsummary12
@@ -181,21 +182,21 @@ export default function PolicyOverview2({ myData: {
 
                             <tr className="con6">
                                 <td className="con6">
-                                    Select - Scan compressed files.{">"}Maximium layers:3
+                                    Select - Scan compressed files.{">"}Maximium layers: 2
                                 </td>
                                 <td className="con6">
                                     Select - Scan compressed files.{">"}Maximium layers:{" "}
                                     <select
                                         id="12"
                                         onChange={(e) => {
-                                            elevenFunction1(e, "sep11Policy2", "tab11", 3);
+                                            elevenFunction1(e, "sep11Policy2", "tab11", 2);
                                             handlePolicy2(e);
                                         }}
                                         name="scan_compressed_files1"
                                     >
+                                        <option value="2">2</option>
                                         <option value="3">3</option>
                                         <option value="1">1</option>
-                                        <option value="2">2</option>
                                         <option value="4">4</option>
                                         <option value="5">5</option>
                                         <option value="6">6</option>
@@ -303,6 +304,7 @@ export default function PolicyOverview2({ myData: {
                             </tr>
                             {/* Manual Scan - Policy end */}
 
+
                             {/* Manual Scan - Actions starts */}
 
                             <tr className="con6">
@@ -318,9 +320,7 @@ export default function PolicyOverview2({ myData: {
                                                 <td className="con6">Select - Joke: Quarantine</td>
                                             </tr>
                                             <tr className="con6">
-                                                <td className="con6">
-                                                    Select - Trojans:Quarantine
-                                                </td>
+                                                <td className="con6">Select - Trojans:Quarantine</td>
                                             </tr>
                                             <tr className="con6">
                                                 <td className="con6">
@@ -333,9 +333,7 @@ export default function PolicyOverview2({ myData: {
                                                 </td>
                                             </tr>
                                             <tr className="con6">
-                                                <td className="con6">
-                                                    Select - Packer: Quarantine
-                                                </td>
+                                                <td className="con6">Select - Packer: Quarantine</td>
                                             </tr>
                                             <tr className="con6">
                                                 <td className="con6">
@@ -365,7 +363,7 @@ export default function PolicyOverview2({ myData: {
                                                 "tab16",
                                                 0,
                                                 "radio1Policy2",
-                                                "radio2Policy2"
+                                                "radio2Policy2", 0
                                             );
                                         }}
                                     />{" "}
@@ -402,13 +400,14 @@ export default function PolicyOverview2({ myData: {
                                                 "tab16",
                                                 0,
                                                 "radio1Policy2",
-                                                "radio2Policy2"
+                                                "radio2Policy2", 0
                                             );
                                         }}
+
                                     />{" "}
                                     Use the same action for all Virus/Malware types <br />
-                                    (If the first action is unseccessful, Apex One performs
-                                    the second action.) <br /> <br />
+                                    (If the first action is unseccessful, Apex One performs the
+                                    second action.) <br /> <br />
                                     <table className="table2" id="use_action2table">
                                         <thead>
                                             <tr id="ch">
@@ -452,7 +451,7 @@ export default function PolicyOverview2({ myData: {
                                     <input
                                         type="radio"
                                         name="use_activeAction1Policy2"
-                                        id="radio3"
+                                        id="radio3Policy2"
                                         value="yes3"
                                         defaultChecked
                                         onChange={(e) => {
@@ -463,7 +462,7 @@ export default function PolicyOverview2({ myData: {
                                                 "tab16",
                                                 0,
                                                 "radio1Policy2",
-                                                "radio2Policy2"
+                                                "radio2Policy2", 0
                                             );
                                         }}
                                     />{" "}
@@ -603,6 +602,35 @@ export default function PolicyOverview2({ myData: {
                                                     </select>
                                                 </td>
                                             </tr>
+                                            <tr id="ch">
+                                                <td id="ch">Other Malware</td>
+                                                <td id="ch">
+                                                    <select
+                                                        id="ka6"
+                                                        name="other_malware11"
+                                                        onChange={handlePolicy2}
+                                                    >
+                                                        <option value="Clean">Clean</option>
+                                                        <option value="Quarantine">Quarantine</option>
+                                                        <option value="Pass">Pass</option>
+                                                        <option value="Delete">Delete</option>
+                                                        <option value="Rename">Rename</option>
+                                                    </select>
+                                                </td>
+                                                <td id="ch">
+                                                    <select
+                                                        id="k2"
+                                                        name="other_malware21"
+                                                        onChange={handlePolicy2}
+                                                    >
+                                                        <option value="Quarantine">Quarantine</option>
+                                                        <option value="Pass">Pass</option>
+                                                        <option value="Clean">Clean</option>
+                                                        <option value="Delete">Delete</option>
+                                                        <option value="Rename">Rename</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </td>
@@ -640,14 +668,7 @@ export default function PolicyOverview2({ myData: {
                                     <select
                                         id="19Policy2"
                                         onChange={(e) => {
-                                            eighteenFunction1(
-                                                e,
-                                                "sep18Policy2",
-                                                "tab18",
-                                                0,
-                                                "19Policy2",
-                                                "20Policy2"
-                                            );
+                                            eighteenFunction1(e, "sep18Policy2", "tab18", 0, "19Policy2", "20Policy2");
                                             handlePolicy2(e);
                                         }}
                                         name="damage_cleanup_services11"
@@ -659,14 +680,7 @@ export default function PolicyOverview2({ myData: {
                                     <select
                                         id="20Policy2"
                                         onChange={(e) => {
-                                            eighteenFunction1(
-                                                e,
-                                                "sep18Policy2",
-                                                "tab18",
-                                                0,
-                                                "19Policy2",
-                                                "20Policy2"
-                                            );
+                                            eighteenFunction1(e, "sep18Policy2", "tab18", 0, "19Policy2", "20Policy2");
                                             handlePolicy2(e);
                                         }}
                                         name="damage_cleanup_services21"
@@ -686,8 +700,7 @@ export default function PolicyOverview2({ myData: {
 
                             <tr className="con6">
                                 <td className="con6">
-                                    Enable - Run cleanup when Probable virus/malware is
-                                    detected
+                                    Enable - Run cleanup when Probable virus/malware is detected
                                 </td>
                                 <td className="con6">
                                     <select
@@ -732,6 +745,7 @@ export default function PolicyOverview2({ myData: {
                             </tr>
 
                             {/* Manual Scan - Actions ends */}
+
 
                             {/* Real-Time Scan Policy Settings starts */}
                             <tr className="con6">
@@ -796,9 +810,7 @@ export default function PolicyOverview2({ myData: {
                                         <option value="created/modified and retrieved">
                                             created/modified and retrieved
                                         </option>
-                                        <option value="created/modified">
-                                            created/modified
-                                        </option>
+                                        <option value="created/modified">created/modified</option>
                                         <option value="retrieved">retrieved</option>
                                     </select>
                                 </td>
@@ -832,32 +844,6 @@ export default function PolicyOverview2({ myData: {
                                     <img src="images/tab1.png" id="sep24Policy2" alt="" />
                                 </td>
                             </tr>
-                            {/* <tr className="con6">
-                    <td className="con6">Enable - Scan network drive.</td>
-                    <td className="con6">
-                      <select
-                        id="27"
-                        onChange={(e) => {
-                          tenFunction1(
-                            e,
-                            "sep25Policy2",
-                            "policyTwo24",
-                            "tab25",
-                            "rSummary24",
-                            rsummary24
-                          );
-                          handlePolicy2(e);
-                        }}
-                        name="scan_network_drive2"
-                      >
-                        <option value="Enabled">Enabled</option>
-                        <option value="Disabled">Disabled</option>
-                      </select>
-                    </td>
-                    <td className="con6" style={{ textAlign: "center" }}>
-                      <img src="images/tab1.png" id="sep25Policy2" alt="" />
-                    </td>
-                  </tr> */}
 
                             <tr className="con6">
                                 <td className="con6">
@@ -871,7 +857,6 @@ export default function PolicyOverview2({ myData: {
                                             tenFunction1(
                                                 e,
                                                 "sep26Policy2",
-                                                "policyTwo25",
                                                 "tab26",
                                                 "rSummary25",
                                                 rsummary25
@@ -890,8 +875,8 @@ export default function PolicyOverview2({ myData: {
                             </tr>
                             <tr className="con6">
                                 <td className="con6">
-                                    Enable - Scan all files in a removable storage device
-                                    after plugging in.
+                                    Enable - Scan all files in a removable storage device after
+                                    plugging in.
                                 </td>
                                 <td className="con6">
                                     <select
@@ -900,7 +885,6 @@ export default function PolicyOverview2({ myData: {
                                             tenFunction1(
                                                 e,
                                                 "sep27Policy2",
-                                                "policyTwo26",
                                                 "tab27",
                                                 "rSummary26",
                                                 rsummary26
@@ -929,7 +913,6 @@ export default function PolicyOverview2({ myData: {
                                             tenFunction1(
                                                 e,
                                                 "sep28Policy2",
-                                                "policyTwo27",
                                                 "tab28",
                                                 "rSummary27",
                                                 rsummary27
@@ -1030,7 +1013,6 @@ export default function PolicyOverview2({ myData: {
                                             tenFunction1(
                                                 e,
                                                 "sep32Policy2",
-                                                "policyTwo28",
                                                 "tab32",
                                                 "rSummary28",
                                                 rsummary28
@@ -1064,9 +1046,7 @@ export default function PolicyOverview2({ myData: {
                                                 <td className="con6">Select - Joke: Quarantine</td>
                                             </tr>
                                             <tr className="con6">
-                                                <td className="con6">
-                                                    Select - Trojans:Quarantine
-                                                </td>
+                                                <td className="con6">Select - Trojans:Quarantine</td>
                                             </tr>
                                             <tr className="con6">
                                                 <td className="con6">
@@ -1079,9 +1059,7 @@ export default function PolicyOverview2({ myData: {
                                                 </td>
                                             </tr>
                                             <tr className="con6">
-                                                <td className="con6">
-                                                    Select - Packer: Quarantine
-                                                </td>
+                                                <td className="con6">Select - Packer: Quarantine</td>
                                             </tr>
                                             <tr className="con6">
                                                 <td className="con6">
@@ -1109,7 +1087,7 @@ export default function PolicyOverview2({ myData: {
                                                 "tab33",
                                                 1,
                                                 "radio4Policy2",
-                                                "radio5Policy2"
+                                                "radio5Policy2", 1
                                             );
                                             handlePolicy2(e);
                                         }}
@@ -1145,15 +1123,15 @@ export default function PolicyOverview2({ myData: {
                                                 "tab33",
                                                 1,
                                                 "radio4Policy2",
-                                                "radio5Policy2"
+                                                "radio5Policy2", 1
                                             );
                                             handlePolicy2(e);
                                         }}
                                     />{" "}
                                     Use the same action for all Virus/Malware types
                                     <br />
-                                    (If the first action is unseccessful, Apex One performs
-                                    the second action.) <br /> <br />
+                                    (If the first action is unseccessful, Apex One performs the
+                                    second action.) <br /> <br />
                                     <br />
                                     <table className="table2">
                                         <thead>
@@ -1198,8 +1176,8 @@ export default function PolicyOverview2({ myData: {
                                     <input
                                         type="radio"
                                         value={"yes3"}
-                                        defaultChecked
                                         name="use_activeAction2Policy2"
+                                        defaultChecked
                                         id="radio6"
                                         onChange={(e) => {
                                             sixteenFunction1(
@@ -1208,7 +1186,7 @@ export default function PolicyOverview2({ myData: {
                                                 "tab33",
                                                 1,
                                                 "radio4Policy2",
-                                                "radio5Policy2"
+                                                "radio5Policy2", 1
                                             );
                                             handlePolicy2(e);
                                         }}
@@ -1349,6 +1327,35 @@ export default function PolicyOverview2({ myData: {
                                                     </select>
                                                 </td>
                                             </tr>
+                                            <tr id="ch">
+                                                <td id="ch">Other Malware</td>
+                                                <td id="ch">
+                                                    <select
+                                                        id="ka6"
+                                                        name="other_malware12"
+                                                        onChange={handlePolicy2}
+                                                    >
+                                                        <option value="Clean">Clean</option>
+                                                        <option value="Quarantine">Quarantine</option>
+                                                        <option value="Pass">Pass</option>
+                                                        <option value="Delete">Delete</option>
+                                                        <option value="Rename">Rename</option>
+                                                    </select>
+                                                </td>
+                                                <td id="ch">
+                                                    <select
+                                                        id="k2"
+                                                        name="other_malware22"
+                                                        onChange={handlePolicy2}
+                                                    >
+                                                        <option value="Quarantine">Quarantine</option>
+                                                        <option value="Pass">Pass</option>
+                                                        <option value="Clean">Clean</option>
+                                                        <option value="Delete">Delete</option>
+                                                        <option value="Rename">Rename</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </td>
@@ -1380,8 +1387,7 @@ export default function PolicyOverview2({ myData: {
                             </tr>
                             <tr className="con6">
                                 <td className="con6">
-                                    Enable - Run cleanup when probable virus/malware is
-                                    detected
+                                    Enable - Run cleanup when probable virus/malware is detected
                                 </td>
                                 <td className="con6">
                                     <select
@@ -1480,14 +1486,13 @@ export default function PolicyOverview2({ myData: {
                                     <input
                                         type="radio"
                                         value={"daily"}
-                                        name="configure_schedule_scan_checkbox3Policy2"
-                                        id="radio10Policy2"
+                                        name="configure_schedule_scan_checkbox3"
+                                        id="radio10"
                                         onChange={(e) => {
                                             thirtynineFunction1(e);
                                             handlePolicy2(e);
                                         }}
-                                    />{" "}
-                                    Daily
+                                    /> Daily
                                     &nbsp;Start time:{" "}
                                     <input
                                         type="time"
@@ -1498,13 +1503,14 @@ export default function PolicyOverview2({ myData: {
                                     <input
                                         type="radio"
                                         value={"weeklyEvery"}
-                                        name="configure_schedule_scan_checkbox3Policy2"
+                                        name="configure_schedule_scan_checkbox3"
                                         id="radio11Policy2"
                                         onChange={(e) => {
                                             thirtynineFunction1(e);
                                             handlePolicy2(e);
                                         }}
-                                    />{" "}
+                                    />
+                                    {" "}
                                     Weekly Every
                                     {" "}
                                     <select
@@ -1514,7 +1520,7 @@ export default function PolicyOverview2({ myData: {
                                         <option>Monday</option>
                                         <option>Tuesday</option>
                                         <option>Wednesday</option>
-                                        <option>Thrusday</option>
+                                        <option>Thursday</option>
                                         <option>Friday</option>
                                         <option>Saturday</option>
                                         <option>Sunday</option>
@@ -1529,14 +1535,14 @@ export default function PolicyOverview2({ myData: {
                                     <input
                                         type="radio"
                                         value={"monthlyDay"}
-                                        name="configure_schedule_scan_checkbox3Policy2"
+                                        name="configure_schedule_scan_checkbox3"
                                         id="radio12"
                                         onChange={(e) => {
                                             thirtynineFunction1(e);
                                             handlePolicy2(e);
                                         }}
                                     />{" "}
-                                    Monthly,on day
+                                    Monthly,on day {" "}
                                     <select
                                         name="configure_schedule_scan_month3"
                                         onChange={handlePolicy2}
@@ -1572,7 +1578,7 @@ export default function PolicyOverview2({ myData: {
                                         <option>29</option>
                                         <option>30</option>
                                         <option>31</option>
-                                    </select>{" "}
+                                    </select>
                                     &nbsp;Start time:{" "}
                                     <input
                                         type="time"
@@ -1583,7 +1589,7 @@ export default function PolicyOverview2({ myData: {
                                     <input
                                         type="radio"
                                         value={"monthlyOnDay"}
-                                        name="configure_schedule_scan_checkbox3Policy2"
+                                        name="configure_schedule_scan_checkbox3"
                                         id="radio13"
                                         onChange={(e) => {
                                             thirtynineFunction1(e);
@@ -1671,6 +1677,7 @@ export default function PolicyOverview2({ myData: {
                                         <option value="3">3</option>
                                         <option value="4">4</option>
                                         <option value="5">5</option>
+                                        <option value="6">6</option>
                                     </select>
                                 </td>
                                 <td className="con6" style={{ textAlign: "center" }}>
@@ -1697,6 +1704,7 @@ export default function PolicyOverview2({ myData: {
                                         <option value="2">2</option>
                                         <option value="4">4</option>
                                         <option value="5">5</option>
+                                        <option value="6">6</option>
                                     </select>
                                 </td>
                                 <td className="con6" style={{ textAlign: "center" }}>
@@ -1771,6 +1779,8 @@ export default function PolicyOverview2({ myData: {
 
                             {/* Schedule Scan Policy Settings ends */}
 
+
+
                             {/* Schedule Scan-Action Settings starts */}
                             <tr className="con6">
                                 <td rowSpan="5" className="con6">
@@ -1785,9 +1795,7 @@ export default function PolicyOverview2({ myData: {
                                                 <td className="con6">Select - Joke: Quarantine</td>
                                             </tr>
                                             <tr className="con6">
-                                                <td className="con6">
-                                                    Select - Trojans:Quarantine
-                                                </td>
+                                                <td className="con6">Select - Trojans:Quarantine</td>
                                             </tr>
                                             <tr className="con6">
                                                 <td className="con6">
@@ -1800,9 +1808,7 @@ export default function PolicyOverview2({ myData: {
                                                 </td>
                                             </tr>
                                             <tr className="con6">
-                                                <td className="con6">
-                                                    Select - Packer: Quarantine
-                                                </td>
+                                                <td className="con6">Select - Packer: Quarantine</td>
                                             </tr>
                                             <tr className="con6">
                                                 <td className="con6">
@@ -1873,8 +1879,8 @@ export default function PolicyOverview2({ myData: {
                                     />{" "}
                                     Use the same action for all Virus/Malware types
                                     <br />
-                                    (If the first action is unseccessful, Apex One performs
-                                    the second action.) <br /> <br />
+                                    (If the first action is unseccessful, Apex One performs the
+                                    second action.) <br /> <br />
                                     <table className="table2">
                                         <thead>
                                             <tr id="ch">
@@ -1917,8 +1923,8 @@ export default function PolicyOverview2({ myData: {
                                     <br />
                                     <input
                                         type="radio"
-                                        value="yes3"
-                                        name="use_activeAction3Policy2"
+                                        value={"yes3"}
+                                        name="use_activeAction3"
                                         id="radio9"
                                         defaultChecked
                                         onChange={(e) => {
@@ -2069,6 +2075,35 @@ export default function PolicyOverview2({ myData: {
                                                     </select>
                                                 </td>
                                             </tr>
+                                            <tr id="ch">
+                                                <td id="ch">Other Malware</td>
+                                                <td id="ch">
+                                                    <select
+                                                        id="ka6"
+                                                        name="other_malware13"
+                                                        onChange={handlePolicy2}
+                                                    >
+                                                        <option value="Clean">Clean</option>
+                                                        <option value="Quarantine">Quarantine</option>
+                                                        <option value="Pass">Pass</option>
+                                                        <option value="Delete">Delete</option>
+                                                        <option value="Rename">Rename</option>
+                                                    </select>
+                                                </td>
+                                                <td id="ch">
+                                                    <select
+                                                        id="k2"
+                                                        name="other_malware23"
+                                                        onChange={handlePolicy2}
+                                                    >
+                                                        <option value="Quarantine">Quarantine</option>
+                                                        <option value="Pass">Pass</option>
+                                                        <option value="Clean">Clean</option>
+                                                        <option value="Delete">Delete</option>
+                                                        <option value="Rename">Rename</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </td>
@@ -2151,8 +2186,7 @@ export default function PolicyOverview2({ myData: {
                             </tr>
                             <tr className="con6">
                                 <td className="con6">
-                                    Enable - Run cleanup when probable virus/malware is
-                                    detected
+                                    Enable - Run cleanup when probable virus/malware is detected
                                 </td>
                                 <td className="con6">
                                     <select
@@ -2198,53 +2232,304 @@ export default function PolicyOverview2({ myData: {
                             {/* Schedule Scan-Action Settings ends */}
 
                             {/* Behavior Monitoring starts */}
-                            <tr className="con6">
-                                <td className="con6">Behavior Monitoring</td>
-                                <td className="con6">
-                                    Enable with Ransomware Protection & Anti-exploit
-                                    protection
-                                </td>
-                                <td className="con6">
-                                    <select
-                                        id="53"
-                                        onChange={(e) => {
-                                            fiftyoneFunction1(e);
-                                            handlePolicy2(e);
-                                        }}
-                                        name="bm"
-                                    >
-                                        <option value="Enabled with">Enabled with</option>
-                                        <option value="Enabled without">Enabled without</option>
-                                        <option value="Disabled with">Disabled</option>
-                                    </select>{" "}
-                                    Ransomeware Protection & Anti-exploit protection
-                                </td>
-                                <td className="con6" style={{ textAlign: "center" }}>
-                                    <img src="images/tab1.png" id="sep51Policy2" alt="" />
-                                </td>
-                            </tr>
-                            <tr className="con6">
-                                <td className="con6">Predictive Machine Learning</td>
-                                <td className="con6">Enable</td>
-                                <td className="con6">
-                                    <div>
+
+                            {visible ? (
+                                <>
+
+                                    <tr className="con6" >
+                                        <td className="con6" rowSpan="7">Behavior Monitoring</td>
+                                        <td className="con6">
+                                            Enable Malware Behavior Blocking Known and potential threats
+                                        </td>
+                                        <td className="con6">
+                                            <select
+
+                                                onChange={(e) => {
+                                                    fiftyoneFunction1(e, "sep51BM1Policy2", "tab51BM1");
+                                                    handlePolicy2(e);
+                                                }}
+                                                name="bm1"
+                                            >
+                                                <option value="Enabled">Enabled </option>
+                                                <option value="Disabled">Disabled</option>
+                                            </select>
+                                        </td>
+                                        <td className="con6" style={{ textAlign: "center" }}>
+                                            <img src="images/tab1.png" id="sep51BM1Policy2" alt="" />
+                                        </td>
+                                    </tr>
+                                    <tr className="con6">
+
+                                        <td className="con6">
+                                            Ransomware Protection Protect documents against unauthorized encryption or modification
+                                        </td>
+                                        <td className="con6">
+                                            <select
+
+                                                onChange={(e) => {
+                                                    fiftyoneFunction1(e, "sep51BM2Policy2", "tab51BM2");
+                                                    handlePolicy2(e);
+                                                }}
+                                                name="bm2"
+                                            >
+                                                <option value="Enabled">Enabled </option>
+                                                <option value="Disabled">Disabled</option>
+                                            </select>
+                                        </td>
+                                        <td className="con6" style={{ textAlign: "center" }}>
+                                            <img src="images/tab1.png" id="sep51BM2Policy2" alt="" />
+                                        </td>
+                                    </tr>
+                                    <tr className="con6">
+
+                                        <td className="con6">
+                                            Protect documents against unauthorized encryption or modification {"->"} Automatically backup and restore files changed by suspicious programs
+                                        </td>
+                                        <td className="con6">
+                                            <select
+
+                                                onChange={(e) => {
+                                                    fiftyoneFunction1(e, "sep51BM3Policy2", "tab51BM3");
+                                                    handlePolicy2(e);
+                                                }}
+                                                name="bm3"
+                                            >
+                                                <option value="Enabled">Enabled </option>
+                                                <option value="Disabled">Disabled</option>
+                                            </select>
+                                        </td>
+                                        <td className="con6" style={{ textAlign: "center" }}>
+                                            <img src="images/tab1.png" id="sep51BM3Policy2" alt="" />
+                                        </td>
+                                    </tr>
+                                    <tr className="con6">
+                                        <td className="con6">
+                                            Enable program inspection to detect and block compromised executable files
+                                        </td>
+                                        <td className="con6">
+                                            <select
+                                                onChange={(e) => {
+                                                    fiftyoneFunction1(e, "sep51BM4Policy2", "tab51BM4");
+                                                    handlePolicy2(e);
+                                                }}
+                                                name="bm4"
+                                            >
+                                                <option value="Enabled">Enabled </option>
+                                                <option value="Disabled">Disabled</option>
+                                            </select>
+                                        </td>
+                                        <td className="con6" style={{ textAlign: "center" }}>
+                                            <img src="images/tab1.png" id="sep51BM4Policy2" alt="" />
+                                        </td>
+                                    </tr>
+                                    <tr className="con6">
+
+                                        <td className="con6">
+                                            Anti-exploit Protection Terminate programs that. exhibit abnormal behavior. associated with exploit attacks
+                                        </td>
+                                        <td className="con6">
+                                            <select
+                                                onChange={(e) => {
+                                                    fiftyoneFunction1(e, "sep51BM5Policy2", "tab51BM5");
+                                                    handlePolicy2(e);
+                                                }}
+                                                name="bm5"
+                                            >
+                                                <option value="Enabled">Enabled </option>
+                                                <option value="Disabled">Disabled</option>
+                                            </select>
+                                        </td>
+                                        <td className="con6" style={{ textAlign: "center" }}>
+                                            <img src="images/tab1.png" id="sep51BM5Policy2" alt="" />
+                                        </td>
+                                    </tr>
+                                    <tr className="con6">
+                                        <td className="con6">
+                                            Newly Encountered Programs Monitor newly encountered programs downloaded through web or email application channels {"->"} Prompt User
+                                        </td>
+                                        <td className="con6">
+                                            <select
+                                                onChange={(e) => {
+                                                    fiftyoneFunction1(e, "sep51BM6Policy2", "tab51BM6");
+                                                    handlePolicy2(e);
+                                                }}
+                                                name="bm6"
+                                            >
+                                                <option value="Enabled">Enabled </option>
+                                                <option value="Disabled">Disabled</option>
+                                            </select>
+                                        </td>
+                                        <td className="con6" style={{ textAlign: "center" }}>
+                                            <img src="images/tab1.png" id="sep51BM6Policy2" alt="" />
+                                        </td>
+                                    </tr>
+                                    <tr className="con6">
+                                        <td className="con6">
+                                            Exceptions (specify exception if any)
+                                        </td>
+                                        <td className="con6">
+                                            <select
+                                                onChange={(e) => {
+                                                    exception51Fun1(e, "sep51BM7Policy2", "tab51BM7");
+                                                    handlePolicy2(e);
+                                                }}
+                                                name="bm7"
+                                            >
+                                                <option value="No">No</option>
+                                                <option value="Yes">Yes</option>
+                                            </select> {" "} exceptions added in Approved Program list
+                                        </td>
+                                        <td className="con6" style={{ textAlign: "center" }}>
+                                            <img src="images/tab1.png" id="sep51BM7Policy2" alt="" />
+                                        </td>
+                                    </tr>
+
+                                    {/* Predictive Machine Learning */}
+                                    <tr className="con6">
+                                        <td className="con6" rowSpan={"3"}>Predictive Machine Learning</td>
+                                        <td className="con6">Enable</td>
+                                        <td className="con6">
+                                            <div>
+                                                <select
+                                                    id="54"
+                                                    onChange={(e) => {
+                                                        fiftytwoFunction1(e, "sep52Policy2", "tab52");
+                                                        handlePolicy2(e);
+                                                    }}
+                                                    name="predictiveMl"
+                                                >
+                                                    <option value="Enabled">Enabled</option>
+                                                    <option value="Disabled">Disabled</option>
+                                                </select>
+                                            </div>
+                                        </td>
+                                        <td className="con6" style={{ textAlign: "center" }}>
+                                            <img src="images/tab1.png" id="sep52Policy2" alt="" />
+                                        </td>
+                                    </tr>
+
+                                    <tr className="con6">
+                                        <td className="con6">Action <br /> File: quarantine <br /> Process: Terminate</td>
+                                        <td className="con6">
+                                            <div>
+                                                Action Set <br /> File:{" "}
+                                                <select
+                                                    id="54"
+                                                    onChange={(e) => {
+                                                        fiftytwoFunction1(e, "sep52ML1Policy2", "tab52ML1");
+                                                        handlePolicy2(e);
+                                                    }}
+                                                    name="predictiveMl1"
+                                                >
+                                                    <option value="Quarantine">Quarantine</option>
+                                                    <option value="Pass">Pass</option>
+                                                    <option value="Clean">Clean</option>
+                                                    <option value="Delete">Delete</option>
+                                                    <option value="Rename">Rename</option>
+                                                </select>
+                                            </div>
+                                            <div>
+                                                Process:{" "}
+                                                <select
+                                                    id="541"
+                                                    onChange={(e) => {
+                                                        fiftytwoFunction1(e, "sep52ML1Policy2", "tab52ML1");
+                                                        handlePolicy2(e);
+                                                    }}
+                                                    name="predictiveMl2"
+                                                >
+                                                    <option value="Terminate">Terminate</option>
+                                                    <option value="Pass">Pass</option>
+                                                    <option value="Clean">Clean</option>
+                                                    <option value="Delete">Delete</option>
+                                                    <option value="Rename">Rename</option>
+                                                </select>
+                                            </div>
+                                        </td>
+                                        <td className="con6" style={{ textAlign: "center" }}>
+                                            <img src="images/tab1.png" id="sep52ML1Policy2" alt="" />
+                                        </td>
+                                    </tr>
+
+                                    <tr className="con6">
+
+                                        <td className="con6">Exception (specify exception if any)</td>
+                                        <td className="con6">
+                                            <div>
+                                                <select
+                                                    onChange={(e) => {
+                                                        exception51Fun1(e, "sep52ML2Policy2", "tab52ML2");
+                                                        handlePolicy2(e);
+                                                    }}
+                                                    name="predictiveMl3"
+                                                >
+                                                    <option value="No">No</option>
+                                                    <option value="Yes">Yes</option>
+                                                </select> {" "} exceptions added
+                                            </div>
+                                        </td>
+
+
+                                        <td className="con6" style={{ textAlign: "center" }}>
+                                            <img src="images/tab1.png" id="sep52ML2Policy2" alt="" />
+                                        </td>
+
+                                    </tr>
+
+
+                                </>
+                            ) : <>
+                                <tr className="con6">
+                                    <td className="con6">Behavior Monitoring</td>
+                                    <td className="con6">
+                                        Enable with Ransomware Protection & Anti-exploit
+                                        protection
+                                    </td>
+                                    <td className="con6">
                                         <select
-                                            id="54"
+                                            id="53"
                                             onChange={(e) => {
-                                                fiftytwoFunction1(e);
+                                                fiftyoneFunction1(e, "sep51Policy2", "tab51");
                                                 handlePolicy2(e);
                                             }}
-                                            name="predictiveMl"
+                                            name="bm"
                                         >
-                                            <option value="Enabled">Enabled</option>
-                                            <option value="Disabled">Disabled</option>
-                                        </select>
-                                    </div>
-                                </td>
-                                <td className="con6" style={{ textAlign: "center" }}>
-                                    <img src="images/tab1.png" id="sep52Policy2" alt="" />
-                                </td>
-                            </tr>
+                                            <option value="Enabled with">Enabled with</option>
+                                            <option value="Enabled without">Enabled without</option>
+                                            <option value="Disabled with">Disabled</option>
+                                        </select>{" "}
+                                        Ransomeware Protection & Anti-exploit protection
+                                    </td>
+                                    <td className="con6" style={{ textAlign: "center" }}>
+                                        <img src="images/tab1.png" id="sep51Policy2" alt="" />
+                                    </td>
+                                </tr>
+                                <tr className="con6">
+
+                                    <td className="con6">Predictive Machine Learning</td>
+                                    <td className="con6">Enable</td>
+                                    <td className="con6">
+                                        <div>
+                                            <select
+                                                id="54"
+                                                onChange={(e) => {
+                                                    fiftytwoFunction1(e, "sep52Policy2", "tab52");
+                                                    handlePolicy2(e);
+                                                }}
+                                                name="predictiveMl"
+                                            >
+                                                <option value="Enabled">Enabled</option>
+                                                <option value="Disabled">Disabled</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td className="con6" style={{ textAlign: "center" }}>
+                                        <img src="images/tab1.png" id="sep52Policy2" alt="" />
+                                    </td>
+                                </tr>
+                            </>}
+
+
                             <tr className="con6">
                                 <td className="con6">Suspicious Connection</td>
                                 <td className="con6">Enable with Block option</td>
@@ -2260,7 +2545,8 @@ export default function PolicyOverview2({ myData: {
                                         >
                                             <option value="Enabled">Enabled</option>
                                             <option value="Disabled">Disabled</option>
-                                        </select>{" "}with Block option
+                                        </select>
+                                        {" "}with Block option.
                                     </div>
                                 </td>
                                 <td className="con6" style={{ textAlign: "center" }}>
@@ -2285,10 +2571,27 @@ export default function PolicyOverview2({ myData: {
                                             <option value="Disabled">Disabled</option>
                                         </select>
 
+                                        <span id='showVpModesPolicy2'>
+                                        {" with "}
+
+                                        <select
+                                            id="vp_mode"
+                                            onChange={(e) => {
+                                                vulnerabilityProtectionModeFun1(e);
+                                                handlePolicy2(e);
+                                            }}
+                                            name="vp_mode"
+                                        >
+                                            <option value="Inline">Inline</option>
+                                            <option value="Tap">Tap (Detect-Only)</option>
+                                        </select>
+
+                                        {" Mode"}
+                                        </span>
                                     </div>
                                 </td>
                                 <td className="con6" style={{ textAlign: "center" }}>
-                                    <img src="images/tab1.png" id="sepPolicy2VP" alt="" />
+                                    <img src="images/tab1.png" id="sepVPPolicy2" alt="" />
                                 </td>
                             </tr>
 
@@ -2312,14 +2615,13 @@ export default function PolicyOverview2({ myData: {
                                     </div>
                                 </td>
                                 <td className="con6" style={{ textAlign: "center" }}>
-                                    <img src="images/tab1.png" id="sepPolicy2DC" alt="" />
+                                    <img src="images/tab1.png" id="sepDCPolicy2" alt="" />
                                 </td>
                             </tr>
-
                             <tr className="con6">
                                 <td className="con6">Web Reputation</td>
                                 <td className="con6">
-                                    Enable with Security Level Medium
+                                    Enable for Internal and External agents with Security Level Medium
                                 </td>
                                 <td className="con6">
                                     {" "}
@@ -2333,10 +2635,13 @@ export default function PolicyOverview2({ myData: {
                                     >
                                         <option value="Enabled">Enabled</option>
                                         <option value="Disabled">Disabled</option>
-                                    </select>{" "}with Security Level{" "}
+                                    </select>
+                                    {" "}
+                                    with Security Level
+                                    {" "}
                                     <select
                                         id="58Policy2"
-                                        name="web_reputation3"
+                                        name="web_reputation2"
                                         onChange={(e) => {
                                             handlePolicy2(e);
                                             fiftyfourFunction1(e);
@@ -2351,7 +2656,6 @@ export default function PolicyOverview2({ myData: {
                                     <img src="images/tab1.png" id="sep54Policy2" alt="" />
                                 </td>
                             </tr>
-
                             <tr className="con6">
                                 <td className="con6">Application Control</td>
                                 <td className="con6">Enable</td>
@@ -2372,7 +2676,7 @@ export default function PolicyOverview2({ myData: {
                                     </div>
                                 </td>
                                 <td className="con6" style={{ textAlign: "center" }}>
-                                    <img src="images/tab1.png" id="sepPolicy2AC" alt="" />
+                                    <img src="images/tab1.png" id="sepACPolicy2" alt="" />
                                 </td>
                             </tr>
 
@@ -2402,7 +2706,7 @@ export default function PolicyOverview2({ myData: {
                             <tr className="con6">
                                 <td className="con6">Agent Self-Protection</td>
                                 <td className="con6">
-                                    Enable Self-Protection with a password
+                                    Enable Self-Protection with a password.
                                 </td>
                                 <td className="con6">
                                     <select
@@ -2426,10 +2730,10 @@ export default function PolicyOverview2({ myData: {
                             <tr className="con6">
                                 <td className="con6">Additional Service</td>
                                 <td className="con6">Configure respective services</td>
-                                <td className="con6" onChange={fiftynineFunction1}>
+                                <td className="con6">
                                     <p>
                                         <select
-                                            id="63Policy2"
+                                            id="63"
                                             name="additional_service1"
                                             onChange={handlePolicy2}
                                         >
@@ -2439,7 +2743,7 @@ export default function PolicyOverview2({ myData: {
                                         Unauthorized Change Prevention Service for Windows
                                         desktops &{" "}
                                         <select
-                                            id="64Policy2"
+                                            id="64"
                                             name="additional_service2"
                                             onChange={handlePolicy2}
                                         >
@@ -2450,7 +2754,7 @@ export default function PolicyOverview2({ myData: {
                                     </p>
                                     <p>
                                         <select
-                                            id="65Policy2"
+                                            id="65"
                                             name="additional_service3"
                                             onChange={handlePolicy2}
                                         >
@@ -2459,7 +2763,7 @@ export default function PolicyOverview2({ myData: {
                                         </select>{" "}
                                         Firewall Service for Windows desktops &{" "}
                                         <select
-                                            id="66Policy2"
+                                            id="66"
                                             name="additional_service4"
                                             onChange={handlePolicy2}
                                         >
@@ -2470,7 +2774,7 @@ export default function PolicyOverview2({ myData: {
                                     </p>
                                     <p>
                                         <select
-                                            id="67Policy2"
+                                            id="67"
                                             name="additional_service5"
                                             onChange={handlePolicy2}
                                         >
@@ -2479,7 +2783,7 @@ export default function PolicyOverview2({ myData: {
                                         </select>{" "}
                                         Suspicious Connection Service for Windows desktops &{" "}
                                         <select
-                                            id="68Policy2"
+                                            id="68"
                                             name="additional_service6"
                                             onChange={handlePolicy2}
                                         >
@@ -2490,7 +2794,7 @@ export default function PolicyOverview2({ myData: {
                                     </p>
                                     <p>
                                         <select
-                                            id="69Policy2"
+                                            id="69"
                                             name="additional_service7"
                                             onChange={handlePolicy2}
                                         >
@@ -2499,7 +2803,7 @@ export default function PolicyOverview2({ myData: {
                                         </select>{" "}
                                         Data Protection Service for Windows desktops &{" "}
                                         <select
-                                            id="70Policy2"
+                                            id="70"
                                             name="additional_service8"
                                             onChange={handlePolicy2}
                                         >
@@ -2510,7 +2814,7 @@ export default function PolicyOverview2({ myData: {
                                     </p>
                                     <p>
                                         <select
-                                            id="71Policy2"
+                                            id="71"
                                             name="additional_service9"
                                             onChange={handlePolicy2}
                                         >
@@ -2519,7 +2823,7 @@ export default function PolicyOverview2({ myData: {
                                         </select>{" "}
                                         Advanced Protection Service for Windows desktops and{" "}
                                         <select
-                                            id="72Policy2"
+                                            id="72"
                                             name="additional_service10"
                                             onChange={handlePolicy2}
                                         >
@@ -2530,9 +2834,10 @@ export default function PolicyOverview2({ myData: {
                                     </p>
                                 </td>
                                 <td className="con6" style={{ textAlign: "center" }}>
-                                    <img src="images/tab1.png" id="sep59Policy2" alt="" />
+                                    <img src="images/tab1.png" alt="" />
                                 </td>
                             </tr>
+
                         </tbody>
                     </table>
                 </div>

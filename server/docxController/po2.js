@@ -1,5 +1,5 @@
 
-const ReportModel = require('../Models/reportModel')
+const ReportModel = require('../Models/policyModel')
 const fs = require('fs');
 const { ImageRun, HeadingLevel, Paragraph, TextRun, AlignmentType,
     Table, TableRow, TableCell, WidthType, VerticalAlign } = require("docx");
@@ -13,7 +13,7 @@ const transformation = {
     height: 20
 };
 
-const getPo1 = async (req, res) => {
+const getPo2 = async (req, res) => {
     const Report = await ReportModel.find({}).sort({ _id: -1 }).limit(1);
 
     let MTable = ""
@@ -21,14 +21,7 @@ const getPo1 = async (req, res) => {
     let SPTable = ""
     let SSTable = ""
 
-    let policyTitle = ""
-
-    if (Report[0].checkPolicyOverviewTwoAdded === true) {
-        policyTitle = `4.2.1 Policy Overview: 01 ${Report[0].OverviewPolicyName1} Policy`;
-    } else {
-        policyTitle = `4.2 Policy Overview: ${Report[0].OverviewPolicyName1} Policy`;
-    }
-
+   
     let vp_mode = ""
     if (Report[0].vulnerability_protection === "Enabled") {
         if (Report[0].vp_mode !== "Inline") {
@@ -64,7 +57,7 @@ const getPo1 = async (req, res) => {
 
     //1MCA
 
-    switch (Report[0].use_activeAction1) {
+    switch (Report[0].use_activeAction1Policy2) {
         case 'yes1':
             MTable = [new Paragraph({
                 alignment: AlignmentType.CENTER,
@@ -166,7 +159,7 @@ const getPo1 = async (req, res) => {
     }
 
     //2 Real-Time Scan-Action Settings
-    switch (Report[0].use_activeAction2) {
+    switch (Report[0].use_activeAction2Policy2) {
         case 'yes1':
             RTable1 = [new Paragraph({
                 alignment: AlignmentType.CENTER,
@@ -267,7 +260,7 @@ const getPo1 = async (req, res) => {
     }
 
     // 3 SSAS
-    switch (Report[0].use_activeAction3) {
+    switch (Report[0].use_activeAction3Policy2) {
         case 'yes1':
             SSTable = [new Paragraph({
                 alignment: AlignmentType.CENTER,
@@ -861,7 +854,7 @@ const getPo1 = async (req, res) => {
 
     const content = [
         new Paragraph({
-            text: `${policyTitle}`,
+            text: `4.2.2 Policy Overview: 02 ${Report[0].OverviewPolicyName1} Policy`,
             heading: HeadingLevel.HEADING_2,
             keepLines: true,
 
@@ -1013,12 +1006,12 @@ const getPo1 = async (req, res) => {
     try {
 
     } catch (error) {
-        console.log("error - po1")
+        console.log("error - po2")
     }
 
 }
 
 
 
-module.exports = { getPo1 }
+module.exports = { getPo2 }
 

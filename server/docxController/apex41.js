@@ -58,6 +58,8 @@ const apex41pdf = async (req, res) => {
         ASU = { text: `${Report[0].agent_scheduled_updates}` };
     }
 
+   
+
     const preReport = [];
     let global_agents_settings = [
         new TableRow({
@@ -406,7 +408,7 @@ const apex41pdf = async (req, res) => {
                 before: 220,
             },
             keepLines: true,
-            keepNext: true
+            
         }),
 
         new Paragraph({
@@ -427,7 +429,6 @@ const apex41pdf = async (req, res) => {
             text: '4 Apex One & Apex Central',
             heading: HeadingLevel.HEADING_1,
             keepLines: true,
-            keepNext: true
         }),
 
         ...Apex41Para,
@@ -436,7 +437,7 @@ const apex41pdf = async (req, res) => {
             text: '4.1 Apex One Configuration Overview',
             heading: HeadingLevel.HEADING_2,
             keepLines: true,
-            keepNext: true,
+            
             spacing: {
                 after: 230,
             }
@@ -682,7 +683,7 @@ const apex41pdf = async (req, res) => {
                     children: [
                         new TableCell({ children: [new Paragraph("Agent scheduled updates")] }),
                         new TableCell({ children: [new Paragraph("Enabled")] }),
-                        new TableCell({ children: [new Paragraph({ ASU })] }),
+                        new TableCell({ children: [new Paragraph(ASU)] }),
                         new TableCell({
                             verticalAlign: VerticalAlign.CENTER,
                             children: [

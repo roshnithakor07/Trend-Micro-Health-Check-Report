@@ -1,16 +1,16 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-// import Home from "./Admin/Home"
+
+import Home from "./Admin/Home"
 import Report from "./UI/Report"
 import Charts from "./UI/Charts";
 import FurtherInformation from "./UI/FurtherInformation";
 import DownloadTrendMicroReportPdf from './UI/DownloadTrendMicroReportPdf'
 import UpdateReport from './Update/Report'
 import Demo from "./UI/Demo"
-import chartDemo from "./UI/ChartDemo"
 import CreateCharts from "./UI/CreateCharts";
 import Admin from "./Admin/Admin";
 
-// import './css/Home.css'
+import './css/Home.css'
 import './css/Introduction1.css'
 import './css/Introduction2.css'
 import './css/Introduction3.css'
@@ -31,7 +31,7 @@ function App() {
     <>
       <Router>
         <Routes>         
-          {/* <Route path='/' element={<Home />} /> */}
+          <Route path='/home' element={<Home />} />
           <Route path='/' element={<Report />} />
           <Route path='/admin' element={<Admin />} />
           <Route path="/charts" element={<Charts />} />

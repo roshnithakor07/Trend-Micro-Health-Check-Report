@@ -12,6 +12,7 @@ const getReportpdf = async (req, res) => {
     const Report = await ReportModel.find({}).sort({ _id: -1 }).limit(1);
 
     const firstImagePath = './images/companyLogo.png';
+    // const firstImagePath = './images/evenuts-logo.png';
     const secondImagePath = "./images/evenuts-logo.png";
 
     let imagePath;
@@ -57,6 +58,7 @@ const getReportpdf = async (req, res) => {
 
     try {
         const content = [
+
             new Paragraph({
 
                 alignment: AlignmentType.CENTER,
@@ -106,7 +108,7 @@ const getReportpdf = async (req, res) => {
                 children: [
                     new TextRun({
                         text: `Review of ${Report[0]["cName"]} Apex One ${Report[0].report_type} Implementation`,
-                        size: "17pt",
+                        size: "15pt",
                         break: 2,
                         specVanish: true,
                         font: "Calibri (Body)",
@@ -481,7 +483,7 @@ const getReportpdf = async (req, res) => {
             new TableOfContents("Summary", {
                 hyperlink: true,
                 headingStyleRange: "1-5",
-                
+
             }),
 
             //2.0 INTRODUCTION SECTION

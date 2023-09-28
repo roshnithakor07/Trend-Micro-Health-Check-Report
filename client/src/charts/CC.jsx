@@ -44,7 +44,7 @@ export default function CC(props) {
   const [total_detection, setTotalDetections] = useState(0)
 
   const [chartFirstLine, setChartFirstLine] = useState("")
-  let line = `We generated a ${cTitle} Event of the last ${props.logDays} ${props.logDuration} on ${props.logCollectionDate} from Apex central/Apex One. There was a total of ${total_detection} detections.`
+  let line = `We generated a ${cTitle} Event of the last ${props.logDays} ${props.logDuration} on ${props.logCollectionDate} from Apex Central/Apex One. There was a total of ${total_detection} detections.`
 
   const [dataPoints, setDataPoints] = useState([])
   const [columnsNames, setCoulmnsName] = useState(vm[0]);

@@ -26,7 +26,7 @@ export default function Apex41({
 
       <div id="productArchitecture">
         <h2 style={{ color: "red" }} className="report-heading2">
-          4 Product Architecture
+          3 Product Architecture
         </h2>
 
         <div className="cLogoPA">
@@ -51,7 +51,7 @@ export default function Apex41({
       <div className="apexOne41" id="apexone41">
         <div className="container9" id="head3">
           <h2 style={{ color: "red" }} className="report-heading2">
-            5 Apex One & Apex Central
+            4 Apex One & Apex Central
           </h2>
 
           {visible ? (
@@ -113,7 +113,7 @@ export default function Apex41({
         <br />
         <div className="container11" id="head4">
           <h2 style={{ color: "red" }} className="report-heading2">
-            5.1 Apex One Configuration overview
+            4.1 Apex One Configuration overview
           </h2>
           <table className="con5 table1" id="documentV">
             <thead className="con5">

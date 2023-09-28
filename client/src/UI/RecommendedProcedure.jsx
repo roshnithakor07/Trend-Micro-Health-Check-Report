@@ -40,7 +40,7 @@ export default function RecommendedProcedure({myData : {
 
                 </div>
                 <h2 style={{ color: "red" }} className="report-heading2">
-                    5.5 Recommendation Procedure
+                    4.5 Recommendation Procedure
                 </h2>
                 <p>Below are the recommendations on how to remediate the gaps identified in this Health Check.</p>
 

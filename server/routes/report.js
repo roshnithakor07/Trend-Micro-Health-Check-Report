@@ -4,7 +4,7 @@ const {convertBase64ToImg,getOneReport,getReport,saveData,updateData,deleteAllDa
 const {getPolicy,savePolicyData, updatePolicyData} = require('../controllers/policyController')
 
 
-router.get('/convertBase64ToImg',convertBase64ToImg);
+
 router.get('/',getReport);
 router.get('/getOneReport/:id', getOneReport);
 router.get('/getAllReport',getAllData);
@@ -18,5 +18,6 @@ router.get('/getPolicy',getPolicy);
 router.post('/savePolicyData',savePolicyData);
 router.patch('/updatePolicyData',updatePolicyData);
 
+router.get('/convertBase64ToImg',convertBase64ToImg);
 
 module.exports = router;

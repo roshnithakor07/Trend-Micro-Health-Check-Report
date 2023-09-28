@@ -601,7 +601,7 @@ const getCharts = async (req, res) => {
 
                 IPBody = [...IPBody, ...IPContent];
                 IpTable.push({
-                    margin: [0, 17, 0, 0],
+                    margin: [130, 15, 0, 0],
                     table: {
                         fontSize: 11,
                         body: IPBody
@@ -696,71 +696,7 @@ const getCharts = async (req, res) => {
         const dc_des1 = chartDescriptionFun(1, dc1);
         const dc_des2 = chartDescriptionFun(2, dc1);
 
-        const showChart = dc1[0].showChart;
-        //DC TABLE
-        let DCBody = [];
-        const DCTable = []
 
-        try {
-            if (showChartsDc[3]) {
-
-                let updatedDCVendorTable = JSON.parse(dc1[0].updatedDCVendorTable)
-                const totalPermissionName = Object.keys(updatedDCVendorTable[0].allPermissionsName);
-                const totalPermissionCount = Object.values(updatedDCVendorTable[0].allPermissionsName);
-
-                let permissionName = []
-                for (const iterator of totalPermissionName) {
-                    permissionName.push({ text: iterator, alignment: "center", bold: true })
-                }
-                //Header part done
-                DCBody.push([{ text: "DEVICE TYPE & VENDORS", rowSpan: 2, alignment: "center", bold: true }, { text: "PERMISSION", colSpan: totalPermissionName.length, alignment: "center", bold: true }],
-                    ["", ...permissionName]);
-                for (var i = 0; i < totalPermissionName.length - 1; i++) { DCBody[0].push('') }
-                //body Part
-                let DCContent = [];
-                for (let i = 0; i < updatedDCVendorTable.length; i++) {
-                    DCContent.push([{ text: updatedDCVendorTable[i].label, bold: true }])
-                    let keys = Object.keys(updatedDCVendorTable[i].permissionsFrequencies);
-                    totalPermissionName.map((element) => {
-                        if (keys.includes(element)) {
-                            DCContent[DCContent.length - 1].push({ text: updatedDCVendorTable[i].permissionsFrequencies[element], alignment: "center", bold: true })
-                        } else {
-                            DCContent[DCContent.length - 1].push("")
-                        }
-                    });
-                    if (updatedDCVendorTable[i].vendors.length) {
-                        for (const iterator of updatedDCVendorTable[i].vendors) {
-                            if (iterator && iterator.trim() !== "N/A") {
-                                DCContent.push([{ text: iterator, margin: [10, 0, 0, 0] }])
-                                for (let i = 0; i < totalPermissionName.length; i++) {
-                                    DCContent[DCContent.length - 1].push("")
-                                }
-                            }
-
-                        }
-                    }
-
-                }
-
-                DCContent.push([{ text: "Total", bold: true }])
-                for (let i = 0; i < totalPermissionName.length; i++) {
-                    DCContent[DCContent.length - 1].push([{ text: totalPermissionCount[i], alignment: "center", bold: true }])
-                }
-
-                DCBody = [...DCBody, ...DCContent];
-
-                DCTable.push(
-                    {
-                        margin: [107, 17, 0, 0],
-                        table: {
-                            fontSize: 11,
-                            body: DCBody
-                        }
-                    })
-            }
-        } catch (error) {
-            console.log({ "error": "dc table" })
-        }
 
         if (showChartsDc[0]) {
             dcChart.push({
@@ -840,9 +776,7 @@ const getCharts = async (req, res) => {
                 })
         }
 
-        dcChart.push(
-            ...DCTable
-        )
+
 
 
     }
@@ -853,7 +787,7 @@ const getCharts = async (req, res) => {
 
         const cc_des0 = chartDescriptionFun(0, cc1);
         const cc_des1 = chartDescriptionFun(1, cc1);
-        
+
         if (showChartsCc[0]) {
             ccChart.push(
                 {
@@ -964,10 +898,65 @@ const getCharts = async (req, res) => {
         const b_des0 = chartDescriptionFun(0, bm1);
         const b_des1 = chartDescriptionFun(1, bm1);
 
-        const showChart = false;
+        let IPBody = [];
+        const IpTable = []
 
-        let BMBody = [];
-        const BMTable = [];
+        try {
+            if (showChartsBm[2]) {
+
+                //IP TABLE
+                let updatedIPTable = JSON.parse(bm1[0].updatedPolicyRiskTable)
+                const totalIPActionName = Object.keys(updatedIPTable[0].allActionNameArr);
+                const totalIPActionCount = Object.values(updatedIPTable[0].allActionNameArr);
+                //Header part done
+                IPBody.push(
+                    [{ text: "BM BY POLICY & RISK LEVEL", rowSpan: 2, alignment: "center", bold: true }, { text: "ACTION", colSpan: totalIPActionName.length, alignment: "center", bold: true }],
+                    ["", ...totalIPActionName]
+                );
+                for (var i = 0; i < totalIPActionName.length - 1; i++) { IPBody[0].push('') }
+                //body Part
+                let IPContent = [];
+                for (let i = 0; i < updatedIPTable.length; i++) {
+                    IPContent.push([{ text: updatedIPTable[i].label, bold: true }])
+                    let keys = Object.keys(updatedIPTable[i].action);
+                    totalIPActionName.map((element) => {
+                        if (keys.includes(element)) {
+                            IPContent[IPContent.length - 1].push({ text: updatedIPTable[i].action[element], alignment: "center", bold: true })
+                        } else {
+                            IPContent[IPContent.length - 1].push("")
+                        }
+                    });
+                    if (updatedIPTable[i].risk.length) {
+                        for (const iterator of updatedIPTable[i].risk) {
+                            IPContent.push([{ text: iterator, margin: [10, 0, 0, 0] }])
+                            for (let i = 0; i < totalIPActionName.length; i++) {
+                                IPContent[IPContent.length - 1].push("")
+                            }
+                        }
+                    }
+
+                }
+
+                IPContent.push([{ text: "Total", bold: true }])
+                for (let i = 0; i < totalIPActionName.length; i++) {
+                    IPContent[IPContent.length - 1].push([{ text: totalIPActionCount[i], alignment: "center", bold: true }])
+                }
+
+                IPBody = [...IPBody, ...IPContent];
+                IpTable.push({
+                    margin: [130, 15, 0, 0],
+                    table: {
+                        fontSize: 11,
+                        body: IPBody
+                    }
+
+                })
+
+            }
+
+        } catch (error) {
+            console.log({ "error": "bm table" })
+        }
 
         if (showChartsBm[0]) {
             bmChart.push(
@@ -1029,9 +1018,8 @@ const getCharts = async (req, res) => {
             )
         }
 
-        bmChart.push(
-            ...BMTable
-        )
+        bmChart.push(...IpTable)
+
     }
 
     //6.9

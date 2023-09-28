@@ -29,6 +29,19 @@ export default function FurtherInformation() {
 
   }, []);
 
+
+  useEffect(() => {
+    getProductById1()
+    getProductById2()
+    getProductById3()
+    getProductById4()
+    getProductById5()
+    getProductById6()
+    getProductById7()
+    getProductById8()
+    getProductById9()
+  }, []);
+
   const getProductById1 = async () => {
     fetch(getAgApi)
       .then(res => res.blob())
@@ -107,17 +120,7 @@ export default function FurtherInformation() {
     }, 1000)
   }
 
-  useEffect(() => {
-    getProductById1()
-    getProductById2()
-    getProductById3()
-    getProductById4()
-    getProductById5()
-    getProductById6()
-    getProductById7()
-    getProductById8()
-    getProductById9()
-  }, []);
+ 
 
 
 

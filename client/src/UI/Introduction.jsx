@@ -16,6 +16,8 @@ export default function Introduction({
     textDecoration: "none",
   };
 
+  
+
   return (
     <>
       {/* start intro1 */}
@@ -160,7 +162,7 @@ export default function Introduction({
                     type="text"
                     id="vivo"
                     name="title"
-                    defaultValue={`Review of ${cName} Apex One ${myReportData.report_type}`}
+                    value = {`Review of ${cName} Apex One ${myReportData.report_type} Implementation`}
                     onChange={handleChange}
                   />
                 </td>
@@ -239,13 +241,13 @@ export default function Introduction({
                 <dt>
                   {" "}
                   <a href={"#head0"} style={contentStyle}>
-                    2 Introduction
+                    1 Introduction
                   </a>
                 </dt>
               </h3>
               <dd>
                 <a href={"#head1"} style={contentStyle}>
-                  2.1 Health Check Attendees
+                  1.1 Health Check Attendees
                 </a>
               </dd>
 
@@ -253,7 +255,7 @@ export default function Introduction({
                 <dt>
                   {" "}
                   <a href={"#head2"} style={contentStyle}>
-                    3 Executive Summary
+                    2 Executive Summary
                   </a>
                 </dt>
               </h3>
@@ -261,7 +263,7 @@ export default function Introduction({
                 {" "}
                 <dt>
                   <a href="#productArchitecture" style={contentStyle}>
-                    4 Product Architecture
+                    3 Product Architecture
                   </a>
                 </dt>
               </h3>
@@ -269,7 +271,7 @@ export default function Introduction({
                 {" "}
                 <dt>
                   <a href="#head3" style={contentStyle}>
-                    5 Apex One & Apex Central
+                    4 Apex One & Apex Central
                   </a>
                 </dt>
               </h3>
@@ -277,7 +279,7 @@ export default function Introduction({
               <dd>
                 {" "}
                 <a href={"#head4"} style={contentStyle}>
-                  5.1 Apex One Configuration Overview
+                  4.1 Apex One Configuration Overview
                 </a>
               </dd>
               {showComponent ? (
@@ -285,13 +287,13 @@ export default function Introduction({
                   <dd>
                     {" "}
                     <a href={"#head5"} style={contentStyle}>
-                      5.2.1 Policy Overview
+                      4.2.1 Policy Overview
                     </a>
                   </dd>
 
                   <dd>
                     <a href={"#head55"} style={contentStyle}>
-                      5.2.2 Policy Overview{" "}
+                      4.2.2 Policy Overview{" "}
                     </a>
                   </dd>
                 </>
@@ -299,7 +301,7 @@ export default function Introduction({
                 <dd>
                   {" "}
                   <a href={"#head5"} style={contentStyle}>
-                    5.2 Policy Overview
+                    4.2 Policy Overview
                   </a>
                 </dd>
               )}
@@ -307,56 +309,56 @@ export default function Introduction({
               <dd>
                 {" "}
                 <a href={"#head6"} style={contentStyle}>
-                  5.3 Apex Central Configuration Overview
+                  4.3 Apex Central Configuration Overview
                 </a>
               </dd>
               <dd>
                 {" "}
                 <a href={"#head71"} style={contentStyle}>
-                  5.4 Recommendations
+                  4.4 Recommendations
                 </a>
               </dd>
 
               <h3>
                 <dt>
                   <a href={"#head7"} style={contentStyle}>
-                    6 Apex One Product Efficacy{" "}
+                    5 Apex One Product Efficacy{" "}
                   </a>
                 </dt>
               </h3>
               <dd>
                 <a href={"#head8"} style={contentStyle}>
-                  6.1 Agent Distribution
+                  5.1 Agent Distribution
                 </a>
               </dd>
               <dd>
                 <a href={"#head9"} style={contentStyle}>
-                  6.2 Virus/Malware
+                  5.2 Virus/Malware
                 </a>
               </dd>
               <dd>
                 <a href={"#head10"} style={contentStyle}>
-                  6.3 Spyware/ Grayware{" "}
+                  5.3 Spyware/ Grayware{" "}
                 </a>
               </dd>
               <dd>
                 <a href={"#head11"} style={contentStyle}>
-                  6.4 Behavior Monitoring{" "}
+                  5.4 Behavior Monitoring{" "}
                 </a>{" "}
               </dd>
               <dd>
                 <a href={"#head12"} style={contentStyle}>
-                  6.5 Device control Detection{" "}
+                  5.5 Device control Detection{" "}
                 </a>
               </dd>
               <dd>
                 <a href={"#head13"} style={contentStyle}>
-                  6.6 Intrusion Prevention{" "}
+                  5.6 Intrusion Prevention{" "}
                 </a>
               </dd>
               <dd>
                 <a href={"#head14"} style={contentStyle}>
-                  6.7 Smart Scan Agent Pattern Coverage Details{" "}
+                  5.7 Smart Scan Agent Pattern Coverage Details{" "}
                 </a>
               </dd>
             </dl>
@@ -378,7 +380,7 @@ export default function Introduction({
       <div id="intro3" className="intro3">
         <div className="Introduction" id="head0">
           <h2 style={{ color: "red" }} className="report-heading2">
-            2 Introduction
+            1 Introduction
           </h2>
           <div className="container2" id="container2">
             <p>
@@ -474,7 +476,7 @@ export default function Introduction({
 
           <div className="container5" id="head1">
             <h2 style={{ color: "red" }} className="report-heading2">
-              2.1 Health Check Attendees
+              1.1 Health Check Attendees
             </h2>
             <table id="documentV" className="table">
               <tbody>

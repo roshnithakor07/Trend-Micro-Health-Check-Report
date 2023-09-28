@@ -5,6 +5,8 @@ function Endpoints() {
     const API = `http://localhost:${PORT}/charts`;
     const RAPI = `http://localhost:${PORT}/report`;
     const PAPI = `http://localhost:${PORT}/pdf`;
+    const DAPI = `http://localhost:${PORT}/docx`;
+
 
     //post Req....
     const chartApi = `${API}/saveDataChart`
@@ -20,7 +22,7 @@ function Endpoints() {
     const furtherInformation = `${API}/furtherinformation`;
 
     //GET Req...
-    
+
     const convertChartBase64ToImg = `${API}/convertChartBase64ToImg`
     const getChartApi = `${API}/getChartValue`
     const getAgApi = `${API}/getAgValue`
@@ -54,15 +56,17 @@ function Endpoints() {
 
     const getTrendMicroReportPdf = `${PAPI}/getTrendMicroReportPdf`;
 
-
+    //doc Endpoints
+    const getTrendMicroReportDocx = `${DAPI}/getTrendMicroReportDocx`;
 
     return {
-        convertBase64ToImg,convertChartBase64ToImg,
+        getTrendMicroReportDocx,
+        convertBase64ToImg, convertChartBase64ToImg,
         chartApi, getChartApi,
         furtherInformation,
         agApi, virusApi, spywareApi, wrApi, bmApi, dcApi, ipsApi, ccApi, smartscanApi,
         getAgApi, getVirusApi, getSpywareApi, getWrApi, getBmApi, getDcApi, getIpsApi, getCcApi, getSmartscanApi,
-        getReportData,getOneReportData, saveReportData, getAllReportData, updateReportData,
+        getReportData, getOneReportData, saveReportData, getAllReportData, updateReportData,
         deleteReportData, deleteAllReportData,
         getTrendMicroReportPdf,
         savePolicyData,

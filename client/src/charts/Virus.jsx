@@ -11,7 +11,7 @@ const success = indigo[700];
 const save = green[900];
 
 export default function Virus(props) {
-    const { virusApi} = Endpoints();
+    const { virusApi } = Endpoints();
     let cTitle = "Virus/Malware";
     const [total_detection, setTotalDetections] = useState(0)
 
@@ -40,13 +40,13 @@ export default function Virus(props) {
         showChart: "[false,false,false]",
     });
 
-    const wrText = ["Virus/Malware Detection","Endpoints in Virus/Malware Detection","Action"]
+    const wrText = ["Virus/Malware Detection", "Endpoints in Virus/Malware Detection", "Action"]
     let canavaId = ["myChart11", "myChart12", "myChart13"];
     let wrapperId = ["wrapper11", "wrapper12", "wrapper13"];
 
     let vm = ["Virus/Malware", "Endpoint", "Action"];
     const [chartFirstLine, setChartFirstLine] = useState("")
-    let line = `We generated a ${cTitle} Event of the last ${props.logDays} ${props.logDuration} on ${props.logCollectionDate} from Apex central/Apex One. There was a total of ${total_detection} detections.`
+    let line = `We generated a ${cTitle} Event of the last ${props.logDays} ${props.logDuration} on ${props.logCollectionDate} from Apex Central/Apex One. There was a total of ${total_detection} detections.`
 
     const [dataPoints, setDataPoints] = useState([])
     const [columnsNames, setCoulmnsName] = useState(vm[0]);
@@ -57,7 +57,7 @@ export default function Virus(props) {
     const [y1, setY1] = useState([]);
     const [myChart, setMyChart] = useState([])
     const [chartType, setChartType] = useState("horizontalBar")
-    const [description, setDescription] = useState([[], [],[]]);
+    const [description, setDescription] = useState([[], [], []]);
     const [chartTypes, setChartTypes] = useState(['', '', '',])
     const [showChart, setShowChart] = useState([false, false, false])
     //chart Points
@@ -172,10 +172,10 @@ export default function Virus(props) {
 
     const dropdownOptions = lable.map((e) => (
         <span key={e}>
-          <input type="checkbox" name="messageCheckbox0" defaultChecked={e} defaultValue={e} onChange={handleCheckboxChange} />
-          {e}
+            <input type="checkbox" name="messageCheckbox0" defaultChecked={e} defaultValue={e} onChange={handleCheckboxChange} />
+            {e}
         </span>
-      ));
+    ));
 
     const load = (e) => {
         if (e.target.value === "select") return;
@@ -233,14 +233,14 @@ export default function Virus(props) {
             return "quarantined";
         } else if (element.includes("upload")) {
             return "unable to upload files";
-        } else if (element.includes("quarantine")) {
+        } else if (element.includes("unable to quarantine file")) {
             return "unable to quarantine files";
         } else if (element.includes("denied")) {
             return "access denied";
-        } else if (element.includes("clean")) {
+        } else if (element.includes("unable to clean file")) {
             return "unable to clean files";
         }
-        else if (element.includes("delete")) {
+        else if (element.includes("unable to delete file")) {
             return "unable to delete files";
         }
 
@@ -334,18 +334,16 @@ export default function Virus(props) {
         const top5Keys3 = getTop5Keys(frequencyMap3);
 
 
+
         for (let i = 0; i < top5Keys2.length; i++) {
             top5Keys2[i] = transformKey(top5Keys2[i]);
         }
-
 
         if (top5Keys2.includes(actionName)) {
             let index = top5Keys2.indexOf(actionName)
             top5Keys2.splice(index, 1);
             top5Keys2.push(actionName);
         }
-
-
 
         for (let i = 0; i < top5Keys3.length; i++) {
             top5Keys3[i] = transformKey(top5Keys3[i]);
@@ -357,63 +355,44 @@ export default function Virus(props) {
             top5Keys3.push(actionName);
         }
 
+       
 
-        let actionVal0, actionVal1, endPointVal0, endPointVal1;
-
-
-        if (top5Keys0.length > 1) {
-            endPointVal0 = top5Keys0.slice(0, -1).join(", ") + " and " + top5Keys0[top5Keys0.length - 1] + " endpoints,";
-        } else {
-
-            if (top5Keys0.length) {
-                endPointVal0 = "the " + top5Keys0[0] + " endpoint,";
+        // for EndPoints
+        function formatEndpoints(arr) {
+            if (arr.length === 1) {
+                return "the " + arr[0] + " endpoint,"
+            } else if (arr.length === 2) {
+                return arr.join(', ').replace(/,([^,]*)$/, ' and$1') + " endpoints";
+            }
+            else if (arr.length >= 2) {
+                return arr.join(', ').replace(/,([^,]*)$/, ', and$1' + " endpoints");
             } else {
-                endPointVal0 = "no endpoint,"
+                return "no endpoint,";
             }
         }
 
+        let endPointVal0 = formatEndpoints(top5Keys0);
+        let endPointVal1 = formatEndpoints(top5Keys1);
 
-        if (top5Keys1.length > 1) {
-            endPointVal1 = top5Keys1.slice(0, -1).join(", ") + " and " + top5Keys1[top5Keys1.length - 1] + " endpoints,";
-        } else {
-            if (top5Keys1.length) {
-                endPointVal1 = "the " + top5Keys1[0] + " endpoint,";
+        //for Actions
+        function formatArray(arr) {
+            const text = "the files were successfully "
+            if (arr.length === 1) {
+                if (arr[0] === actionName) { return arr[0] }
+                else { return (text + arr[0].toString()) };
+            } else if (arr.length === 2) {
+                return text + arr.join(', ').replace(/,([^,]*)$/, ' and$1');
+            }
+            else if (arr.length >= 2) {
+                return text + arr.join(', ').replace(/,([^,]*)$/, ', and$1');
             } else {
-                endPointVal1 = "no endpoint,"
+                return "";
             }
         }
 
-        if (top5Keys2.length > 1) {
-            actionVal0 = "the files were successfully " + top5Keys2.slice(0, -1).join(", ") + " and " + top5Keys2[top5Keys2.length - 1];
-        } else {
-            if (top5Keys2.length) {
-                if (top5Keys2[0] === actionName) {
-                    actionVal0 = top5Keys2[0];
-                } else {
-                    actionVal0 = "the files were successfully " + top5Keys2[0];
-                }
+        let actionVal0 = formatArray(top5Keys2)
+        let actionVal1 = formatArray(top5Keys3)
 
-            } else {
-                actionVal0 = "no action was required";
-            }
-        }
-
-        if (top5Keys3.length > 1) {
-            actionVal1 = "the files were successfully " + top5Keys3.slice(0, -1).join(", ") + " and " + top5Keys3[top5Keys3.length - 1];
-        } else {
-            if (top5Keys3.length) {
-                if (top5Keys3[0] === actionName) {
-                    actionVal1 = top5Keys3[0];
-                } else {
-
-                    actionVal1 = "the files were successfully " + top5Keys3[0];
-                }
-
-            } else {
-                actionVal1 = "no action was required"
-            }
-
-        }
 
 
         const yValue0 = (y1[0] > 1) ? `${y1[0]} times` : `${y1[0]} time`;
@@ -623,7 +602,7 @@ export default function Virus(props) {
         myChartData.total_detection = total_detection;
         myChartData.chartTypes = JSON.stringify(chartTypes);
         myChartData.chartFirstLine = chartFirstLine;
-        
+
         const getProductById = async (e) => {
             try {
                 console.log("hello inside handlevirus", myChartData)
@@ -668,7 +647,7 @@ export default function Virus(props) {
         const link1 = [...PointArr];
         switch (popupIndex) {
             case 0:
-                
+
                 link1[0][updateLinkId] = updatechartDes;
                 break;
             case 1:
@@ -695,12 +674,12 @@ export default function Virus(props) {
         setUpdatechartDes(chartDes);
         setUpdateLinkId(index);
         setPopupIndex(no);
-      
+
     };
 
     //Sub Point Section
     const deleteSubPoint = (e, index, subIndex, linkArrNo) => {
-      
+
         const subPoints = [...SubPointArr];
         subPoints[linkArrNo][index].splice(subIndex, 1);
         setSubPointArr(subPoints);
@@ -727,7 +706,7 @@ export default function Virus(props) {
         setShowChart(link)
     }
 
-   
+
 
     return (
         <>
@@ -782,7 +761,7 @@ export default function Virus(props) {
                 <div className="main-chart">
 
                     <div className="chart-wrapper" id="wrapper11">
-                    <div className="close-icon1" onClick={(e) => { closeChart(e, "wrapper11", 0) }}>✖</div>
+                        <div className="close-icon1" onClick={(e) => { closeChart(e, "wrapper11", 0) }}>✖</div>
                         <canvas
                             id="myChart11"
                             width="500"
@@ -858,9 +837,9 @@ export default function Virus(props) {
                             </div>
 
                         </div>
-                    </div>   
+                    </div>
                     <div className="chart-wrapper" id="wrapper12">
-                    <div className="close-icon1" onClick={(e) => { closeChart(e, "wrapper12", 1) }}>✖</div>
+                        <div className="close-icon1" onClick={(e) => { closeChart(e, "wrapper12", 1) }}>✖</div>
                         <canvas
                             id="myChart12"
                             className="myChart"
@@ -936,7 +915,7 @@ export default function Virus(props) {
                         </div>
                     </div>
                     <div className="chart-wrapper" id="wrapper13">
-                    <div className="close-icon1" onClick={(e) => { closeChart(e, "wrapper13", 2) }}>✖</div>
+                        <div className="close-icon1" onClick={(e) => { closeChart(e, "wrapper13", 2) }}>✖</div>
                         <canvas
                             id="myChart13"
                             className="myChart"
@@ -963,7 +942,7 @@ export default function Virus(props) {
                                                 <img
                                                     src="images/edit.png"
                                                     onClick={(e) => {
-                                                        openPopup(e,index, artist, 2);
+                                                        openPopup(e, index, artist, 2);
                                                     }}
                                                     alt=""
                                                 />

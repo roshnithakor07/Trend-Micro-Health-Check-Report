@@ -91,7 +91,7 @@ const apex43pdf = async (req, res) => {
             text: '4.3 Apex Central Configuration Overview',
             heading: HeadingLevel.HEADING_2,
             keepLines: true,
-            keepNext: true,
+            
             spacing: {
                 before: 220,
                 after: 230,

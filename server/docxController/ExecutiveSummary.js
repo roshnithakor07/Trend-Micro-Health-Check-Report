@@ -3,7 +3,7 @@ const ReportModel = require('../Models/reportModel')
 const moment = require('moment')
 const policyModel = require('../Models/policyModel')
 const { Chart1, Virus, Spyware, Bm, Dc, Ips, Wr, Cc } = require('../Models/chartModel');
-const { HeadingLevel,Paragraph} = require("docx");
+const { HeadingLevel, Paragraph } = require("docx");
 
 const getES = async (req, res) => {
   const Report = await ReportModel.find({}).sort({ _id: -1 }).limit(1);
@@ -28,63 +28,34 @@ const getES = async (req, res) => {
   // let extraEsummarySen = JSON.parse(Report[0].extraEsummarySen)
 
 
-  const allApexSummaryArr = arr1.map(i => (new Paragraph({ text: i, style: "bullet-para"})));
-  const allApex43ExecutiveSummary = arr2.map(i => (new Paragraph({ text: i, style: "bullet-para"})));
-  let eSummaryPolicyOverview = po1.map(i => (new Paragraph({ text: i, style: "bullet-para"})));
-  const eSummaryPolicyOverview1 = po2.map(i => (new Paragraph({ text: i, style: "bullet-para"})));
-  // const extraEsummarySen1 = extraEsummarySen.map(i => ({ text: i, unbreakable: true }));
+  const allApexSummaryArr = arr1.map(i => (new Paragraph({ text: i, style: "bullet-para" })));
+  const allApex43ExecutiveSummary = arr2.map(i => (new Paragraph({ text: i, style: "bullet-para" })));
+  let eSummaryPolicyOverview = po1.map(i => (new Paragraph({ text: i, style: "bullet-para" })));
+  const eSummaryPolicyOverview1 = po2.map(i => (new Paragraph({ text: i, style: "bullet-para" })));
 
 
-  let virusDetection = "", spyDetection = "", wrDetection = "", dcDetection = "";
-  let ipsDetection = "", ccDetection = "", bmDetection = ""
+  const displayChartCount = []
 
   if (showCharts[1]) {
-    if (virus1[0].total_detection) {
-      virusDetection = `${virus1[0].total_detection} Virus/Malware Detected`;
-    }
+    displayChartCount.push(new Paragraph({ text: `${virus1[0].total_detection} Virus/Malware Detected`, style: "bullet-para" }))
   }
-
   if (showCharts[2]) {
-    if (spyware1[0].total_detection) {
-      spyDetection = `${spyware1[0].total_detection} Spyware/Grayware Detected`;
-    }
-
+    displayChartCount.push(new Paragraph({ text: `${spyware1[0].total_detection} Spyware/Grayware Detected`, style: "bullet-para" }))
   }
-
   if (showCharts[3]) {
-
-    if (wr1[0].total_detection) {
-      wrDetection = `${wr1[0].total_detection} Web Reputation Detected`;
-    }
+    displayChartCount.push(new Paragraph({ text: `${wr1[0].total_detection} Web Reputation Detected`, style: "bullet-para" }))
   }
-
-
   if (showCharts[4]) {
-
-    if (dc1[0].total_detection) {
-      dcDetection = `${dc1[0].total_detection} Device Control Detected`;
-    }
+    displayChartCount.push(new Paragraph({ text: `${ips1[0].total_detection} Intrusion Prevention Detected`, style: "bullet-para" }))
   }
-
   if (showCharts[5]) {
-
-    if (ips1[0].total_detection) {
-      ipsDetection = `${ips1[0].total_detection} Intrusion Prevention Detected`;
-    }
+    displayChartCount.push(new Paragraph({ text: `${dc1[0].total_detection} Device Control Detected`, style: "bullet-para" }))
   }
-
   if (showCharts[6]) {
-
-    if (cc1[0].total_detection) {
-      ccDetection = `${cc1[0].total_detection} C&C Callback Detected`;
-    }
+    displayChartCount.push(new Paragraph({ text: `${cc1[0].total_detection} C&C Callback Detected`, style: "bullet-para" }))
   }
-
   if (showCharts[7]) {
-
-    if (bm1[0].total_detection) {
-      bmDetection = `${bm1[0].total_detection} Behaviour Monitoring Detected`;
-    }
+    displayChartCount.push(new Paragraph({ text: `${bm1[0].total_detection} Behaviour Monitoring Detected`, style: "bullet-para" }))
   }
 
 
@@ -110,14 +81,12 @@ const getES = async (req, res) => {
       ...eSummaryPolicyOverview,
       ...eSummaryPolicyOverview1,
       ...allApex43ExecutiveSummary,
-      new Paragraph({ text: `We have captured ${chart1[0].logDays} ${chart1[0].logDuration} of logs on ${chart1[0].logCollectionDate} detections are below:`,style: "bullet-para"}),
-      new Paragraph({ text: virusDetection,style: "bullet-para"}),
-      new Paragraph({ text: spyDetection,style: "bullet-para"}),
-      new Paragraph({ text: wrDetection,style: "bullet-para"}),
-      new Paragraph({ text: dcDetection,style: "bullet-para"}),
-      new Paragraph({ text: ipsDetection,style: "bullet-para"}),
-      new Paragraph({ text: ccDetection,style: "bullet-para"}),
-      new Paragraph({ text: bmDetection,style: "bullet-para"}),
+      new Paragraph(
+        { text: `We have captured ${chart1[0].logDays} ${chart1[0].logDuration} of logs on ${chart1[0].logCollectionDate} detections are below:`, style: "bullet-para" }
+      ),
+
+      ...displayChartCount
+
     ]
 
     return content

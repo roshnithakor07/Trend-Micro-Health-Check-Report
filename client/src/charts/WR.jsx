@@ -41,7 +41,7 @@ export default function WR(props) {
   const [total_detection, setTotalDetections] = useState(0)
 
   const [chartFirstLine, setChartFirstLine] = useState("")
-  let line = `We generated a ${cTitle} Event of the last ${props.logDays} ${props.logDuration} on ${props.logCollectionDate} from Apex central/Apex One. There was a total of ${total_detection} detections.`
+  let line = `We generated a ${cTitle} Event of the last ${props.logDays} ${props.logDuration} on ${props.logCollectionDate} from Apex Central/Apex One. There was a total of ${total_detection} detections.`
 
   const [dataPoints, setDataPoints] = useState([])
   const [columnsNames, setCoulmnsName] = useState(vm[0]);
@@ -343,7 +343,7 @@ export default function WR(props) {
       } else if (currentKey.includes("terminate")) {
         return "Terminated";
       } else if (currentKey.includes("block")) {
-        return "Blocked";
+        return "blocked";
       }
 
       return key; // If none of the conditions match, return the original key
@@ -358,53 +358,40 @@ export default function WR(props) {
     }
 
 
-    let actionVal0, actionVal1, endPointVal0, endPointVal1;
-
-
-
-    if (top5Keys0.length > 1) {
-      endPointVal0 = top5Keys0.slice(0, -1).join(", ") + " and " + top5Keys0[top5Keys0.length - 1] + " endpoints,";
-    } else {
-
-      if (top5Keys0.length) {
-        endPointVal0 = "the " + top5Keys0[0] + " endpoint,";
+    // for EndPoints
+    function formatEndpoints(arr) {
+      if (arr.length === 1) {
+        return "the " + arr[0] + " endpoint,"
+      } else if (arr.length === 2) {
+        return arr.join(', ').replace(/,([^,]*)$/, ' and$1') + " endpoints";
+      }
+      else if (arr.length >= 2) {
+        return arr.join(', ').replace(/,([^,]*)$/, ', and$1' + " endpoints");
       } else {
-        endPointVal0 = "no endpoint,"
+        return "no endpoint,";
       }
     }
 
-    if (top5Keys1.length > 1) {
-      endPointVal1 = top5Keys1.slice(0, -1).join(", ") + " and " + top5Keys1[top5Keys1.length - 1] + " endpoints,";
-    } else {
-      if (top5Keys1.length) {
-        endPointVal1 = "the " + top5Keys1[0] + " endpoint,";
+    let endPointVal0 = formatEndpoints(top5Keys0);
+    let endPointVal1 = formatEndpoints(top5Keys1);
+
+    //for Actions
+    function formatArray(arr) {
+      const text = "the files were successfully "
+      if (arr.length === 1) {
+        return text + arr[0].toString()
+      } else if (arr.length === 2) {
+        return text + arr.join(', ').replace(/,([^,]*)$/, ' and$1');
+      }
+      else if (arr.length >= 2) {
+        return text + arr.join(', ').replace(/,([^,]*)$/, ', and$1');
       } else {
-        endPointVal1 = "no endpoint,"
+        return "";
       }
     }
 
-
-    if (top5Keys2.length > 1) {
-      actionVal0 = "the files were successfully " + top5Keys2.slice(0, -1).join(", ") + " and " + top5Keys2[top5Keys2.length - 1];
-    } else {
-      if (top5Keys2.length) {
-        actionVal0 = "the files were successfully " + top5Keys2[0];
-
-      } else {
-        actionVal0 = "no action was required";
-      }
-    }
-
-    if (top5Keys3.length > 1) {
-      actionVal1 = "the files were successfully " + top5Keys3.slice(0, -1).join(", ") + " and " + top5Keys3[top5Keys3.length - 1];
-    } else {
-      if (top5Keys3.length) {
-        actionVal1 = "the files were successfully " + top5Keys3[0];
-      } else {
-        actionVal1 = "no action was required"
-      }
-
-    }
+    let actionVal0 = formatArray(top5Keys2)
+    let actionVal1 = formatArray(top5Keys3)
 
     const yValue0 = (y1[0] > 1) ? `${y1[0]} times` : `${y1[0]} time`;
     const yValue1 = (y1[1] > 1) ? `${y1[1]} times` : `${y1[1]} time`;
@@ -416,7 +403,7 @@ export default function WR(props) {
       description[0][2] = `${x[1]} This site is detected ${yValue1} on ${endPointVal1} and ${actionVal1} by apex one.`;
 
     } else if (columnsNames === vm[1]) {
-      description[1][0] = `All the web violation events were successfully blocked by apex one.`;
+      description[1][0] = `All the web violation events were successfully blocked by Apex One.`;
     }
 
   }
@@ -580,7 +567,7 @@ export default function WR(props) {
 
     const getProductById = async (e) => {
       try {
-      
+
         await axios.post(wrApi, myChartData);
 
       } catch (error) {
@@ -651,7 +638,7 @@ export default function WR(props) {
     document.getElementById(idVal).style.display = "none"
     link[index] = false
     setShowChart(link)
-}
+  }
 
   return (
     <>
@@ -706,7 +693,7 @@ export default function WR(props) {
         <div className="main-chart">
 
           <div className="chart-wrapper" id="wrapper31">
-          <div className="close-icon1" onClick={(e) => { closeChart(e, "wrapper31", 0) }}>✖</div>
+            <div className="close-icon1" onClick={(e) => { closeChart(e, "wrapper31", 0) }}>✖</div>
             <canvas
               id="myChart31"
               width="500"
@@ -787,7 +774,7 @@ export default function WR(props) {
 
           </div>
           <div className="chart-wrapper" id="wrapper32">
-          <div className="close-icon1" onClick={(e) => { closeChart(e, "wrapper32", 1) }}>✖</div>
+            <div className="close-icon1" onClick={(e) => { closeChart(e, "wrapper32", 1) }}>✖</div>
             <canvas
               id="myChart32"
               className="myChart"
@@ -862,7 +849,7 @@ export default function WR(props) {
             </div>
           </div>
           <div className="chart-wrapper" id="wrapper33">
-          <div className="close-icon1" onClick={(e) => { closeChart(e, "wrapper33", 2) }}>✖</div>
+            <div className="close-icon1" onClick={(e) => { closeChart(e, "wrapper33", 2) }}>✖</div>
             <canvas
               id="myChart33"
               className="myChart"

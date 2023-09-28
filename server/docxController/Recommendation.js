@@ -16,7 +16,6 @@ const getREQ = async (req, res) => {
     const allPolicyTwoRSummeryArr = po2.map(i => (new Paragraph({ text: i, style: "bullet-para" })));
     const allCommonPolicySummeryArr = common.map(i => (new Paragraph({ text: i, style: "bullet-para" })));
 
-
     let addPo2Summary = [];
 
 
@@ -30,7 +29,7 @@ const getREQ = async (req, res) => {
                         after: 200,
                     },
                     keepLines: true,
-                    keepNext: true,
+                    
                     children: [new TextRun({ text: `In Both Policy:`, bold: true, size: "16pt" })]
                 }),
                 ...allCommonPolicySummeryArr
@@ -45,7 +44,7 @@ const getREQ = async (req, res) => {
                         after: 200,
                     },
                     keepLines: true,
-                    keepNext: true,
+                    
                     children: [new TextRun({ size: "16pt", text: `In ${Report[0].OverviewPolicyName1} Policy: `, bold: true })]
                 }),
                 ...allPolicyOneRSummeryArr
@@ -60,7 +59,7 @@ const getREQ = async (req, res) => {
                         after: 200,
                     },
                     keepLines: true,
-                    keepNext: true,
+                    
                     children: [new TextRun({ size: "16pt", text: `In ${PolicyModel[0].OverviewPolicyName1} Policy: `, bold: true })]
                 }),
                 ...allPolicyTwoRSummeryArr
@@ -119,7 +118,7 @@ const getREQ = async (req, res) => {
                             style: "bullet-para",
                             text: apex43[i].description,
                             children: [
-                                new TextRun(" "),
+                                 new TextRun(" "),
                                 new ExternalHyperlink({
                                     children: [
                                         new TextRun({
@@ -145,12 +144,13 @@ const getREQ = async (req, res) => {
         console.log("error - ES - APEX43")
     }
 
+    
+
     const content = [
         new Paragraph({
             text: '4.4 Identified Gaps and Recommendations',
             heading: HeadingLevel.HEADING_2,
             keepLines: true,
-            keepNext: true,
             spacing: {
                 before: 220,
                 after: 230,

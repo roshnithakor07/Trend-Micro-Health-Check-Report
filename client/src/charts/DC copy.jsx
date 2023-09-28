@@ -29,10 +29,10 @@ export default function ChartDemo(props) {
         chartDescription: '[]',
         updatedDCVendorTable: "[]",
         chartSubPoints: "[]",
-        showChart: "[false,false,false]",
+        showChart: "[false,false,false,false]",
     });
 
-
+  
 
 
     let canavaId = ["myChart51", "myChart52", "myChart53"];
@@ -43,7 +43,7 @@ export default function ChartDemo(props) {
 
     let cTitle = "Device control Detection";
 
-    let vm = ["Device Type", "Product Entity/Endpoint", "Permission"]
+    let vm = ["Device Type", "Product Entity/Endpoint", "Permission", "Table"]
 
     const [total_detection, setTotalDetections] = useState(0)
 
@@ -68,7 +68,7 @@ export default function ChartDemo(props) {
     const [PointArr, setPointArr] = useState([[], [], []]);
     const [updatechartDes, setUpdatechartDes] = useState("");;
     const [updateLinkId, setUpdateLinkId] = useState("");
-    const [showChart, setShowChart] = useState([false, false, false])
+    const [showChart, setShowChart] = useState([false, false, false, false])
 
     const [chartDes, setchartDess] = useState("");
     const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -256,7 +256,7 @@ export default function ChartDemo(props) {
         } else if (currentKey.includes("terminate")) {
             return "terminated";
         } else if (currentKey.includes("block")) {
-            return "blocked";
+            return "Blocked";
         }
     }
 
@@ -289,15 +289,20 @@ export default function ChartDemo(props) {
 
         const separatorIndex1 = totalPermissionArr.indexOf('-');
         const actionPoint0 = totalPermissionArr.slice(0, separatorIndex1).filter((endpoint, index, self) => self.indexOf(endpoint) === index);
-    
+        const actionPoint1 = totalPermissionArr.slice(separatorIndex1 + 1).filter((endpoint, index, self) => self.indexOf(endpoint) === index);
 
         const frequencyMap2 = new Map();
-        
+        const frequencyMap3 = new Map();
 
 
         for (const element of actionPoint0) {
             const count = frequencyMap2.get(element) || 0;
             frequencyMap2.set(element, count + 1);
+        }
+
+        for (const element of actionPoint1) {
+            const count = frequencyMap3.get(element) || 0;
+            frequencyMap3.set(element, count + 1);
         }
 
         function getTop5Keys(frequencyMap) {
@@ -308,29 +313,41 @@ export default function ChartDemo(props) {
 
         //Action
         const top5Keys2 = getTop5Keys(frequencyMap2);
-      
+        const top5Keys3 = getTop5Keys(frequencyMap3);
+
         for (let i = 0; i < top5Keys2.length; i++) {
             top5Keys2[i] = transformKey(top5Keys2[i]);
         }
 
+        for (let i = 0; i < top5Keys3.length; i++) {
+            top5Keys3[i] = transformKey(top5Keys3[i]);
+        }
 
-        //for Actions
-        function formatArray(arr) {
-            if (arr.length === 1) {
-                return "and was " + arr[0].toString() + " successfully."
-            } else if (arr.length === 2) {
-                return "and was " + arr.join(', ').replace(/,([^,]*)$/, ' and$1') + " successfully.";
-            }
-            else if (arr.length >= 2) {
-                return "and was " + arr.join(', ').replace(/,([^,]*)$/, ', and$1' + " successfully.");
+
+        let actionVal0, actionVal1;
+
+
+        if (top5Keys2.length > 1) {
+            actionVal0 = top5Keys2.slice(0, -1).join(", ") + " and " + top5Keys2[top5Keys2.length - 1];
+        } else {
+            if (top5Keys2.length) {
+                actionVal0 = top5Keys2[0];
             } else {
-                return "";
+                actionVal0 = "no action was required";
             }
         }
 
-        let actionVal0 = formatArray(top5Keys2)
+        if (top5Keys3.length > 1) {
+            actionVal1 = top5Keys3.slice(0, -1).join(", ") + " and " + top5Keys3[top5Keys3.length - 1];
+        } else {
+            if (top5Keys3.length) {
+                actionVal1 = top5Keys3[0];
+            } else {
+                actionVal1 = "no action was required"
+            }
 
-        description[1][0] = `${x[0]} was the endpoint that was triggered the most having Device control detection ${actionVal0}`;
+        }
+        description[1][0] = `${x[0]} was the endpoint that was triggered the most having Device control detection and was ${actionVal0} successfully.`;
         // description[1][1] = `${x[1]} was the endpoint that was triggered the most having Device control detection and was ${actionVal1} successfully.`;
     }
 
@@ -356,6 +373,111 @@ export default function ChartDemo(props) {
         description[2][0] = `All detections triggered have been ${top5Keys2.join(', ').replace(/,([^,]*)$/, ', and$1')} by Apex One Agent.`
     }
 
+
+    if (columnsNames === vm[3]) {
+        let count = {}
+        const arr = dataPoints.map((d) => d["Device Type"]);
+
+        for (const d of dataPoints) {
+            const value = d["Device Type"];
+            count[value] = (count[value] || 0) + 1;
+            // Update the sum
+        }
+
+        let deviceNameArr = Object.keys(count)
+
+        const desArry = Object.keys(count).map((key) => {
+            return arr.reduce((acc, el, i) => {
+                if (el === key) {
+                    acc.push(i);
+                }
+                return acc;
+            }, []);
+        });
+
+        for (const indices of desArry) {
+            totalPermissionArr.push(...indices.map(k => permissionArr[k]), "-");
+            totalVendorArr.push(...indices.map(k => vendorArr[k]), "-");
+        }
+
+        totalPermissionArr.pop();
+        totalVendorArr.pop();
+
+        function calculateFrequencies(arr) {
+            const dividedArrays = [];
+            let currentArray = [];
+
+            for (const item of arr) {
+                if (item === '-') {
+                    if (currentArray.length > 0) {
+                        dividedArrays.push(currentArray);
+                        currentArray = [];
+                    }
+                } else {
+                    currentArray.push(item);
+                }
+            }
+
+            if (currentArray.length > 0) {
+                dividedArrays.push(currentArray);
+            }
+
+            const frequencies = [];
+            for (const arr of dividedArrays) {
+                const frequency = {};
+                for (const item of arr) {
+                    frequency[item] = (frequency[item] || 0) + 1;
+                }
+                frequencies.push(frequency);
+            }
+
+            return frequencies;
+        }
+
+        const permissionsFrequencies = calculateFrequencies(totalPermissionArr);
+
+        const allPermissionsName = {};
+        for (const frequencyObj of permissionsFrequencies) {
+            for (const key in frequencyObj) {
+                if (frequencyObj.hasOwnProperty(key)) {
+                    allPermissionsName[key] = (allPermissionsName[key] || 0) + frequencyObj[key];
+                }
+            }
+        }
+
+
+        const segments = [];
+        let currentSegment = new Set();
+
+        for (const vendor of totalVendorArr) {
+            if (vendor !== '-') {
+                currentSegment.add(vendor);
+            } else {
+                if (currentSegment.size > 0) {
+                    segments.push([...currentSegment]);
+                    currentSegment.clear();
+                }
+            }
+        }
+
+        // Add the last segment if it exists
+        if (currentSegment.size > 0) {
+            segments.push([...currentSegment]);
+        }
+
+
+        updatedDCVendorTable = deviceNameArr.map((item, index) => {
+            return {
+                label: item,
+                vendors: segments[index % segments.length],
+                permissionsFrequencies: permissionsFrequencies[index % permissionsFrequencies.length],
+                allPermissionsName: allPermissionsName
+            };
+        });
+
+
+
+    }
 
     function handleSubmit() {
         const link = [...showChart];
@@ -393,6 +515,112 @@ export default function ChartDemo(props) {
             myChartData['product_endpoint'] = JSON.stringify(x)
             myChartData['product_endpoint_count'] = JSON.stringify(y1)
 
+        } else if (columnsNames === vm[3]) {
+            link1[2][0] = description[2][0];
+            link[3] = true
+            setDcVendorTable([...updatedDCVendorTable])
+
+            var existingTable = document.getElementById('DCdocumentV');
+            if (existingTable) {
+                existingTable.remove();
+            }
+
+            document.getElementById("wrapper53").style.display = "block";
+            var DCTable = document.createElement("table");
+            DCTable.id = "DCdocumentV";
+            const totalActionName = Object.keys(updatedDCVendorTable[0].allPermissionsName);
+            const totalActionCount = Object.values(updatedDCVendorTable[0].allPermissionsName);
+            var thead = document.createElement("thead");
+            DCTable.appendChild(thead);
+            //THEAD DONE
+            for (let i = 0; i < 2; i++) {
+                var tr = document.createElement('tr');
+                for (let j = 0; j < 3; j++) {
+
+                    if (i === 0) {
+                        var th = document.createElement('th');
+                        var text = document.createTextNode(heading[j]);
+                        if (j === 2) {
+                            break;
+                        }
+                    } else {
+                        if (totalActionName[j]) {
+                            var th = document.createElement('th');
+                            var text = document.createTextNode(totalActionName[j]);
+                        }
+                    }
+                    if (i === 0 && j === 0) {
+                        th.rowSpan = 2
+                    }
+                    if (i === 0 && j === 1) {
+                        th.colSpan = totalActionName.length;
+                    }
+                    th.appendChild(text);
+                    tr.appendChild(th);
+                }
+                tr.style.textAlign = "center"
+                thead.appendChild(tr);
+            }
+            DCTable.append(thead)
+
+            //TBODY 
+            var tbody = document.createElement("tbody");
+            DCTable.appendChild(tbody);
+
+            //add rows
+            for (let i = 0; i < updatedDCVendorTable.length; i++) {
+                var tr = document.createElement('tr');
+                var td = document.createElement('td');
+                var text = document.createTextNode(updatedDCVendorTable[i].label);
+                td.appendChild(text);
+                td.style.fontWeight = "bold";
+                tr.appendChild(td);
+                let keys = Object.keys(updatedDCVendorTable[i].permissionsFrequencies);
+                totalActionName.map((element, index) => {
+                    if (keys.includes(element)) {
+                        var td = document.createElement('td');
+                        var text = document.createTextNode(updatedDCVendorTable[i].permissionsFrequencies[element]);
+                        td.appendChild(text);
+                        tr.appendChild(td);
+                    } else {
+                        var td = document.createElement('td');
+                        tr.appendChild(td);
+                    }
+                });
+                tbody.appendChild(tr);
+                if (updatedDCVendorTable[i].vendors.length) {
+                    for (const iterator of updatedDCVendorTable[i].vendors) {
+                        if (iterator && iterator.trim() !== "N/A") { // Skip if iterator is "N/A" or blank
+                            var tr = document.createElement('tr');
+                            var td = document.createElement('td');
+                            var text = document.createTextNode(iterator);
+                            td.appendChild(text);
+                            tr.appendChild(td);
+                            for (let i = 0; i < totalActionName.length; i++) {
+                                var td = document.createElement('td');
+                                tr.appendChild(td);
+                            }
+                            tbody.appendChild(tr);
+                        }
+                    }
+                }
+
+            }
+
+            var tr = document.createElement('tr');
+            var th = document.createElement('th');
+            var text = document.createTextNode('Total');
+            th.appendChild(text);
+            tr.appendChild(th);
+
+            for (let i = 0; i < totalActionName.length; i++) {
+                var th = document.createElement('th');
+                var text = document.createTextNode(totalActionCount[i]);
+                th.appendChild(text);
+                tr.appendChild(th);
+            }
+            tbody.appendChild(tr);
+            document.getElementById('wrapper-child53').appendChild(DCTable)
         } else if (columnsNames === vm[2]) {
             link[2] = true
             myChartData['permission'] = JSON.stringify(x)
@@ -477,6 +705,7 @@ export default function ChartDemo(props) {
         myChartData["chartSubPoints"] = JSON.stringify(SubPointArr)
         myChartData.chartFirstLine = chartFirstLine;
         myChartData.chartTypes = JSON.stringify(chartTypes)
+        myChartData["updatedDCVendorTable"] = JSON.stringify(dcVendorTable);
         myChartData["showChart"] = JSON.stringify(showChart);
 
         const getProductById = async (e) => {
@@ -764,6 +993,8 @@ export default function ChartDemo(props) {
                             </div>
                         </div>
                     </div>
+
+
                     <div className="chart-wrapper" id="wrapper54">
                         <div className="close-icon1" onClick={(e) => { closeChart(e, "wrapper54", 3) }}>✖</div>
                         {/* <!-- <canvas id="myChart" className="myChart" width="400" height="400"></canvas> --> */}
@@ -815,6 +1046,10 @@ export default function ChartDemo(props) {
                         </div>
                     </div>
 
+                    <div className="chart-wrapper" id="wrapper53">
+                        <div className="close-icon1" onClick={(e) => { closeChart(e, "wrapper53", 2) }}>✖</div>
+                        <div id="wrapper-child53"></div>
+                    </div>
 
 
                 </div>

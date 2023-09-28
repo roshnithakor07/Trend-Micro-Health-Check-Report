@@ -1,113 +1,296 @@
-if (showCharts[1]) {
-    const vDescription = [];
-    try {
-        const firstImagePath = './images/virusIMage.png';
-        const secondImagePath = './images/PA.png';
+// Numbering and bullet points example
 
-        let imagePath;
+const fs  = require('fs');
+const { AlignmentType, convertInchesToTwip, Document, Footer, Header, HeadingLevel, LevelFormat, Packer, Paragraph }  = require('docx');
 
-        if (fs.existsSync(firstImagePath)) {
-            imagePath = firstImagePath;
-        } else {
-            imagePath = secondImagePath;
-        }
-
-        let vDesTitle = wr1[0].desTitle;
-        let vDesImages = wr1[0].desImages;
-        let vDes = wr1[0].desDescription;
-
-        if (wr1[0].checkDescriptionAdded) {
-
-            if (vDesTitle.length) {
-
-                vDescription.push(
-                    new Paragraph({
-                        indent: {
-                            left: 350
+const doc = new Document({
+    numbering: {
+        config: [
+            {
+                reference: "my-crazy-numbering",
+                levels: [
+                    {
+                        level: 0,
+                        format: LevelFormat.UPPER_ROMAN,
+                        text: "%1",
+                        alignment: AlignmentType.START,
+                        style: {
+                            paragraph: {
+                                indent: { left: convertInchesToTwip(0.5), hanging: convertInchesToTwip(0.18) },
+                            },
                         },
-                        text: vDesTitle, style: 'common-space'
-                    })
-                )
-
-            }
-
-            if (vDesImages.length) {
-                vDescription.push(
-                    new Paragraph({
-                        style: 'image-style',
-                        children: [
-                            new ImageRun({
-                                data: fs.readFileSync(imagePath),
-                                transformation: {
-                                    width: 399.87401575,
-                                    height: 233.95275591
-                                }
-                            })
-                        ]
-                    }),
-                )
-            }
-
-            if (vDes.length) {
-                vDescription.push(
-                    new Paragraph({ text: vDes, style: 'bullet-para' })
-                )
-            }
-
-        }
-    } catch (error) {
-        console.log("error - virus des")
-    }
-
-    const v_des0 = chartDescriptionFun(0, wr1);
-    const v_des1 = chartDescriptionFun(1, wr1);
-    const v_des2 = chartDescriptionFun(2, wr1);
-
-    vChart.push(
-        new Paragraph({
-            text: chartTitle[1] ? chartTitle[1] : "5.2 Virus/Malware",
-            heading: HeadingLevel.HEADING_2,
-            keepLines: true,
-            keepNext: true,
-            spacing: {
-                before: 220,
-                after: 230,
-            }
-        }),
-        new Paragraph({ text: `${wr1[0].chartFirstLine}`, style: "common-space" }),
-        new Paragraph({
-            style: 'image-style',
+                    },
+                    {
+                        level: 1,
+                        format: LevelFormat.DECIMAL,
+                        text: "%2.",
+                        alignment: AlignmentType.START,
+                        style: {
+                            paragraph: {
+                                indent: { left: convertInchesToTwip(1), hanging: convertInchesToTwip(0.68) },
+                            },
+                        },
+                    },
+                    {
+                        level: 2,
+                        format: LevelFormat.LOWER_LETTER,
+                        text: "%3)",
+                        alignment: AlignmentType.START,
+                        style: {
+                            paragraph: {
+                                indent: { left: convertInchesToTwip(1.5), hanging: convertInchesToTwip(1.18) },
+                            },
+                        },
+                    },
+                    {
+                        level: 3,
+                        format: LevelFormat.UPPER_LETTER,
+                        text: "%4)",
+                        alignment: AlignmentType.START,
+                        style: {
+                            paragraph: {
+                                indent: { left: 2880, hanging: 2420 },
+                            },
+                        },
+                    },
+                ],
+            },
+            {
+                reference: "my-unique-bullet-points",
+                levels: [
+                    {
+                        level: 0,
+                        format: LevelFormat.BULLET,
+                        text: "\u27A4",
+                        alignment: AlignmentType.LEFT,
+                        style: {
+                            paragraph: {
+                                indent: { left: convertInchesToTwip(0.5), hanging: convertInchesToTwip(0.25) },
+                            },
+                        },
+                    },
+                    {
+                        level: 1,
+                        format: LevelFormat.BULLET,
+                        text: "\u00A5",
+                        alignment: AlignmentType.LEFT,
+                        style: {
+                            paragraph: {
+                                indent: { left: convertInchesToTwip(1), hanging: convertInchesToTwip(0.25) },
+                            },
+                        },
+                    },
+                    {
+                        level: 2,
+                        format: LevelFormat.BULLET,
+                        text: "\u273F",
+                        alignment: AlignmentType.LEFT,
+                        style: {
+                            paragraph: {
+                                indent: { left: 2160, hanging: convertInchesToTwip(0.25) },
+                            },
+                        },
+                    },
+                    {
+                        level: 3,
+                        format: LevelFormat.BULLET,
+                        text: "\u267A",
+                        alignment: AlignmentType.LEFT,
+                        style: {
+                            paragraph: {
+                                indent: { left: 2880, hanging: convertInchesToTwip(0.25) },
+                            },
+                        },
+                    },
+                    {
+                        level: 4,
+                        format: LevelFormat.BULLET,
+                        text: "\u2603",
+                        alignment: AlignmentType.LEFT,
+                        style: {
+                            paragraph: {
+                                indent: { left: 3600, hanging: convertInchesToTwip(0.25) },
+                            },
+                        },
+                    },
+                ],
+            },
+        ],
+    },
+    sections: [
+        {
+            headers: {
+                default: new Header({
+                    children: [
+                        new Paragraph({
+                            text: "Hey you",
+                            numbering: {
+                                reference: "my-crazy-numbering",
+                                level: 0,
+                            },
+                        }),
+                        new Paragraph({
+                            text: "What's up fam",
+                            numbering: {
+                                reference: "my-crazy-numbering",
+                                level: 1,
+                            },
+                        }),
+                    ],
+                }),
+            },
+            footers: {
+                default: new Footer({
+                    children: [
+                        new Paragraph({
+                            text: "Hey you",
+                            numbering: {
+                                reference: "my-crazy-numbering",
+                                level: 0,
+                            },
+                        }),
+                        new Paragraph({
+                            text: "What's up fam",
+                            numbering: {
+                                reference: "my-crazy-numbering",
+                                level: 1,
+                            },
+                        }),
+                    ],
+                }),
+            },
             children: [
-                new ImageRun({
-                    data: fs.readFileSync(`${chartFolderName}/wr_img1.png`),
-                    transformation: transformation
-                })
-            ]
-        }),
-        ...v_des0,
-        new Paragraph({
-            style: 'image-style',
-            children: [
-                new ImageRun({
-                    data: fs.readFileSync(`${chartFolderName}/wr_img2.png`),
-                    transformation: transformation
-                })
-            ]
-        }),
-        ...v_des1,
+                new Paragraph({
+                    text: "Hey you",
+                    numbering: {
+                        reference: "my-crazy-numbering",
+                        level: 0,
+                    },
+                }),
+                new Paragraph({
+                    text: "What's up fam",
+                    numbering: {
+                        reference: "my-crazy-numbering",
+                        level: 1,
+                    },
+                }),
+                new Paragraph({
+                    text: "Hello World 2",
+                    numbering: {
+                        reference: "my-crazy-numbering",
+                        level: 1,
+                    },
+                }),
+                new Paragraph({
+                    text: "Yeah boi",
+                    numbering: {
+                        reference: "my-crazy-numbering",
+                        level: 2,
+                    },
+                }),
+                new Paragraph({
+                    text: "Hey you",
+                    bullet: {
+                        level: 0,
+                    },
+                }),
+                new Paragraph({
+                    text: "What's up fam",
+                    bullet: {
+                        level: 1,
+                    },
+                }),
+                new Paragraph({
+                    text: "Hello World 2",
+                    bullet: {
+                        level: 2,
+                    },
+                }),
+                new Paragraph({
+                    text: "Yeah boi",
+                    bullet: {
+                        level: 3,
+                    },
+                }),
+                new Paragraph({
+                    text: "101 MSXFM",
+                    numbering: {
+                        reference: "my-crazy-numbering",
+                        level: 3,
+                    },
+                }),
+                new Paragraph({
+                    text: "back to level 1",
+                    numbering: {
+                        reference: "my-crazy-numbering",
+                        level: 1,
+                    },
+                }),
+                new Paragraph({
+                    text: "back to level 0",
+                    numbering: {
+                        reference: "my-crazy-numbering",
+                        level: 0,
+                    },
+                }),
+                new Paragraph({
+                    text: "Custom Bullet points",
+                    heading: HeadingLevel.HEADING_1,
+                }),
+                new Paragraph({
+                    text: "What's up fam",
+                    numbering: {
+                        reference: "my-unique-bullet-points",
+                        level: 0,
+                    },
+                }),
+                new Paragraph({
+                    text: "Hey you",
+                    numbering: {
+                        reference: "my-unique-bullet-points",
+                        level: 0,
+                    },
+                }),
+                new Paragraph({
+                    text: "What's up fam",
+                    numbering: {
+                        reference: "my-unique-bullet-points",
+                        level: 1,
+                    },
+                }),
+                new Paragraph({
+                    text: "Hello World 2",
+                    numbering: {
+                        reference: "my-unique-bullet-points",
+                        level: 2,
+                    },
+                }),
+                new Paragraph({
+                    text: "Yeah boi",
+                    numbering: {
+                        reference: "my-unique-bullet-points",
+                        level: 3,
+                    },
+                }),
+                new Paragraph({
+                    text: "my Awesome numbering",
+                    numbering: {
+                        reference: "my-unique-bullet-points",
+                        level: 4,
+                    },
+                }),
+                new Paragraph({
+                    text: "Back to level 1",
+                    numbering: {
+                        reference: "my-unique-bullet-points",
+                        level: 1,
+                    },
+                }),
+            ],
+        },
+    ],
+});
 
-        new Paragraph({
-            style: 'image-style',
-            children: [
-                new ImageRun({
-                    data: fs.readFileSync(`${chartFolderName}/wr_img3.png`),
-                    transformation: transformation
-                })
-            ]
-        }),
-        ...v_des2,
-
-        ...vDescription
-    )
-
-};
+Packer.toBuffer(doc).then((buffer) => {
+    fs.writeFileSync("My Document.docx", buffer);
+});

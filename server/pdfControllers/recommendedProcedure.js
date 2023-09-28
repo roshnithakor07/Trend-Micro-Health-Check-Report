@@ -73,6 +73,8 @@ const getRecommendedProcedure = async (req, res) => {
             return { text: description };
         }
     });
+
+    
     try {
 
       let content = [

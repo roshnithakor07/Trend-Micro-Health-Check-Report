@@ -192,10 +192,12 @@ function Report() {
     fiftyfourFunction1,
     fiftyfiveFunction1,
     fiftysixFunction1,
-    fiftynineFunction1,
     vulnerabilityProtectionFun1,
     deviceControlFun1,
-    applicationControlFun1
+    applicationControlFun1,
+    vulnerabilityProtectionModeFun1,
+    exception51Fun1,
+
   } = Po2Logic();
 
 
@@ -609,7 +611,7 @@ function Report() {
 
   const updateValue = () => {
     switch (popupIndex) {
-  
+
       case "apex41Es":
         const updatedArray = summarySenArr.map((item) => {
           if (item.label === updateSummaryLabel) {
@@ -998,29 +1000,30 @@ function Report() {
             thirteenFunction1,
             fourteenFunction1,
             fifteenFunction1,
-
+        
             sixteenFunction1,
             seventeenFunction1,
             eighteenFunction1,
             nineteenFunction1,
             twentyFunction1,
-
+        
             twentyoneFunction1,
             twentytwoFunction1,
             twentythreeFunction1,
-
+        
             thirtynineFunction1,
-
+        
             fiftyoneFunction1,
             fiftytwoFunction1,
             fiftythreeFunction1,
             fiftyfourFunction1,
             fiftyfiveFunction1,
             fiftysixFunction1,
-            fiftynineFunction1,
             vulnerabilityProtectionFun1,
             deviceControlFun1,
-            applicationControlFun1
+            applicationControlFun1,
+            vulnerabilityProtectionModeFun1,
+            exception51Fun1,
           }} />
         )}
 
@@ -1061,20 +1064,18 @@ function Report() {
           <Button variant="contained" style={{ backgroundColor: save }}>
             {checkPolicyOverviewTwoAdded ?
               (<Link
-                to="/charts"
                 onClick={(e) => {
                   handleReport(e);
                   handlePolicyOverview2(e);
                 }}
+                to="/charts"
                 className="button is-primary mt-2"
               >
                 Next - Charts
               </Link>) :
               (<Link
+                onClick={handleReport}
                 to="/charts"
-                onClick={(e) => {
-                  handleReport(e);
-                }}
                 className="button is-primary mt-2"
               >
                 Next - Charts

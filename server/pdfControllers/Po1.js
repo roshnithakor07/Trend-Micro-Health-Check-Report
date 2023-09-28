@@ -144,46 +144,22 @@ const getPo1 = async (req, res) => {
       break;
     case 'yes3':
       RTable1 = [
-        new Paragraph({
-          text: 'Used specific action for each Virus/Malware type:',
-          spacing: { after: 100 }
-        }),
-        new Table({
-          margins: {
-            top: 60,
-            bottom: 60,
-            left: 60,
-            right: 60
-          },
-
-          rows: [
-            new TableRow({
-              children: [new TableCell({
-                children: [new Paragraph(`Select - Joke: ${Report[0].joke2}`)]
-              })]
-            }),
-            new TableRow({
-              children: [new TableCell({ children: [new Paragraph(`Select - Trojans: ${Report[0].trojans2}`)] })]
-            }),
-            new TableRow({
-              children: [new TableCell({ children: [new Paragraph(`Select - Virus: ${Report[0].virus12} & ${Report[0].virus22}`)] })]
-            }),
-            new TableRow({
-              children: [new TableCell({ children: [new Paragraph(`Select - Test Virus: ${Report[0].test_virus2}`)] })]
-            }),
-            new TableRow({
-              children: [new TableCell({ children: [new Paragraph(`Select - Packer: ${Report[0].packer2}`)] })]
-            }),
-            new TableRow({
-              children: [new TableCell({ children: [new Paragraph(`Select - Probable Malware: ${Report[0].probable_malware12} & ${Report[0].probable_malware22}`)] })]
-            }),
-            new TableRow({
-              children: [new TableCell({ children: [new Paragraph(`Select - Other Malware: ${Report[0].other_malware12} & ${Report[0].other_malware22}`)] })]
-            }),
-
-          ]
-        })
-
+        { text: 'Used specific action for each Virus/Malware type:', lineHeight: 1.2, style: 'common' },
+        {
+          fontSize: 11,
+          margin: [0, 6, 0, 0],
+          table: {
+            body: [
+              [{ text: `Select - Joke: ${Report[0].joke2}` }],
+              [{ text: `Select - Trojans: ${Report[0].trojans2}` }],
+              [{ text: `Select - Virus: ${Report[0].virus12} & ${Report[0].virus22}` }],
+              [{ text: `Select - Test Virus: ${Report[0].test_virus2}` }],
+              [{ text: `Select - Packer: ${Report[0].packer2}` }],
+              [{ text: `Select - Probable Malware: ${Report[0].probable_malware12} & ${Report[0].probable_malware22}` }],
+              [{ text: `Select - Other Malware: ${Report[0].other_malware12} & ${Report[0].other_malware22}` }]
+            ]
+          }
+        }
       ];
       break;
     default:
@@ -283,7 +259,7 @@ const getPo1 = async (req, res) => {
             ['', 'Exception (specify exception if any)', predictiveMlData3, { image: `${Report[0].tab52ML2}`, style: "imgStyle", width: 15 }],
 
             ['Suspicious Connection', 'Enable with Block option', `${Report[0].suspicious_Connection} with Block option`, { image: `${Report[0].tab53}`, style: "imgStyle", width: 15 }],
-            ['Web Reputation', 'Enable for Internal and External agents with Security Level Medium', `${Report[0].web_reputation1} with Security Level ${Report[0].web_reputation2}`, { image: `${Report[0].tab54}`, style: "imgStyle", width: 15 }],
+            ['Web Reputation', 'Enable for Internal and External agents with Security Level Medium', `${Report[0].web_reputation1} with ${Report[0].web_reputation2} Security Level`, { image: `${Report[0].tab54}`, style: "imgStyle", width: 15 }],
             ['Vulnerability Protection', 'Enable', `${vp_mode}`, { image: `${Report[0].tabVP}`, style: "imgStyle", width: 15 }],
             ['Device Control', 'Enable', `${Report[0].device_control}`, { image: `${Report[0].tabDC}`, style: "imgStyle", width: 15 }],
 

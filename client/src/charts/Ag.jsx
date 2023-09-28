@@ -27,12 +27,12 @@ export default function Ag(props) {
 
   //chart-Points
   const [PointArr, setPointArr] = useState([
-    "30 endpoints  are required to restart for the update.",
-    "5 endpoints (BMTPC1334CS02, BMTNB1334CUP01, BMTPC1275BS01, BMTPC1523KCP01, BMTNBPSATNDV010) are required restart for cleanup.",
-    "468 Agents have outdated Program versions out of 3081 agents. ",
-    "318 agents have outdated patterns older than 7 days out of 3081 agents.",
-    "4 agents (VRLF-DPS001, VRLFYK001, VRLF-JKT002, VRLF-JKT001) are using the Windows servers platform.",
-    "68 agents are installed on Windows 7 (Legacy OS) platform. ",
+    "(INPUT) endpoints  are required to restart for the update.",
+    "(INPUT) endpoints (NAMES-OF-ENDPOINTS) are required restart for cleanup.",
+    "(INPUT) Agents have outdated Program versions out of (INPUT) agents. ",
+    "(INPUT) agents have outdated patterns older than 7 days out of (INPUT) agents.",
+    "(INPUT) agents (NAMES-OF-AGENTS) are using the Windows servers platform.",
+    "(INPUT) agents are installed on the Windows 7 (Legacy OS) platform. ",
   ]);
 
   const [updatechartDes, setUpdatechartDes] = useState("");;
@@ -185,8 +185,9 @@ export default function Ag(props) {
       var text2 = document.createTextNode('Count');
       var tr = document.createElement('tr');
       th1.appendChild(text1);
-
       th2.appendChild(text2);
+      th1.style.textAlign = "center"
+      th2.style.textAlign = "center"
 
       tr.appendChild(th1);
 
@@ -203,6 +204,7 @@ export default function Ag(props) {
         var text1 = document.createTextNode(x[j]);
         var text2 = document.createTextNode(y1[j]);
         td2.style.textAlign = "center"
+        td1.style.textAlign = "center"
         td1.appendChild(text1);
         td2.appendChild(text2);
         tr.appendChild(td1);
@@ -216,6 +218,8 @@ export default function Ag(props) {
       var tr = document.createElement('tr');
       th1.appendChild(text1);
       th2.appendChild(text2);
+      th1.style.textAlign = "center"
+      th2.style.textAlign = "center"
       tr.appendChild(th1);
       tr.appendChild(th2);
       table.appendChild(tr);

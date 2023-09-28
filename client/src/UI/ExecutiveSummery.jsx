@@ -19,7 +19,7 @@ export default function ExecutiveSummery({ myData: {
             <div id="ExecutiveSummery">
                 <div className="container6" id="head2">
                     <h2 style={{ color: "red" }} className="report-heading2">
-                        3 Executive Summary
+                        2 Executive Summary
                     </h2>
 
                     <div className="container7">

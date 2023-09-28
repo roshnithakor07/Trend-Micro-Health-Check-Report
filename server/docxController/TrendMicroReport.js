@@ -10,13 +10,16 @@ const ReportModel = require('../Models/reportModel')
 const moment = require('moment')
 const fs = require('fs');
 const date = new Date();
+const saveAs = require('file-saver');
 
 const { getReportpdf } = require('./report');
 const { getES } = require('./ExecutiveSummary');
 const { apex41pdf } = require('./apex41');
 const { apex43pdf } = require('./apex43');
 const { getPo1 } = require('./Po1');
+const { getPo2 } = require('./Po2');
 const { getREQ } = require('./Recommendation');
+const { getRecommendedProcedure } = require("./recommendedProcedure")
 const { getCharts } = require("./chart")
 
 const getTrendMicroReportDocx = async (req, res) => {
@@ -32,9 +35,20 @@ const getTrendMicroReportDocx = async (req, res) => {
         getCharts(),
     ]);
 
-    let combinedContent = [...report, ...ES, ...apex41, ...po1, ...apex43, ...Recommendation, ...charts]
-    // let combinedContent = [...report,...ES,...po1,...apex43,...Recommendation]
+    let combinedContent = []
 
+    if (Report[0].checkPolicyOverviewTwoAdded) {
+        const po2 = await getPo2();
+        combinedContent = [...report, ...ES, ...apex41, ...po1, ...po2, ...apex43, ...Recommendation,...charts];
+    }
+    else {
+        combinedContent = [...report, ...ES, ...apex41, ...po1, ...apex43, ...Recommendation,...charts];
+    }
+
+    if (Report[0].showRecommendedProcedure) {
+        const recommendedProcedureArr = await getRecommendedProcedure();
+        combinedContent = [...combinedContent,...recommendedProcedureArr, ...charts];
+    } 
 
     let headerText = {
         text: `Trend Micro Health Check | Apex one As a Service | ${Report[0].companyName}`,
@@ -65,6 +79,8 @@ const getTrendMicroReportDocx = async (req, res) => {
                             level: 1,
                             format: "decimal",
                             text: "%2.",
+                            format: LevelFormat.BULLET,
+                            text: "\u27A2",
                             alignment: AlignmentType.START,
                             style: {
                                 paragraph: {
@@ -72,13 +88,15 @@ const getTrendMicroReportDocx = async (req, res) => {
                                     alignment: AlignmentType.JUSTIFIED,
                                     spacing: {
                                         line: 276,
-                                        before : 230,
-                                        after : 200
+                                        before: 230,
+                                        after: 200
                                     },
                                     keepLines: true,
                                 },
                             },
                         },
+
+
                     ],
                 },
             ],
@@ -136,6 +154,18 @@ const getTrendMicroReportDocx = async (req, res) => {
                     },
                 },
                 {
+                    id: "bullet-para1",
+                    name: "bullet-para1",
+                    paragraph: {
+                        spacing: {
+                            line: 276,
+                        },
+                        bullet: { level: 0 },
+                        keepLines: true,
+                        indent: { left: 1440, hanging: 980 },
+                    },
+                },
+                {
                     id: "image-style",
                     name: "image-style",
                     paragraph: {
@@ -173,7 +203,7 @@ const getTrendMicroReportDocx = async (req, res) => {
                                         text: headerText,
                                     }),
                                     new ImageRun({
-                                        data: fs.readFileSync("images/footer-logo.png"),
+                                        data: fs.readFileSync("./images/footer-logo.png"),
                                         transformation: {
                                             width: 100,
                                             height: 30
@@ -222,10 +252,14 @@ const getTrendMicroReportDocx = async (req, res) => {
     })
 
 
+    const b64string = await Packer.toBase64String(doc);
+    res.setHeader('Content-Disposition', 'attachment; filename=My Document.docx');
+    res.send(Buffer.from(b64string, 'base64'));
 
     Packer.toBuffer(doc).then((buffer) => {
         fs.writeFileSync("My Document.docx", buffer);
     });
+
 
 }
 

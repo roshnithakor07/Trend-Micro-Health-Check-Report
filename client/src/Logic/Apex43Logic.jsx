@@ -150,10 +150,11 @@ function useApexOneLogic43() {
       ).src = "images/tab2.png";
 
       let a = `Apex central is running on an older version i.e., ${deployed}. (Latest Version available is ${latest_version}).`
-      let b = `Apex central is running on an older build version recommended to upgrade it to the Latest version ${latest_version}. Download link:  https://www.trendmicro.com/en_us/business/products/downloads.html.`
+      let b = `Apex central is running on an older build version recommended to upgrade it to the Latest version ${latest_version}. Download link:`
+      let link = "https://www.trendmicro.com/en_us/business/products/downloads.html."
 
       addValue("1", a)
-      addValue1("1", b)
+      addValue1("1", b, "https://www.trendmicro.com/en_us/business/products/downloads.html.", link)
     }
 
   };

@@ -57,11 +57,11 @@ export default function PolicyOverview1(
                 <div className="head5" id="head5">
                     {showComponent ? (
                         <h2 style={{ color: "red" }} className="report-heading2">
-                            5.2.1 Policy overview
+                            4.2.1 Policy overview
                         </h2>
                     ) : (
                         <h2 style={{ color: "red" }} className="report-heading2">
-                            5.2 Policy overview
+                            4.2 Policy overview
                         </h2>
                     )}
 
@@ -159,8 +159,7 @@ export default function PolicyOverview1(
                                             onChange={(e) => {
                                                 tenFunction(
                                                     e,
-                                                    "sep10",
-                                                    "twelve1",
+                                                    "sep10",    
                                                     "tab10",
                                                     "rSummary12",
                                                     rsummary12
@@ -853,8 +852,7 @@ export default function PolicyOverview1(
                                         onChange={(e) => {
                                             tenFunction(
                                                 e,
-                                                "sep26",
-                                                "twentyfive1",
+                                                "sep26", 
                                                 "tab26",
                                                 "rSummary25",
                                                 rsummary25
@@ -883,7 +881,6 @@ export default function PolicyOverview1(
                                             tenFunction(
                                                 e,
                                                 "sep27",
-                                                "twentysix1",
                                                 "tab27",
                                                 "rSummary26",
                                                 rsummary26
@@ -912,7 +909,6 @@ export default function PolicyOverview1(
                                             tenFunction(
                                                 e,
                                                 "sep28",
-                                                "twentyseven1",
                                                 "tab28",
                                                 "rSummary27",
                                                 rsummary27
@@ -1013,7 +1009,6 @@ export default function PolicyOverview1(
                                             tenFunction(
                                                 e,
                                                 "sep32",
-                                                "twentyeight1",
                                                 "tab32",
                                                 "rSummary28",
                                                 rsummary28
@@ -1521,7 +1516,7 @@ export default function PolicyOverview1(
                                         <option>Monday</option>
                                         <option>Tuesday</option>
                                         <option>Wednesday</option>
-                                        <option>Thrusday</option>
+                                        <option>Thursday</option>
                                         <option>Friday</option>
                                         <option>Saturday</option>
                                         <option>Sunday</option>
@@ -2570,7 +2565,10 @@ export default function PolicyOverview1(
                                             <option value="Enabled">Enabled</option>
                                             <option value="Disabled">Disabled</option>
                                         </select>
+
+                                        <span id='showVpModes'>
                                         {" with "}
+
                                         <select
                                             id="vp_mode"
                                             onChange={(e) => {
@@ -2584,8 +2582,7 @@ export default function PolicyOverview1(
                                         </select>
 
                                         {" Mode"}
-
-
+                                        </span>
                                     </div>
                                 </td>
                                 <td className="con6" style={{ textAlign: "center" }}>
@@ -2835,6 +2832,8 @@ export default function PolicyOverview1(
                                     <img src="images/tab1.png" id="sep59" alt="" />
                                 </td>
                             </tr>
+
+
                         </tbody>
                     </table>
                 </div>

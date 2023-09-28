@@ -11,7 +11,7 @@ const success = indigo[700];
 const save = green[900];
 
 export default function BM(props) {
-  const { bmApi} = Endpoints();
+  const { bmApi } = Endpoints();
 
 
 
@@ -31,7 +31,7 @@ export default function BM(props) {
     showChart: "[false, false, false]",
   });
 
- 
+
 
   let canavaId = ["myChart71", "myChart72"];
   const heading = ["BM BY POLICY & RISK LEVEL", "Action"]
@@ -44,7 +44,7 @@ export default function BM(props) {
   const [total_detection, setTotalDetections] = useState(0)
 
   const [chartFirstLine, setChartFirstLine] = useState("")
-  let line = `We generated a ${cTitle} Event of the last ${props.logDays} ${props.logDuration} on ${props.logCollectionDate} from Apex central/Apex One. There was a total of ${total_detection} detections.`
+  let line = `We generated a ${cTitle} Event of the last ${props.logDays} ${props.logDuration} on ${props.logCollectionDate} from Apex Central/Apex One. There was a total of ${total_detection} detections.`
 
   const [dataPoints, setDataPoints] = useState([])
   const [columnsNames, setCoulmnsName] = useState(vm[0]);
@@ -75,7 +75,7 @@ export default function BM(props) {
   const [isSubPointPopupOpen, setIsSubPopupOpen] = useState(false);
   const [subPointIndex, setSubPointIndex] = useState(0);
   const [SubPointArr, setSubPointArr] = useState([[[], [], []], [[], [], []], [[], [], []]]);
-  
+
 
   //Sub Point Section
   const deleteSubPoint = (e, index, subIndex, linkArrNo) => {
@@ -360,7 +360,7 @@ export default function BM(props) {
         } else if (currentKey.includes("terminate")) {
           array[i] = "terminated";
         } else if (currentKey.includes("block")) {
-          array[i] = "Blocked";
+          array[i] = "blocked";
         }
       }
     }
@@ -369,41 +369,7 @@ export default function BM(props) {
     updateKeys(top5Keys2);
     updateKeys(top5Keys3);
 
-    let actionVal0, actionVal1, endPointVal0, endPointVal1, scanVal0, scanVal1;
-
-    if (top5Keys0.length > 1) {
-      endPointVal0 = top5Keys0.slice(0, -1).join(", ") + " and " + top5Keys0[top5Keys0.length - 1] + " endpoints,";
-    } else {
-
-      if (top5Keys0.length) {
-        endPointVal0 = "the " + top5Keys0[0] + " endpoint,";
-      } else {
-        endPointVal0 = "no endpoint,"
-      }
-    }
-
-    if (top5Keys1.length > 1) {
-      endPointVal1 = top5Keys1.slice(0, -1).join(", ") + " and " + top5Keys1[top5Keys1.length - 1] + " endpoints,";
-    } else {
-      if (top5Keys1.length) {
-        endPointVal1 = "the " + top5Keys1[0] + " endpoint,";
-      } else {
-        endPointVal1 = "no endpoint,"
-      }
-    }
-
-    if (top5Keys2.length > 1) {
-      actionVal0 = top5Keys2.slice(0, -1).join(", ") + " and " + top5Keys2[top5Keys2.length - 1];
-    } else {
-      actionVal0 = top5Keys2[0];
-    }
-
-    if (top5Keys3.length > 1) {
-      actionVal1 = top5Keys3.slice(0, -1).join(", ") + " and " + top5Keys3[top5Keys3.length - 1];
-    } else {
-      actionVal1 = top5Keys3[0];
-    }
-
+    let scanVal0, scanVal1;
 
     if (top5Keys4.length > 1) {
       scanVal0 = top5Keys4.slice(0, -1).join(", ") + " and " + top5Keys4[top5Keys4.length - 1];
@@ -416,6 +382,45 @@ export default function BM(props) {
     } else {
       scanVal1 = top5Keys5[0];
     }
+
+    // for EndPoints
+    function formatEndpoints(arr) {
+      if (arr.length === 1) {
+        return "the " + arr[0] + " endpoint,"
+      } else if (arr.length === 2) {
+        return arr.join(', ').replace(/,([^,]*)$/, ' and$1') + " endpoints";
+      }
+      else if (arr.length >= 2) {
+        return arr.join(', ').replace(/,([^,]*)$/, ', and$1' + " endpoints");
+      } else {
+        return "no endpoint,";
+      }
+    }
+
+    let endPointVal0 = formatEndpoints(top5Keys0);
+    let endPointVal1 = formatEndpoints(top5Keys1);
+
+    //for Actions
+    function formatArray(arr) {
+
+      if (arr.length === 1) {
+        return arr[0].toString();
+
+      } else if (arr.length === 2) {
+        return arr.join(', ').replace(/,([^,]*)$/, ' and$1');
+      }
+      else if (arr.length >= 2) {
+
+        return arr.join(', ').replace(/,([^,]*)$/, ', and$1');
+
+      } else {
+
+        return "";
+      }
+    }
+
+    let actionVal0 = formatArray(top5Keys2)
+    let actionVal1 = formatArray(top5Keys3)
 
     const yValue0 = (y1[0] > 1) ? `${y1[0]} times` : `${y1[0]} time`;
     const yValue1 = (y1[1] > 1) ? `${y1[1]} times` : `${y1[1]} time`;
@@ -815,7 +820,7 @@ export default function BM(props) {
     document.getElementById(idVal).style.display = "none"
     link[index] = false
     setShowChart(link)
-}
+  }
 
 
 
@@ -872,7 +877,7 @@ export default function BM(props) {
         <div className="main-chart">
 
           <div className="chart-wrapper" id="wrapper71">
-          <div className="close-icon1" onClick={(e) => { closeChart(e, "wrapper71", 0) }}>✖</div>
+            <div className="close-icon1" onClick={(e) => { closeChart(e, "wrapper71", 0) }}>✖</div>
             <canvas
               id="myChart71"
               width="500"
@@ -950,7 +955,7 @@ export default function BM(props) {
             </div>
           </div>
           <div className="chart-wrapper" id="wrapper72">
-          <div className="close-icon1" onClick={(e) => { closeChart(e, "wrapper72", 1) }}>✖</div>
+            <div className="close-icon1" onClick={(e) => { closeChart(e, "wrapper72", 1) }}>✖</div>
             <canvas
               id="myChart72"
               className="myChart"
@@ -1025,7 +1030,7 @@ export default function BM(props) {
             </div>
           </div>
           <div className="chart-wrapper" id="wrapper73">
-          <div className="close-icon1" onClick={(e) => { closeChart(e, "wrapper73", 2) }}>✖</div>
+            <div className="close-icon1" onClick={(e) => { closeChart(e, "wrapper73", 2) }}>✖</div>
             <div id="wrapper-child73"></div>
 
           </div>

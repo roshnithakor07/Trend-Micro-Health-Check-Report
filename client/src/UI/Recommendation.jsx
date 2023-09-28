@@ -16,9 +16,9 @@ export default function Recommendation({myData : {
 
             {/* Recommendations start*/}
             <div className="Recommendations" id="Recommendations">
-                <div className="container14" id="#head7">
+                <div className="container14" id="head71">
                     <h2 style={{ color: "red" }} className="report-heading2">
-                        5.4 Recommendations
+                        4.4 Recommendations
                     </h2>
 
                     <div id="points">

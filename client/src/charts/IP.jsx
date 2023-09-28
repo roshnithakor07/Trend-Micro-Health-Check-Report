@@ -44,7 +44,7 @@ export default function IP(props) {
 
   const [total_detection, setTotalDetections] = useState(0)
   const [chartFirstLine, setChartFirstLine] = useState("")
-  let line = `We generated an ${cTitle} Event of the last ${props.logDays} ${props.logDuration} on ${props.logCollectionDate} from Apex central/Apex One. There was a total of ${total_detection} detections.`
+  let line = `We generated an ${cTitle} Event of the last ${props.logDays} ${props.logDuration} on ${props.logCollectionDate} from Apex Central/Apex One. There was a total of ${total_detection} detections.`
   const [dataPoints, setDataPoints] = useState([])
   const [columnsNames, setCoulmnsName] = useState(vm[0]);
   const [fieldNames, setFieldNames] = useState([]);
@@ -263,7 +263,7 @@ export default function IP(props) {
     } else if (currentKey.includes("pass/log")) {
       return "passed/logged";
     } else if (currentKey.includes("block")) {
-      return "Blocked";
+      return "blocked";
     } else if (currentKey.includes("reset")) {
       return "reset";
     } else if (currentKey.includes("log")) {
@@ -384,7 +384,7 @@ export default function IP(props) {
 
 
 
-    let actionVal0, actionVal1, endPointVal0, endPointVal1, scanVal0, scanVal1;
+    let endPointVal0, endPointVal1, scanVal0, scanVal1;
 
 
     if (top5Keys0.length > 1) {
@@ -401,28 +401,6 @@ export default function IP(props) {
       }
     }
 
-    if (top5Keys2.length > 1) {
-      actionVal0 = "the files were successfully " + top5Keys2.slice(0, -1).join(", ") + ", and " + top5Keys2[top5Keys2.length - 1];
-    } else {
-      if (top5Keys2.length) {
-        actionVal0 = "the files were successfully " + top5Keys2[0];
-
-      } else {
-        actionVal0 = "no action required ";
-      }
-    }
-
-    if (top5Keys3.length > 1) {
-      actionVal1 = "the files were successfully " + top5Keys3.slice(0, -1).join(", ") + ", and " + top5Keys3[top5Keys3.length - 1];
-    } else {
-      if (top5Keys3.length) {
-        actionVal1 = "the files were successfully " + top5Keys3[0];
-      } else {
-        actionVal1 = "no action required"
-      }
-
-    }
-
 
     if (top5Keys4.length > 1) {
       scanVal0 = top5Keys4.slice(0, -1).join(", ") + " and " + top5Keys4[top5Keys4.length - 1];
@@ -435,6 +413,25 @@ export default function IP(props) {
     } else {
       scanVal1 = top5Keys5[0];
     }
+
+
+    //for Actions
+    function formatArray(arr) {
+      const text = "the files were successfully "
+      if (arr.length === 1) {
+        return text + arr[0].toString()
+      } else if (arr.length === 2) {
+        return text + arr.join(', ').replace(/,([^,]*)$/, ' and$1');
+      }
+      else if (arr.length >= 2) {
+        return text + arr.join(', ').replace(/,([^,]*)$/, ', and$1');
+      } else {
+        return "";
+      }
+    }
+
+    let actionVal0 = formatArray(top5Keys2)
+    let actionVal1 = formatArray(top5Keys3)
 
     const yValue0 = (y1[0] > 1) ? `${y1[0]} times` : `${y1[0]} time`;
     const yValue1 = (y1[1] > 1) ? `${y1[1]} times` : `${y1[1]} time`;

@@ -19,7 +19,7 @@ import Endpoints from '../API/Endpoints';
 const save = teal[500];
 
 export default function Charts() {
-  const { getReportData, chartApi,convertBase64ToImg } = Endpoints();
+  const { getReportData, chartApi, convertBase64ToImg } = Endpoints();
   const [logDays, setLogDays] = useState(30);
   const [logDuration, setLogDurations] = useState("Days");
   const [logCollectionDate, setLogCollectionDate] = useState("2024-3-4");
@@ -72,7 +72,7 @@ export default function Charts() {
     "Spyware/ Grayware",
     "Web Reputation",
     "Intrusion Prevention",
-    "Device control Detection",
+    "Device Control Detection",
     "C&C Callback",
     "Behavior Monitoring",
     "Smart Scan Agent Pattern Coverage Details"])
@@ -85,7 +85,7 @@ export default function Charts() {
     "Spyware/ Grayware",
     "Web Reputation",
     "Intrusion Prevention",
-    "Device control Detection",
+    "Device Control Detection",
     "C&C Callback",
     "Behavior Monitoring",
     "Smart Scan Agent Pattern Coverage Details"
@@ -116,23 +116,23 @@ export default function Charts() {
   const dropdownOptions1 = lable.map((e, index) => (
     <span key={e} >
       <input type="checkbox" name="messageCheckbox0" defaultChecked={e} defaultValue={e} onChange={(e) => { handleCheckboxChange1(e, index) }} />
-      {`6.${index + 1} ${e}`}
+      {`5.${index + 1} ${e}`}
     </span>
   ));
 
-  const agTitle = `6.${x.indexOf(lable[0]) + 1} ${lable[0]}`;
-  const vTitle = `6.${x.indexOf(lable[1]) + 1} ${lable[1]}`;
-  const spTitle = `6.${x.indexOf(lable[2]) + 1} ${lable[2]}`;
-  const wrTitle = `6.${x.indexOf(lable[3]) + 1} ${lable[3]}`;
-  const ipTitle = `6.${x.indexOf(lable[4]) + 1} ${lable[4]}`;
-  const dcTitle = `6.${x.indexOf(lable[5]) + 1} ${lable[5]}`;
-  const ccTitle = `6.${x.indexOf(lable[6]) + 1} ${lable[6]}`;
-  const bmTitle = `6.${x.indexOf(lable[7]) + 1} ${lable[7]}`;
-  const ssTitle = `6.${x.indexOf(lable[8]) + 1} ${lable[8]}`;
+  const agTitle = `5.${x.indexOf(lable[0]) + 1} ${lable[0]}`;
+  const vTitle = `5.${x.indexOf(lable[1]) + 1} ${lable[1]}`;
+  const spTitle = `5.${x.indexOf(lable[2]) + 1} ${lable[2]}`;
+  const wrTitle = `5.${x.indexOf(lable[3]) + 1} ${lable[3]}`;
+  const ipTitle = `5.${x.indexOf(lable[4]) + 1} ${lable[4]}`;
+  const dcTitle = `5.${x.indexOf(lable[5]) + 1} ${lable[5]}`;
+  const ccTitle = `5.${x.indexOf(lable[6]) + 1} ${lable[6]}`;
+  const bmTitle = `5.${x.indexOf(lable[7]) + 1} ${lable[7]}`;
+  const ssTitle = `5.${x.indexOf(lable[8]) + 1} ${lable[8]}`;
 
   chartTitles.push(agTitle, vTitle, spTitle, wrTitle, ipTitle, dcTitle, ccTitle, bmTitle, ssTitle)
 
-
+  console.log(chartTitles, x, dcTitle)
 
   const handleChart = (e) => {
     myChartData["logDays"] = logDays;
@@ -144,12 +144,13 @@ export default function Charts() {
     const getProductById = async (e) => {
       try {
         await axios.post(chartApi, myChartData);
+        alert(`charts Data Save Successfully`)
       } catch (error) {
         console.log(error);
       }
     }
     getProductById()
-    alert(`charts Data Save Successfully`)
+
   }
 
 
@@ -159,15 +160,15 @@ export default function Charts() {
       <Header />
       <div className="chart-section">
         <div className="topnav">
-          <a href="#ag">6.1 Agent Distribution</a>
-          <a href="#virus">6.2 Virus/Malware</a>
-          <a href="#sp">6.3 Spyware/ Grayware</a>
-          <a href="#wr">6.4 Web Reputation</a>
-          <a href="#ip">6.5 Intrusion Prevention</a>
-          <a href="#dc">6.6 Device control Detection</a>
-          <a href="#cc">6.7 C&C Callback</a>
-          <a href="#bm">6.8 Behavior Monitoring</a>
-          <a href="#smartscan">6.9 Smart Scan Agent Pattern Coverage Details</a>
+          <a href="#ag">5.1 Agent Distribution</a>
+          <a href="#virus">5.2 Virus/Malware</a>
+          <a href="#sp">5.3 Spyware/ Grayware</a>
+          <a href="#wr">5.4 Web Reputation</a>
+          <a href="#ip">5.5 Intrusion Prevention</a>
+          <a href="#dc">5.6 Device Control Detection</a>
+          <a href="#cc">5.7 C&C Callback</a>
+          <a href="#bm">5.8 Behavior Monitoring</a>
+          <a href="#smartscan">5.9 Smart Scan Agent Pattern Coverage Details</a>
         </div>
 
         <div id="logDetails">
@@ -214,22 +215,22 @@ export default function Charts() {
             </div>
           </div>
 
-          {showCharts[0] && (<Ag chartTitle={agTitle} showCharts={showCharts} report_id = {Report_id}/>)}
-          {showCharts[1] && (<Virus chartTitle={vTitle} logDays={logDays} logDuration={logDuration} logCollectionDate={formattedDate} report_id = {Report_id} />)}
-          {showCharts[2] && (<Spyware chartTitle={spTitle} logDays={logDays} logDuration={logDuration} logCollectionDate={formattedDate} report_id = {Report_id}/>)}
-          {showCharts[3] && (<WR chartTitle={wrTitle} logDays={logDays} logDuration={logDuration} logCollectionDate={formattedDate} report_id = {Report_id}/>)}
-          {showCharts[4] && (<IP chartTitle={ipTitle} logDays={logDays} logDuration={logDuration} logCollectionDate={formattedDate} report_id = {Report_id} />)}
-          {showCharts[5] && (<DC chartTitle={dcTitle} logDays={logDays} logDuration={logDuration} logCollectionDate={formattedDate} report_id = {Report_id} />)}
-          {showCharts[6] && (<CC chartTitle={ccTitle} logDays={logDays} logDuration={logDuration} logCollectionDate={formattedDate} report_id = {Report_id}/>)}
-          {showCharts[7] && (<BM chartTitle={bmTitle} logDays={logDays} logDuration={logDuration} logCollectionDate={formattedDate} report_id = {Report_id}/>)}
-          {showCharts[8] && (<SmartScan chartTitle={ssTitle} logDays={logDays} logDuration={logDuration} logCollectionDate={formattedDate} report_id = {Report_id} />)}
+          {showCharts[0] && (<Ag chartTitle={agTitle} showCharts={showCharts} report_id={Report_id} />)}
+          {showCharts[1] && (<Virus chartTitle={vTitle} logDays={logDays} logDuration={logDuration} logCollectionDate={formattedDate} report_id={Report_id} />)}
+          {showCharts[2] && (<Spyware chartTitle={spTitle} logDays={logDays} logDuration={logDuration} logCollectionDate={formattedDate} report_id={Report_id} />)}
+          {showCharts[3] && (<WR chartTitle={wrTitle} logDays={logDays} logDuration={logDuration} logCollectionDate={formattedDate} report_id={Report_id} />)}
+          {showCharts[4] && (<IP chartTitle={ipTitle} logDays={logDays} logDuration={logDuration} logCollectionDate={formattedDate} report_id={Report_id} />)}
+          {showCharts[5] && (<DC chartTitle={dcTitle} logDays={logDays} logDuration={logDuration} logCollectionDate={formattedDate} report_id={Report_id} />)}
+          {showCharts[6] && (<CC chartTitle={ccTitle} logDays={logDays} logDuration={logDuration} logCollectionDate={formattedDate} report_id={Report_id} />)}
+          {showCharts[7] && (<BM chartTitle={bmTitle} logDays={logDays} logDuration={logDuration} logCollectionDate={formattedDate} report_id={Report_id} />)}
+          {showCharts[8] && (<SmartScan chartTitle={ssTitle} logDays={logDays} logDuration={logDuration} logCollectionDate={formattedDate} report_id={Report_id} />)}
 
         </div>
 
         {/* next button  */}
         <div id="nexPreBtn">
           <Button variant="contained" style={{ backgroundColor: save }}>
-            <Link to="/further-information" onClick={handleChart} className="button is-primary mt-2">
+            <Link onClick={handleChart} to="/further-information" className="button is-primary mt-2">
               Next
             </Link>
           </Button>

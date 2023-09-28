@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
 const Policy2Schema = new mongoose.Schema({
-   
     //po1
     OverviewPolicyName1: { type: String, default: "" },
     agent_scan_mode1: { type: String, default: 'Smart Scan' },
@@ -31,12 +30,14 @@ const Policy2Schema = new mongoose.Schema({
     second_action1: { type: String, default: "Quarantine" },
     joke1: { type: String, default: "Quarantine" },
     trojans1: { type: String, default: "Quarantine" },
-    virus11: { type: String, default: "Quarantine" },
+    virus11: { type: String, default: "Clean" },
     virus21: { type: String, default: "Quarantine" },
     test_virus1: { type: String, default: "Quarantine" },
     packer1: { type: String, default: "Quarantine" },
     probable_malware11: { type: String, default: "Quarantine" },
     probable_malware21: { type: String, default: "Quarantine" },
+    other_malware11: { type: String, default: "Clean" },
+    other_malware21: { type: String, default: "Quarantine" },
     back_up_files1: { type: String, default: "Enabled" },
     damage_cleanup_services11: { type: String, default: "Enabled" },
     damage_cleanup_services21: { type: String, default: "Advanced clean-up" },
@@ -66,6 +67,7 @@ const Policy2Schema = new mongoose.Schema({
     cvf_exploit_scanning2: { type: String, default: 'Enabled' },
 
 
+
     tab21: { type: String, default: "images/tab1.png" },
     tab22: { type: String, default: "images/tab1.png" },
     tab23: { type: String, default: "images/tab1.png" },
@@ -89,12 +91,14 @@ const Policy2Schema = new mongoose.Schema({
     second_action2: { type: String, default: "Quarantine" },
     joke2: { type: String, default: "Quarantine" },
     trojans2: { type: String, default: "Quarantine" },
-    virus12: { type: String, default: "Quarantine" },
+    virus12: { type: String, default: "Clean" },
     virus22: { type: String, default: "Quarantine" },
     test_virus2: { type: String, default: "Quarantine" },
     packer2: { type: String, default: "Quarantine" },
     probable_malware12: { type: String, default: "Quarantine" },
     probable_malware22: { type: String, default: "Quarantine" },
+    other_malware12: { type: String, default: "Clean" },
+    other_malware22: { type: String, default: "Quarantine" },
     back_up_files2: { type: String, default: "Enabled" },
     run_cleanup2: { type: String, default: 'Enabled' },
     apex_one_terminates_processes2: { type: String, default: "Clean" },
@@ -110,7 +114,7 @@ const Policy2Schema = new mongoose.Schema({
     //3 Schedule Scan Policy Settings - 37-45
     virus_scan3: { type: String, default: 'Enabled' },
     spyware_scan3: { type: String, default: 'Enabled' },
-    configure_schedule_scan_checkbox3Policy2: { type: String, default: "" },
+    configure_schedule_scan_checkbox3: { type: String, default: "" },
     configure_schedule_scan_weekevery3: { type: String, default: "" },
     configure_schedule_scan_month3: { type: String, default: "" },
     configure_schedule_scan_date3: { type: String, default: "" },
@@ -133,6 +137,8 @@ const Policy2Schema = new mongoose.Schema({
     tab44: { type: String, default: "images/tab1.png" },
     tab45: { type: String, default: "images/tab1.png" },
 
+
+
     //3Schedule Scan-Action Settings 
     use_activeAction3Policy2: { type: String, default: "yes3" },
     customize_action_for_porbable_virus_checkbox3: { type: String, default: "" },
@@ -141,12 +147,14 @@ const Policy2Schema = new mongoose.Schema({
     second_action3: { type: String, default: "Quarantine" },
     joke3: { type: String, default: "Quarantine" },
     trojans3: { type: String, default: "Quarantine" },
-    virus13: { type: String, default: "Quarantine" },
+    virus13: { type: String, default: "Clean" },
     virus23: { type: String, default: "Quarantine" },
     test_virus3: { type: String, default: "Quarantine" },
     packer3: { type: String, default: "Quarantine" },
     probable_malware13: { type: String, default: "Quarantine" },
     probable_malware23: { type: String, default: "Quarantine" },
+    other_malware13: { type: String, default: "Clean" },
+    other_malware23: { type: String, default: "Quarantine" },
     back_up_files3: { type: String, default: "Enabled" },
     damage_cleanup_services13: { type: String, default: "Enabled" },
     damage_cleanup_services23: { type: String, default: "Advanced clean-up" },
@@ -160,7 +168,6 @@ const Policy2Schema = new mongoose.Schema({
     tab49: { type: String, default: "images/tab1.png" },
     tab50: { type: String, default: "images/tab1.png" },
 
-
     bm: { type: String, default: 'Enabled with' },
     bm1: { type: String, default: 'Enabled' },
     bm2: { type: String, default: 'Enabled' },
@@ -168,10 +175,14 @@ const Policy2Schema = new mongoose.Schema({
     bm4: { type: String, default: 'Enabled' },
     bm5: { type: String, default: 'Enabled' },
     bm6: { type: String, default: 'Enabled' },
-    bm7: { type: String, default: 'Enabled' },
+    bm7: { type: String, default: 'No' },
     predictiveMl: { type: String, default: 'Enabled' },
+    predictiveMl1: { type: String, default: "Quarantine" },
+    predictiveMl2: { type: String, default: "Terminate" },
+    predictiveMl3: { type: String, default: "No" },
     suspicious_Connection: { type: String, default: 'Enabled' },
     vulnerability_protection: { type: String, default: 'Enabled' },
+    vp_mode: { type: String, default: 'Inline' },
     device_control: { type: String, default: 'Enabled' },
     web_reputation1: { type: String, default: 'Enabled' },
     web_reputation2: { type: String, default: 'Medium' },
@@ -199,8 +210,10 @@ const Policy2Schema = new mongoose.Schema({
     tab51BM5: { type: String, default: "images/tab1.png" },
     tab51BM6: { type: String, default: "images/tab1.png" },
     tab51BM7: { type: String, default: "images/tab1.png" },
-    
+
     tab52: { type: String, default: "images/tab1.png" },
+    tab52ML1: { type: String, default: "images/tab1.png" },
+    tab52ML2: { type: String, default: "images/tab1.png" },
     tab53: { type: String, default: "images/tab1.png" },
     tab54: { type: String, default: "images/tab1.png" },
     tab55: { type: String, default: "images/tab1.png" },

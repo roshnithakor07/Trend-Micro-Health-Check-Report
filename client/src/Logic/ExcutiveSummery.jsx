@@ -3,8 +3,8 @@ import React from 'react'
 function ExcutiveSummery() {
 
 
-    {/* Name of product */}
-    
+    {/* Name of product */ }
+
 
     {/* Apex one policy 41 */ }
 
@@ -26,33 +26,34 @@ function ExcutiveSummery() {
 
     //PO1
     let rsummary10 = `All the agents are using the Conventional Scan method recommended to use the Smart Scan Method. Smart Scan leverages threat signatures that are stored in the cloud.`
-    let rsummary11 = `Files to scan are set as File types scanned By IntelliScan, recommended to set it as All Scannable files as Only scan files known to potentially harbor malicious code, including files disguised by a harmless extension name are Scan in IntelliScan.`
+    let rsummary11 = `files to scan are set as File types scanned By IntelliScan, recommended to set it as All Scannable files as Only scan files known to potentially harbor malicious code, including files disguised by a harmless extension name are Scan in IntelliScan.`
     let rsummary12 = `In Manual Scan and policy settings, Scan Hidden Folders is disabled, recommended to enable it.`;
-    let rsummary13 = `Detect exploit code in OLE is disabled, recommended to enable it.`;
-    let rsummary14 = `scan boot area is disabled, recommended to enable it.`;
+    let rsummary13 = `detect exploit code in OLE is disabled, recommended to enable it.`;
+    let rsummary14 = `the scan boot area is disabled, recommended to enable it.`;
     // let rsummary151 & rsummer152 = has dynamic values
 
 
     //MCA/RCA/SCA
-    // let rsummary161 & rsummer162 = has dynamic values
-    let rsummary17 = "Back up files before cleaning is disabled, recommended to enable it.";
-    let rsummary18 = `Damage Cleanup Services enabled with standard clean up, recommended to enable with advance clean up as The Security Agent uses advanced cleanup rules to proactively detect and stop applications that exhibit Fake AV and rootkit behavior.`
-    let rsummary19 = `Run cleanup when probable virus/malware is detected is disabled, recommended to enable it.`
-    let rsummary20 = `Spyware/Grayware settings Clean: Apex One terminates processes is not enabled, recommend to enable it.`
+    let rsummary161 = 'the active Action is selected, recommended to select Use a specific action for each virus/malware type.'
+    let rsummary162 = 'the same action for all malware-Virus types is selected, recommended to select Use a specific action for each virus/malware type.'
+    let rsummary17 = "back up files before cleaning is disabled, recommended to enable it.";
+    let rsummary18 = `damage Cleanup Services are enabled with standard cleanup, recommended to enable with advance cleanup as The Security Agent uses advanced cleanup rules to proactively detect and stop applications that exhibit Fake AV and rootkit behavior.`
+    let rsummary19 = `run cleanup when probable virus/malware is detected is disabled, recommended to enable it.`
+    let rsummary20 = `in Spyware/Grayware settings Clean: Apex One terminates processes that are not enabled and recommends enabling it.`
 
     //Real Time Policy
     let rsummary21 = `Virus/Malware Scan is disabled, recommended to enable it.`
-    let rsummary22 = `Spyware/Grayware Scan Scan is disabled, recommended to enable it.`
+    let rsummary22 = `Spyware/Grayware Scan is disabled, recommended to enable it.`
     let rsummary23 = `In Real-Time Scan Policy Settings, user Activity on Files > Scan files being created/modified and retrieved not selected recommend to configure this to all files.`;
     let rsummary24 = `In Real-Time Scan Policy Settings, recommended to enable as it scans directories physically located on other endpoints, but mapped to the local endpoint.`;
     let rsummary25 = `In Real-Time Scan Policy Settings, scan the boot sector of the USB storage device after plugging in is disabled, recommended to enable it.`
-    let rsummary26 = `In Real-Time Scan Policy Settings, Scan all files in a removable storage device after plugging in is disabled, recommended to enable it.`
+    let rsummary26 = `In Real-Time Scan Policy Settings, scan all files in a removable storage device after plugging in is disabled, recommended to enable it.`
     let rsummary27 = `In Real-Time Scan Policy Settings, quarantine malware variants detected in memory is disabled, recommended to enable it.`;
     let rsummary28 = `In Real-Time Scan Policy Settings, CVE exploit scanning is disabled, recommended to enable it.`;
 
 
     //scp
-    let rsummary29 = `The Schedule Scan is configured on daily basis need to configure on weekly basis for optimal performance.`
+    let rsummary29 = `The Schedule Scan is configured daily and needs to be configured on a weekly basis for optimal performance.`
 
     //BM
     let rsummary51 = "Behavior Monitoring protection modules are disabled and recommended to enable it for better protection from ransomware."
@@ -91,17 +92,18 @@ function ExcutiveSummery() {
     let esummary66 = `In Apex Central Report Maintenance is not configured.`
     let rsummary66 = `In Apex Central Report Maintenance is not configured, recommended to configure it.`
 
-    
+
 
     return {
         esummary0, rsummary0, esummary4, rsummary4, esummary5, rsummary5,
         esummary6, rsummary6, rsummary7, esummary9, rsummary9, esummary010, rsummary010,
         rsummary10, rsummary11, rsummary12, rsummary13, rsummary14,
+        rsummary161,rsummary162,
         rsummary17, rsummary18, rsummary19, rsummary20,
         rsummary21, rsummary22, rsummary23, rsummary24, rsummary25, rsummary26, rsummary27, rsummary28,
         rsummary29,
         rsummary51, rsummary52, rsummary53, rsummary54, rsummary55, rsummary56, rsummary57, rsummary58, rsummary591, rsummary592, rsummary593, rsummary594, rsummary595,
-        rsummaryVP,rsummaryVP1, rsummaryDC, rsummaryAC,
+        rsummaryVP, rsummaryVP1, rsummaryDC, rsummaryAC,
         esummary60, rsummary60, esummary61, rsummary61, esummary62, rsummary62,
         esummary63, rsummary63, esummary64, rsummary64, esummary65, rsummary65,
         esummary66, rsummary66

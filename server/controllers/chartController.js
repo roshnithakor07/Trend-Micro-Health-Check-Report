@@ -34,42 +34,6 @@ let ccText = ["Endpoints Having C&C Detection", "C&C Callbacks Address"];
 const wrText = ['Top 10 URL Detections in WRS', 'Top 10 Endpoints in WRS Detection', 'Protocol Detection'];
 
 
-const convertChartBase64ToImg = async (req, res) => {
-
-    const virus1 = await Virus.find({}).sort({ _id: -1 }).limit(1);
-    const spyware1 = await Spyware.find({}).sort({ _id: -1 }).limit(1);
-    const wr1 = await Wr.find({}).sort({ _id: -1 }).limit(1);
-    
-    try {
-
-        if (virus1[0].desImages !== "") {
-         
-            let base64Image = virus1[0].desImages.split(';base64,').pop();
-            fs.writeFile('./images/virusIMage.png', base64Image, { encoding: 'base64' }, function (err) {
-                if (err) throw err;
-            });
-        }
-
-        if (spyware1[0].cLogo !== "") {
-            let base64Image = spyware1[0].desImages.split(';base64,').pop();
-            fs.writeFile('./images/spywareIMage.png', base64Image, { encoding: 'base64' }, function (err) {
-                if (err) throw err;
-            });
-        }
-
-        if (wr1[0].cLogo !== "") {
-            let base64Image = wr1[0].desImages.split(';base64,').pop();
-            fs.writeFile('./images/WRIMage.png', base64Image, { encoding: 'base64' }, function (err) {
-                if (err) throw err;
-            });
-        }
-
-
-
-    } catch (error) {
-        // res.status(500).json({ message: error.message });
-    }
-}
 
 //mainChart 
 const getChartModel = async (req, res) => {
@@ -84,6 +48,7 @@ const getChartModel = async (req, res) => {
 }
 
 const saveDataChart = async (req, res) => {
+    console.log(req.body)
     const user = new Chart1(req.body);
     try {
         const inserteduser = await user.save();
@@ -400,11 +365,12 @@ function createChart(l, d, title, img, type = 'bar') {
 
     if (l.length < 1 || d.length < 1) return;
 
-    chart.setWidth(500)
-    chart.setHeight(300);
+    chart.setWidth(550)
+    chart.setHeight(350);
     chart.setVersion('2');
-    chart.devicePixelRatio = 2;
+    chart.devicePixelRatio = 2.0;
     chart.setBackgroundColor('#595958');
+    
 
     let pieColor = ["#4372cc", "#f07f34", "gray", "#ffa600"]
     let barColor = '#4372cc';
@@ -465,7 +431,7 @@ function createChart(l, d, title, img, type = 'bar') {
             "layout": {
                 "padding": {
                     "bottom": 0,
-                    "top": 45,
+                    "top": 50,
                     "left": 0,
                     "right": 0
                 }
@@ -486,6 +452,7 @@ function createChart(l, d, title, img, type = 'bar') {
             },
             plugins: {
                 "outlabels": {
+                    
                     "text": "%p",
                     "color": "white",
                     "stretch": 30,
@@ -515,7 +482,44 @@ function createChart(l, d, title, img, type = 'bar') {
         chart.toFile(`${chartFolderName}/${img}.png`);
 
     } catch (error) {
-        console.log("error - ", title)
+        console.log("error - while generating charts", title)
+    }
+}
+
+const convertChartBase64ToImg = async (req, res) => {
+
+    const virus1 = await Virus.find({}).sort({ _id: -1 }).limit(1);
+    const spyware1 = await Spyware.find({}).sort({ _id: -1 }).limit(1);
+    const wr1 = await Wr.find({}).sort({ _id: -1 }).limit(1);
+    
+    try {
+
+        if (virus1[0].desImages !== "") {
+         
+            let base64Image = virus1[0].desImages.split(';base64,').pop();
+            fs.writeFile('./images/virusIMage.png', base64Image, { encoding: 'base64' }, function (err) {
+                if (err) throw err;
+            });
+        }
+
+        if (spyware1[0].cLogo !== "") {
+            let base64Image = spyware1[0].desImages.split(';base64,').pop();
+            fs.writeFile('./images/spywareIMage.png', base64Image, { encoding: 'base64' }, function (err) {
+                if (err) throw err;
+            });
+        }
+
+        if (wr1[0].cLogo !== "") {
+            let base64Image = wr1[0].desImages.split(';base64,').pop();
+            fs.writeFile('./images/WRIMage.png', base64Image, { encoding: 'base64' }, function (err) {
+                if (err) throw err;
+            });
+        }
+
+
+
+    } catch (error) {
+        // res.status(500).json({ message: error.message });
     }
 }
 

@@ -20,7 +20,7 @@ const {
 
 router.get('/',(req,res)=>{res.send("hello charts")});
 
-router.get('/convertChartBase64ToImg', convertChartBase64ToImg)
+
 router.get('/getChartValue', getChartModel)
 
 router.get('/getAgValue', getagModel)
@@ -34,6 +34,7 @@ router.get('/getcc', getccModel)
 router.get('/getSmartScanValue', getsmartscanModel)
 
 router.post("/saveDataChart", saveDataChart)
+
 router.post("/agentdistribution", saveDataag)
 router.post("/virus", saveDatavirus)
 router.post("/spyware", saveDataspyware)
@@ -51,4 +52,5 @@ router.post("/furtherinformation",saveDatafurtherinformation)
 
 //router.delete("/deleteallcharts",deleteAllCharts);
 
+router.get('/convertChartBase64ToImg', convertChartBase64ToImg)
 module.exports = router;

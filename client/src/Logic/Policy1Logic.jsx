@@ -3,13 +3,14 @@ import ExcutiveSummery from './ExcutiveSummery'
 function PolicyOverviewLogic1() {
 
     const {
-        rsummary10, rsummary11, rsummary13, rsummary14, rsummary23, rsummary29,
-        rsummary51, rsummary52, rsummary53, rsummary54, rsummary55, rsummary56, rsummary591, rsummary592, rsummary593, rsummary594, rsummary595,
+        rsummary10, rsummary11, rsummary13, rsummary14, rsummary161, rsummary162, rsummary17, rsummary18, rsummary19, rsummary20, rsummary21, rsummary22, rsummary23, rsummary29,
+        rsummary51, rsummary52, rsummary53, rsummary54, rsummary55, rsummary56,
         rsummaryVP, rsummaryDC, rsummaryAC, rsummaryVP1
     } = ExcutiveSummery()
 
     const tab1 = "images/tab1.png";
     const tab2 = "images/tab2.png";
+    const tab3 = "images/tab3.png";
     const tab4 = "images/tab4.png";
 
 
@@ -207,7 +208,7 @@ function PolicyOverviewLogic1() {
         }
 
         if (checkFileToScan >= 1) {
-            let a = `In ${nameOfPolicy[0].join(', ').replace(/,([^,]*)$/, ' and$1')} Scan & policy settings, ${rsummary11}`
+            let a = `In ${nameOfPolicy[0].join(', ').replace(/,([^,]*)$/, ' and$1')} Scan and policy settings, ${rsummary11}`
             addValue1("rSummary11", a)
         }
         else {
@@ -349,8 +350,8 @@ function PolicyOverviewLogic1() {
                     link[no].push(policyName)
             }
             setPolicyActionArr(link)
-            a = `In ${policyActionArr[0].join(', ').replace(/,([^,]*)$/, ' and$1')} Scan Action Settings, active Action is selected, recommended to select Use a specific action for each virus/malware type.`;
-            b = `In ${policyActionArr[1].join(', ').replace(/,([^,]*)$/, ' and$1')} Scan Action Settings, same action for all malware-Virus types is selected, recommended to select Use a specific action for each virus/malware type.`
+            a = `In ${policyActionArr[0].join(', ').replace(/,([^,]*)$/, ' and$1')} Scan Action Settings, ${rsummary161}`;
+            b = `In ${policyActionArr[1].join(', ').replace(/,([^,]*)$/, ' and$1')} Scan Action Settings, ${rsummary162}`
         } else {
 
             if (policyActionArr[0].includes(policyName)) {
@@ -359,8 +360,8 @@ function PolicyOverviewLogic1() {
                 link[1].splice(link[1].indexOf(policyName), 1);
             }
             setPolicyActionArr(link)
-            a = `In ${policyActionArr[0].join(', ').replace(/,([^,]*)$/, ' and$1')} Scan Action Settings, active Action is selected, recommended to select Use a specific action for each virus/malware type.`;
-            b = `In ${policyActionArr[1].join(', ').replace(/,([^,]*)$/, ' and$1')} Scan Action Settings, same Action for all malware-Virus types is selected, recommended to select Use a specific action for each virus/malware type.`
+            a = `In ${policyActionArr[0].join(', ').replace(/,([^,]*)$/, ' and$1')} Scan Action Settings, ${rsummary161}`;
+            b = `In ${policyActionArr[1].join(', ').replace(/,([^,]*)$/, ' and$1')} Scan Action Settings, ${rsummary162}`
         }
 
         if (policyActionArr[0].length > 0) {
@@ -402,7 +403,7 @@ function PolicyOverviewLogic1() {
         }
 
         if (checkBackUpFiles >= 1) {
-            let a = `In ${nameOfPolicy[5].join(', ').replace(/,([^,]*)$/, ' and$1')} Scan Action Settings, back up files before cleaning is disabled, recommended to enable it.`;
+            let a = `In ${nameOfPolicy[5].join(', ').replace(/,([^,]*)$/, ' and$1')} Scan Action Settings, ${rsummary17}`;
             addValue1("rSummary17", a)
         }
         else {
@@ -423,7 +424,7 @@ function PolicyOverviewLogic1() {
         }
 
         if (checkDamageCleanup >= 1) {
-            let a = `In ${nameOfPolicy[6].join(', ').replace(/,([^,]*)$/, ' and$1')} Scan Action Settings, damage Clean up Services with Standard clean up, recommended to enable it with Advanced clean up as The Security Agent uses advanced cleanup rules to proactively detect and stop applications that exhibit Fake AV and rootkit behavior.`;
+            let a = `In ${nameOfPolicy[6].join(', ').replace(/,([^,]*)$/, ' and$1')} Scan Action Settings, ${rsummary18}`;
             addValue1("rSummary18", a)
         }
         else {
@@ -444,7 +445,7 @@ function PolicyOverviewLogic1() {
         }
 
         if (checkRunCleanup >= 1) {
-            let a = `In ${nameOfPolicy[7].join(', ').replace(/,([^,]*)$/, ' and$1')} Scan Action Settings, run cleanup when probable virus/malware is detected' is disabled, recommended to enable it as probable viruses/malware are suspicious files that have some of the characteristics of viruses/malware.`;
+            let a = `In ${nameOfPolicy[7].join(', ').replace(/,([^,]*)$/, ' and$1')} Scan Action Settings, ${rsummary19}`;
             addValue1("rSummary19", a)
         }
         else {
@@ -465,7 +466,7 @@ function PolicyOverviewLogic1() {
         }
 
         if (checkSpywareApexOneTerminates >= 1) {
-            let a = `In ${nameOfPolicy[8].join(', ').replace(/,([^,]*)$/, ' and$1')} Scan Action Settings, in Spyware/Grayware settings Clean: Apex One terminates processes are not enabled, recommend to enable it.`;
+            let a = `In ${nameOfPolicy[8].join(', ').replace(/,([^,]*)$/, ' and$1')} Scan Action Settings, ${rsummary20}`;
             addValue1("rSummary20", a)
         }
         else {
@@ -484,7 +485,7 @@ function PolicyOverviewLogic1() {
         }
 
         if (checkVirusScan >= 1) {
-            let a = `In ${nameOfPolicy[9].join(', ').replace(/,([^,]*)$/, ' and$1')} Scan and policy settings, Virus/Malware Scan is disabled, recommended to enable it.`;
+            let a = `In ${nameOfPolicy[9].join(', ').replace(/,([^,]*)$/, ' and$1')} Scan and policy settings, ${rsummary21}`;
             addValue1("rSummary21", a)
         }
         else {
@@ -503,7 +504,7 @@ function PolicyOverviewLogic1() {
         }
 
         if (checkSpywareScan >= 1) {
-            let a = `In ${nameOfPolicy[10].join(', ').replace(/,([^,]*)$/, ' and$1')} Scan and policy settings, Spyware/Grayware Scan is disabled, recommended to enable it.`;
+            let a = `In ${nameOfPolicy[10].join(', ').replace(/,([^,]*)$/, ' and$1')} Scan and policy settings, ${rsummary22}`;
             addValue1("rSummary22", a)
         }
         else {
@@ -559,20 +560,15 @@ function PolicyOverviewLogic1() {
 
 
     //Scan Hidden Folders- 12 - Enable/Disable function
-    const tenFunction = (e, idVal, reqId, img, rS, rsummery) => {
+    const tenFunction = (e, idVal,img, rS,rsummery) => {
 
-        //tenFunction(e,"sep27","twentysix1","tab27","rSummary26",rsummary26)
-        //tenFunction(e,"sep28","twentyseven1","tab28","rSummary27",rsummary27)
-        //tenFunction(e,"sep32","twentyeight1","tab32","rSummary28",rsummary28)
 
         if (e.target.value === "Enabled") {
             myPo1ImgData[img] = tab1;
             document.getElementById(idVal).src = tab1;
-
             closeValue1(rS)
             setcheckPolicyOverviewES(--checkPolicyOverviewES)
             checkPolicyOverview()
-
 
         } else {
 
@@ -583,7 +579,6 @@ function PolicyOverviewLogic1() {
             addValue1(rS, rsummery)
 
         }
-        handleSummeryFunction(rS)
     };
 
     //Select - Scan compressed files.>Maximium layers NO ES/RED
@@ -900,8 +895,8 @@ function PolicyOverviewLogic1() {
             closeValue1("rSummary51")
 
         } else {
-            myPo1ImgData[tab] = "images/tab3.png";
-            document.getElementById(idVal).src = "images/tab3.png";
+            myPo1ImgData[tab] = tab3;
+            document.getElementById(idVal).src = tab3;
             setcheckPolicyOverviewES(++checkPolicyOverviewES)
             checkPolicyOverview()
             addValue1("rSummary51", rsummary51)
@@ -911,11 +906,11 @@ function PolicyOverviewLogic1() {
     const exception51Fun = (e, idVal, tab) => {
         let a = "Yes";
         if (e.target.value === a) {
-            myPo1ImgData[tab] = "images/tab4.png";
-            document.getElementById(idVal).src = "images/tab4.png";
+            myPo1ImgData[tab] = tab4;
+            document.getElementById(idVal).src = tab4;
         } else {
-            myPo1ImgData[tab] = "images/tab1.png";
-            document.getElementById(idVal).src = "images/tab1.png";
+            myPo1ImgData[tab] = tab1;
+            document.getElementById(idVal).src = tab1;
         }
     }
 
@@ -930,8 +925,8 @@ function PolicyOverviewLogic1() {
             closeValue1('rSummary52')
 
         } else {
-            myPo1ImgData.tab52 = "images/tab3.png";
-            document.getElementById("sep52").src = "images/tab3.png";
+            myPo1ImgData.tab52 = tab3;
+            document.getElementById("sep52").src = tab3;
             setcheckPolicyOverviewES(++checkPolicyOverviewES)
             checkPolicyOverview()
             addValue1('rSummary52', rsummary52)
@@ -949,8 +944,8 @@ function PolicyOverviewLogic1() {
             checkPolicyOverview()
 
         } else {
-            myPo1ImgData.tab53 = "images/tab3.png";
-            document.getElementById("sep53").src = "images/tab3.png";
+            myPo1ImgData.tab53 = tab3;
+            document.getElementById("sep53").src = tab3;
             setcheckPolicyOverviewES(++checkPolicyOverviewES)
             checkPolicyOverview()
             addValue1('rSummary53', rsummary53)
@@ -977,8 +972,8 @@ function PolicyOverviewLogic1() {
             closeValue1("rSummary54")
         }
         else if (a === "Disabled") {
-            myPo1ImgData.tab54 = "images/tab3.png";
-            document.getElementById("sep54").src = "images/tab3.png";
+            myPo1ImgData.tab54 = tab3;
+            document.getElementById("sep54").src = tab3;
             setcheckPolicyOverviewES(++checkPolicyOverviewES);
             checkPolicyOverview();
             addValue1('rSummary54', rsummary54)
@@ -1015,8 +1010,8 @@ function PolicyOverviewLogic1() {
             checkPolicyOverview()
             closeValue1("rSummary56")
         } else {
-            myPo1ImgData.tab56 = "images/tab3.png";
-            document.getElementById("sep56").src = "images/tab3.png";
+            myPo1ImgData.tab56 = tab3;
+            document.getElementById("sep56").src = tab3;
             setcheckPolicyOverviewES(++checkPolicyOverviewES)
             checkPolicyOverview()
             addValue1('rSummary56', rsummary56)
@@ -1026,7 +1021,7 @@ function PolicyOverviewLogic1() {
 
     //Additional Service
     const fiftynineFunction = (e) => {
-        
+
         // var select = document.getElementById("63");
         // var value = select.options[select.selectedIndex].value;
         // var select1 = document.getElementById("64");
@@ -1116,8 +1111,8 @@ function PolicyOverviewLogic1() {
         //     checkPolicyOverview()
 
         // } else if (con1) {
-        //     myPo1ImgData.tab59 = "images/tab1.png";
-        //     document.getElementById("sep59").src = "images/tab1.png";
+        //     myPo1ImgData.tab59 = tab1;
+        //     document.getElementById("sep59").src = tab1;
         //     addValues('rSummary596', `Additional Service is not configured, recommended to configure it.`)
         //     setcheckPolicyOverviewES(++checkPolicyOverviewES)
         //     checkPolicyOverview();
@@ -1136,23 +1131,24 @@ function PolicyOverviewLogic1() {
 
         // }
 
-        
+
 
     };
 
 
     const vulnerabilityProtectionFun = (e) => {
-
+        
         if (e.target.value === "Enabled") {
             myPo1ImgData.tabVP = tab1;
             document.getElementById("sepVP").src = tab1;
             setcheckPolicyOverviewES(--checkPolicyOverviewES)
+            document.getElementById('showVpModes').style.display = "inline"
             checkPolicyOverview()
             closeValue1("rSummaryVP")
         } else {
-            myPo1ImgData.tabVP = "images/tab3.png";
-            document.getElementById("sepVP").src = "images/tab3.png";
-
+            myPo1ImgData.tabVP = tab3;
+            document.getElementById("sepVP").src = tab3;
+            document.getElementById('showVpModes').style.display = "none"
             setcheckPolicyOverviewES(++checkPolicyOverviewES)
             checkPolicyOverview()
             addValue1('rSummaryVP', rsummaryVP)
@@ -1168,8 +1164,8 @@ function PolicyOverviewLogic1() {
             checkPolicyOverview()
             closeValue1("rSummaryVP")
         } else {
-            myPo1ImgData.tabVP = "images/tab2.png";
-            document.getElementById("sepVP").src = "images/tab2.png";
+            myPo1ImgData.tabVP = tab2;
+            document.getElementById("sepVP").src = tab2;
             setcheckPolicyOverviewES(++checkPolicyOverviewES)
             checkPolicyOverview()
             addValue1('rSummaryVP', rsummaryVP1)
@@ -1184,8 +1180,8 @@ function PolicyOverviewLogic1() {
             checkPolicyOverview()
             closeValue1("rSummaryDC")
         } else {
-            myPo1ImgData.tabDC = "images/tab3.png";
-            document.getElementById("sepDC").src = "images/tab3.png";
+            myPo1ImgData.tabDC = tab3;
+            document.getElementById("sepDC").src = tab3;
             setcheckPolicyOverviewES(++checkPolicyOverviewES)
             checkPolicyOverview()
             addValue1('rSummaryDC', rsummaryDC)
@@ -1200,15 +1196,15 @@ function PolicyOverviewLogic1() {
             checkPolicyOverview()
             closeValue1("rSummaryAC")
         } else {
-            myPo1ImgData.tabAC = "images/tab3.png";
-            document.getElementById("sepAC").src = "images/tab3.png";
+            myPo1ImgData.tabAC = tab2;
+            document.getElementById("sepAC").src = tab2;
             setcheckPolicyOverviewES(++checkPolicyOverviewES)
             checkPolicyOverview()
             addValue1('rSummaryAC', rsummaryAC)
         }
     }
 
-    const handleSummeryFunction = (rs) => { };
+    
 
     return {
 
