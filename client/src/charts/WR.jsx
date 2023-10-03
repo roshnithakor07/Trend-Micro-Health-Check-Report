@@ -36,8 +36,8 @@ export default function WR(props) {
 
   let wrapperId = ["wrapper31", "wrapper32", "wrapper33"];
   let cTitle = "Web Reputation Detections";
-  let vm = ['URL', 'Product Entity', "Protocol"]
-  const wrText = ['Top 10 URL Detections in WRS', 'Top 10 Endpoints in WRS Detection', 'Protocol Detection'];
+  let vm = ['URL', 'Product Entity', "Action"]
+  const wrText = ['Top 10 URL Detections in WRS', 'Top 10 Endpoints in WRS Detection', 'Action'];
   const [total_detection, setTotalDetections] = useState(0)
 
   const [chartFirstLine, setChartFirstLine] = useState("")
@@ -95,9 +95,6 @@ export default function WR(props) {
   };
 
   const closePopup = () => { setIsPopupOpen(false); setIsSubPopupOpen(false); }
-
-
-
 
   let pieChartColor = ['rgb(67,114,204)', "#f07f34", "gray", "#ffa600"];
   let barChartColor = ['rgb(67,114,204)'];
@@ -554,6 +551,7 @@ export default function WR(props) {
     reader.readAsDataURL(file);
     myChartData.checkDescriptionAdded = true;
   }
+
   //process database
   const handleCharts = () => {
     myChartData["showChart"] = JSON.stringify(showChart);

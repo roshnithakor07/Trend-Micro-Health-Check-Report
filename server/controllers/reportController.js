@@ -47,7 +47,6 @@ const getOneReport = async (req, res) => {
     }
 }
 
-
 const saveData = async (req, res) => {
     const user = new ReportModel(req.body);
     console.log(req.body)

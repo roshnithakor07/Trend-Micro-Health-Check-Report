@@ -14,7 +14,7 @@ const save = green[900];
 
 
 export default function FurtherInformation() {
-
+  const [dataFetched, setDataFetched] = useState(true);
   const { convertChartBase64ToImg, furtherInformation, getReportData, getAgApi, getVirusApi, getSpywareApi, getWrApi, getBmApi, getDcApi, getIpsApi, getCcApi, getSmartscanApi } = Endpoints();
 
 
@@ -29,99 +29,34 @@ export default function FurtherInformation() {
 
   }, []);
 
-
   useEffect(() => {
-    getProductById1()
-    getProductById2()
-    getProductById3()
-    getProductById4()
-    getProductById5()
-    getProductById6()
-    getProductById7()
-    getProductById8()
-    getProductById9()
+    async function executeFunctions() {
+      await Promise.all([
+        getProductById1(getAgApi),
+        getProductById1(getVirusApi),
+        getProductById1(getSpywareApi),
+        getProductById1(getWrApi),
+        getProductById1(getBmApi),
+        getProductById1(getDcApi),
+        getProductById1(getIpsApi),
+        getProductById1(getCcApi),
+        getProductById1(getSmartscanApi),
+      ]);
+      console.log('All charts generated completed.');
+      setTimeout(() => {
+        setDataFetched(false);
+      }, 5000);
+    }
+    executeFunctions();
   }, []);
 
-  const getProductById1 = async () => {
-    fetch(getAgApi)
+
+  const getProductById1 = async (api) => {
+    fetch(api)
       .then(res => res.blob())
       .then(data => {
       });
   }
-
-  const getProductById2 = async () => {
-    setTimeout(async () => {
-      fetch(getVirusApi)
-        .then(res => res.blob())
-        .then(data => {
-        });
-    }, 1000)
-  }
-
-  const getProductById3 = async () => {
-    setTimeout(async () => {
-      fetch(getSpywareApi)
-        .then(res => res.blob())
-        .then(data => {
-        });
-    }, 1000)
-  }
-
-  const getProductById4 = async () => {
-    setTimeout(async () => {
-      fetch(getWrApi)
-        .then(res => res.blob())
-        .then(data => {
-        });
-    }, 1000)
-  }
-
-  const getProductById5 = async () => {
-    setTimeout(async () => {
-      fetch(getBmApi)
-        .then(res => res.blob())
-        .then(data => {
-        });
-    }, 1000)
-  }
-
-  const getProductById6 = async () => {
-    setTimeout(async () => {
-      fetch(getDcApi)
-        .then(res => res.blob())
-        .then(data => {
-        });
-    }, 1000)
-  }
-  const getProductById7 = async () => {
-    setTimeout(async () => {
-      fetch(getIpsApi)
-        .then(res => res.blob())
-        .then(data => {
-        });
-    }, 1000)
-  }
-
-  const getProductById8 = async () => {
-    setTimeout(async () => {
-      fetch(getCcApi)
-        .then(res => res.blob())
-        .then(data => {
-        });
-    }, 1000)
-  }
-
-  const getProductById9 = async () => {
-    setTimeout(async () => {
-      fetch(getSmartscanApi)
-        .then(res => res.blob())
-        .then(data => {
-        });
-    }, 1000)
-  }
-
- 
-
 
 
   useEffect(() => {
@@ -139,6 +74,7 @@ export default function FurtherInformation() {
     };
     getProductById();
   }, []);
+
 
   let textAreaStyle = {
     paddingLeft: "10px",
@@ -523,19 +459,23 @@ export default function FurtherInformation() {
           </Button>
         </div> */}
 
-        <div id="nexPreBtn-fi">
+        {(dataFetched) && <div className="spinner"></div>}
 
-          <Button variant="contained" style={{ backgroundColor: save1 }}>
-            <Link
-              onClick={handleFI}
-              to="/download-health-check-apex-one-report"
-              className="button is-primary mt-2"
-            >
-              Generate PDF
-            </Link>
-          </Button>
+        {dataFetched === false &&
+          <div id="nexPreBtn-fi">
 
-        </div>
+            <Button variant="contained" style={{ backgroundColor: save1 }}>
+              <Link
+                onClick={handleFI}
+                to="/download-health-check-apex-one-report"
+                className="button is-primary mt-2"
+              >
+                Generate PDF
+              </Link>
+            </Button>
+
+          </div>
+        }
 
       </div>
     </>

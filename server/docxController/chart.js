@@ -721,21 +721,19 @@ const getCharts = async (req, res) => {
         };
         if (showChartsWr[2]) {
             wrChart.push(
-                wrChart.push(
-                    new Paragraph({
-                        style: 'image-style',
-                        children: [
-                            new ImageRun({
-                                data: fs.readFileSync(`${chartFolderName}/wr_img3.png`),
-                                transformation: transformation
-                            })
-                        ]
-                    }),
-                    ...v_des2,
-
-                )
+                new Paragraph({
+                    style: 'image-style',
+                    children: [
+                        new ImageRun({
+                            data: fs.readFileSync(`${chartFolderName}/wr_img3.png`),
+                            transformation: transformation
+                        })
+                    ]
+                }),
+                ...v_des2,
 
             )
+
         };
 
     };
@@ -761,6 +759,10 @@ const getCharts = async (req, res) => {
                 for (const iterator of totalIPActionName) {
                     newTableCell.push(
                         new TableCell({
+                            shading: {
+                                color: "000000",
+                                fill: "ADD8E6"
+                            },
                             verticalAlign: VerticalAlign.CENTER,
                             children: [
                                 new Paragraph({
@@ -784,6 +786,10 @@ const getCharts = async (req, res) => {
                                     size: 6000,
                                     type: WidthType.DXA,
                                 },
+                                shading: {
+                                    color: "000000",
+                                    fill: "ADD8E6"
+                                },
                                 rowSpan: 2,
                                 verticalAlign: VerticalAlign.CENTER,
                                 children: [
@@ -796,6 +802,10 @@ const getCharts = async (req, res) => {
                                 ]
                             }),
                             new TableCell({
+                                shading: {
+                                    color: "000000",
+                                    fill: "ADD8E6"
+                                },
                                 width: {
                                     size: 5000,
                                     type: WidthType.DXA,
@@ -891,23 +901,24 @@ const getCharts = async (req, res) => {
                                     ]
                                 })
                             )
+                            for (let i = 0; i < totalIPActionName.length; i++) {
+                                newTableCell.push(
+                                    new TableCell({
+                                        children: [new Paragraph('')]
+                                    })
+                                )
+                            }
 
-                        }
-                        for (let i = 0; i < totalIPActionName.length; i++) {
-                            newTableCell.push(
-                                new TableCell({
-                                    children: [new Paragraph('')]
-                                })
-                            )
+                            IpRowsContent.push(
+                                new TableRow({
+                                    children: [
+                                        ...newTableCell
+                                    ]
+                            }))
+
+                            newTableCell = [];
                         }
                     }
-
-                    IpRowsContent.push(
-                        new TableRow({
-                            children: [
-                                ...newTableCell
-                            ]
-                        }))
 
                     IPContent.push(...IpRowsContent);
 
@@ -923,6 +934,10 @@ const getCharts = async (req, res) => {
                 newTableCell.push(
                     new TableCell({
                         verticalAlign: VerticalAlign.CENTER,
+                        shading: {
+                            color: "000000",
+                            fill: "ADD8E6"
+                        },
                         children: [
                             new Paragraph({
                                 alignment: AlignmentType.CENTER,
@@ -943,6 +958,10 @@ const getCharts = async (req, res) => {
                     newTableCell.push(
                         new TableCell({
                             verticalAlign: VerticalAlign.CENTER,
+                            shading: {
+                                color: "000000",
+                                fill: "ADD8E6"
+                            },
                             children: [
                                 new Paragraph({
                                     alignment: AlignmentType.CENTER,
@@ -1246,6 +1265,10 @@ const getCharts = async (req, res) => {
                     newTableCell.push(
                         new TableCell({
                             verticalAlign: VerticalAlign.CENTER,
+                            shading: {
+                                color: "000000",
+                                fill: "ADD8E6"
+                            },
                             children: [
                                 new Paragraph({
                                     children: [
@@ -1267,6 +1290,10 @@ const getCharts = async (req, res) => {
                                     size: 6000,
                                     type: WidthType.DXA,
                                 },
+                                shading: {
+                                    color: "000000",
+                                    fill: "ADD8E6"
+                                },
                                 rowSpan: 2,
                                 verticalAlign: VerticalAlign.CENTER,
                                 children: [
@@ -1282,6 +1309,10 @@ const getCharts = async (req, res) => {
                                 width: {
                                     size: 5000,
                                     type: WidthType.DXA,
+                                },
+                                shading: {
+                                    color: "000000",
+                                    fill: "ADD8E6"
                                 },
                                 columnSpan: totalIPActionName.length,
                                 verticalAlign: VerticalAlign.CENTER,
@@ -1375,22 +1406,26 @@ const getCharts = async (req, res) => {
                                 })
                             )
 
-                        }
-                        for (let i = 0; i < totalIPActionName.length; i++) {
-                            newTableCell.push(
-                                new TableCell({
-                                    children: [new Paragraph('')]
-                                })
-                            )
+                            for (let i = 0; i < totalIPActionName.length; i++) {
+                                newTableCell.push(
+                                    new TableCell({
+                                        children: [new Paragraph('')]
+                                    })
+                                )
+                            }
+
+                            IpRowsContent.push(
+                                new TableRow({
+                                    children: [
+                                        ...newTableCell
+                                    ]
+                                }));
+
+                            newTableCell = []
+
                         }
                     }
 
-                    IpRowsContent.push(
-                        new TableRow({
-                            children: [
-                                ...newTableCell
-                            ]
-                        }))
 
                     IPContent.push(...IpRowsContent);
 
@@ -1399,13 +1434,16 @@ const getCharts = async (req, res) => {
 
                 }
 
-
                 newTableCell = []
                 IpRowsContent = []
 
                 newTableCell.push(
                     new TableCell({
                         verticalAlign: VerticalAlign.CENTER,
+                        shading: {
+                            color: "000000",
+                            fill: "ADD8E6"
+                        },
                         children: [
                             new Paragraph({
                                 alignment: AlignmentType.CENTER,
@@ -1426,6 +1464,10 @@ const getCharts = async (req, res) => {
                     newTableCell.push(
                         new TableCell({
                             verticalAlign: VerticalAlign.CENTER,
+                            shading: {
+                                color: "000000",
+                                fill: "ADD8E6"
+                            },
                             children: [
                                 new Paragraph({
                                     alignment: AlignmentType.CENTER,

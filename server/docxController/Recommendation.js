@@ -26,10 +26,9 @@ const getREQ = async (req, res) => {
                     spacing: {
                         line: 276,
                         before: 220,
-                        after: 200,
+                        after: 180,
                     },
                     keepLines: true,
-                    
                     children: [new TextRun({ text: `In Both Policy:`, bold: true, size: "16pt" })]
                 }),
                 ...allCommonPolicySummeryArr
@@ -41,7 +40,7 @@ const getREQ = async (req, res) => {
                     spacing: {
                         line: 276,
                         before: 220,
-                        after: 200,
+                        after: 180,
                     },
                     keepLines: true,
                     
@@ -56,10 +55,9 @@ const getREQ = async (req, res) => {
                  spacing: {
                         line: 276,
                         before: 220,
-                        after: 200,
+                        after: 180,
                     },
-                    keepLines: true,
-                    
+                    keepLines: true,  
                     children: [new TextRun({ size: "16pt", text: `In ${PolicyModel[0].OverviewPolicyName1} Policy: `, bold: true })]
                 }),
                 ...allPolicyTwoRSummeryArr

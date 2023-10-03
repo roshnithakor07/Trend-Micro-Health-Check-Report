@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 export default function Introduction({
   myData: {
@@ -15,6 +15,8 @@ export default function Introduction({
     color: "blue",
     textDecoration: "none",
   };
+
+  const titleOFReport = `Review of <COMPANY NAME> Apex One SaaS/On-Premises Implementation`
 
   
 
@@ -162,8 +164,8 @@ export default function Introduction({
                     type="text"
                     id="vivo"
                     name="title"
-                    value = {`Review of ${cName} Apex One ${myReportData.report_type} Implementation`}
-                    onChange={handleChange}
+                    defaultValue = {titleOFReport}
+                    onChange={(e) => {handleChange(e)}}
                   />
                 </td>
               </tr>

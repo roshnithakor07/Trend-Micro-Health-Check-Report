@@ -37,7 +37,8 @@ const apex43pdf = async (req, res) => {
     function createTableRow(data) {
         return new TableRow({
             children: [
-                new TableCell({ children: [new Paragraph(data[0])] }),
+                // new TableCell({ children: [new Paragraph(data[0])] }),
+                new TableCell({ children: [new Paragraph("")] }),
                 new TableCell({ children: [new Paragraph(data[1])] }),
                 new TableCell({ children: [new Paragraph(data[2].text || data[2])] }),
                 new TableCell({

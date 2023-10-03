@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useRef } from "react";
 import axios from "axios";
 import Endpoints from "../API/Endpoints";
 
@@ -8,6 +8,8 @@ function ReportLogic() {
   const [cName, setCName] = useState("");
   const [visible, setVisible] = useState(false);
   const date = new Date();
+
+  
   let tab1 = "images/tab1.png";
 
   const [myReportData, setReportData] = useState(
@@ -561,22 +563,21 @@ function ReportLogic() {
    
   });
 
+ 
 
   const getCompanyName = (e) => {
     setCName(e.target.value);
+   
   };
 
   const handleType = (e) => {
     alert(`You are working on ${e.target.value} Report`);
-
     if (e.target.value === "SAAS") {
       setVisible(false);
     } else {
       setVisible(true);
     }
   };
-
-
 
   const handleChange = (e) => {
     setReportData((prev) => ({
@@ -604,6 +605,7 @@ function ReportLogic() {
     };
     reader.readAsDataURL(file);
   };
+
   const loadFilePA = (e) => {
     const element = document.getElementById("filePA");
     var file = element.files[0];

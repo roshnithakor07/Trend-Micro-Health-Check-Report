@@ -54,6 +54,7 @@ const getES = async (req, res) => {
   if (showCharts[6]) {
     displayChartCount.push(new Paragraph({ text: `${cc1[0].total_detection} C&C Callback Detected`, style: "bullet-para" }))
   }
+  
   if (showCharts[7]) {
     displayChartCount.push(new Paragraph({ text: `${bm1[0].total_detection} Behaviour Monitoring Detected`, style: "bullet-para" }))
   }

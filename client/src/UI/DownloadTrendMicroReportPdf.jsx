@@ -4,13 +4,15 @@ import Endpoints from "../API/Endpoints";
 import axios from "axios";
 
 export default function DownloadTrendMicroReportPdf() {
-    const { getTrendMicroReportDocx, getTrendMicroReportPdf, getReportData } = Endpoints();
+    const { getTrendMicroReportDocx, getTrendMicroReportPdf, getReportData} = Endpoints();
     const [fileName, setFileName] = useState("download_health_check_report.pdf");
     const [docxFileName, setDocxFileName] = useState("download_health_check_report.docx");
 
     const [pdfData, setPdfData] = useState("");
     const [docxData, setDocxData] = useState("");
     const [loading, setLoading] = useState(true);
+
+ 
 
     useEffect(() => {
         getReportDocument();
@@ -32,8 +34,6 @@ export default function DownloadTrendMicroReportPdf() {
             });
     };
 
-
-
     useEffect(() => {
         fetch(getTrendMicroReportPdf)
             .then(res => res.blob())
@@ -52,6 +52,7 @@ export default function DownloadTrendMicroReportPdf() {
             });
 
     }, []);
+
 
 
 

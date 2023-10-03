@@ -31,7 +31,7 @@ let ipsText = [
 ];
 let ssText = ["Smart Scan Agent Pattern"];
 let ccText = ["Endpoints Having C&C Detection", "C&C Callbacks Address"];
-const wrText = ['Top 10 URL Detections in WRS', 'Top 10 Endpoints in WRS Detection', 'Protocol Detection'];
+const wrText = ['Top 10 URL Detections in WRS', 'Top 10 Endpoints in WRS Detection', 'Action'];
 
 
 
@@ -363,14 +363,34 @@ const saveDatafurtherinformation = async (req, res) => {
 
 function createChart(l, d, title, img, type = 'bar') {
 
+    let piePadding = {
+        "bottom": 0,
+        "top": 50,
+        "left": 0,
+        "right": 0
+    }
+    let pieTitlePosition =  "left";
+    let pieLegendPosition =  "bottom";
     if (l.length < 1 || d.length < 1) return;
+    if (type === "outlabeledPie") {
+        if (l.length == 1) {
+            piePadding = {
+                "bottom": 0,
+                "top": 0,
+                "left": 0,
+                "right": 0
+            };
+            pieTitlePosition = "top";
+            pieLegendPosition = "top";
+        }
+    }
 
-    chart.setWidth(550)
-    chart.setHeight(350);
+    chart.setWidth(500)
+    chart.setHeight(300);
     chart.setVersion('2');
     chart.devicePixelRatio = 2.0;
     chart.setBackgroundColor('#595958');
-    
+
 
     let pieColor = ["#4372cc", "#f07f34", "gray", "#ffa600"]
     let barColor = '#4372cc';
@@ -429,22 +449,14 @@ function createChart(l, d, title, img, type = 'bar') {
 
         let pieOptions = {
             "layout": {
-                "padding": {
-                    "bottom": 0,
-                    "top": 50,
-                    "left": 0,
-                    "right": 0
-                }
+                "padding": piePadding
             },
             legend: {
-                position: "bottom",
-                labels: {
-                    // fontStyle: 'light',
-                    fontColor: '#fff',
-                }
+                position: pieLegendPosition,
+                labels: {fontColor: '#fff'}
             },
             title: {
-                position: "left",
+                position: pieTitlePosition,
                 display: true,
                 text: title,
                 fontColor: '#fff',
@@ -452,7 +464,6 @@ function createChart(l, d, title, img, type = 'bar') {
             },
             plugins: {
                 "outlabels": {
-                    
                     "text": "%p",
                     "color": "white",
                     "stretch": 30,
@@ -491,11 +502,11 @@ const convertChartBase64ToImg = async (req, res) => {
     const virus1 = await Virus.find({}).sort({ _id: -1 }).limit(1);
     const spyware1 = await Spyware.find({}).sort({ _id: -1 }).limit(1);
     const wr1 = await Wr.find({}).sort({ _id: -1 }).limit(1);
-    
+
     try {
 
         if (virus1[0].desImages !== "") {
-         
+
             let base64Image = virus1[0].desImages.split(';base64,').pop();
             fs.writeFile('./images/virusIMage.png', base64Image, { encoding: 'base64' }, function (err) {
                 if (err) throw err;
