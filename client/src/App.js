@@ -6,9 +6,10 @@ import Charts from "./UI/Charts";
 import FurtherInformation from "./UI/FurtherInformation";
 import DownloadTrendMicroReportPdf from './UI/DownloadTrendMicroReportPdf'
 import UpdateReport from './Update/Report'
-import Demo from "./UI/Demo"
+// import Demo from "./UI/Demo"
 import CreateCharts from "./UI/CreateCharts";
 import Admin from "./Admin/Admin";
+import Work from "./UI/Work";
 
 import './css/Home.css'
 import './css/Introduction1.css'
@@ -32,12 +33,13 @@ function App() {
       <Router>
         <Routes>         
           <Route path='/home' element={<Home />} />
+          <Route path='/work' element={<Work />} />
           <Route path='/' element={<Report />} />
           <Route path='/admin' element={<Admin />} />
           <Route path="/charts" element={<Charts />} />
           <Route path="/create-charts" element={<CreateCharts />} />
           <Route path="/update-report/:id" element={<UpdateReport />} />
-          <Route path="/demo" element={<Demo />} />
+          {/* <Route path="/demo" element={<Demo />} /> */}
           <Route path="/demo1" element={<ChartDemo />} />
           <Route path="/further-information" element={<FurtherInformation />} />
           <Route path="/download-health-check-apex-one-report" element={<DownloadTrendMicroReportPdf />} />

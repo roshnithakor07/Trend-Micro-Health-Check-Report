@@ -184,7 +184,7 @@ const getCharts = async (req, res) => {
     const agChart = [], vChart = [], spChart = [], wrChart = [], ipChart = [];
     const dcChart = [], ccChart = [], bmChart = [], ssChart = [];
 
-
+    
     //6.1 AG
     if (showCharts[0]) {
 
@@ -357,7 +357,6 @@ const getCharts = async (req, res) => {
         )
 
     }
-
 
     //6.2 VIRUS 
     if (showCharts[1]) {
@@ -1578,7 +1577,6 @@ const getCharts = async (req, res) => {
 
     // 5.9 SMARTSCAN
     if (showCharts[8]) {
-
         let tablePatternData = JSON.parse(smartscan1[0].tablePatternData);
         const ssTableBody1 = [];
         let smartScanTable = [
