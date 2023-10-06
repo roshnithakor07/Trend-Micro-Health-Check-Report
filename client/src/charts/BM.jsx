@@ -180,17 +180,17 @@ export default function BM(props) {
     if (e.target.value === "select") return;
     setCoulmnsName(e.target.value);
 
-    const count = {}, mainCount = {};
+    const count = {};
     for (const d of dataPoints) {
       const value = d[e.target.value];
-      mainCount[value] = (mainCount[value] || 0) + 1;
+      
       if (value !== "N/A" && value !== "") {
         count[value] = (count[value] || 0) + 1;
       }
     }
 
     let sum = 0;
-    for (const val of Object.values(mainCount)) {
+    for (const val of Object.values(count)) {
       sum += val
     }
 
@@ -388,10 +388,10 @@ export default function BM(props) {
       if (arr.length === 1) {
         return "the " + arr[0] + " endpoint,"
       } else if (arr.length === 2) {
-        return arr.join(', ').replace(/,([^,]*)$/, ' and$1') + " endpoints";
+        return arr.join(', ').replace(/,([^,]*)$/, ' and$1') + " endpoints,";
       }
       else if (arr.length >= 2) {
-        return arr.join(', ').replace(/,([^,]*)$/, ', and$1' + " endpoints");
+        return arr.join(', ').replace(/,([^,]*)$/, ', and$1' + " endpoints,");
       } else {
         return "no endpoint,";
       }
@@ -415,7 +415,7 @@ export default function BM(props) {
 
       } else {
 
-        return "";
+        return "no action required";
       }
     }
 

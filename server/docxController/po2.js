@@ -1,5 +1,5 @@
 
-const ReportModel = require('../Models/policyModel')
+const {ReportModel} = require('../Models/policyModel')
 const fs = require('fs');
 const { ImageRun, HeadingLevel, Paragraph, TextRun, AlignmentType,
     Table, TableRow, TableCell, WidthType, VerticalAlign } = require("docx");
@@ -20,6 +20,12 @@ const getPo2 = async (req, res) => {
     let RTable1 = ""
     let SPTable = ""
     let SSTable = ""
+
+    let antiExploitProtection = `${Report[0].bm} Ransomware Protection`;
+
+    if (Report[0].bm1 === "DisabledAntiExploit") {
+        antiExploitProtection = `${Report[0].bm} Ransomware Protection but Anti-exploit protection is disabled`;
+    }
 
    
     let vp_mode = ""
@@ -362,7 +368,7 @@ const getPo2 = async (req, res) => {
 
     let BMContent = [
 
-        ['Behavior Monitoring', 'Enable with Ransomware Protection & Anti-exploit protection', `${Report[0].bm} Ransomware Protection & Anti-exploit protection`, { image: `${Report[0].tab51}`, style: "imgStyle", width: 15 }],
+        ['Behavior Monitoring', 'Enable with Ransomware Protection & Anti-exploit protection', `${antiExploitProtection}`, { image: `${Report[0].tab51}`, style: "imgStyle", width: 15 }],
         ['Predictive Machine Learning', 'Enable', `${Report[0].predictiveMl}`, { image: `${Report[0].tab52}`, style: "imgStyle", width: 15 }],
         ['Suspicious Connection', 'Enable with Block option', `${Report[0].suspicious_Connection} with Block option`, { image: `${Report[0].tab53}`, style: "imgStyle", width: 15 }],
         ['Vulnerability Protection', 'Enable', `${vp_mode}`, { image: `${Report[0].tabVP}`, style: "imgStyle", width: 15 }],
@@ -372,6 +378,8 @@ const getPo2 = async (req, res) => {
         ['Firewall', 'Enable (Optional)', `${Report[0].firewall}`, { image: `${Report[0].tab55}`, style: "imgStyle", width: 15 }],
         ['Agent Self-Protection', 'Enable Self-Protection with a password', `${Report[0].agent_self_protection}`, { image: `${Report[0].tab56}`, style: "imgStyle", width: 15 }],
     ];
+
+
 
 
 

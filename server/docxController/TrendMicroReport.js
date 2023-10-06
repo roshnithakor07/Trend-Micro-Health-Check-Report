@@ -1,22 +1,20 @@
 const { AlignmentType, NumberFormat, Footer, Header,
     PageBreak, PageNumber, Document, HeadingLevel, LevelFormat,
-    Packer, Paragraph, TextRun, UnderlineType, ImageRun,
+    Packer, Paragraph, TextRun, ImageRun,
     VerticalPositionAlign,
     HorizontalPositionAlign, HorizontalPositionRelativeFrom,
     VerticalPositionRelativeFrom,
-    TextWrappingType, TextWrappingSide, addCompatibility, doNotExpandShiftReturn
+    TextWrappingType, TextWrappingSide,
 } = require("docx");
-const ReportModel = require('../Models/reportModel')
-const moment = require('moment')
 const fs = require('fs');
-const date = new Date();
-const saveAs = require('file-saver');
+const { ReportModel } = require('../Models/reportModel');
+
 
 const { getReportpdf } = require('./report');
 const { getES } = require('./ExecutiveSummary');
 const { apex41pdf } = require('./apex41');
 const { apex43pdf } = require('./apex43');
-const { getPo1 } = require('./po1');
+const { getPo1 } = require("./po1");
 const { getPo2 } = require('./po2');
 const { getREQ } = require('./Recommendation');
 const { getRecommendedProcedure } = require("./recommendedProcedure")
@@ -55,13 +53,13 @@ const getTrendMicroReportDocx = async (req, res) => {
 
 
     let headerText = {
-        text: `Trend Micro Health Check | Apex one As a Service | ${Report[0].companyName}`,
+        text: `Trend Micro Health Check | Apex one As a Service | ${Report[0].cName}`,
         alignment: "left",
     }
 
     if (Report[0].report_type === "On-Premises") {
         headerText = {
-            text: `Trend Micro Health Check | Apex one On Premises | ${Report[0].companyName}`,
+            text: `Trend Micro Health Check | Apex one On Premises | ${Report[0].cName}`,
             alignment: "left",
         }
     }
@@ -207,10 +205,10 @@ const getTrendMicroReportDocx = async (req, res) => {
                                         text: headerText,
                                     }),
                                     new ImageRun({
-                                        data: fs.readFileSync("./images/footer-logo.png"),
+                                        data: fs.readFileSync("./images/trend-logo.jpg"),
                                         transformation: {
                                             width: 100,
-                                            height: 30
+                                            height: 35
                                         },
                                         floating: {
                                             horizontalPosition: {
@@ -262,7 +260,7 @@ const getTrendMicroReportDocx = async (req, res) => {
 
     Packer.toBuffer(doc).then((buffer) => {
         fs.writeFileSync("My Document.docx", buffer);
-    });
+    })
 
 
 }

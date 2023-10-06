@@ -17,14 +17,18 @@ export default function FurtherInformation() {
   const [dataFetched, setDataFetched] = useState(true);
   const { convertChartBase64ToImg, furtherInformation, getReportData, getAgApi, getVirusApi, getSpywareApi, getWrApi, getBmApi, getDcApi, getIpsApi, getCcApi, getSmartscanApi } = Endpoints();
 
-
   useEffect(() => {
     const getProductById1 = async () => {
-      fetch(convertChartBase64ToImg)
-        .then(res => res.blob())
-        .then(data => {
-        });
+      try {
+        fetch(convertChartBase64ToImg)
+          .then(res => res.blob())
+          .then(data => {
+          });
+      } catch (error) {
+        console.log("error while fetching convertChartBase64ToImg")
+      }
     }
+
     getProductById1();
 
   }, []);
@@ -52,12 +56,16 @@ export default function FurtherInformation() {
 
 
   const getProductById1 = async (api) => {
-    fetch(api)
-      .then(res => res.blob())
-      .then(data => {
-      });
-  }
+    try {
+      fetch(api)
+        .then(res => res.blob())
+        .then(data => {
+        });
+    } catch (error) {
+      console.log(`error while generating charts ${api}- FI FILE`)
+    }
 
+  }
 
   useEffect(() => {
     const getProductById = async () => {

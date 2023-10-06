@@ -6,6 +6,7 @@ function ReportLogic() {
 
   const { saveReportData, savePolicyData } = Endpoints();
   const [cName, setCName] = useState("");
+  const [reportTypeName, setReportTypeName] = useState("SaaS");
   const [visible, setVisible] = useState(false);
   const date = new Date();
 
@@ -34,7 +35,7 @@ function ReportLogic() {
       vd: "",
       pb: "",
       ab: "",
-      title: "",
+  
 
       // intro2
       vd1: "",
@@ -49,7 +50,7 @@ function ReportLogic() {
 
       //executivesummary
       executivesummarydate: "",
-      companyName: "EVENTUS",
+  
 
       // Product Architecture
       productArchitecture: "images/PA.png",
@@ -572,10 +573,13 @@ function ReportLogic() {
 
   const handleType = (e) => {
     alert(`You are working on ${e.target.value} Report`);
+    
     if (e.target.value === "SAAS") {
       setVisible(false);
+      setReportTypeName("SaaS")
     } else {
       setVisible(true);
+      setReportTypeName(e.target.value)
     }
   };
 
@@ -648,6 +652,7 @@ function ReportLogic() {
 
   return {
     cName,
+    reportTypeName,
     visible,
     myPolicy2,
     handlePolicy2,

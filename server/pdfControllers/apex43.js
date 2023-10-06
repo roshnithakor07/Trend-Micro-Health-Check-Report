@@ -1,6 +1,6 @@
 
 const { json } = require('express')
-const ReportModel = require('../Models/reportModel')
+const {ReportModel} = require('../Models/reportModel')
 const moment = require('moment')
 
 

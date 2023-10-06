@@ -1,10 +1,15 @@
-const ReportModel = require('../Models/reportModel')
+const { ReportModel, BlobDocx } = require('../Models/reportModel')
 const fs = require("fs")
+const dontenv = require("dotenv")
+dontenv.config({ path: '../config.env' });
+const { Readable } = require('stream');
+const fetch = require('node-fetch');
 
+const PORT = process.env.PORT || 5000;
 
 const convertBase64ToImg = async (req, res) => {
     const Report = await ReportModel.find({}).sort({ _id: -1 }).limit(1);
-    
+
     try {
 
         if (Report[0].productArchitecture !== "images/PA.png") {
@@ -100,8 +105,58 @@ const deleteReport = async (req, res) => {
     }
 }
 
+//store report file 
+const saveDocxFile = async (req, res) => {
+    try {
+        // Fetch the data from the URL
+        const response = await fetch(`http://localhost:5000/docx/getTrendMicroReportDocx`);
+        const dataBuffer = await streamToBuffer(response.body);
+        // Create a new document with size, type, and data fields
+        const docxData = new BlobDocx({
+          size: dataBuffer.length,          // Size of the data
+          type: response.headers.get('content-type'), // Content type of the data
+          data: dataBuffer,                // Binary data
+        });
+    
+        // Save the document to MongoDB
+        await docxData.save();
+    
+        res.status(200).json({ message: 'Data saved to MongoDB' });
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error saving data to MongoDB' });
+      }
+}
+
+const getDocxFile = async (req, res) => {
+  
+    try {
+        const id = req.params.id;
+        const blob = await BlobDocx.findById(id);
+
+        if (!blob) {
+          return res.status(404).json({ error: 'Blob not found' });
+        }
+    
+        res.setHeader('Content-Disposition', `attachment; filename=file.docx`);
+        res.setHeader('Content-Type', blob.type);
+        res.setHeader('Content-Length', blob.size);
+        res.end(blob.data);
+        
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
+async function streamToBuffer(stream) {
+    const chunks = [];
+    for await (const chunk of stream) {
+        chunks.push(chunk);
+    }
+    return Buffer.concat(chunks);
+}
 
 module.exports = {
-    convertBase64ToImg,
+    convertBase64ToImg, saveDocxFile, getDocxFile,
     getOneReport, getReport, saveData, updateData, deleteAllData, getAllData, deleteReport
 } 

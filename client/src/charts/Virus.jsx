@@ -183,17 +183,17 @@ export default function Virus(props) {
 
         const top10Data = [];
 
-        const count = {}, mainCount = {};
+        const count = {};
         for (const d of dataPoints) {
             const value = d[e.target.value];
-            mainCount[value] = (mainCount[value] || 0) + 1;
+
             if (value !== "N/A" && value !== "") {
                 count[value] = (count[value] || 0) + 1;
             }
         }
 
         let sum = 0;
-        for (const val of Object.values(mainCount)) {
+        for (const val of Object.values(count)) {
             sum += val
         }
 
@@ -242,6 +242,8 @@ export default function Virus(props) {
         }
         else if (element.includes("unable to delete file")) {
             return "unable to delete files";
+        } else if (element.includes("No action")) {
+            return "no action"
         }
 
         return key; // If none of the conditions match, return the original key
@@ -355,17 +357,17 @@ export default function Virus(props) {
             top5Keys3.push(actionName);
         }
 
-       
+
 
         // for EndPoints
         function formatEndpoints(arr) {
             if (arr.length === 1) {
                 return "the " + arr[0] + " endpoint,"
             } else if (arr.length === 2) {
-                return arr.join(', ').replace(/,([^,]*)$/, ' and$1') + " endpoints";
+                return arr.join(', ').replace(/,([^,]*)$/, ' and$1') + " endpoints,";
             }
             else if (arr.length >= 2) {
-                return arr.join(', ').replace(/,([^,]*)$/, ', and$1' + " endpoints");
+                return arr.join(', ').replace(/,([^,]*)$/, ', and$1' + " endpoints,");
             } else {
                 return "no endpoint,";
             }
@@ -386,7 +388,7 @@ export default function Virus(props) {
             else if (arr.length >= 2) {
                 return text + arr.join(', ').replace(/,([^,]*)$/, ', and$1');
             } else {
-                return "";
+                return "no action required";
             }
         }
 
@@ -576,21 +578,35 @@ export default function Virus(props) {
     }
 
     const addDes = (e) => {
-        document.getElementById('additionalInfo1').style.display = "block"
-        document.getElementById('addDes1').style.display = "none"
+        document.getElementById('closeInfo1').style.display = 'block';
+        document.getElementById('additionalInfo1').style.display = 'block';
+        document.getElementById("close-details").style.display = "block";
+        document.getElementById('addDes1').style.display = "none";
+        myChartData.checkDescriptionAdded = true
+    }
+    const closeDes = (e) => {
+        myChartData.checkDescriptionAdded = false
+        document.getElementById('additionalInfo1').style.display = "none";
+        document.getElementById('addDes1').style.display = "block";
+        document.getElementById("close-details").style.display = "none";
     }
 
+   
     const handleImage = (e) => {
         const element = document.getElementById("file1");
-        //document.getElementById('chartOutput1').display = "block"
-        var file = element.files[0];
-        var reader = new FileReader();
-        reader.onloadend = function () {
-            myChartData.desImages = reader.result
-            document.getElementById("chartOutput1").src = reader.result;
+        try {
+            var file = element.files[0];
+            var reader = new FileReader();
+            reader.onloadend = function () {
+                myChartData.desImages = reader.result
+                document.getElementById("chartOutput1").src = reader.result;
+            }
+            reader.readAsDataURL(file);
+           
+        } catch (error) {
+          console.log("error handleImage function")
         }
-        reader.readAsDataURL(file);
-        myChartData.checkDescriptionAdded = true;
+
     }
 
     //process database
@@ -998,19 +1014,23 @@ export default function Virus(props) {
 
                 <div id="addInfo1">
                     <h4>Add More Description : </h4>
-                    <img id="addDes1" onClick={addDes} src="images/more-details.png" alt="" />
+                    <img id="addDes1" onClick={(e) => { addDes(e) }} style={{ cursor: "pointer" }} src="images/more-details.png" alt="" />
                 </div>
 
+                <div id="closeInfo1">
+                    <h4><img id="close-details" onClick={(e) => { closeDes(e) }} style={{ cursor: "pointer" }} src="images/close-details.png" alt="" /> </h4>
+                </div>
                 <div className="additionalInfo" id="additionalInfo1">
-
                     <input type="text" name="desTitle" placeholder="title" onChange={handleDes} />
-                    <p>Add the virus/malware ss from threat  encyclopedia refer below link</p>
-                    <a href="/#"> https://www.trendmicro.com/vinfo/us/threat-encyclopedia/</a>
+                    <p>Add the virus/malware ss from threat encyclopedia</p>
+                    {/* <a href="/#"> https://www.trendmicro.com/vinfo/us/threat-encyclopedia/</a> */}
                     <input type="file" id="file1" onChange={(e) => { handleImage(e) }} accept="image/*" multiple />
                     <img src="" id="chartOutput1" alt="" width={600} height={290} />
-                    <textarea name="desDescription" id="" cols="30" rows="5" defaultValue={`Add Description and action to take if any \nAdd the url of that detection`} onChange={handleDes}></textarea>
+                    <textarea name="desDescription" id="" cols="30" rows="12" defaultValue={`Add Description and action to take if any \nAdd the url of that detection`} onChange={handleDes}></textarea>
 
                 </div>
+
+
                 <br />
                 <br />
                 <Button variant="contained" color="success" className="Chartbutton" id="Chartbutton" onClick={handleCharts}>

@@ -332,8 +332,7 @@ function useApexOneLogic41() {
     } else {
       myApex41ImgData.apeximgglobal_agents_settings3 = tab2;
       document.getElementById("sep5GA").src = tab2;
-      let b = `Enable the Global Smart Protecton Service Proxy Setngs in apex one Agent management opton. The service 
-      proxy is used by the Predictve Machine Learning and Behavior Monitoring features.`
+      let b = `Enable the Global Smart Protection Service Proxy Settings in the Apex One Agent management option. The service proxy is used by the Predictive Machine Learning and Behavior Monitoring features.`
       addValue1("7GA", b);
       setglobalAgentsSettings(++globalAgentsSettings);
       globalAgentsSettingsFunction();

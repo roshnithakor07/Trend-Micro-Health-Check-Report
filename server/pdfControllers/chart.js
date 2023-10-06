@@ -685,9 +685,9 @@ const getCharts = async (req, res) => {
             )
         }
 
-        ipChart.push(
-            ...IpTable
-        )
+        // ipChart.push(
+        //     ...IpTable
+        // )
     }
 
     //6.6 dc
@@ -944,7 +944,7 @@ const getCharts = async (req, res) => {
 
                 IPBody = [...IPBody, ...IPContent];
                 IpTable.push({
-                    margin: [130, 15, 0, 0],
+                    margin: [0, 15, 0, 0],
                     table: {
                         fontSize: 11,
                         body: IPBody
@@ -1018,7 +1018,7 @@ const getCharts = async (req, res) => {
             )
         }
 
-        bmChart.push(...IpTable)
+        // bmChart.push(...IpTable)
 
     }
 
@@ -1066,8 +1066,6 @@ const getCharts = async (req, res) => {
             { image: `${chartFolderName}/ss_img1.png`, style: "chartImage", width: 350, height: 200, id: 'closingParagraph' }
         )
     }
-
-
 
     try {
         content = [

@@ -58,10 +58,6 @@ const reportSchema = new mongoose.Schema({
         type: String,
         default: ""
     },
-    title: {
-        type: String,
-        default: ""
-    },
     documentVersion: {
         type: String,
         default: ""
@@ -109,10 +105,7 @@ const reportSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    companyName: {
-        type: String,
-        default: ""
-    },
+
 
 
     //productArchitecture
@@ -424,5 +417,18 @@ const reportSchema = new mongoose.Schema({
 
 })
 
+const ReportModel = new mongoose.model('Report', reportSchema);
 
-module.exports = new mongoose.model('Report', reportSchema);
+// Create a schema for BLOB data
+const blobSchema = new mongoose.Schema({
+    size: Number,         // Add a field for size
+    type: String,         // Add a field for type
+    data: Buffer, 
+});
+
+const BlobDocx = mongoose.model('Blob', blobSchema);
+
+
+module.exports = {
+    ReportModel, BlobDocx
+}

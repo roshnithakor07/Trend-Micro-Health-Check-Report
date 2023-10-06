@@ -1,6 +1,6 @@
 const Pdfmake = require("pdfmake");
 const path = require("path")
-const ReportModel = require('../Models/reportModel')
+const {ReportModel} = require('../Models/reportModel')
 
 var pdfMake = require("pdfmake/build/pdfmake");
 var pdfFonts = require("pdfmake/build/vfs_fonts");

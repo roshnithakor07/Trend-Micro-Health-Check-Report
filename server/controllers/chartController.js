@@ -8,8 +8,6 @@ const { Chart1, Ag, Virus, Spyware, Bm, Dc, Ips, Smartscan, Wr, Cc, FurtherInfor
 
 let chartFolderName = 'chart-image';
 
-
-
 let agText = ["Agent Program Version"];
 let virusText = [
     "Top 10 Virus/Malware Detection",
@@ -32,7 +30,6 @@ let ipsText = [
 let ssText = ["Smart Scan Agent Pattern"];
 let ccText = ["Endpoints Having C&C Detection", "C&C Callbacks Address"];
 const wrText = ['Top 10 URL Detections in WRS', 'Top 10 Endpoints in WRS Detection', 'Action'];
-
 
 
 //mainChart 
@@ -115,7 +112,6 @@ const saveDatavirus = async (req, res) => {
 
 
 // spyware
-
 const getspywareModel = async (req, res) => {
     try {
         const spyware1 = await Spyware.find({}).sort({ _id: -1 }).limit(1);
@@ -164,6 +160,7 @@ const getwrModel = async (req, res) => {
         createChart(urls, JSON.parse(wr1[0].url_count), wrText[0], "wr_img1", chartTypes[0])
         createChart(JSON.parse(wr1[0].endpoint), JSON.parse(wr1[0].endpoint_count), wrText[1], "wr_img2", chartTypes[1])
         createChart(JSON.parse(wr1[0].protocol), JSON.parse(wr1[0].protocol_count), wrText[2], "wr_img3", chartTypes[2])
+
         res.json(wr1);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -369,8 +366,8 @@ function createChart(l, d, title, img, type = 'bar') {
         "left": 0,
         "right": 0
     }
-    let pieTitlePosition =  "left";
-    let pieLegendPosition =  "bottom";
+    let pieTitlePosition = "left";
+    let pieLegendPosition = "bottom";
     if (l.length < 1 || d.length < 1) return;
     if (type === "outlabeledPie") {
         if (l.length == 1) {
@@ -391,13 +388,30 @@ function createChart(l, d, title, img, type = 'bar') {
     chart.devicePixelRatio = 2.0;
     chart.setBackgroundColor('#595958');
 
-
     let pieColor = ["#4372cc", "#f07f34", "gray", "#ffa600"]
     let barColor = '#4372cc';
 
     try {
 
         if (type === "") { type = "bar" }
+        let barLayoutPadding = {
+            "padding": {
+                "bottom": 10,
+                "top": 0,
+                "left": 10,
+                "right": 10
+            }
+        }
+        if (type === "horizontalBar") {
+            barLayoutPadding = {
+                "padding": {
+                    "bottom": 10,
+                    "top": 0,
+                    "left": 10,
+                    "right": 35
+                }
+            }
+        };
 
         let barOptions = {
             "scales": {
@@ -405,7 +419,10 @@ function createChart(l, d, title, img, type = 'bar') {
                     {
                         "ticks": {
                             "fontColor": "#fff"
-                        }
+                        },
+                        display: true,
+                        position: 'left',
+                        stacked: true,
                     }
                 ],
                 "xAxes": [
@@ -413,7 +430,8 @@ function createChart(l, d, title, img, type = 'bar') {
                         "ticks": {
                             "fontColor": "#fff"
                         }
-                    }
+
+                    },
                 ]
             },
             "title": {
@@ -427,14 +445,7 @@ function createChart(l, d, title, img, type = 'bar') {
             "legend": {
                 "display": false
             },
-            "layout": {
-                "padding": {
-                    "bottom": 10,
-                    "top": 10,
-                    "left": 10,
-                    "right": 35
-                }
-            },
+            "layout": barLayoutPadding,
             "plugins": {
                 "datalabels": {
                     "anchor": "end",
@@ -453,7 +464,7 @@ function createChart(l, d, title, img, type = 'bar') {
             },
             legend: {
                 position: pieLegendPosition,
-                labels: {fontColor: '#fff'}
+                labels: { fontColor: '#fff' }
             },
             title: {
                 position: pieTitlePosition,
@@ -485,6 +496,7 @@ function createChart(l, d, title, img, type = 'bar') {
                         data: d,
                         backgroundColor: type == "outlabeledPie" ? pieColor : barColor,
                         borderColor: type == "outlabeledPie" ? '#ffff' : barColor,
+                        borderWidth: 0,
                     },
                 ],
             },
@@ -496,6 +508,7 @@ function createChart(l, d, title, img, type = 'bar') {
         console.log("error - while generating charts", title)
     }
 }
+
 
 const convertChartBase64ToImg = async (req, res) => {
 
@@ -533,7 +546,6 @@ const convertChartBase64ToImg = async (req, res) => {
         // res.status(500).json({ message: error.message });
     }
 }
-
 
 
 

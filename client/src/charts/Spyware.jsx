@@ -183,17 +183,17 @@ export default function Spyware(props) {
     if (e.target.value === "select") return;
     setCoulmnsName(e.target.value);
 
-    const count = {}, mainCount = {};
+    const count = {};
     for (const d of dataPoints) {
       const value = d[e.target.value];
-      mainCount[value] = (mainCount[value] || 0) + 1;
+
       if (value !== "N/A" && value !== "") {
         count[value] = (count[value] || 0) + 1;
       }
     }
 
     let sum = 0;
-    for (const val of Object.values(mainCount)) {
+    for (const val of Object.values(count)) {
       sum += val
     }
 
@@ -243,6 +243,8 @@ export default function Spyware(props) {
     }
     else if (element.includes("unable to delete file")) {
       return "unable to delete files";
+    } else if (element.includes("No action")) {
+      return "no action"
     }
 
     return key; // If none of the conditions match, return the original key
@@ -360,10 +362,10 @@ export default function Spyware(props) {
       if (arr.length === 1) {
         return "the " + arr[0] + " endpoint,"
       } else if (arr.length === 2) {
-        return arr.join(', ').replace(/,([^,]*)$/, ' and$1') + " endpoints";
+        return arr.join(', ').replace(/,([^,]*)$/, ' and$1') + " endpoints,";
       }
       else if (arr.length >= 2) {
-        return arr.join(', ').replace(/,([^,]*)$/, ', and$1' + " endpoints");
+        return arr.join(', ').replace(/,([^,]*)$/, ', and$1' + " endpoints,");
       } else {
         return "no endpoint,";
       }
@@ -384,7 +386,7 @@ export default function Spyware(props) {
       else if (arr.length >= 2) {
         return text + arr.join(', ').replace(/,([^,]*)$/, ', and$1');
       } else {
-        return "";
+        return "no action required";
       }
     }
 
@@ -606,23 +608,37 @@ export default function Spyware(props) {
 
   }
 
+
+
   const addDes = (e) => {
-    document.getElementById('additionalInfo2').style.display = "block"
-    document.getElementById('addDes2').style.display = "none"
+    document.getElementById('closeInfo2').style.display = 'block';
+    document.getElementById('additionalInfo2').style.display = 'block';
+    document.getElementById("close-details2").style.display = "block";
+    document.getElementById('addDes2').style.display = "none";
+    myChartData.checkDescriptionAdded = true
+  }
+  const closeDes = (e) => {
+    myChartData.checkDescriptionAdded = false
+    document.getElementById('additionalInfo2').style.display = "none";
+    document.getElementById('addDes2').style.display = "block";
+    document.getElementById("close-details2").style.display = "none";
   }
 
 
   const handleImage = (e) => {
-    const element = document.getElementById("file2");
-    //document.getElementById('chartOutput2').display = "block"
-    var file = element.files[0];
-    var reader = new FileReader();
-    reader.onloadend = function () {
-      myChartData.desImages = reader.result
-      document.getElementById("chartOutput2").src = reader.result;
+    try {
+      const element = document.getElementById("file2");
+      var file = element.files[0];
+      var reader = new FileReader();
+      reader.onloadend = function () {
+        myChartData.desImages = reader.result
+        document.getElementById("chartOutput2").src = reader.result;
+      }
+      reader.readAsDataURL(file);
+    } catch (error) {
+      console.log("error - handleImage Spyware")
     }
-    reader.readAsDataURL(file);
-    myChartData.checkDescriptionAdded = true;
+
   }
 
 
@@ -1005,19 +1021,21 @@ export default function Spyware(props) {
         <br />
         <div id="addInfo2">
           <h4>Add More Description : </h4>
-          <img id="addDes2" onClick={addDes} src="images/more-details.png" alt="" />
+          <img id="addDes2" style = {{cursor : 'pointer'}} onClick={addDes} src="images/more-details.png" alt="" />
+        </div>
+        <div id="closeInfo2">
+          <h4><img id="close-details2" onClick={(e) => { closeDes(e) }} style={{ cursor: "pointer" }} src="images/close-details.png" alt="" /> </h4>
         </div>
 
         <div className="additionalInfo" id="additionalInfo2">
-
           <input type="text" name="desTitle" placeholder="title" onChange={handleDes} />
-          <p>Add the virus/malware ss from threat  encyclopedia refer below link</p>
-          <a href="/#"> https://www.trendmicro.com/vinfo/us/threat-encyclopedia/</a>
+          <p>Add the Spyware/Grayware ss from threat encyclopedia</p>
           <input type="file" id="file2" onChange={(e) => { handleImage(e) }} accept="image/*" multiple />
           <img src="" id="chartOutput2" alt="" width={600} height={290} />
-          <textarea name="desDescription" id="" cols="30" rows="5" defaultValue={`Add Description and action to take if any \nAdd the url of that detection`} onChange={handleDes}></textarea>
+          <textarea name="desDescription" id="" cols="30" rows="12" defaultValue={`Add Description and action to take if any \nAdd the url of that detection`} onChange={handleDes}></textarea>
 
         </div>
+
         <br />
         <br />
         <Button variant="contained" color="success" className="Chartbutton" id="Chartbutton" onClick={handleCharts}>

@@ -168,17 +168,18 @@ export default function WR(props) {
     if (e.target.value === "select") return;
     setCoulmnsName(e.target.value);
 
-    const count = {}, mainCount = {};
+    const count = {};
     for (const d of dataPoints) {
       const value = d[e.target.value];
-      mainCount[value] = (mainCount[value] || 0) + 1;
+
       if (value !== "N/A" && value !== "") {
         count[value] = (count[value] || 0) + 1;
       }
+
     }
 
     let sum = 0;
-    for (const val of Object.values(mainCount)) {
+    for (const val of Object.values(count)) {
       sum += val
     }
 
@@ -360,10 +361,10 @@ export default function WR(props) {
       if (arr.length === 1) {
         return "the " + arr[0] + " endpoint,"
       } else if (arr.length === 2) {
-        return arr.join(', ').replace(/,([^,]*)$/, ' and$1') + " endpoints";
+        return arr.join(', ').replace(/,([^,]*)$/, ' and$1') + " endpoints,";
       }
       else if (arr.length >= 2) {
-        return arr.join(', ').replace(/,([^,]*)$/, ', and$1' + " endpoints");
+        return arr.join(', ').replace(/,([^,]*)$/, ', and$1' + " endpoints,");
       } else {
         return "no endpoint,";
       }
@@ -374,16 +375,16 @@ export default function WR(props) {
 
     //for Actions
     function formatArray(arr) {
-      const text = "the files were successfully "
+      const text = "and the files were successfully "
       if (arr.length === 1) {
-        return text + arr[0].toString()
+        return text + arr[0].toString() + " by Apex One."
       } else if (arr.length === 2) {
-        return text + arr.join(', ').replace(/,([^,]*)$/, ' and$1');
+        return text + arr.join(', ').replace(/,([^,]*)$/, ' and$1') + " by Apex One.";
       }
       else if (arr.length >= 2) {
-        return text + arr.join(', ').replace(/,([^,]*)$/, ', and$1');
+        return text + arr.join(', ').replace(/,([^,]*)$/, ', and$1') + " by Apex One.";
       } else {
-        return "";
+        return " and no action required by Apex One";
       }
     }
 
@@ -393,11 +394,12 @@ export default function WR(props) {
     const yValue0 = (y1[0] > 1) ? `${y1[0]} times` : `${y1[0]} time`;
     const yValue1 = (y1[1] > 1) ? `${y1[1]} times` : `${y1[1]} time`;
 
+
     if (columnsNames === vm[0]) {
 
-      description[0][0] = `${count['HTTP']} times HTTP sites are detected in WRS detection, and ${actionVal0} by apex one. Check whether it's secure or not if it's secure then add it to the approved list otherwise block it. `;
-      description[0][1] = `${x[0]} This site is detected ${yValue0} on ${endPointVal0} and ${actionVal0} by apex one.`;
-      description[0][2] = `${x[1]} This site is detected ${yValue1} on ${endPointVal1} and ${actionVal1} by apex one.`;
+      description[0][0] = `${count['HTTP']} times HTTP sites are detected in WRS detection, ${actionVal0} Check whether it's secure or not if it's secure then add it to the approved list otherwise block it. `;
+      description[0][1] = `${x[0]} This site is detected ${yValue0} on ${endPointVal0} ${actionVal0}`;
+      description[0][2] = `${x[1]} This site is detected ${yValue1} on ${endPointVal1} ${actionVal1}`;
 
     } else if (columnsNames === vm[1]) {
       description[1][0] = `All the web violation events were successfully blocked by Apex One.`;
@@ -535,21 +537,35 @@ export default function WR(props) {
   }
 
   const addDes = (e) => {
-    document.getElementById('additionalInfo3').style.display = "block"
-    document.getElementById('addDes3').style.display = "none"
+    document.getElementById('closeInfo3').style.display = 'block';
+    document.getElementById('additionalInfo3').style.display = 'block';
+    document.getElementById("close-details3").style.display = "block";
+    document.getElementById('addDes3').style.display = "none";
+    myChartData.checkDescriptionAdded = true
+  }
+  const closeDes = (e) => {
+    myChartData.checkDescriptionAdded = false
+    document.getElementById('additionalInfo3').style.display = "none";
+    document.getElementById('addDes3').style.display = "block";
+    document.getElementById("close-details3").style.display = "none";
   }
 
   const handleImage = (e) => {
-    const element = document.getElementById("file3");
-    //document.getElementById('chartOutput3').display = "block"
-    var file = element.files[0];
-    var reader = new FileReader();
-    reader.onloadend = function () {
-      myChartData.desImages = reader.result
-      document.getElementById("chartOutput3").src = reader.result;
+    try {
+      const element = document.getElementById("file3");
+      var file = element.files[0];
+      var reader = new FileReader();
+      reader.onloadend = function () {
+        myChartData.desImages = reader.result
+        document.getElementById("chartOutput3").src = reader.result;
+      }
+      reader.readAsDataURL(file);
+
+    } catch (error) {
+      console.log("error - handleImage() - WR ")
     }
-    reader.readAsDataURL(file);
-    myChartData.checkDescriptionAdded = true;
+
+
   }
 
   //process database
@@ -927,18 +943,21 @@ export default function WR(props) {
 
         <br />
         <br />
+
         <div id="addInfo3">
           <h4>Add More Description : </h4>
-          <img id="addDes3" onClick={addDes} src="images/more-details.png" alt="" />
+          <img id="addDes3" style={{ cursor: 'pointer' }} onClick={addDes} src="images/more-details.png" alt="" />
+        </div>
+        <div id="closeInfo3">
+          <h4><img id="close-details3" onClick={(e) => { closeDes(e) }} style={{ cursor: "pointer" }} src="images/close-details.png" alt="" /> </h4>
         </div>
 
         <div className="additionalInfo" id="additionalInfo3">
           <input type="text" name="desTitle" placeholder="title" onChange={handleDes} />
-          <p>Add the virus/malware ss from threat  encyclopedia refer below link</p>
-          <a href="/#"> https://www.trendmicro.com/vinfo/us/threat-encyclopedia/</a>
+          <p>Add the Web Reputation ss from threat encyclopedia</p>
           <input type="file" id="file3" onChange={(e) => { handleImage(e) }} accept="image/*" multiple />
           <img src="" id="chartOutput3" alt="" width={600} height={290} />
-          <textarea name="desDescription" id="" cols="30" rows="5" defaultValue={`Add Description and action to take if any \nAdd the url of that detection`} onChange={handleDes}></textarea>
+          <textarea name="desDescription" id="" cols="30" rows="12" defaultValue={`Add Description and action to take if any \nAdd the url of that detection`} onChange={handleDes}></textarea>
 
         </div>
         <br />

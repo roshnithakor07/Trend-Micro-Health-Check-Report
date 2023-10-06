@@ -362,65 +362,66 @@ const getCharts = async (req, res) => {
     //6.2 VIRUS 
     if (showCharts[1]) {
         const vDescription = [];
-        try {
-            const firstImagePath = './images/virusIMage.png';
-            const secondImagePath = './images/PA.png';
+        if (virus1[0].checkDescriptionAdded) {
+            try {
+                const firstImagePath = './images/virusIMage.png';
+                const secondImagePath = './images/PA.png';
 
-            let imagePath;
+                let imagePath;
 
-            if (fs.existsSync(firstImagePath)) {
-                imagePath = firstImagePath;
-            } else {
-                imagePath = secondImagePath;
+                if (fs.existsSync(firstImagePath)) {
+                    imagePath = firstImagePath;
+                } else {
+                    imagePath = secondImagePath;
+                }
+
+                let vDesTitle = virus1[0].desTitle;
+                let vDesImages = virus1[0].desImages;
+                let vDes = virus1[0].desDescription;
+
+                if (virus1[0].checkDescriptionAdded) {
+
+                    if (vDesTitle.length) {
+
+                        vDescription.push(
+                            new Paragraph({
+                                indent: {
+                                    left: 350
+                                },
+                                text: vDesTitle, style: 'common-space'
+                            })
+                        )
+
+                    }
+
+                    if (vDesImages.length) {
+                        vDescription.push(
+                            new Paragraph({
+                                style: 'image-style',
+                                children: [
+                                    new ImageRun({
+                                        data: fs.readFileSync(imagePath),
+                                        transformation: {
+                                            width: 399.87401575,
+                                            height: 233.95275591
+                                        }
+                                    })
+                                ]
+                            }),
+                        )
+                    }
+
+                    if (vDes.length) {
+                        vDescription.push(
+                            new Paragraph({ text: vDes, style: 'bullet-para' })
+                        )
+                    }
+
+                }
+            } catch (error) {
+                console.log("error - virus des")
             }
-
-            let vDesTitle = virus1[0].desTitle;
-            let vDesImages = virus1[0].desImages;
-            let vDes = virus1[0].desDescription;
-
-            if (virus1[0].checkDescriptionAdded) {
-
-                if (vDesTitle.length) {
-
-                    vDescription.push(
-                        new Paragraph({
-                            indent: {
-                                left: 350
-                            },
-                            text: vDesTitle, style: 'common-space'
-                        })
-                    )
-
-                }
-
-                if (vDesImages.length) {
-                    vDescription.push(
-                        new Paragraph({
-                            style: 'image-style',
-                            children: [
-                                new ImageRun({
-                                    data: fs.readFileSync(imagePath),
-                                    transformation: {
-                                        width: 399.87401575,
-                                        height: 233.95275591
-                                    }
-                                })
-                            ]
-                        }),
-                    )
-                }
-
-                if (vDes.length) {
-                    vDescription.push(
-                        new Paragraph({ text: vDes, style: 'bullet-para' })
-                    )
-                }
-
-            }
-        } catch (error) {
-            console.log("error - virus des")
         }
-
 
         const v_des0 = chartDescriptionFun(0, virus1);
         const v_des1 = chartDescriptionFun(1, virus1);
@@ -490,65 +491,66 @@ const getCharts = async (req, res) => {
     // 6.3 Spyware/ Grayware
 
     if (showCharts[2]) {
-
         const vDescription = [];
-        try {
-            const firstImagePath = './images/spywareIMage.png';
-            const secondImagePath = './images/PA.png';
+        if (spyware1[0].checkDescriptionAdded) {
+            try {
+                const firstImagePath = './images/spywareIMage.png';
+                const secondImagePath = './images/PA.png';
 
-            let imagePath;
+                let imagePath;
 
-            if (fs.existsSync(firstImagePath)) {
-                imagePath = firstImagePath;
-            } else {
-                imagePath = secondImagePath;
+                if (fs.existsSync(firstImagePath)) {
+                    imagePath = firstImagePath;
+                } else {
+                    imagePath = secondImagePath;
+                }
+
+                let vDesTitle = spyware1[0].desTitle;
+                let vDesImages = spyware1[0].desImages;
+                let vDes = spyware1[0].desDescription;
+
+                if (spyware1[0].checkDescriptionAdded) {
+
+                    if (vDesTitle.length) {
+
+                        vDescription.push(
+                            new Paragraph({
+                                indent: {
+                                    left: 350
+                                },
+                                text: vDesTitle, style: 'common-space'
+                            })
+                        )
+
+                    }
+
+                    if (vDesImages.length) {
+                        vDescription.push(
+                            new Paragraph({
+                                style: 'image-style',
+                                children: [
+                                    new ImageRun({
+                                        data: fs.readFileSync(imagePath),
+                                        transformation: {
+                                            width: 399.87401575,
+                                            height: 233.95275591
+                                        }
+                                    })
+                                ]
+                            }),
+                        )
+                    }
+
+                    if (vDes.length) {
+                        vDescription.push(
+                            new Paragraph({ text: vDes, style: 'bullet-para' })
+                        )
+                    }
+
+                }
+            } catch (error) {
+                console.log("error - spyware des")
             }
-
-            let vDesTitle = spyware1[0].desTitle;
-            let vDesImages = spyware1[0].desImages;
-            let vDes = spyware1[0].desDescription;
-
-            if (spyware1[0].checkDescriptionAdded) {
-
-                if (vDesTitle.length) {
-
-                    vDescription.push(
-                        new Paragraph({
-                            indent: {
-                                left: 350
-                            },
-                            text: vDesTitle, style: 'common-space'
-                        })
-                    )
-
-                }
-
-                if (vDesImages.length) {
-                    vDescription.push(
-                        new Paragraph({
-                            style: 'image-style',
-                            children: [
-                                new ImageRun({
-                                    data: fs.readFileSync(imagePath),
-                                    transformation: {
-                                        width: 399.87401575,
-                                        height: 233.95275591
-                                    }
-                                })
-                            ]
-                        }),
-                    )
-                }
-
-                if (vDes.length) {
-                    vDescription.push(
-                        new Paragraph({ text: vDes, style: 'bullet-para' })
-                    )
-                }
-
-            }
-        } catch (error) {
-            console.log("error - spyware des")
         }
 
         const v_des0 = chartDescriptionFun(0, spyware1);
@@ -617,63 +619,65 @@ const getCharts = async (req, res) => {
     // 5.4 WR
     if (showCharts[3]) {
         const vDescription = [];
-        try {
-            const firstImagePath = './images/WRIMage.png';
-            const secondImagePath = './images/PA.png';
+        if (wr1[0].checkDescriptionAdded) {
+            try {
+                const firstImagePath = './images/WRIMage.png';
+                const secondImagePath = './images/PA.png';
 
-            let imagePath;
+                let imagePath;
 
-            if (fs.existsSync(firstImagePath)) {
-                imagePath = firstImagePath;
-            } else {
-                imagePath = secondImagePath;
+                if (fs.existsSync(firstImagePath)) {
+                    imagePath = firstImagePath;
+                } else {
+                    imagePath = secondImagePath;
+                }
+
+                let vDesTitle = wr1[0].desTitle;
+                let vDesImages = wr1[0].desImages;
+                let vDes = wr1[0].desDescription;
+
+                if (wr1[0].checkDescriptionAdded) {
+
+                    if (vDesTitle.length) {
+
+                        vDescription.push(
+                            new Paragraph({
+                                indent: {
+                                    left: 350
+                                },
+                                text: vDesTitle, style: 'common-space'
+                            })
+                        )
+
+                    }
+
+                    if (vDesImages.length) {
+                        vDescription.push(
+                            new Paragraph({
+                                style: 'image-style',
+                                children: [
+                                    new ImageRun({
+                                        data: fs.readFileSync(imagePath),
+                                        transformation: {
+                                            width: 399.87401575,
+                                            height: 233.95275591
+                                        }
+                                    })
+                                ]
+                            }),
+                        )
+                    }
+
+                    if (vDes.length) {
+                        vDescription.push(
+                            new Paragraph({ text: vDes, style: 'bullet-para' })
+                        )
+                    }
+
+                }
+            } catch (error) {
+                console.log("error - WR des")
             }
-
-            let vDesTitle = wr1[0].desTitle;
-            let vDesImages = wr1[0].desImages;
-            let vDes = wr1[0].desDescription;
-
-            if (wr1[0].checkDescriptionAdded) {
-
-                if (vDesTitle.length) {
-
-                    vDescription.push(
-                        new Paragraph({
-                            indent: {
-                                left: 350
-                            },
-                            text: vDesTitle, style: 'common-space'
-                        })
-                    )
-
-                }
-
-                if (vDesImages.length) {
-                    vDescription.push(
-                        new Paragraph({
-                            style: 'image-style',
-                            children: [
-                                new ImageRun({
-                                    data: fs.readFileSync(imagePath),
-                                    transformation: {
-                                        width: 399.87401575,
-                                        height: 233.95275591
-                                    }
-                                })
-                            ]
-                        }),
-                    )
-                }
-
-                if (vDes.length) {
-                    vDescription.push(
-                        new Paragraph({ text: vDes, style: 'bullet-para' })
-                    )
-                }
-
-            }
-        } catch (error) {
-            console.log("error - WR des")
         }
 
         const v_des0 = chartDescriptionFun(0, wr1);
@@ -914,7 +918,7 @@ const getCharts = async (req, res) => {
                                     children: [
                                         ...newTableCell
                                     ]
-                            }))
+                                }))
 
                             newTableCell = [];
                         }
@@ -1578,10 +1582,10 @@ const getCharts = async (req, res) => {
         let tablePatternData = JSON.parse(smartscan1[0].tablePatternData);
         const ssTableBody1 = [];
         let smartScanTable = [
-            'Last 7 days Pattern updated agents',
-            'Older than 7 Days Pattern updated agents',
+            `Last ${smartscan1[0].patternDays} days Pattern updated agents`,
+            `Older than ${smartscan1[0].patternDays} Days Pattern updated agents`,
             'Total Agents'
-        ]
+        ];
         for (var i = 0; i < smartScanTable.length; i++) {
 
             ssTableBody1.push(

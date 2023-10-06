@@ -57,6 +57,7 @@ function ExcutiveSummery() {
 
     //BM
     let rsummary51 = "Behavior Monitoring protection modules are disabled and recommended to enable it for better protection from ransomware."
+    let rsummary51BM1 = "Behavior Monitoring is enabled with Ransomware Protection, but Anti-exploit protection is disabled, recommended to enable it. Anti-exploit protection works in conjunction with program inspection to monitor the behavior of programs and detect abnormal behavior that may indicate that an attacker has exploited program vulnerability. Once detected, BM terminates the program processes.";
     let rsummary52 = "Predictive Machine Learning uses advanced machine learning technology to correlate threat information and perform in-depth file analysis or behavioral process and script analysis to detect emerging unknown security risks."
     let rsummary53 = "Suspicious Connection is enabled with Log only action, recommended to enable with block action to protect agents against C&C server callbacks."
     let rsummary54 = "Web reputation module is disabled, recommended to enable it with medium level of detection."
@@ -69,7 +70,7 @@ function ExcutiveSummery() {
     let rsummary593 = "Suspicious Connection Service for Windows desktops & Windows Server platforms are disabled, recommended to enabled it.";
     let rsummary594 = "Data Protection Service for Windows desktops & Windows Server platforms are disabled, recommended to enabled it.";
     let rsummary595 = "Advanced Protection Service for Windows desktops and Windows Server platforms are disabled, recommended to enabled it.";
-    let rsummaryVP = "Vulnerability protection is disabled, recommended to enable it to protect Apex One users by automating the application of virtual patches before official patches become available.";
+    let rsummaryVP = "Vulnerability protection is disabled, recommended to enable it uses a host-based intrusion prevention system (HIPS) to virtually patch known and unknown vulnerabilities before a patch is available or deployable.";
     let rsummaryVP1 = "Vulnerability Protection is enabled with Tap mode (Detect only). Check internally and monitor if it is not affecting internal traffic then switch to inline/prevent mode to block the malicious traffic."
     let rsummaryDC = "Device Control is disabled, recommended to enable it as it regulates access to external storage devices and network resources connected to computers. Device Control helps prevent data loss and leakage, combined with file scanning, helps guard against security risks."
     let rsummaryAC = "Application Control is disabled, recommended to enable as it provides the ability to control which users have access to specific applications on certain endpoints."
@@ -102,7 +103,7 @@ function ExcutiveSummery() {
         rsummary17, rsummary18, rsummary19, rsummary20,
         rsummary21, rsummary22, rsummary23, rsummary24, rsummary25, rsummary26, rsummary27, rsummary28,
         rsummary29,
-        rsummary51, rsummary52, rsummary53, rsummary54, rsummary55, rsummary56, rsummary57, rsummary58, rsummary591, rsummary592, rsummary593, rsummary594, rsummary595,
+        rsummary51,rsummary51BM1, rsummary52, rsummary53, rsummary54, rsummary55, rsummary56, rsummary57, rsummary58, rsummary591, rsummary592, rsummary593, rsummary594, rsummary595,
         rsummaryVP, rsummaryVP1, rsummaryDC, rsummaryAC,
         esummary60, rsummary60, esummary61, rsummary61, esummary62, rsummary62,
         esummary63, rsummary63, esummary64, rsummary64, esummary65, rsummary65,

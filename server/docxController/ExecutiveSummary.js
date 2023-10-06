@@ -1,5 +1,5 @@
 
-const ReportModel = require('../Models/reportModel')
+const {ReportModel} = require('../Models/reportModel')
 const moment = require('moment')
 const policyModel = require('../Models/policyModel')
 const { Chart1, Virus, Spyware, Bm, Dc, Ips, Wr, Cc } = require('../Models/chartModel');
@@ -71,7 +71,7 @@ const getES = async (req, res) => {
       }),
       new Paragraph({
         style: "common-space",
-        text: `Trend Micro performed a Health Check on ${moment(Report[0].executivesummarydate).format('YYYY-MM-DD')} for ${Report[0].companyName} to ensure Trend Micro Product(s) are configured as per best practice and provide gap analysis feedback.`,
+        text: `Trend Micro performed a Health Check on ${moment(Report[0].executivesummarydate).format('YYYY-MM-DD')} for ${Report[0].cName} to ensure Trend Micro Product(s) are configured as per best practice and provide gap analysis feedback.`,
       }),
       new Paragraph({
         style: "common-space",

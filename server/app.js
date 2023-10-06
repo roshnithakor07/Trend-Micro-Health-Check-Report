@@ -13,7 +13,7 @@ const docx = require('./routes/docx')
 const app = express();
 app.use(cors());
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 5000;
 
 //app.use(bodyParser.json());
 app.use(bodyParser.json({limit: '50mb', extended: true}))

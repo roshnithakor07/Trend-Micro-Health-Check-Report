@@ -194,6 +194,7 @@ const smartScanSchema = new mongoose.Schema({
     chartFirstLine: { type: String, default: "" },
     total_detection: { type: Number, default: 0 },
     tablePatternData: { type: String, default: "" },
+    patternDays: { type: Number, default: 7 }
 
 });
 
@@ -239,15 +240,9 @@ const furtherInformationSchema = new mongoose.Schema({
 
 let FurtherInformation = new mongoose.model("FurtherInformation", furtherInformationSchema);
 
-// Create a schema for BLOB data
-const blobSchema = new mongoose.Schema({
-    data: Buffer,
-    contentType: String
-});
 
-const BlobPdf = mongoose.model('Blob', blobSchema);
 
 
 module.exports = {
-    Chart1, Ag, Virus, Spyware, Bm, Dc, Ips, Smartscan, Wr, Cc, FurtherInformation, BlobPdf
+    Chart1, Ag, Virus, Spyware, Bm, Dc, Ips, Smartscan, Wr, Cc, FurtherInformation
 }

@@ -159,7 +159,7 @@ export default function PolicyOverview1(
                                             onChange={(e) => {
                                                 tenFunction(
                                                     e,
-                                                    "sep10",    
+                                                    "sep10",
                                                     "tab10",
                                                     "rSummary12",
                                                     rsummary12
@@ -852,7 +852,7 @@ export default function PolicyOverview1(
                                         onChange={(e) => {
                                             tenFunction(
                                                 e,
-                                                "sep26", 
+                                                "sep26",
                                                 "tab26",
                                                 "rSummary25",
                                                 rsummary25
@@ -2493,7 +2493,21 @@ export default function PolicyOverview1(
                                             <option value="Enabled without">Enabled without</option>
                                             <option value="Disabled with">Disabled</option>
                                         </select>{" "}
-                                        Ransomeware Protection & Anti-exploit protection
+                                        Ransomeware Protection &
+                                        Anti-exploit protection
+                                        {" "}
+                                        <select
+                                            id="53"
+                                            onChange={(e) => {
+                                                fiftyoneFunction(e, "sep51", "tab51");
+                                                handleChange(e);
+                                            }}
+                                            name="bm1"
+                                        >
+                                            <option value="EnabledAntiExploit">Enabled</option>
+                                            <option value="DisabledAntiExploit">Disabled</option>
+                                        </select>{" "}
+
                                     </td>
                                     <td className="con6" style={{ textAlign: "center" }}>
                                         <img src="images/tab1.png" id="sep51" alt="" />
@@ -2567,21 +2581,21 @@ export default function PolicyOverview1(
                                         </select>
 
                                         <span id='showVpModes'>
-                                        {" with "}
+                                            {" with "}
 
-                                        <select
-                                            id="vp_mode"
-                                            onChange={(e) => {
-                                                vulnerabilityProtectionModeFun(e);
-                                                handleChange(e);
-                                            }}
-                                            name="vp_mode"
-                                        >
-                                            <option value="Inline">Inline</option>
-                                            <option value="Tap">Tap (Detect-Only)</option>
-                                        </select>
+                                            <select
+                                                id="vp_mode"
+                                                onChange={(e) => {
+                                                    vulnerabilityProtectionModeFun(e);
+                                                    handleChange(e);
+                                                }}
+                                                name="vp_mode"
+                                            >
+                                                <option value="Inline">Inline</option>
+                                                <option value="Tap">Tap (Detect-Only)</option>
+                                            </select>
 
-                                        {" Mode"}
+                                            {" Mode"}
                                         </span>
                                     </div>
                                 </td>

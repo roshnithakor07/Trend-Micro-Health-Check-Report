@@ -1,5 +1,5 @@
 
-const ReportModel = require('../Models/policyModel')
+const {ReportModel} = require('../Models/policyModel')
 
 const tab1 = "images/tab1.png";
 const tab2 = "images/tab2.png";

@@ -12,7 +12,7 @@ const success = indigo[700]; // #f44336
 const save = green[900];
 
 export default function Ag(props) {
-  const { agApi} = Endpoints();
+  const { agApi } = Endpoints();
   let ag = ["Platform", "Agent Program"];
   const [dataPoints, setDataPoints] = useState([1, 2, 3])
   const [columnsNames, setCoulmnsName] = useState("Platform");
@@ -450,7 +450,7 @@ export default function Ag(props) {
 
         <br />
         <br />
-        <Button variant="contained" color="success" className="Chartbutton" id="Chartbutton" onClick={handleCharts}>
+        <Button onClick={handleCharts} variant="contained" color="success" className="Chartbutton" id="Chartbutton" >
           Save Data
         </Button>
 

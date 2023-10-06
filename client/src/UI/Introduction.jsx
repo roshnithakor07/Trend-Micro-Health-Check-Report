@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 export default function Introduction({
   myData: {
+    reportTypeName,
     showComponent,
     cName,
     handleChange,
@@ -16,9 +17,8 @@ export default function Introduction({
     textDecoration: "none",
   };
 
-  const titleOFReport = `Review of <COMPANY NAME> Apex One SaaS/On-Premises Implementation`
+  const titleOFReport = `Review of ${cName} Apex One ${reportTypeName} Implementation`
 
-  
 
   return (
     <>
@@ -164,8 +164,8 @@ export default function Introduction({
                     type="text"
                     id="vivo"
                     name="title"
-                    defaultValue = {titleOFReport}
-                    onChange={(e) => {handleChange(e)}}
+                    value={titleOFReport}
+                    readOnly
                   />
                 </td>
               </tr>

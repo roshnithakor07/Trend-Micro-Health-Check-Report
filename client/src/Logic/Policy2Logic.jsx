@@ -4,7 +4,7 @@ function PolicyOverviewLogic1() {
 
     const {
         rsummary10, rsummary11, rsummary13, rsummary14, rsummary161, rsummary162, rsummary17, rsummary18, rsummary19, rsummary20, rsummary21, rsummary22, rsummary23, rsummary29,
-        rsummary51, rsummary52, rsummary53, rsummary54, rsummary55, rsummary56,
+        rsummary51, rsummary51BM1, rsummary52, rsummary53, rsummary54, rsummary55, rsummary56,
         rsummaryVP, rsummaryDC, rsummaryAC, rsummaryVP1
     } = ExcutiveSummery()
 
@@ -43,7 +43,7 @@ function PolicyOverviewLogic1() {
 
     const handlePolicyOverviewName1 = (e) => { setPolicyTwoName(e.target.value) }
 
-   
+
 
     const [myPo2ImgData, setReportImgData] = useState({
         //po1
@@ -160,7 +160,7 @@ function PolicyOverviewLogic1() {
             setReqSummarySenPolicy2Arr(link);
         }
     };
-   
+
 
     const checkPolicyOverview = () => {
         const link = [...summarySenPolicy2Arr];
@@ -547,7 +547,7 @@ function PolicyOverviewLogic1() {
 
 
     //Scan Hidden Folders- 12 - Enable/Disable function
-    const tenFunction1 = (e, idVal,img, rS, rsummery) => {
+    const tenFunction1 = (e, idVal, img, rS, rsummery) => {
         if (e.target.value === "Enabled") {
             myPo2ImgData[img] = tab1;
             document.getElementById(idVal).src = tab1;
@@ -563,7 +563,7 @@ function PolicyOverviewLogic1() {
             addValue1(rS, rsummery)
 
         }
-        
+
     };
 
     //Select - Scan compressed files.>Maximium layers NO ES/RED
@@ -870,21 +870,48 @@ function PolicyOverviewLogic1() {
     //BM - 51 - 59
 
     //Behavior Monitoring
+    const [bmCounter, setBmCounter] = useState(0)
+    const addBmSummarySen = () => {
+        if (bmCounter < 0) {
+            closeValue1("rSummary51")
+        } else {
+            addValue1("rSummary51", rsummary51)
+        }
+    }
     const fiftyoneFunction1 = (e, idVal, tab) => {
         let a = "Enabled with";
         if (e.target.value === a || e.target.value === "Enabled") {
+            setBmCounter(prevCount => prevCount + 1);
             myPo2ImgData[tab] = tab1;
             document.getElementById(idVal).src = tab1;
             setcheckPolicyOverviewES(--checkPolicyOverviewES)
             checkPolicyOverview()
-            closeValue1("rSummary51")
+            //closeValue1("rSummary51")
+            addBmSummarySen()
 
-        } else {
+
+        } else if (e.target.value === "EnabledAntiExploit") {
+            myPo2ImgData[tab] = tab1;
+            document.getElementById(idVal).src = tab1;
+            setcheckPolicyOverviewES(--checkPolicyOverviewES)
+            checkPolicyOverview()
+            closeValue1("rsummary51BM1")
+        }
+        else if (e.target.value === "DisabledAntiExploit") {
+            myPo2ImgData[tab] = tab2;
+            document.getElementById(idVal).src = tab2;
+            setcheckPolicyOverviewES(++checkPolicyOverviewES)
+            checkPolicyOverview()
+            addValue1("rsummary51BM1", rsummary51BM1)
+        }
+        else {
+            setBmCounter(prevCount => prevCount - 1);
             myPo2ImgData[tab] = tab3;
             document.getElementById(idVal).src = tab3;
             setcheckPolicyOverviewES(++checkPolicyOverviewES)
             checkPolicyOverview()
-            addValue1("rSummary51", rsummary51)
+            // addValue1("rSummary51", rsummary51)
+            addBmSummarySen()
         }
     };
 
@@ -1004,7 +1031,7 @@ function PolicyOverviewLogic1() {
 
     };
 
-    
+
 
 
     const vulnerabilityProtectionFun1 = (e) => {

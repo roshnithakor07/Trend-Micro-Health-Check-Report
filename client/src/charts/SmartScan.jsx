@@ -5,13 +5,13 @@ import axios from "axios";
 import Chart from "chart.js/auto";
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import Endpoints from '../API/Endpoints'
+import { Input } from "@mui/material";
 
 export default function SmartScan(props) {
-    const {smartscanApi} = Endpoints();
+    const { smartscanApi } = Endpoints();
 
-   
+    const [patternDays, setPatternDays] = useState(7)
     let vm = ["Smart Scan Agent Pattern"];
-
 
     //database data : 
     const [myChartData, setMycharts] = useState({
@@ -21,10 +21,8 @@ export default function SmartScan(props) {
         chartFirstLine: '',
         total_detection: 0,
         tablePatternData: "[]",
+        patternDays: 7
     });
-
-    
-
 
 
     const [dataPoints, setDataPoints] = useState([])
@@ -44,8 +42,8 @@ export default function SmartScan(props) {
 
 
     let smartScanTable = [
-        'Last 7 days Pattern updated agents',
-        'Older than 7 Days Pattern updated agents',
+        `Last ${patternDays} days Pattern updated agents`,
+        `Older than ${patternDays} Days Pattern updated agents`,
         'Total Agents'
     ];
 
@@ -71,17 +69,18 @@ export default function SmartScan(props) {
 
         if (e.target.value === "select") return;
         setCoulmnsName(e.target.value);
-        
+
         const count = {};
         const mainCount = {}
         let top10Data = [];
         let sum = 0;
 
-
         for (const d of dataPoints) {
             const value = d[e.target.value];
-            mainCount[value] = (mainCount[value] || 0) + 1;
 
+            if (value !== "N/A" && value !== "") {
+                mainCount[value] = (mainCount[value] || 0) + 1;
+            }
             if (value !== "N/A" && value !== "" && parseFloat(value) >= 10) {
                 count[value] = (count[value] || 0) + 1;
             }
@@ -92,7 +91,7 @@ export default function SmartScan(props) {
         }
 
         setTotalDetections(sum)
-
+        
         for (const [key, value] of Object.entries(count)) {
             top10Data.push({ key, value });
         }
@@ -105,17 +104,18 @@ export default function SmartScan(props) {
         let totatSevenPattern = Object.keys(count)
         //totatSevenPattern = totatSevenPattern.filter(item => item !== "N/A" && parseFloat(item) >= 10)
         totatSevenPattern = totatSevenPattern.sort()
-        let last7Pattern = totatSevenPattern.slice(-7);
+       console.log(patternDays)
+        let days = patternDays;
+        let last7Pattern = totatSevenPattern.slice(-days);
 
         let sum1 = 0;
 
-        for (let i = 0; i < 7; i++) {
-
+        for (let i = 0; i < days; i++) {
             sum1 += count[last7Pattern[i]]
             console.log(last7Pattern[i], count[last7Pattern[i]])
         }
 
-    
+
         tablePatternData[0] = (sum1)
         tablePatternData[1] = ((sum - sum1))
         tablePatternData[2] = (sum)
@@ -127,8 +127,8 @@ export default function SmartScan(props) {
 
     };
 
-
-
+   
+   
     const handleCheckboxChange = (e) => {
         if (!e.target.checked) {
             const updatedX = x.filter((item) => item !== e.target.value);
@@ -159,10 +159,10 @@ export default function SmartScan(props) {
 
     const dropdownOptions = lable.map((e) => (
         <span key={e}>
-          <input type="checkbox" name="messageCheckbox0" defaultChecked={e} defaultValue={e} onChange={handleCheckboxChange} />
-          {e}
+            <input type="checkbox" name="messageCheckbox0" defaultChecked={e} defaultValue={e} onChange={handleCheckboxChange} />
+            {e}
         </span>
-      ));
+    ));
 
     const handleDes = (e) => {
         setMycharts((prev) => ({
@@ -173,8 +173,6 @@ export default function SmartScan(props) {
     }
 
     const handleSubmit = () => {
-
-
         myChartData.tablePatternData = JSON.stringify(tablePatternData);
 
         createCharts(x, y1)
@@ -304,17 +302,17 @@ export default function SmartScan(props) {
         myChart[0] = newChart;
     }
 
-
     //process database
 
     const handleCharts = () => {
         myChartData["r_id"] = props.report_id;
         myChartData["chartTitle"] = props.chartTitle;
         myChartData.total_detection = total_detection;
+        myChartData.patternDays = patternDays;
 
         const getProductById = async (e) => {
             try {
-                // console.log("hello inside handlevirus", myChartData)
+                console.log("hello inside smart scan", myChartData)
                 await axios.post(smartscanApi, myChartData);
 
             } catch (error) {
@@ -327,6 +325,7 @@ export default function SmartScan(props) {
 
 
     }
+
 
     return (
         <>
@@ -344,6 +343,27 @@ export default function SmartScan(props) {
                         </li>
 
                         <li>
+                            <select onChange={(e) => { setPatternDays(e.target.value)}}>
+                                {/* <option value="select">Last {patternDays} days Pattern updated agents</option> */}
+                                <option value={7}>Last 7 days Pattern updated agents</option>
+                                <option value={1}>Last 1 day Pattern updated agents</option>
+                                <option value={2}>Last 2 days Pattern updated agents</option>
+                                <option value={3}>Last 3 days Pattern updated agents</option>
+                                <option value={4}>Last 4 days Pattern updated agents</option>
+                                <option value={5}>Last 5 days Pattern updated agents</option>
+                                <option value={6}>Last 6 days Pattern updated agents</option>
+                                <option value={8}>Last 8 days Pattern updated agents</option>
+                                <option value={9}>Last 9 days Pattern updated agents</option>
+                                <option value={10}>Last 10 days Pattern updated agents</option>
+                                <option value={11}>Last 11 days Pattern updated agents</option>
+                                <option value={12}>Last 12 days Pattern updated agents</option>
+                                <option value={13}>Last 13 days Pattern updated agents</option>
+                                <option value={14}>Last 14 days Pattern updated agents</option>
+                                <option value={15}>Last 15 days Pattern updated agents</option>
+                            </select>
+                        </li>
+
+                        <li>
                             <select name="agColumn" id="agColumn" onClick={(e) => { load(e) }}>
                                 <option value="select">----select----</option>
                                 {csvColumnNameOptions}
@@ -358,6 +378,9 @@ export default function SmartScan(props) {
                                 </div>
                             </div>
                         </li>
+
+                   
+
                         <li>
                             <Button variant="contained" onClick={handleSubmit} color="primary">Create</Button>
                         </li>
@@ -393,16 +416,14 @@ export default function SmartScan(props) {
                 <br />
                 <br />
 
-                <Button variant="contained" color="success" className="Chartbutton" id="Chartbutton" onClick={handleCharts}>
+                <Button onClick={handleCharts} variant="contained" color="success" className="Chartbutton" id="Chartbutton" >
                     Save Data
                 </Button>
                 <br /><br />
-
-
-
             </div>
             {/* <!-- div 0  5.1 Agent Distribution--> */}
 
         </>
     );
+
 }

@@ -1,5 +1,5 @@
 
-const ReportModel = require('../Models/reportModel')
+const {ReportModel} = require('../Models/reportModel')
 const moment = require('moment')
 const policyModel = require('../Models/policyModel')
 const { Chart1, Virus, Spyware, Bm, Dc, Ips, Smartscan, Wr, Cc } = require('../Models/chartModel');

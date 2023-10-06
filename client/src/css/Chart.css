@@ -194,9 +194,13 @@
 #additionalInfo3,
 #addInfo1,
 #addInfo2,
-#addInfo3 {
+#addInfo3,
+#closeInfo1,
+#closeInfo2,
+#closeInfo3 {
     display: none;
 }
+
 
 
 .additionalInfo>* {

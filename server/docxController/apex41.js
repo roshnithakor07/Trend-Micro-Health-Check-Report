@@ -1,5 +1,5 @@
 
-const ReportModel = require('../Models/reportModel')
+const {ReportModel} = require('../Models/reportModel')
 const moment = require('moment')
 const Jimp = require("jimp");
 const fs = require('fs');

@@ -57,10 +57,15 @@ export default function Charts() {
 
   useEffect(() => {
     const getProductById1 = async () => {
-      fetch(convertBase64ToImg)
-        .then(res => res.blob())
-        .then(data => {
-        });
+      try {
+        fetch(convertBase64ToImg)
+          .then(res => res.blob())
+          .then(data => {
+          });
+      } catch (error) {
+        console.log("error while fetching convertBase64ToImg")
+      }
+
     }
     getProductById1();
 

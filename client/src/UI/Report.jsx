@@ -66,6 +66,7 @@ function Report() {
 
   const {
     cName,
+    reportTypeName,
     visible,
     myPolicy2,
     handlePolicy2,
@@ -899,6 +900,7 @@ function Report() {
       <div className="MainDiv">
         <Introduction
           myData={{
+            reportTypeName,
             showComponent,
             cName,
             handleChange,
@@ -910,6 +912,7 @@ function Report() {
         />
 
         <ExecutiveSummery myData={{
+          cName,
           showComponent, policyOneName, policyTwoName, popupIndex, setPopupIndex,
           handleChange, openPopup, deletePopup, setchartDess,
           addValue1, summarySenArr,

@@ -7,6 +7,7 @@ const edit = lime[500];
 
 
 export default function ExecutiveSummery({ myData: {
+    cName,
     showComponent, policyOneName, policyTwoName, popupIndex, setPopupIndex,
     handleChange, openPopup, deletePopup, setchartDess,
     addValue1, summarySenArr,
@@ -30,12 +31,11 @@ export default function ExecutiveSummery({ myData: {
                                 name="executivesummarydate"
                                 onChange={handleChange}
                             />{" "}
-                            for <input
-                                type="text"
-                                name="companyName"
-                                placeholder="enter a Company Name"
-                                onChange={handleChange}
-                            /> to ensure Trend Micro Product(s)
+                            for 
+                            {" "}
+                            <strong>{cName}</strong>
+                            {" "}
+                            to ensure Trend Micro Product(s)
                             are configured as per best practice and provide gap analysis
                             feedback.
                             <br />

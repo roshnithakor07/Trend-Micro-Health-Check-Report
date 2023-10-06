@@ -1,12 +1,11 @@
 
-const ReportModel = require('../Models/reportModel')
+const {ReportModel} = require('../Models/reportModel')
 const fs = require('fs');
 const { ImageRun, HeadingLevel, Paragraph, TextRun, AlignmentType,
     Table, TableRow, TableCell, WidthType, VerticalAlign } = require("docx");
 
 const tab1 = "images/tab1.png";
-const tab2 = "images/tab2.png";
-const tab3 = "images/tab3.png";
+
 
 const transformation = {
     width: 20,
@@ -22,6 +21,13 @@ const getPo1 = async (req, res) => {
     let SSTable = ""
 
     let policyTitle = ""
+
+    let antiExploitProtection = `${Report[0].bm} Ransomware Protection`;
+
+    if (Report[0].bm1 === "DisabledAntiExploit") {
+        antiExploitProtection = `${Report[0].bm} Ransomware Protection but Anti-exploit protection is disabled`;
+    }
+
 
     if (Report[0].checkPolicyOverviewTwoAdded === true) {
         policyTitle = `4.2.1 Policy Overview: 01 ${Report[0].OverviewPolicyName1} Policy`;
@@ -369,7 +375,7 @@ const getPo1 = async (req, res) => {
 
     let BMContent = [
 
-        ['Behavior Monitoring', 'Enable with Ransomware Protection & Anti-exploit protection', `${Report[0].bm} Ransomware Protection & Anti-exploit protection`, { image: `${Report[0].tab51}`, style: "imgStyle", width: 15 }],
+        ['Behavior Monitoring', 'Enable with Ransomware Protection & Anti-exploit protection', `${antiExploitProtection}`, { image: `${Report[0].tab51}`, style: "imgStyle", width: 15 }],
         ['Predictive Machine Learning', 'Enable', `${Report[0].predictiveMl}`, { image: `${Report[0].tab52}`, style: "imgStyle", width: 15 }],
         ['Suspicious Connection', 'Enable with Block option', `${Report[0].suspicious_Connection} with Block option`, { image: `${Report[0].tab53}`, style: "imgStyle", width: 15 }],
         ['Vulnerability Protection', 'Enable', `${vp_mode}`, { image: `${Report[0].tabVP}`, style: "imgStyle", width: 15 }],
@@ -711,7 +717,7 @@ const getPo1 = async (req, res) => {
         BMContent = []
 
         let predictiveMlData3 = Report[0].predictiveMl3 === "No" ? "No Exceptions added" : "Exceptions added";
-        let bm7 = Report[0].bm7 === "No" ? "No exceptions added in the Approved Program list" : "exceptions added in the Approved Program list";
+        let bm7 = Report[0].bm7 === "No" ? "No exceptions added to the Approved Program list" : "exceptions added to the Approved Program list";
 
         const onePart = [
             [{ text: 'Behavior Monitoring', rowSpan: 7, margin: [0, 130, 0, 0] }, 'Enable Malware Behavior Blocking Known and potential threats', `${Report[0].bm1}`, { image: `${Report[0].tab51BM1}`, style: "imgStyle", width: 15 }],
@@ -852,10 +858,6 @@ const getPo1 = async (req, res) => {
         })
 
     )
-
-
-
-
 
 
 

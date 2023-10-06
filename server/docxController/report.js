@@ -1,5 +1,5 @@
 
-const ReportModel = require('../Models/reportModel')
+const {ReportModel} = require('../Models/reportModel')
 const moment = require('moment');
 const { PageBreak, convertInchesToTwip, VerticalPositionAlign, HorizontalPositionAlign, HorizontalPositionRelativeFrom, VerticalPositionRelativeFrom, TextWrappingType, TextWrappingSide, ImageRun, HeadingLevel, Paragraph, TextRun, AlignmentType,
     Table, TableRow, TableCell, WidthType, VerticalAlign, BorderStyle,
@@ -11,6 +11,9 @@ const fs = require('fs');
 const getReportpdf = async (req, res) => {
     const Report = await ReportModel.find({}).sort({ _id: -1 }).limit(1);
 
+
+    const titleOFReport = `Review of ${Report[0].cName} Apex One ${Report[0].report_type} Implementation`
+    
     const firstImagePath = './images/companyLogo.png';
     // const firstImagePath = './images/evenuts-logo.png';
     const secondImagePath = "./images/evenuts-logo.png";
@@ -306,7 +309,7 @@ const getReportpdf = async (req, res) => {
                             }),
                             new TableCell({
                                 columnSpan: 3,
-                                children: [new Paragraph(`${Report[0].title}`)
+                                children: [new Paragraph(`${titleOFReport}`)
                                 ],
                             }),
 
