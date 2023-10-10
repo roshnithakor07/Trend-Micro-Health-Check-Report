@@ -165,7 +165,7 @@ function useApexOneLogic43() {
 
     var today = new Date();
     today = new Date(today.getFullYear(), today.getMonth(), today.getDate())
-    let validDate = new Date(today.getFullYear(), today.getMonth() + 2, today.getDate())
+    let validDate = new Date(today.getFullYear(), today.getMonth() + 3, today.getDate())
 
     var l = new Date(e.target.value);
     l = new Date(l.getFullYear(), l.getMonth(), l.getDate())

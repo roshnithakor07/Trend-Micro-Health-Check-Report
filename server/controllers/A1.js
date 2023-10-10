@@ -23,8 +23,6 @@ const getA1pdf = async (req, res) => {
 
   ]
 
-
-
   return content
 }
 

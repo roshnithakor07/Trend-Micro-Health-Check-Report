@@ -197,7 +197,7 @@ function useApexOneLogic41() {
     today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
     let validDate = new Date(
       today.getFullYear(),
-      today.getMonth() + 2,
+      today.getMonth() + 3,
       today.getDate()
     );
 

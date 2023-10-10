@@ -58,6 +58,7 @@ function useApexOneLogic43() {
       });
   };
 
+
   const [myApex43ImgData, setReportImgData] = useState({
     //apex43 - 51 - 59
     apex43memory: tab1,
@@ -137,7 +138,7 @@ function useApexOneLogic43() {
       myApex43ImgData.apex43memory = tab1
       document.getElementById(
         "sep6660"
-      ).src = `/${tab1}`; 
+      ).src = `/${tab1}`;
 
       closeValue("0");
       closeValue1("0");
@@ -146,7 +147,7 @@ function useApexOneLogic43() {
       myApex43ImgData.apex43memory = tab2
       document.getElementById(
         "sep6660"
-      ).src = `/${tab2}`; 
+      ).src = `/${tab2}`;
 
 
       let a = esummary60;
@@ -171,7 +172,7 @@ function useApexOneLogic43() {
       myApex43ImgData.tab60 = tab1;
       document.getElementById(
         "sep60"
-      ).src = `/${tab1}`; 
+      ).src = `/${tab1}`;
       addValue('1', `The Apex central latest build version is installed i.e ${latest_version}.`)
       closeValue1("1");
 
@@ -180,7 +181,7 @@ function useApexOneLogic43() {
       myApex43ImgData.tab60 = tab2;
       document.getElementById(
         "sep60"
-      ).src = `/${tab2}`; 
+      ).src = `/${tab2}`;
 
       let a = `Apex central is running on an older version i.e., ${deployed}. (Latest Version available is ${latest_version}).`
       let b = `Apex central is running on an older build version recommended to upgrade it to the Latest version ${latest_version}. Download link:  https://www.trendmicro.com/en_us/business/products/downloads.html.`
@@ -197,7 +198,7 @@ function useApexOneLogic43() {
 
     var today = new Date();
     today = new Date(today.getFullYear(), today.getMonth(), today.getDate())
-    let validDate = new Date(today.getFullYear(), today.getMonth() + 2, today.getDate())
+    let validDate = new Date(today.getFullYear(), today.getMonth() + 3, today.getDate())
 
     var l = new Date(e.target.value);
     l = new Date(l.getFullYear(), l.getMonth(), l.getDate())
@@ -209,7 +210,7 @@ function useApexOneLogic43() {
         myApex43ImgData.tab6060 = tab2;
         document.getElementById(
           "sep6060"
-        ).src = `/${tab2}`; 
+        ).src = "images/tab2.png";
 
 
         let a = `Your Trend Micro Apex central license is valid till ${monthName} ${l.getDate()},${l.getFullYear()}.`
@@ -221,7 +222,7 @@ function useApexOneLogic43() {
         myApex43ImgData.tab6060 = tab1;
         document.getElementById(
           "sep6060"
-        ).src = `/${tab1}`; 
+        ).src = "images/tab1.png";
 
         let a = `Your Trend Micro Apex central license is up to date and is valid till ${monthName} ${l.getDate()},${l.getFullYear()}.`
         addValue("2", a)
@@ -231,7 +232,7 @@ function useApexOneLogic43() {
       myApex43ImgData.tab6060 = "images/tab3.png";
       document.getElementById(
         "sep6060"
-      ).src = `/${tab3}`; 
+      ).src = "images/tab3.png";
 
       let a = `Your Trend Micro Apex central license has expired.`
       let b = `Please contact your Trend Micro Account Manager to renew the license to protect your endpoints.`
@@ -250,7 +251,7 @@ function useApexOneLogic43() {
       myApex43ImgData.tab61 = tab1;
       document.getElementById(
         "sep61"
-      ).src = `/${tab1}`; 
+      ).src = `/${tab1}`;
 
       addValue("3", "Active Directory Sync is configured in Apex Central.")
       closeValue1("3");
@@ -258,7 +259,7 @@ function useApexOneLogic43() {
       myApex43ImgData.tab61 = tab4;
       document.getElementById(
         "sep61"
-      ).src = `/${tab4}`; ;
+      ).src = `/${tab4}`;;
 
       let a = esummary61;
       let b = rsummary61;
@@ -277,7 +278,7 @@ function useApexOneLogic43() {
 
       document.getElementById(
         "sep62"
-      ).src = `/${tab1}`; 
+      ).src = `/${tab1}`;
       closeValue("4");
       closeValue1("4");
     } else {
@@ -288,7 +289,7 @@ function useApexOneLogic43() {
       myApex43ImgData.tab62 = tab2
       document.getElementById(
         "sep62"
-      ).src = `/${tab2}`; 
+      ).src = `/${tab2}`;
 
       addValue("4", a)
       addValue1("4", b)
@@ -303,7 +304,7 @@ function useApexOneLogic43() {
       myApex43ImgData.tab63 = tab1;
       document.getElementById(
         "sep63"
-      ).src = `/${tab1}`; 
+      ).src = `/${tab1}`;
 
       addValue("5", "Reports are configured in Apex Central.")
       closeValue1("5");
@@ -312,7 +313,7 @@ function useApexOneLogic43() {
       myApex43ImgData.tab63 = tab2;
       document.getElementById(
         "sep63"
-      ).src = `/${tab2}`; 
+      ).src = `/${tab2}`;
 
       let a = esummary63;
       let b = rsummary63;
@@ -329,7 +330,7 @@ function useApexOneLogic43() {
       myApex43ImgData.tab64 = tab1;
       document.getElementById(
         "sep64"
-      ).src = `/${tab1}`; 
+      ).src = `/${tab1}`;
 
       closeValue("6");
       closeValue1("6");
@@ -338,7 +339,7 @@ function useApexOneLogic43() {
       myApex43ImgData.tab64 = tab2;
       document.getElementById(
         "sep64"
-      ).src = `/${tab2}`; 
+      ).src = `/${tab2}`;
 
       let a = esummary64;
       let b = rsummary64;
@@ -354,7 +355,7 @@ function useApexOneLogic43() {
       myApex43ImgData.tab65 = tab1;
       document.getElementById(
         "sep65"
-      ).src = `/${tab1}`; 
+      ).src = `/${tab1}`;
 
       addValue("7", "Syslog is configured in Apex Central.")
       closeValue1("7");
@@ -364,7 +365,7 @@ function useApexOneLogic43() {
       myApex43ImgData.tab65 = tab4;
       document.getElementById(
         "sep65"
-      ).src = `/${tab4}`; ;
+      ).src = `/${tab4}`;;
 
       let a = esummary65;
       let b = rsummary65;
@@ -383,7 +384,7 @@ function useApexOneLogic43() {
       myApex43ImgData.tab66 = tab1;
       document.getElementById(
         "sep66"
-      ).src = `/${tab1}`; 
+      ).src = `/${tab1}`;
 
       closeValue("8");
       closeValue1("8");
@@ -391,7 +392,7 @@ function useApexOneLogic43() {
       myApex43ImgData.tab66 = tab2;
       document.getElementById(
         "sep66"
-      ).src = `/${tab2}`; 
+      ).src = `/${tab2}`;
 
       let a = esummary66;
       let b = rsummary66;
@@ -408,14 +409,14 @@ function useApexOneLogic43() {
       myApex43ImgData.tab67 = tab1;
       document.getElementById(
         "sep67"
-      ).src = `/${tab1}`; 
+      ).src = `/${tab1}`;
 
 
     } else {
       myApex43ImgData.tab67 = tab2;
       document.getElementById(
         "sep67"
-      ).src = `/${tab2}`; 
+      ).src = `/${tab2}`;
 
     }
   };
