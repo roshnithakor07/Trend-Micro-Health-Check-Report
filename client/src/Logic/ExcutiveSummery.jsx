@@ -26,7 +26,8 @@ function ExcutiveSummery() {
 
     //PO1
     let rsummary10 = `All the agents are using the Conventional Scan method recommended to use the Smart Scan Method. Smart Scan leverages threat signatures that are stored in the cloud.`
-    let rsummary11 = `files to scan are set as File types scanned By IntelliScan, recommended to set it as All Scannable files as Only scan files known to potentially harbor malicious code, including files disguised by a harmless extension name are Scan in IntelliScan.`
+    let rsummary11 = [`files to scan are set as File types scanned By IntelliScan, recommended to set it as All Scannable files as Only scan files known to potentially harbor malicious code, including files disguised by a harmless extension name are Scan in IntelliScan.`,
+    "files to scan are set as File types scanned By Specific Extension, recommended to set it as All Scannable files. it will only scan files with specified extension and Trend Micro recommended to scan all type of files."]
     let rsummary12 = `In Manual Scan and policy settings, Scan Hidden Folders is disabled, recommended to enable it.`;
     let rsummary13 = `detect exploit code in OLE is disabled, recommended to enable it.`;
     let rsummary14 = `the scan boot area is disabled, recommended to enable it.`;

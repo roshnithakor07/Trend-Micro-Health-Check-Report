@@ -123,7 +123,7 @@ export default function Virus(props) {
             skipEmptyLines: true,
             complete: ({ data }) => {
                 setDataPoints(data);
-                load({ target: { value: columnsNames } });
+               
             },
         });
     };
@@ -183,9 +183,12 @@ export default function Virus(props) {
 
         const top10Data = [];
 
-        const count = {};
+        const count = {},mainCount = {};
         for (const d of dataPoints) {
             const value = d[e.target.value];
+            if (value !== "") {
+                mainCount[value] = (mainCount[value] || 0) + 1;
+            }
 
             if (value !== "N/A" && value !== "") {
                 count[value] = (count[value] || 0) + 1;
@@ -193,7 +196,7 @@ export default function Virus(props) {
         }
 
         let sum = 0;
-        for (const val of Object.values(count)) {
+        for (const val of Object.values(mainCount)) {
             sum += val
         }
 

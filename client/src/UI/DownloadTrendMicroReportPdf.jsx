@@ -47,21 +47,45 @@ export default function DownloadTrendMicroReportPdf() {
 
     }, []);
 
-    useEffect(() => {
+    // useEffect(() => {
+    //     try {
+    //         fetch(getTrendMicroReportDocx)
+    //             .then(res => res.blob())
+    //             .then(data => {
+    //                 setDocxData(window.URL.createObjectURL(data));
+    //                 setLoading(false);
+    //             });
+    //     } catch (error) {
+    //         console.log("error while fetching docx file")
+    //     }
+
+    // }, []);
+
+
+    const fetchData = () => {
         try {
-            fetch(getTrendMicroReportDocx)
-                .then(res => res.blob())
-                .then(data => {
-
-                    setDocxData(window.URL.createObjectURL(data));
-                    setLoading(false);
-                });
+          fetch(getTrendMicroReportDocx)
+            .then((res) => res.blob())
+            .then((data) => {
+              setDocxData(window.URL.createObjectURL(data));
+              setLoading(false);
+            })
+            .catch((error) => {
+              console.log("Error while fetching docx file", error);
+              // Retry fetching after a delay
+              setTimeout(fetchData, 10000); // 10 seconds
+            });
         } catch (error) {
-            console.log("error while fetching docx file")
+          console.log("Error while fetching docx file", error);
+          // Retry fetching after a delay
+          setTimeout(fetchData, 10000); // 10 seconds
         }
-
-
-    }, []);
+      };
+    
+      useEffect(() => {
+        fetchData();
+      }, []); // Empty dependency array, so it only runs on component mount
+    
 
 
     return (
@@ -69,7 +93,7 @@ export default function DownloadTrendMicroReportPdf() {
             {(loading) && <div className="spinner"></div>}
 
             {
-                docxData && (
+                (docxData) && (
                     <div className="styleOFLoader">
                         <Button className="button-pdf" variant="contained" color="primary">
                             <a id="downloadpdf" href={pdfData} download={fileName}>Download PDF</a>

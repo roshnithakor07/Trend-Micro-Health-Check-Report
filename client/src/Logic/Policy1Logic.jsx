@@ -24,7 +24,7 @@ function PolicyOverviewLogic1() {
     let [summarySenPolicy1Arr, setSummarySenPolicy1Arr] = useState([]);
     let [reqSummarySenPolicy1Arr, setReqSummarySenPolicy1Arr] = useState([]);
     let [checkPolicyOverviewES, setcheckPolicyOverviewES] = useState(0);
-    let [checkFileToScan, setcheckFileToScan] = useState(0);
+    let [checkFileToScan, setcheckFileToScan] = useState([0, 0]);
     let [checkDetectExploitCode, setdetectExploitCode] = useState(0);
     let [checkVirusMalwareScanBootArea, setVirusMalwareScanBootArea] = useState(0);
 
@@ -39,7 +39,7 @@ function PolicyOverviewLogic1() {
     let [checkRunCleanup, setRunCleanup] = useState(0);
     let [checkSpywareApexOneTerminates, setSpywareApexOneTerminates] = useState(0);
 
-    let [nameOfPolicy, setnameOfPolicy] = useState([[], [], [], [], [], [], [], [], [], [], []])
+    let [nameOfPolicy, setnameOfPolicy] = useState([[], [], [], [], [], [], [], [], [], [], [], []])
 
     let [policyActionArr, setPolicyActionArr] = useState([[], [], [], []])
     let [policyOneName, setPolicyOneName] = useState("")
@@ -198,21 +198,24 @@ function PolicyOverviewLogic1() {
         nameOfPolicy[val].splice(index, 1)
     }
 
-    //nameOfPolicy 0
-    const FileToScanFunction = (x, policyNameNo) => {
-        if (x === undefined) { checkServiceAvl(policyNameNo, 0) }
+    //nameOfPolicy 0 & 11
+    const FileToScanFunction = (x, policyNameNo, arrNo, summaryNo) => {
+        if (x === undefined) {
+            checkServiceAvl(policyNameNo, 0)
+            checkServiceAvl(policyNameNo, 11)
+        }
         else {
-            if (nameOfPolicy[0].includes(x)) { }
-            else if (nameOfPolicy[0].includes("")) { }
-            else nameOfPolicy[0].push(x)
+            if (nameOfPolicy[arrNo].includes(x)) { }
+            else if (nameOfPolicy[arrNo].includes("")) { }
+            else nameOfPolicy[arrNo].push(x)
         }
 
-        if (checkFileToScan >= 1) {
-            let a = `In ${nameOfPolicy[0].join(', ').replace(/,([^,]*)$/, ' and$1')} Scan and policy settings, ${rsummary11}`
-            addValue1("rSummary11", a)
+        if (checkFileToScan[summaryNo] >= 1) {
+            let a = `In ${nameOfPolicy[arrNo].join(', ').replace(/,([^,]*)$/, ' and$1')} Scan and policy settings, ${rsummary11[summaryNo]}`
+            addValue1(`rSummary11${summaryNo}`, a)
         }
         else {
-            closeValue1("rSummary11")
+            closeValue1(`rSummary11${summaryNo}`)
         }
 
     }
@@ -543,17 +546,25 @@ function PolicyOverviewLogic1() {
             myPo1ImgData[img] = tab1;
             setcheckPolicyOverviewES(--checkPolicyOverviewES)
             checkPolicyOverview()
-            setcheckFileToScan(--checkFileToScan)
+            // setcheckFileToScan(--checkFileToScan)
+            const updatedValues = [--checkFileToScan[0], --checkFileToScan[1]];
+            setcheckFileToScan(updatedValues);
             FileToScanFunction(undefined, PolicyNameNo)
 
         } else {
-
+            if (e.target.value === "File types Scanned by IntelliScan") {
+                const updatedValues = [++checkFileToScan[0], checkFileToScan[1]];
+                setcheckFileToScan(updatedValues);
+                FileToScanFunction(policyNameArr[PolicyNameNo], PolicyNameNo, 0, 0)
+            } else {
+                const updatedValues = [checkFileToScan[0], ++checkFileToScan[1]];
+                setcheckFileToScan(updatedValues);
+                FileToScanFunction(policyNameArr[PolicyNameNo], PolicyNameNo, 11, 1)
+            }
             myPo1ImgData[img] = tab2;
             document.getElementById(idVal).src = tab2;
             setcheckPolicyOverviewES(++checkPolicyOverviewES)
             checkPolicyOverview()
-            setcheckFileToScan(++checkFileToScan)
-            FileToScanFunction(policyNameArr[PolicyNameNo], PolicyNameNo)
 
         }
     };
@@ -561,8 +572,6 @@ function PolicyOverviewLogic1() {
 
     //Scan Hidden Folders- 12 - Enable/Disable function
     const tenFunction = (e, idVal, img, rS, rsummery) => {
-
-
         if (e.target.value === "Enabled") {
             myPo1ImgData[img] = tab1;
             document.getElementById(idVal).src = tab1;
@@ -929,7 +938,7 @@ function PolicyOverviewLogic1() {
             addBmSummarySen()
         }
     };
-    
+
 
     const exception51Fun = (e, idVal, tab) => {
         let a = "Yes";

@@ -152,17 +152,20 @@ export default function CC(props) {
     if (e.target.value === "select") return;
     setCoulmnsName(e.target.value);
 
-    const count = {};
+    const count = {},mainCount = {};
     for (const d of dataPoints) {
       const value = d[e.target.value];
      
+      if (value !== "") {
+        mainCount[value] = (mainCount[value] || 0) + 1;
+    }
       if (value !== "N/A" && value !== "") {
         count[value] = (count[value] || 0) + 1;
       }
     }
 
     let sum = 0;
-    for (const val of Object.values(count)) {
+    for (const val of Object.values(mainCount)) {
       sum += val
     }
 

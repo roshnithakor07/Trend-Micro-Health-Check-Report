@@ -78,7 +78,7 @@ export default function SmartScan(props) {
         for (const d of dataPoints) {
             const value = d[e.target.value];
 
-            if (value !== "N/A" && value !== "") {
+            if (value !== "") {
                 mainCount[value] = (mainCount[value] || 0) + 1;
             }
             if (value !== "N/A" && value !== "" && parseFloat(value) >= 10) {
@@ -91,7 +91,7 @@ export default function SmartScan(props) {
         }
 
         setTotalDetections(sum)
-        
+
         for (const [key, value] of Object.entries(count)) {
             top10Data.push({ key, value });
         }
@@ -104,7 +104,7 @@ export default function SmartScan(props) {
         let totatSevenPattern = Object.keys(count)
         //totatSevenPattern = totatSevenPattern.filter(item => item !== "N/A" && parseFloat(item) >= 10)
         totatSevenPattern = totatSevenPattern.sort()
-       console.log(patternDays)
+        console.log(patternDays)
         let days = patternDays;
         let last7Pattern = totatSevenPattern.slice(-days);
 
@@ -127,8 +127,8 @@ export default function SmartScan(props) {
 
     };
 
-   
-   
+
+
     const handleCheckboxChange = (e) => {
         if (!e.target.checked) {
             const updatedX = x.filter((item) => item !== e.target.value);
@@ -343,7 +343,7 @@ export default function SmartScan(props) {
                         </li>
 
                         <li>
-                            <select onChange={(e) => { setPatternDays(e.target.value)}}>
+                            <select onChange={(e) => { setPatternDays(e.target.value) }}>
                                 {/* <option value="select">Last {patternDays} days Pattern updated agents</option> */}
                                 <option value={7}>Last 7 days Pattern updated agents</option>
                                 <option value={1}>Last 1 day Pattern updated agents</option>
@@ -379,7 +379,7 @@ export default function SmartScan(props) {
                             </div>
                         </li>
 
-                   
+
 
                         <li>
                             <Button variant="contained" onClick={handleSubmit} color="primary">Create</Button>

@@ -143,6 +143,9 @@ export default function PolicyOverview1(
                                         <option value="File types Scanned by IntelliScan">
                                             File types Scan by IntelliScan
                                         </option>
+                                        <option value="Files with Specific Extention">
+                                            Files with Specific Extention
+                                        </option>
                                     </select>
                                 </td>
                                 <td className="con6" style={{ textAlign: "center" }}>
@@ -833,6 +836,9 @@ export default function PolicyOverview1(
                                         </option>
                                         <option value="File types Scanned by IntelliScan">
                                             File types Scan by IntelliScan
+                                        </option>
+                                        <option value="Files with Specific Extention">
+                                            Files with Specific Extention
                                         </option>
                                     </select>
                                 </td>
@@ -1646,6 +1652,9 @@ export default function PolicyOverview1(
                                         </option>
                                         <option value="File types Scanned by IntelliScan">
                                             Files scan by IntelliScan
+                                        </option>
+                                        <option value="Files with Specific Extention">
+                                            Files with Specific Extention
                                         </option>
                                     </select>
                                 </td>
