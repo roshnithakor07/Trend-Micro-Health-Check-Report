@@ -12,7 +12,7 @@ import useApexOneLogic41 from "../Logic/Apex41Logic";
 import useApexOneLogic43 from "../Logic/Apex43Logic";
 import Po1Logic from '../Logic/Policy1Logic'
 import Po2Logic from '../Logic/Policy2Logic';
-import { useState } from "react";
+import {useState} from "react";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import { green } from "@mui/material/colors";
@@ -118,7 +118,7 @@ function Report() {
   } = useApexOneLogic43();
 
   const {
-
+   
     summarySenPolicy1Arr, setSummarySenPolicy1Arr,
     reqSummarySenPolicy1Arr, setReqSummarySenPolicy1Arr,
     closePolicyOverviewTable,
@@ -284,7 +284,6 @@ function Report() {
     "tab48",
     "tab49",
     "tab50",
-    "tab51",
     "tab51BM1",
     "tab51BM2",
     "tab51BM3",
@@ -292,9 +291,11 @@ function Report() {
     "tab51BM5",
     "tab51BM6",
     "tab51BM7",
-    "tab52",
+    "tab51BM8",
+
     "tab52ML1",
     "tab52ML2",
+    "tab52ML3",
     "tab53",
     "tab54",
     "tab55",
@@ -941,7 +942,7 @@ function Report() {
         />
 
         <PolicyOverview1 myData={{
-          visible,
+       
           handleChange,
           handlePolicyOverviewName,
           showComponent,

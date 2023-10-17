@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useId } from 'react'
 import ExcutiveSummery from "../Logic/ExcutiveSummery"
 
 export default function PolicyOverview1(
+
     { myData: {
-        visible,
+
         handleChange,
         handlePolicyOverviewName,
         showComponent,
@@ -28,7 +29,6 @@ export default function PolicyOverview1(
         thirtynineFunction,
 
         fiftyoneFunction,
-        exception51Fun,
         fiftytwoFunction,
         fiftythreeFunction,
         fiftyfourFunction,
@@ -42,12 +42,17 @@ export default function PolicyOverview1(
 
     } }) {
 
+    const sep8 = useId();
+
+
     const {
         rsummary12,
         rsummary25,
         rsummary26,
         rsummary27,
         rsummary28,
+        rsummary51BM1, rsummary51BM2, rsummary51BM3, rsummary51BM5, rsummary51BM6, rsummary51BM7, rsummary51BM8, rsummary51BM10,
+        rsummary52ML1, rsummary52ML2,
     } = ExcutiveSummery();
 
     return (
@@ -2237,316 +2242,331 @@ export default function PolicyOverview1(
                             {/* Schedule Scan-Action Settings ends */}
 
                             {/* Behavior Monitoring starts */}
-                            {visible ? (
-                                <>
 
-                                    <tr className="con6" >
-                                        <td className="con6" rowSpan="7">Behavior Monitoring</td>
-                                        <td className="con6">
-                                            Enable Malware Behavior Blocking Known and potential threats
-                                        </td>
-                                        <td className="con6">
-                                            <select
+                            <tr className="con6" >
+                                <td className="con6" rowSpan="8">Behavior Monitoring</td>
+                                <td className="con6">
+                                    Enable - Malware Behavior Blocking Threats to block Known and potential threats
+                                </td>
+                                <td className="con6">
+                                    <select
+                                        id='bm1'
+                                        onChange={(e) => {
+                                            fiftyoneFunction(e, "bm1", "bm2", "sep51BM1", "tab51BM1", "rsummary51BM1", rsummary51BM1);
+                                            handleChange(e);
 
-                                                onChange={(e) => {
-                                                    fiftyoneFunction(e, "sep51BM1", "tab51BM1");
-                                                    handleChange(e);
-                                                }}
-                                                name="bm1"
-                                            >
-                                                <option value="Enabled">Enabled </option>
-                                                <option value="Disabled">Disabled</option>
-                                            </select>
-                                        </td>
-                                        <td className="con6" style={{ textAlign: "center" }}>
-                                            <img src="images/tab1.png" id="sep51BM1" alt="" />
-                                        </td>
-                                    </tr>
-                                    <tr className="con6">
+                                        }}
+                                        name="bm1"
+                                    >
+                                        <option value="Enabled">Enabled </option>
+                                        <option value="Disabled">Disabled</option>
+                                    </select>
+                                    {"  Malware Behavior Blocking "}
 
-                                        <td className="con6">
-                                            Ransomware Protection Protect documents against unauthorized encryption or modification
-                                        </td>
-                                        <td className="con6">
-                                            <select
+                                    <select
+                                        id='bm2'
+                                        onChange={(e) => {
+                                            fiftyoneFunction(e, "bm1", "bm2", "sep51BM1", "tab51BM1", "rsummary51BM2", rsummary51BM2);
+                                            handleChange(e);
 
-                                                onChange={(e) => {
-                                                    fiftyoneFunction(e, "sep51BM2", "tab51BM2");
-                                                    handleChange(e);
-                                                }}
-                                                name="bm2"
-                                            >
-                                                <option value="Enabled">Enabled </option>
-                                                <option value="Disabled">Disabled</option>
-                                            </select>
-                                        </td>
-                                        <td className="con6" style={{ textAlign: "center" }}>
-                                            <img src="images/tab1.png" id="sep51BM2" alt="" />
-                                        </td>
-                                    </tr>
-                                    <tr className="con6">
-
-                                        <td className="con6">
-                                            Protect documents against unauthorized encryption or modification {"->"} Automatically backup and restore files changed by suspicious programs
-                                        </td>
-                                        <td className="con6">
-                                            <select
-
-                                                onChange={(e) => {
-                                                    fiftyoneFunction(e, "sep51BM3", "tab51BM3");
-                                                    handleChange(e);
-                                                }}
-                                                name="bm3"
-                                            >
-                                                <option value="Enabled">Enabled </option>
-                                                <option value="Disabled">Disabled</option>
-                                            </select>
-                                        </td>
-                                        <td className="con6" style={{ textAlign: "center" }}>
-                                            <img src="images/tab1.png" id="sep51BM3" alt="" />
-                                        </td>
-                                    </tr>
-                                    <tr className="con6">
-                                        <td className="con6">
-                                            Enable program inspection to detect and block compromised executable files
-                                        </td>
-                                        <td className="con6">
-                                            <select
-                                                onChange={(e) => {
-                                                    fiftyoneFunction(e, "sep51BM4", "tab51BM4");
-                                                    handleChange(e);
-                                                }}
-                                                name="bm4"
-                                            >
-                                                <option value="Enabled">Enabled </option>
-                                                <option value="Disabled">Disabled</option>
-                                            </select>
-                                        </td>
-                                        <td className="con6" style={{ textAlign: "center" }}>
-                                            <img src="images/tab1.png" id="sep51BM4" alt="" />
-                                        </td>
-                                    </tr>
-                                    <tr className="con6">
-
-                                        <td className="con6">
-                                            Anti-exploit Protection Terminate programs that. exhibit abnormal behavior. associated with exploit attacks
-                                        </td>
-                                        <td className="con6">
-                                            <select
-                                                onChange={(e) => {
-                                                    fiftyoneFunction(e, "sep51BM5", "tab51BM5");
-                                                    handleChange(e);
-                                                }}
-                                                name="bm5"
-                                            >
-                                                <option value="Enabled">Enabled </option>
-                                                <option value="Disabled">Disabled</option>
-                                            </select>
-                                        </td>
-                                        <td className="con6" style={{ textAlign: "center" }}>
-                                            <img src="images/tab1.png" id="sep51BM5" alt="" />
-                                        </td>
-                                    </tr>
-                                    <tr className="con6">
-                                        <td className="con6">
-                                            Newly Encountered Programs Monitor newly encountered programs downloaded through web or email application channels {"->"} Prompt User
-                                        </td>
-                                        <td className="con6">
-                                            <select
-                                                onChange={(e) => {
-                                                    fiftyoneFunction(e, "sep51BM6", "tab51BM6");
-                                                    handleChange(e);
-                                                }}
-                                                name="bm6"
-                                            >
-                                                <option value="Enabled">Enabled </option>
-                                                <option value="Disabled">Disabled</option>
-                                            </select>
-                                        </td>
-                                        <td className="con6" style={{ textAlign: "center" }}>
-                                            <img src="images/tab1.png" id="sep51BM6" alt="" />
-                                        </td>
-                                    </tr>
-                                    <tr className="con6">
-                                        <td className="con6">
-                                            Exceptions (specify exception if any)
-                                        </td>
-                                        <td className="con6">
-                                            <select
-                                                onChange={(e) => {
-                                                    exception51Fun(e, "sep51BM7", "tab51BM7");
-                                                    handleChange(e);
-                                                }}
-                                                name="bm7"
-                                            >
-                                                <option value="No">No</option>
-                                                <option value="Yes">Yes</option>
-                                            </select> {" "} exceptions added in Approved Program list
-                                        </td>
-                                        <td className="con6" style={{ textAlign: "center" }}>
-                                            <img src="images/tab1.png" id="sep51BM7" alt="" />
-                                        </td>
-                                    </tr>
-
-                                    {/* Predictive Machine Learning */}
-                                    <tr className="con6">
-                                        <td className="con6" rowSpan={"3"}>Predictive Machine Learning</td>
-                                        <td className="con6">Enable</td>
-                                        <td className="con6">
-                                            <div>
-                                                <select
-                                                    id="54"
-                                                    onChange={(e) => {
-                                                        fiftytwoFunction(e, "sep52", "tab52");
-                                                        handleChange(e);
-                                                    }}
-                                                    name="predictiveMl"
-                                                >
-                                                    <option value="Enabled">Enabled</option>
-                                                    <option value="Disabled">Disabled</option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                        <td className="con6" style={{ textAlign: "center" }}>
-                                            <img src="images/tab1.png" id="sep52" alt="" />
-                                        </td>
-                                    </tr>
-
-                                    <tr className="con6">
-                                        <td className="con6">Action <br /> File: quarantine <br /> Process: Terminate</td>
-                                        <td className="con6">
-                                            <div>
-                                                Action Set <br /> File:{" "}
-                                                <select
-                                                    id="54"
-                                                    onChange={(e) => {
-                                                        fiftytwoFunction(e, "sep52ML1", "tab52ML1");
-                                                        handleChange(e);
-                                                    }}
-                                                    name="predictiveMl1"
-                                                >
-                                                    <option value="Quarantine">Quarantine</option>
-                                                    <option value="Pass">Pass</option>
-                                                    <option value="Clean">Clean</option>
-                                                    <option value="Delete">Delete</option>
-                                                    <option value="Rename">Rename</option>
-                                                </select>
-                                            </div>
-                                            <div>
-                                                Process:{" "}
-                                                <select
-                                                    id="541"
-                                                    onChange={(e) => {
-                                                        fiftytwoFunction(e, "sep52ML1", "tab52ML1");
-                                                        handleChange(e);
-                                                    }}
-                                                    name="predictiveMl2"
-                                                >
-                                                    <option value="Terminate">Terminate</option>
-                                                    <option value="Pass">Pass</option>
-                                                    <option value="Clean">Clean</option>
-                                                    <option value="Delete">Delete</option>
-                                                    <option value="Rename">Rename</option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                        <td className="con6" style={{ textAlign: "center" }}>
-                                            <img src="images/tab1.png" id="sep52ML1" alt="" />
-                                        </td>
-                                    </tr>
-
-                                    <tr className="con6">
-
-                                        <td className="con6">Exception (specify exception if any)</td>
-                                        <td className="con6">
-                                            <div>
-                                                <select
-                                                    onChange={(e) => {
-                                                        exception51Fun(e, "sep52ML2", "tab52ML2");
-                                                        handleChange(e);
-                                                    }}
-                                                    name="predictiveMl3"
-                                                >
-                                                    <option value="No">No</option>
-                                                    <option value="Yes">Yes</option>
-                                                </select> {" "} exceptions added
-                                            </div>
-                                        </td>
+                                        }}
+                                        name="bm2"
+                                    >
+                                        <option value="Known and potential threats">Known and potential threats</option>
+                                        <option value="Known threats">Known threats</option>
+                                    </select>
+                                    <br />
+                                </td>
+                                <td className="con6" style={{ textAlign: "center" }}>
+                                    <img src="images/tab1.png" id="sep51BM1" alt="" />
+                                </td>
 
 
-                                        <td className="con6" style={{ textAlign: "center" }}>
-                                            <img src="images/tab1.png" id="sep52ML2" alt="" />
-                                        </td>
+                            </tr>
+                            <tr className="con6">
+                                <td className="con6">
+                                    Ransomware Protection
+                                    <br />
+                                    Enable - Protect documents against unauthorized encryption or modification
+                                    Enable - Automatically backup and restore files changed by suspicious programs
+                                </td>
 
-                                    </tr>
+                                <td className="con6">
+                                    <select
+                                        id="bm3"
+                                        onChange={(e) => {
+                                            fiftyoneFunction(e, "bm3", "bm4", "sep51BM2", "tab51BM2", "rsummary51BM3", rsummary51BM3);
+                                            handleChange(e);
+                                        }}
+                                        name="bm3"
+                                    >
+                                        <option value="Enabled">Enabled </option>
+                                        <option value="Disabled">Disabled</option>
+                                    </select>
+                                    {" "}
+                                    Protect documents against unauthorized encryption or modification
+                                    <br />
+
+                                    <select
+                                        id="bm4"
+                                        onChange={(e) => {
+                                            handleChange(e);
+                                        }}
+                                        name="bm4"
+                                    >
+                                        <option value="Enabled">Enabled </option>
+                                        <option value="Disabled">Disabled</option>
+                                    </select>
+                                    {" "}
+                                    Automatically back up and restore files changed by suspicious programs
 
 
-                                </>
-                            ) : <>
-                                <tr className="con6">
-                                    <td className="con6">Behavior Monitoring</td>
-                                    <td className="con6">
-                                        Enable with Ransomware Protection & Anti-exploit
-                                        protection
-                                    </td>
-                                    <td className="con6">
+                                </td>
+                                <td className="con6" style={{ textAlign: "center" }}>
+                                    <img src="images/tab1.png" id="sep51BM2" alt="" />
+                                </td>
+                            </tr>
+                            <tr className="con6">
+                                <td className="con6">
+                                    Enable - Block processes commonly associated with ransomware
+                                </td>
+                                <td className="con6">
+                                    <select
+                                        id='bm5'
+                                        onChange={(e) => {
+                                            // fiftyoneFunction(e, "sep51BM3", "tab51BM3");
+                                            fiftyoneFunction(e, "bm5", "bm5", "sep51BM3", "tab51BM3", "rsummary51BM5", rsummary51BM5);
+                                            handleChange(e);
+                                        }}
+                                        name="bm5"
+                                    >
+                                        <option value="Enabled">Enabled </option>
+                                        <option value="Disabled">Disabled</option>
+                                    </select>
+                                </td>
+                                <td className="con6" style={{ textAlign: "center" }}>
+                                    <img src="images/tab1.png" id="sep51BM3" alt="" />
+                                </td>
+                            </tr>
+                            <tr className="con6">
+                                <td className="con6">
+                                    Enable - program inspection to detect and block compromised executable files
+                                </td>
+                                <td className="con6">
+                                    <select
+                                        id='bm6'
+                                        onChange={(e) => {
+                                            fiftyoneFunction(e, "bm6", "bm6", "sep51BM4", "tab51BM4", "rsummary51BM6", rsummary51BM6);
+                                            handleChange(e);
+                                        }}
+                                        name="bm6"
+                                    >
+                                        <option value="Enabled">Enabled </option>
+                                        <option value="Disabled">Disabled</option>
+                                    </select>
+                                </td>
+                                <td className="con6" style={{ textAlign: "center" }}>
+                                    <img src="images/tab1.png" id="sep51BM4" alt="" />
+                                </td>
+                            </tr>
+                            <tr className="con6">
+
+                                <td className="con6">
+                                    Anti-exploit Protection<br />
+                                    Enable - Terminate programs that exhibit abnormal behavior associated with exploit attacks
+                                </td>
+                                <td className="con6">
+                                    <select
+                                        id="bm7"
+                                        onChange={(e) => {
+                                            fiftyoneFunction(e, "bm7", "bm7", "sep51BM5", "tab51BM5", "rsummary51BM7", rsummary51BM7);
+                                            handleChange(e);
+                                        }}
+                                        name="bm7"
+                                    >
+                                        <option value="Enabled">Enabled </option>
+                                        <option value="Disabled">Disabled</option>
+                                    </select>
+                                    {" "}
+                                    Terminate programs that exhibit abnormal behavior associated with exploit attacks
+                                </td>
+                                <td className="con6" style={{ textAlign: "center" }}>
+                                    <img src="images/tab1.png" id="sep51BM5" alt="" />
+                                </td>
+                            </tr>
+                            <tr className="con6">
+                                <td className="con6">
+                                    Newly Encountered Programs
+                                    <br />
+
+                                    Enable - Monitor newly encountered programs downloaded through web or email application channels Prompt user
+                                </td>
+                                <td className="con6">
+                                    <select
+                                        id='bm8'
+                                        onChange={(e) => {
+                                            fiftyoneFunction(e, "bm8", "bm9", "sep51BM6", "tab51BM6", "rsummary51BM8", rsummary51BM8);
+                                            handleChange(e);
+                                        }}
+                                        name="bm8"
+                                    >
+                                        <option value="Enabled">Enabled </option>
+                                        <option value="Disabled">Disabled</option>
+                                    </select>
+                                    {" "}
+                                    Monitor newly encountered programs downloaded through web or email application channels
+                                    {" "}
+                                    <select
+                                        id='bm9'
+                                        onChange={(e) => {
+                                            fiftyoneFunction(e, "bm8", "bm9", "sep51BM6", "tab51BM6", "", "");
+                                            handleChange(e);
+                                        }}
+                                        name="bm9"
+                                    >
+                                        <option value="Prompt user">Prompt user</option>
+                                        <option value="Log Only">Log Only</option>
+                                    </select>
+                                </td>
+                                <td className="con6" style={{ textAlign: "center" }}>
+                                    <img src="images/tab1.png" id="sep51BM6" alt="" />
+                                </td>
+                            </tr>
+                            <tr className="con6">
+                                <td className="con6">
+                                    Enable - Event Monitoring
+                                </td>
+                                <td className="con6">
+                                    <select
+                                        id="bm10"
+                                        onChange={(e) => {
+                                            fiftyoneFunction(e, "bm10", "bm10", "sep51BM7", "tab51BM7", "rsummary51BM10", rsummary51BM10);
+                                            handleChange(e);
+                                        }}
+                                        name="bm10"
+                                    >
+                                        <option value="Enabled">Enabled </option>
+                                        <option value="Disabled">Disabled</option>
+                                    </select> {" "} Event Monitoring
+                                </td>
+                                <td className="con6" style={{ textAlign: "center" }}>
+                                    <img src="images/tab1.png" id="sep51BM7" alt="" />
+                                </td>
+                            </tr>
+
+                            <tr className="con6">
+                                <td className="con6">
+                                    Exceptions (specify exception if any)
+                                </td>
+                                <td className="con6">
+                                    <select
+                                        id='bm11'
+                                        onChange={(e) => {
+                                            fiftyoneFunction(e, "bm11", "bm11", "sep51BM8", "tab51BM8", "", "");
+                                            handleChange(e);
+                                        }}
+                                        name="bm11"
+                                    >
+                                        <option value="No">No</option>
+                                        <option value="Yes">Yes</option>
+                                    </select> {" "} exceptions added in Approved Program list
+                                </td>
+                                <td className="con6" style={{ textAlign: "center" }}>
+                                    <img src="images/tab1.png" id="sep51BM8" alt="" />
+                                </td>
+                            </tr>
+
+                            {/* Predictive Machine Learning start */}
+                            <tr className="con6">
+                                <td className="con6" rowSpan={"3"}>Predictive Machine Learning</td>
+                                <td className="con6">Enable - Predictive Machine Learning</td>
+                                <td className="con6">
+                                    <div>
                                         <select
-                                            id="53"
+                                            id="54"
                                             onChange={(e) => {
-                                                fiftyoneFunction(e, "sep51", "tab51");
+                                                fiftytwoFunction(e, "sep52ML1", "tab52ML1", "rsummary52ML1", rsummary52ML1);
                                                 handleChange(e);
                                             }}
-                                            name="bm"
+                                            name="predictiveMl1"
                                         >
-                                            <option value="Enabled with">Enabled with</option>
-                                            <option value="Enabled without">Enabled without</option>
-                                            <option value="Disabled with">Disabled</option>
-                                        </select>{" "}
-                                        Ransomeware Protection &
-                                        Anti-exploit protection
+                                            <option value="Enabled">Enabled</option>
+                                            <option value="Disabled">Disabled</option>
+                                        </select>
                                         {" "}
+                                        Predictive Machine Learning
+                                    </div>
+                                </td>
+                                <td className="con6" style={{ textAlign: "center" }}>
+                                    <img src="images/tab1.png" id="sep52ML1" alt="" />
+                                </td>
+                            </tr>
+
+                            <tr className="con6">
+                                <td className="con6">Action <br /> File: quarantine <br /> Process: Terminate</td>
+                                <td className="con6">
+                                    <div>
+                                        Action Set <br /> File:{" "}
                                         <select
-                                            id="53"
+                                            id="54"
                                             onChange={(e) => {
-                                                fiftyoneFunction(e, "sep51", "tab51");
+                                                fiftytwoFunction(e, "sep52ML2", "tab52ML2", "rsummary52ML2", rsummary52ML2);
                                                 handleChange(e);
                                             }}
-                                            name="bm1"
+                                            name="predictiveMl2"
                                         >
-                                            <option value="EnabledAntiExploit">Enabled</option>
-                                            <option value="DisabledAntiExploit">Disabled</option>
-                                        </select>{" "}
+                                            <option value="Quarantine">Quarantine</option>
+                                            <option value="Log Only">Log Only</option>
 
-                                    </td>
-                                    <td className="con6" style={{ textAlign: "center" }}>
-                                        <img src="images/tab1.png" id="sep51" alt="" />
-                                    </td>
-                                </tr>
-                                <tr className="con6">
+                                        </select>
+                                    </div>
+                                    <div>
+                                        Process:{" "}
+                                        <select
+                                            id="541"
+                                            onChange={(e) => {
+                                                fiftytwoFunction(e, "sep52ML2", "tab52ML2", "rsummary52ML2", rsummary52ML2);
+                                                handleChange(e);
+                                            }}
+                                            name="predictiveMl3"
+                                        >
+                                            <option value="Terminate">Terminate</option>
+                                            <option value="Log Only">Log Only</option>
 
-                                    <td className="con6">Predictive Machine Learning</td>
-                                    <td className="con6">Enable</td>
-                                    <td className="con6">
-                                        <div>
-                                            <select
-                                                id="54"
-                                                onChange={(e) => {
-                                                    fiftytwoFunction(e, "sep52", "tab52");
-                                                    handleChange(e);
-                                                }}
-                                                name="predictiveMl"
-                                            >
-                                                <option value="Enabled">Enabled</option>
-                                                <option value="Disabled">Disabled</option>
-                                            </select>
-                                        </div>
-                                    </td>
-                                    <td className="con6" style={{ textAlign: "center" }}>
-                                        <img src="images/tab1.png" id="sep52" alt="" />
-                                    </td>
-                                </tr>
-                            </>}
+                                        </select>
+                                    </div>
+                                </td>
+                                <td className="con6" style={{ textAlign: "center" }}>
+                                    <img src="images/tab1.png" id="sep52ML2" alt="" />
+                                </td>
+                            </tr>
 
+                            <tr className="con6">
+
+                                <td className="con6">Exception (specify exception if any)</td>
+                                <td className="con6">
+                                    <div>
+                                        <select
+                                            onChange={(e) => {
+                                                //exception51Fun(e, "sep52ML2Policy2", "tab52ML2");
+                                                fiftytwoFunction(e, "sep52ML3", "tab52ML3", "", "");
+                                                handleChange(e);
+                                            }}
+                                            name="predictiveMl4"
+                                        >
+                                            <option value="No">No</option>
+                                            <option value="Yes">Yes</option>
+                                        </select> {" "} exceptions added
+                                    </div>
+                                </td>
+
+
+                                <td className="con6" style={{ textAlign: "center" }}>
+                                    <img src="images/tab1.png" id="sep52ML3" alt="" />
+                                </td>
+
+                            </tr>
+                            {/* Predictive Machine Learning end */}
 
                             <tr className="con6">
                                 <td className="con6">Suspicious Connection</td>

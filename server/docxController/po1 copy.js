@@ -1,5 +1,5 @@
 
-const { ReportModel } = require('../Models/reportModel')
+const {ReportModel} = require('../Models/reportModel')
 const fs = require('fs');
 const { ImageRun, HeadingLevel, Paragraph, TextRun, AlignmentType,
     Table, TableRow, TableCell, WidthType, VerticalAlign } = require("docx");
@@ -22,7 +22,12 @@ const getPo1 = async (req, res) => {
 
     let policyTitle = ""
 
-    
+    let antiExploitProtection = `${Report[0].bm} Ransomware Protection`;
+
+    if (Report[0].bm1 === "DisabledAntiExploit") {
+        antiExploitProtection = `${Report[0].bm} Ransomware Protection but Anti-exploit protection is disabled`;
+    }
+
 
     if (Report[0].checkPolicyOverviewTwoAdded === true) {
         policyTitle = `4.2.1 Policy Overview: 01 ${Report[0].OverviewPolicyName1} Policy`;
@@ -368,6 +373,19 @@ const getPo1 = async (req, res) => {
             break;
     }
 
+    let BMContent = [
+
+        ['Behavior Monitoring', 'Enable with Ransomware Protection & Anti-exploit protection', `${antiExploitProtection}`, { image: `${Report[0].tab51}`, style: "imgStyle", width: 15 }],
+        ['Predictive Machine Learning', 'Enable', `${Report[0].predictiveMl}`, { image: `${Report[0].tab52}`, style: "imgStyle", width: 15 }],
+        ['Suspicious Connection', 'Enable with Block option', `${Report[0].suspicious_Connection} with Block option`, { image: `${Report[0].tab53}`, style: "imgStyle", width: 15 }],
+        ['Vulnerability Protection', 'Enable', `${vp_mode}`, { image: `${Report[0].tabVP}`, style: "imgStyle", width: 15 }],
+        ['Device Control', 'Enable', `${Report[0].device_control}`, { image: `${Report[0].tabDC}`, style: "imgStyle", width: 15 }],
+        ['Web Reputation', 'Enable for Internal and External agents with Security Level Medium', `${Report[0].web_reputation1} with ${Report[0].web_reputation2} Security Level`, { image: `${Report[0].tab54}`, style: "imgStyle", width: 15 }],
+        ['Application Control', 'Enable', `${Report[0].application_control}`, { image: `${Report[0].tabAC}`, style: "imgStyle", width: 15 }],
+        ['Firewall', 'Enable (Optional)', `${Report[0].firewall}`, { image: `${Report[0].tab55}`, style: "imgStyle", width: 15 }],
+        ['Agent Self-Protection', 'Enable Self-Protection with a password', `${Report[0].agent_self_protection}`, { image: `${Report[0].tab56}`, style: "imgStyle", width: 15 }],
+    ];
+
 
 
     let includeFirstCell = true;
@@ -694,106 +712,118 @@ const getPo1 = async (req, res) => {
 
     //Behavior Monitoring
 
-    let predictiveMlData4 = Report[0].predictiveMl4 === "No" ? "No Exceptions added" : "Exceptions added";
-    let bm11 = Report[0].bm11 === "No" ? "No exceptions added to the Approved Program list" : "exceptions added to the Approved Program list";
+    if (Report[0].report_type === "On-Premises") {
 
-    const onePart = [
-        [{ text: 'Behavior Monitoring', rowSpan: 8, margin: [0, 130, 0, 0] }, 'Enable - Malware Behavior Blocking Threats to block Known and potential threats', `${Report[0].bm1} Malware Behavior Blocking ${Report[0].bm2}`, { image: `${Report[0].tab51BM1}`, style: "imgStyle", width: 15 }],
-        ['', 'Ransomware Protection\nEnable - Protect documents against unauthorized encryption or modification Enable - Automatically backup and restore files changed by suspicious programs', `${Report[0].bm3} Protect documents against unauthorized encryption or modification ${Report[0].bm4} Automatically backup and restore files changed by suspicious programs`, { image: `${Report[0].tab51BM2}`, style: "imgStyle", width: 15 }],
-        ['', 'Enable - Block processes commonly associated with ransomware', `${Report[0].bm5}`, { image: `${Report[0].tab51BM3}`, style: "imgStyle", width: 15 }],
-        ['', 'Enable program inspection to detect and block compromised executable files', `${Report[0].bm6}`, { image: `${Report[0].tab51BM4}`, style: "imgStyle", width: 15 }],
-        ['', 'Anti-exploit Protection Enable - Terminate programs that exhibit abnormal behavior associated with exploit attacks', `${Report[0].bm7} Terminate programs that exhibit abnormal behavior associated with exploit attacks`, { image: `${Report[0].tab51BM5}`, style: "imgStyle", width: 15 }],
-        ['', 'Newly Encountered Programs Enable - Monitor newly encountered programs downloaded through web or email application channels Prompt user', `${Report[0].bm8} Monitor newly encountered programs downloaded through web or email application channels ${Report[0].bm9}`, { image: `${Report[0].tab51BM6}`, style: "imgStyle", width: 15 }],
-        ['', 'Enable - Event Monitoring', `${Report[0].bm10} Event Monitoring`, { image: `${Report[0].tab51BM7}`, style: "imgStyle", width: 15 }],
-        ['', 'Exceptions (specify exception if any)', bm11, { image: `${Report[0].tab51BM8}`, style: "imgStyle", width: 15 }]
-    ]
+        BMContent = []
 
-    includeFirstCell = true;
-    for (const rowData of onePart) {
-        tablesOfRows.push(createTableRow(rowData, 8))
+        let predictiveMlData3 = Report[0].predictiveMl3 === "No" ? "No Exceptions added" : "Exceptions added";
+        let bm7 = Report[0].bm7 === "No" ? "No exceptions added to the Approved Program list" : "exceptions added to the Approved Program list";
+
+        const onePart = [
+            [{ text: 'Behavior Monitoring', rowSpan: 7, margin: [0, 130, 0, 0] }, 'Enable Malware Behavior Blocking Known and potential threats', `${Report[0].bm1}`, { image: `${Report[0].tab51BM1}`, style: "imgStyle", width: 15 }],
+            ['', 'Ransomware Protection Protect documents against unauthorized encryption or modification', `${Report[0].bm2}`, { image: `${Report[0].tab51BM2}`, style: "imgStyle", width: 15 }],
+            ['', 'Protect documents against unauthorized encryption or modification -> Automatically backup and restore files changed by suspicious programs', `${Report[0].bm3}`, { image: `${Report[0].tab51BM3}`, style: "imgStyle", width: 15 }],
+            ['', 'Enable program inspection to detect and block compromised executable files', `${Report[0].bm4}`, { image: `${Report[0].tab51BM4}`, style: "imgStyle", width: 15 }],
+            ['', 'Anti-exploit Protection Terminate programs that. exhibit abnormal Behavior. associated with exploit attacks', `${Report[0].bm5}`, { image: `${Report[0].tab51BM5}`, style: "imgStyle", width: 15 }],
+            ['', 'Newly Encountered Programs Monitor newly encountered programs downloaded through web or email application channels -> Prompt User', `${Report[0].bm6}`, { image: `${Report[0].tab51BM6}`, style: "imgStyle", width: 15 }],
+            ['', 'Exceptions (specify exception if any)', bm7, { image: `${Report[0].tab51BM7}`, style: "imgStyle", width: 15 }]
+        ]
+        includeFirstCell = true;
+        for (const rowData of onePart) {
+            tablesOfRows.push(createTableRow(rowData, 7))
+        }
+
+        tablesOfRows.push(
+            new TableRow({
+                children: [
+                    new TableCell({ verticalAlign: VerticalAlign.CENTER, rowSpan: 3, children: [new Paragraph('Predictive Machine Learning')] }),
+                    new TableCell({ children: [new Paragraph('Enable')] }),
+                    new TableCell({ children: [new Paragraph(Report[0].predictiveMl)] }),
+                    new TableCell({
+                        verticalAlign: VerticalAlign.CENTER,
+                        children: [
+                            new Paragraph({
+                                alignment: AlignmentType.CENTER,
+                                children: [
+                                    new ImageRun({
+                                        data: fs.readFileSync(`${Report[0].tab52}`),
+                                        transformation: transformation
+                                    }),
+                                ],
+                            }),
+                        ],
+                    }),
+                ],
+            }),
+            new TableRow({
+                children: [
+                    new TableCell({ children: [new Paragraph('Action'), new Paragraph('File: quarantine'), new Paragraph('Process: Terminate')] }),
+                    new TableCell({ children: [new Paragraph('Action Set'), new Paragraph(`File: ${Report[0].predictiveMl1}`), new Paragraph(`Process: ${Report[0].predictiveMl2}`)] }),
+                    new TableCell({
+                        verticalAlign: VerticalAlign.CENTER,
+                        children: [
+                            new Paragraph({
+                                alignment: AlignmentType.CENTER,
+                                children: [
+                                    new ImageRun({
+                                        data: fs.readFileSync(`${Report[0].tab52ML1}`),
+                                        transformation: transformation
+                                    }),
+                                ],
+                            }),
+                        ],
+                    }),
+                ],
+            }),
+            new TableRow({
+                children: [
+                    new TableCell({ children: [new Paragraph('Exception (specify exception if any)')] }),
+                    new TableCell({ children: [new Paragraph(predictiveMlData3)] }),
+                    new TableCell({
+                        verticalAlign: VerticalAlign.CENTER,
+                        children: [
+                            new Paragraph({
+                                alignment: AlignmentType.CENTER,
+                                children: [
+                                    new ImageRun({
+                                        data: fs.readFileSync(`${Report[0].tab52ML2}`),
+                                        transformation: transformation
+                                    }),
+                                ],
+                            }),
+                        ],
+                    }),
+                ],
+            })
+
+
+        )
+
+
+        const threePart = [['Suspicious Connection', 'Enable with Block option', `${Report[0].suspicious_Connection} with Block option`, { image: `${Report[0].tab53}`, style: "imgStyle", width: 15 }],
+        ['Web Reputation', 'Enable for Internal and External agents with Security Level Medium', `${Report[0].web_reputation1} with Security Level ${Report[0].web_reputation2}`, { image: `${Report[0].tab54}`, style: "imgStyle", width: 15 }],
+        ['Vulnerability Protection', 'Enable', `${vp_mode}`, { image: `${Report[0].tabVP}`, style: "imgStyle", width: 15 }],
+        ['Device Control', 'Enable', `${Report[0].device_control}`, { image: `${Report[0].tabDC}`, style: "imgStyle", width: 15 }],
+
+        ['Application Control', 'Enable', `${Report[0].application_control}`, { image: `${Report[0].tabAC}`, style: "imgStyle", width: 15 }],
+        ['Firewall', 'Enable (Optional)', `${Report[0].firewall}`, { image: `${Report[0].tab55}`, style: "imgStyle", width: 15 }],
+        ['Agent Self-Protection', 'Enable Self-Protection with a password.', `${Report[0].agent_self_protection}`, { image: `${Report[0].tab56}`, style: "imgStyle", width: 15 }],
+
+        ]
+
+        for (const rowData of threePart) {
+            tablesOfRows.push(createTableRow2(rowData))
+        }
+
+
+
+    } else {
+
+        for (const rowData of BMContent) {
+            tablesOfRows.push(createTableRow2(rowData))
+        }
     }
 
-    tablesOfRows.push(
-        new TableRow({
-            children: [
-                new TableCell({ verticalAlign: VerticalAlign.CENTER, rowSpan: 3, children: [new Paragraph('Predictive Machine Learning')] }),
-                new TableCell({ children: [new Paragraph('Enable - Predictive Machine Learning')] }),
-                new TableCell({ children: [new Paragraph(`${Report[0].predictiveMl1} Predictive Machine Learning`)] }),
-                new TableCell({
-                    verticalAlign: VerticalAlign.CENTER,
-                    children: [
-                        new Paragraph({
-                            alignment: AlignmentType.CENTER,
-                            children: [
-                                new ImageRun({
-                                    data: fs.readFileSync(`${Report[0].tab52ML1}`),
-                                    transformation: transformation
-                                }),
-                            ],
-                        }),
-                    ],
-                }),
-            ],
-        }),
-        new TableRow({
-            children: [
-                new TableCell({ children: [new Paragraph('Action'), new Paragraph('File: quarantine'), new Paragraph('Process: Terminate')] }),
-                new TableCell({ children: [new Paragraph('Action Set'), new Paragraph(`File: ${Report[0].predictiveMl2}`), new Paragraph(`Process: ${Report[0].predictiveMl3}`)] }),
-                new TableCell({
-                    verticalAlign: VerticalAlign.CENTER,
-                    children: [
-                        new Paragraph({
-                            alignment: AlignmentType.CENTER,
-                            children: [
-                                new ImageRun({
-                                    data: fs.readFileSync(`${Report[0].tab52ML2}`),
-                                    transformation: transformation
-                                }),
-                            ],
-                        }),
-                    ],
-                }),
-            ],
-        }),
-        new TableRow({
-            children: [
-                new TableCell({ children: [new Paragraph('Exception (specify exception if any)')] }),
-                new TableCell({ children: [new Paragraph(predictiveMlData4)] }),
-                new TableCell({
-                    verticalAlign: VerticalAlign.CENTER,
-                    children: [
-                        new Paragraph({
-                            alignment: AlignmentType.CENTER,
-                            children: [
-                                new ImageRun({
-                                    data: fs.readFileSync(`${Report[0].tab52ML3}`),
-                                    transformation: transformation
-                                }),
-                            ],
-                        }),
-                    ],
-                }),
-            ],
-        })
-
-
-    )
-
-
-    const threePart = [['Suspicious Connection', 'Enable with Block option', `${Report[0].suspicious_Connection} with Block option`, { image: `${Report[0].tab53}`, style: "imgStyle", width: 15 }],
-    ['Web Reputation', 'Enable for Internal and External agents with Security Level Medium', `${Report[0].web_reputation1} with Security Level ${Report[0].web_reputation2}`, { image: `${Report[0].tab54}`, style: "imgStyle", width: 15 }],
-    ['Vulnerability Protection', 'Enable', `${vp_mode}`, { image: `${Report[0].tabVP}`, style: "imgStyle", width: 15 }],
-    ['Device Control', 'Enable', `${Report[0].device_control}`, { image: `${Report[0].tabDC}`, style: "imgStyle", width: 15 }],
-
-    ['Application Control', 'Enable', `${Report[0].application_control}`, { image: `${Report[0].tabAC}`, style: "imgStyle", width: 15 }],
-    ['Firewall', 'Enable (Optional)', `${Report[0].firewall}`, { image: `${Report[0].tab55}`, style: "imgStyle", width: 15 }],
-    ['Agent Self-Protection', 'Enable Self-Protection with a password.', `${Report[0].agent_self_protection}`, { image: `${Report[0].tab56}`, style: "imgStyle", width: 15 }],
-
-    ]
-
-    for (const rowData of threePart) {
-        tablesOfRows.push(createTableRow2(rowData))
-    }
 
     tablesOfRows.push(
 

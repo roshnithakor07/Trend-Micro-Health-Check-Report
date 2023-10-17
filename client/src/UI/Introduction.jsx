@@ -29,7 +29,7 @@ export default function Introduction({
 
           <select
             name="report_type"
-            defaultValue={"SAAS"}
+            defaultValue={"On-Premises"}
             id="Endpoints"
             onChange={(e) => {
               handleChange(e);
@@ -37,8 +37,8 @@ export default function Introduction({
             }}
           >
             <option>---Choose Report---</option>
-            <option value="SAAS">Saas</option>
             <option value="On-Premises">Premises</option>
+            <option value="SAAS">Saas</option>
           </select>
         </div>
         <div className="cLogo">

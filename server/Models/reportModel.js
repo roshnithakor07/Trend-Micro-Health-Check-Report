@@ -359,18 +359,22 @@ const reportSchema = new mongoose.Schema({
     tab49: { type: String, default: "images/tab1.png" },
     tab50: { type: String, default: "images/tab1.png" },
 
-    bm: { type: String, default: 'Enabled with' },
     bm1: { type: String, default: 'Enabled' },
-    bm2: { type: String, default: 'Enabled' },
+    bm2: { type: String, default: 'Known and potential threats' },
     bm3: { type: String, default: 'Enabled' },
     bm4: { type: String, default: 'Enabled' },
     bm5: { type: String, default: 'Enabled' },
     bm6: { type: String, default: 'Enabled' },
-    bm7: { type: String, default: 'No' },
-    predictiveMl: { type: String, default: 'Enabled' },
-    predictiveMl1: { type: String, default: "Quarantine" },
-    predictiveMl2: { type: String, default: "Terminate" },
-    predictiveMl3: { type: String, default: "No" },
+    bm7: { type: String, default: 'Enabled' },
+    bm8: { type: String, default: 'Enabled' },
+    bm9: { type: String, default: 'Prompt user' },
+    bm10: { type: String, default: 'Enabled' },
+    bm11: { type: String, default: 'No' },
+
+    predictiveMl1: { type: String, default: "Enabled" },
+    predictiveMl2: { type: String, default: "Quarantine" },
+    predictiveMl3: { type: String, default: "Terminate" },
+    predictiveMl4: { type: String, default: "No" },
     suspicious_Connection: { type: String, default: 'Enabled' },
     vulnerability_protection: { type: String, default: 'Enabled' },
     vp_mode: { type: String, default: 'Inline' },
@@ -393,7 +397,7 @@ const reportSchema = new mongoose.Schema({
     additional_service9: { type: String, default: 'Enabled' },
     additional_service10: { type: String, default: 'Enabled' },
 
-    tab51: { type: String, default: "images/tab1.png" },
+
     tab51BM1: { type: String, default: "images/tab1.png" },
     tab51BM2: { type: String, default: "images/tab1.png" },
     tab51BM3: { type: String, default: "images/tab1.png" },
@@ -401,10 +405,11 @@ const reportSchema = new mongoose.Schema({
     tab51BM5: { type: String, default: "images/tab1.png" },
     tab51BM6: { type: String, default: "images/tab1.png" },
     tab51BM7: { type: String, default: "images/tab1.png" },
+    tab51BM8: { type: String, default: "images/tab1.png" },
 
-    tab52: { type: String, default: "images/tab1.png" },
     tab52ML1: { type: String, default: "images/tab1.png" },
     tab52ML2: { type: String, default: "images/tab1.png" },
+    tab52ML3: { type: String, default: "images/tab1.png" },
     tab53: { type: String, default: "images/tab1.png" },
     tab54: { type: String, default: "images/tab1.png" },
     tab55: { type: String, default: "images/tab1.png" },
@@ -423,7 +428,7 @@ const ReportModel = new mongoose.model('Report', reportSchema);
 const blobSchema = new mongoose.Schema({
     size: Number,         // Add a field for size
     type: String,         // Add a field for type
-    data: Buffer, 
+    data: Buffer,
 });
 
 const BlobDocx = mongoose.model('Blob', blobSchema);

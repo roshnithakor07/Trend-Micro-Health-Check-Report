@@ -27,7 +27,7 @@ function ExcutiveSummery() {
     //PO1
     let rsummary10 = `All the agents are using the Conventional Scan method recommended to use the Smart Scan Method. Smart Scan leverages threat signatures that are stored in the cloud.`
     let rsummary11 = [`files to scan are set as File types scanned By IntelliScan, recommended to set it as All Scannable files as Only scan files known to potentially harbor malicious code, including files disguised by a harmless extension name are Scan in IntelliScan.`,
-    "files to scan are set as File types scanned By Specific Extension, recommended to set it as All Scannable files. it will only scan files with specified extension and Trend Micro recommended to scan all type of files."]
+        "files to scan are set as File types scanned By Specific Extension, recommended to set it as All Scannable files. it will only scan files with specified extension and Trend Micro recommended to scan all type of files."]
     let rsummary12 = `In Manual Scan and policy settings, Scan Hidden Folders is disabled, recommended to enable it.`;
     let rsummary13 = `detect exploit code in OLE is disabled, recommended to enable it.`;
     let rsummary14 = `the scan boot area is disabled, recommended to enable it.`;
@@ -57,9 +57,19 @@ function ExcutiveSummery() {
     let rsummary29 = `The Schedule Scan is configured daily and needs to be configured on a weekly basis for optimal performance.`
 
     //BM
-    let rsummary51 = "Behavior Monitoring protection modules are disabled and recommended to enable it for better protection from ransomware."
-    let rsummary51BM1 = "Behavior Monitoring is enabled with Ransomware Protection, but Anti-exploit protection is disabled, recommended to enable it. Anti-exploit protection works in conjunction with program inspection to monitor the behavior of programs and detect abnormal behavior that may indicate that an attacker has exploited program vulnerability. Once detected, BM terminates the program processes.";
-    let rsummary52 = "Predictive Machine Learning uses advanced machine learning technology to correlate threat information and perform in-depth file analysis or behavioral process and script analysis to detect emerging unknown security risks."
+    let rsummary51BM1 = "Behavior Monitoring protection modules are disabled and recommended to enable it for better protection from ransomware."
+    let rsummary51BM2 = "In Behaviour Monitoring, Threats to block are selected to Known Threats recommended to select Known and potential threats. It Blocks behavior associated with known threats and acts on behavior that is potentially malicious."
+    let rsummary51BM3 = "In Behaviour Monitoring, protecting documents against unauthorized encryption or modification is disabled recommended to enable it. It will protect the unauthorized encryption or modification of trusted files."
+    let rsummary51BM5 = "In Behaviour Monitoring, Block processes commonly associated with ransomware is disabled and recommended to enable it. Ransomware commonly distributes executable files in specific locations on endpoints before attempting to hijack files. Blocking the processes started from these locations can help prevent the ransomware from being able to hijack files."
+    let rsummary51BM6 = "In Behaviour Monitoring, enabling program inspection to detect and block compromised executable files is disabled and recommended to enable it. Program inspection monitors processes and performs API hooking to determine if a program is behaving in an unexpected manner."
+    let rsummary51BM7 = "In Behaviour Monitoring, Anti-Exploit protection is disabled and recommended to enable it. Anti-exploit protection works in conjunction with program inspection to monitor the behavior of programs and detect abnormal behavior that may indicate that an attacker has exploited a program vulnerability."
+    let rsummary51BM8 = "In Behaviour Monitoring, Newly Encountered Program Protection is disabled and recommended to enable it. it works in conjunction with Web Reputation Services and Real-time Scan to verify the prevalence of files downloaded through web channels, email applications, or Microsoft Office macro scripts."
+    let rsummary51BM10 = "In Behaviour Monitoring, Event Monitoring is disabled and recommended to enable it. Event Monitoring provides a more generic approach to protecting against unauthorized software and malware attacks. It monitors system areas for certain events, allowing administrators to regulate programs that trigger such events."
+
+
+
+    let rsummary52ML1 = "The predictive Machine Learning module is disabled, recommended to enable it. It uses advanced machine learning technology to correlate threat information and perform in-depth file analysis or behavioral process and script analysis to detect emerging unknown security risks."
+    let rsummary52ML2 = "In Predictive Machine Learning module is enabled with log-only mode, recommended to set the action Terminate/Quarantine to prevent unknown threats."
     let rsummary53 = "Suspicious Connection is enabled with Log only action, recommended to enable with block action to protect agents against C&C server callbacks."
     let rsummary54 = "Web reputation module is disabled, recommended to enable it with medium level of detection."
     let rsummary55 = "The firewall is disabled, recommended to enable it (Optional). Firewall policies allow you to block or allow certain types of network traffic not specified in a policy exception. A policy also defines which Apex One Firewall features are enabled or disabled. Assign the policy to one or multiple Firewall profiles."
@@ -100,11 +110,12 @@ function ExcutiveSummery() {
         esummary0, rsummary0, esummary4, rsummary4, esummary5, rsummary5,
         esummary6, rsummary6, rsummary7, esummary9, rsummary9, esummary010, rsummary010,
         rsummary10, rsummary11, rsummary12, rsummary13, rsummary14,
-        rsummary161,rsummary162,
+        rsummary161, rsummary162,
         rsummary17, rsummary18, rsummary19, rsummary20,
         rsummary21, rsummary22, rsummary23, rsummary24, rsummary25, rsummary26, rsummary27, rsummary28,
         rsummary29,
-        rsummary51,rsummary51BM1, rsummary52, rsummary53, rsummary54, rsummary55, rsummary56, rsummary57, rsummary58, rsummary591, rsummary592, rsummary593, rsummary594, rsummary595,
+        rsummary51BM1, rsummary51BM2, rsummary51BM3, rsummary51BM5, rsummary51BM6, rsummary51BM7, rsummary51BM8, rsummary51BM10,
+        rsummary52ML1,rsummary52ML2, rsummary53, rsummary54, rsummary55, rsummary56, rsummary57, rsummary58, rsummary591, rsummary592, rsummary593, rsummary594, rsummary595,
         rsummaryVP, rsummaryVP1, rsummaryDC, rsummaryAC,
         esummary60, rsummary60, esummary61, rsummary61, esummary62, rsummary62,
         esummary63, rsummary63, esummary64, rsummary64, esummary65, rsummary65,
