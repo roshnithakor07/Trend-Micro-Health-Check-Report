@@ -57,7 +57,7 @@ function ExcutiveSummery() {
     let rsummary29 = `The Schedule Scan is configured daily and needs to be configured on a weekly basis for optimal performance.`
 
     //BM
-    let rsummary51BM1 = "Behavior Monitoring protection modules are disabled and recommended to enable it for better protection from ransomware."
+    let rsummary51BM1 = "Behavior Monitoring protection modules are disabled and recommended to enable it for better protection from ransomware. It constantly monitors endpoints for unusual modifications to the operating system or installed software. Behavior Monitoring protects endpoints through Malware Behavior Blocking and Event Monitoring."
     let rsummary51BM2 = "In Behaviour Monitoring, Threats to block are selected to Known Threats recommended to select Known and potential threats. It Blocks behavior associated with known threats and acts on behavior that is potentially malicious."
     let rsummary51BM3 = "In Behaviour Monitoring, protecting documents against unauthorized encryption or modification is disabled recommended to enable it. It will protect the unauthorized encryption or modification of trusted files."
     let rsummary51BM5 = "In Behaviour Monitoring, Block processes commonly associated with ransomware is disabled and recommended to enable it. Ransomware commonly distributes executable files in specific locations on endpoints before attempting to hijack files. Blocking the processes started from these locations can help prevent the ransomware from being able to hijack files."
@@ -70,10 +70,19 @@ function ExcutiveSummery() {
 
     let rsummary52ML1 = "The predictive Machine Learning module is disabled, recommended to enable it. It uses advanced machine learning technology to correlate threat information and perform in-depth file analysis or behavioral process and script analysis to detect emerging unknown security risks."
     let rsummary52ML2 = "In Predictive Machine Learning module is enabled with log-only mode, recommended to set the action Terminate/Quarantine to prevent unknown threats."
-    let rsummary53 = "Suspicious Connection is enabled with Log only action, recommended to enable with block action to protect agents against C&C server callbacks."
+    let rsummary53SC1 = "In suspicious connection Detect network connections made to addresses in the Global C&C IP list is disabled and recommended to enable it. to monitor connections made to Trend Micro confirmed C&C servers and select to Block connections."
+    let rsummary53SC2 = "In suspicious connection detect connections using malware network fingerprinting is disabled and recommended to enable it. Malware network fingerprinting performs pattern matching on packet headers. Security Agents log all connections made by packets with headers that match known malware threats using the Relevance Rule pattern."
+    let rsummary53SC3 = "In suspicious connection Cleaning suspicious connections when a C&C callback is detected is disabled, and recommended to enable it. Security Agents use Generic Lean to clean the malware threat and terminate the connection to the C&C server."
+   
     let rsummary54 = "Web reputation module is disabled, recommended to enable it with medium level of detection."
+    let rsummary54WR = "Web Reputation is enabled in Assessment mode recommended to disable it, When in Assessment mode, Security Agents allow access to all websites. For any accessed website that violates the configured Security Level setting, the Security Agent logs the event."
     let rsummary55 = "The firewall is disabled, recommended to enable it (Optional). Firewall policies allow you to block or allow certain types of network traffic not specified in a policy exception. A policy also defines which Apex One Firewall features are enabled or disabled. Assign the policy to one or multiple Firewall profiles."
-    let rsummary56 = "Agent Self-Protection is Disabled, recommended to enable it to prevent unauthorized agent Uninstallation and Unloading."
+    let rsummary56PS1 = ["Agent Self-Protection is Disabled, recommended to enable it to prevent unauthorized agent Uninstallation and Unloading.","Agent Uninstallation with password is Disabled, recommended to enable it to prevent unauthorized agent Uninstallation and Unloading."]
+    let rsummary56PS2 = "Agent installs in co-exist mode recommended to use fully functional Security Agents so, all modules can activate in a single agent for better protection."
+    let rsummary56PS3 = "in Privilege and other settings, Security Agents only update the Pattern files recommended to update all components."
+    let rsummary56PS4 = "in Privilege and other settings, Security Agents only update the Pattern files, Engine, and Drivers recommended to update all components."
+    
+
     let rsummary57 = "Agent Unload and Unlock is not configured, recommended to configure it."
     let rsummary58 = "Agent uninstallation is not configured, recommended to configure it."
     let rsummary591 = "Unauthorized Change Prevention Service for Windows desktops &  for Windows Server platforms are disabled, recommended to enabled it.";
@@ -81,10 +90,11 @@ function ExcutiveSummery() {
     let rsummary593 = "Suspicious Connection Service for Windows desktops & Windows Server platforms are disabled, recommended to enabled it.";
     let rsummary594 = "Data Protection Service for Windows desktops & Windows Server platforms are disabled, recommended to enabled it.";
     let rsummary595 = "Advanced Protection Service for Windows desktops and Windows Server platforms are disabled, recommended to enabled it.";
-    let rsummaryVP = "Vulnerability protection is disabled, recommended to enable it uses a host-based intrusion prevention system (HIPS) to virtually patch known and unknown vulnerabilities before a patch is available or deployable.";
-    let rsummaryVP1 = "Vulnerability Protection is enabled with Tap mode (Detect only). Check internally and monitor if it is not affecting internal traffic then switch to inline/prevent mode to block the malicious traffic."
+    let rsummaryVP = "The Vulnerability protection is disabled, recommended to enable it uses a host-based intrusion prevention system (HIPS) to virtually patch known and unknown vulnerabilities before a patch is available or deployable.";
+    let rsummaryVP1 = "The Vulnerability Protection is enabled with Tap mode (Detect only). Check internally and monitor if it is not affecting internal traffic then switch to inline/prevent mode to block the malicious traffic."
+    let rsummaryVP2 = "The Vulnerability module is enabled with an Aggressive profile recommended to select the 'Recommended' profile. Aggressive scanning may generate many nonessential logs and impact endpoint performance. Trend Micro strongly advises using the Recommended profile."
     let rsummaryDC = "Device Control is disabled, recommended to enable it as it regulates access to external storage devices and network resources connected to computers. Device Control helps prevent data loss and leakage, combined with file scanning, helps guard against security risks."
-    let rsummaryAC = "Application Control is disabled, recommended to enable as it provides the ability to control which users have access to specific applications on certain endpoints."
+    let rsummaryAC = "Application Control is disabled and recommended to be enabled as it provides the ability to control which users have access to specific applications on certain endpoints."
 
 
     {/* Apex central 43 */ }
@@ -115,8 +125,12 @@ function ExcutiveSummery() {
         rsummary21, rsummary22, rsummary23, rsummary24, rsummary25, rsummary26, rsummary27, rsummary28,
         rsummary29,
         rsummary51BM1, rsummary51BM2, rsummary51BM3, rsummary51BM5, rsummary51BM6, rsummary51BM7, rsummary51BM8, rsummary51BM10,
-        rsummary52ML1,rsummary52ML2, rsummary53, rsummary54, rsummary55, rsummary56, rsummary57, rsummary58, rsummary591, rsummary592, rsummary593, rsummary594, rsummary595,
-        rsummaryVP, rsummaryVP1, rsummaryDC, rsummaryAC,
+        rsummary52ML1,rsummary52ML2,rsummary53SC1,rsummary53SC2,rsummary53SC3, 
+        rsummary54,rsummary54WR, 
+        rsummary55, 
+        rsummary56PS1,rsummary56PS2,rsummary56PS3,rsummary56PS4, 
+        rsummary57, rsummary58, rsummary591, rsummary592, rsummary593, rsummary594, rsummary595,
+        rsummaryVP,rsummaryVP1,rsummaryVP2, rsummaryDC, rsummaryAC,
         esummary60, rsummary60, esummary61, rsummary61, esummary62, rsummary62,
         esummary63, rsummary63, esummary64, rsummary64, esummary65, rsummary65,
         esummary66, rsummary66

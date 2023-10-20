@@ -13,7 +13,7 @@ function ReportLogic() {
 
   let tab1 = "images/tab1.png";
 
-  const [myReportData, setReportData] = useState(
+  let [myReportData, setReportData] = useState(
     {
       allApex41ExecutiveSummary: "[]",
       allApex41ReqSummary: "[]",
@@ -78,12 +78,19 @@ function ReportLogic() {
       patterns_update_status_uptodate: "0",
       outdated: "0",
       agent_scheduled_updates: "Enabled",
+      agent_scheduled_updates1 : "Active Update",
       agent_scheduled_updates_daily: "00:00",
       agent_scheduled_updates_option: "Daily",
-      timePeriod: "00",
+      timePeriod: "",
       smart_portection_server: "Integrated SPS",
       notification: "Enabled",
-
+      program_version_status_uptodate : "0",
+      outdated1: "0",
+      agentDistribution1 : "0",
+      agentDistribution2 : "0",
+      agentDistribution3 : "0",
+      agentDistribution4 : "0",
+      
       //apexone 41 img
       apexmemory: tab1,
       apeximgsos: tab1,
@@ -98,6 +105,11 @@ function ReportLogic() {
       apeximgsuperman: tab1,
       apeximgagent_scheduled_updates: tab1,
       apeximgnotification: tab1,
+      // program_version : tab1,
+      // tabAg1 : tab1,
+      // tabAg2 : tab1,
+      // tabAg3 : tab1,
+      // tabAg4 : tab1,
 
       //apex43
       sos2: "Windows Server 2019",
@@ -300,7 +312,13 @@ function ReportLogic() {
       predictiveMl1: "Quarantine",
       predictiveMl2: "Terminate",
       predictiveMl3: "No",
-      suspicious_Connection: "Enabled",
+      suspicious_Connection1: "Enabled",
+      suspicious_Connection2: "Block",
+      suspicious_Connection3: "Enabled",
+      suspicious_Connection4: "Enabled",
+      suspicious_Connection5: "Block",
+      suspicious_Connection6: "Enabled",
+
       vulnerability_protection: "Enabled",
       vp_mode: "Inline",
       device_control: "Enabled",
@@ -333,7 +351,12 @@ function ReportLogic() {
       tab52: tab1,
       tab52ML1: tab1,
       tab52ML2: tab1,
-      tab53: tab1,
+
+      tab53SC1: tab1,
+      tab53SC2: tab1,
+      tab53SC3: tab1,
+      tab53SC4: tab1,
+
       tab54: tab1,
       tab55: tab1,
       tab56: tab1,
@@ -344,7 +367,7 @@ function ReportLogic() {
     }
   );
 
-  const [myPolicy2, setPolicy2Data] = useState({
+  let [myPolicy2, setPolicy2Data] = useState({
 
     // 1 po1 // no name changes
     OverviewPolicyName1: "NAME-OF-POLICY2",
@@ -525,12 +548,18 @@ function ReportLogic() {
     suspicious_Connection: "Enabled",
     vulnerability_protection: "Enabled",
     vp_mode: "Inline",
+    vpProfile: "Recommended",
     device_control: "Enabled",
     web_reputation1: "Enabled",
     web_reputation2: "Medium",
-    application_control: "Enabled",
+    web_reputation3: "Disabled",
+    application_control1: "Enabled",
+    application_control2 : "Allow Mode",
     firewall: "Enabled",
-    agent_self_protection: "Enabled",
+    agent_self_protection1: "Enabled",
+    agent_self_protection2: "Enabled",
+    agent_self_protection3: "Enabled",
+    agent_self_protection4: "All Component",
     additional_service1: "Enabled",
     additional_service2: "Enabled",
     additional_service3: "Enabled",
@@ -558,10 +587,15 @@ function ReportLogic() {
 
     tab53: tab1,
     tab54: tab1,
+    tab54WR: tab1,
     tab55: tab1,
-    tab56: tab1,
+    tab56PS1: tab1,
+    tab56PS2: tab1,
+    tab56PS3: tab1,
+    tab56PS4: tab1,
     tab59: tab1,
     tabVP: tab1,
+    tabVP1: tab1,
     tabDC: tab1,
     tabAC: tab1,
 

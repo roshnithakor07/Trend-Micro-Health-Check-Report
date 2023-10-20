@@ -18,6 +18,7 @@ export default function Apex41({
     handleVersions,
     sixFunction,
     sevenFunction,
+    agentDistributionFun,
   }
 }) {
   return (
@@ -109,6 +110,7 @@ export default function Apex41({
               </p>
             </div>
           )}
+
         </div>
         <br />
         <div className="container11" id="head4">
@@ -146,7 +148,7 @@ export default function Apex41({
                     <td className="con5">Memory</td>
                     <td className="con5">
                       <input
-                        type="text"
+                        type="number"
                         onChange={(e) => {
                           handleChange(e);
                           handleMemory(e);
@@ -164,7 +166,7 @@ export default function Apex41({
                     </td>
                     <td className="con5">
                       <input
-                        type="text"
+                        type="number"
                         name="memory2"
                         id="memory2"
                         onChange={(e) => {
@@ -494,7 +496,7 @@ export default function Apex41({
               )}
 
               <tr className="con5">
-                <td className="con5">Agent scheduled updates</td>
+                <td className="con5" rowSpan={2}>Agent scheduled updates</td>
                 <td className="con5">Enabled</td>
                 <td className="con5">
                   <div id="AgentSU">
@@ -545,36 +547,29 @@ export default function Apex41({
                 </td>
               </tr>
               <tr className="con5">
-                <td className="con5">Patterns Update Status </td>
-                <td className="con5">Up to Date </td>
-                <td className="con5" id="uptodate">
-                  Up to Date:-{" "}
-                  <input
-                    type="number"
-                    id="patterns_update_status_uptodate"
-                    name="patterns_update_status_uptodate"
-                    style={{ width: "25%" }}
-                    onChange={(e) => {
-                      handleChange(e);
-                      superman(e);
-                    }}
-                  />
-                  Outdated:-{" "}
-                  <input
-                    type="number"
-                    id="outdated"
-                    name="outdated"
-                    style={{ width: "25%" }}
-                    onChange={(e) => {
-                      handleChange(e);
-                      superman(e);
-                    }}
-                  />
+                <td className="con5">Update Source</td>
+                <td className="con5">
+                  <div>
+                    <select
+                      id="7"
+                      name="agent_scheduled_updates1"
+                      onChange={(e) => {
+                        sixFunction(e);
+                        handleChange(e);
+                      }}
+                    >
+                      <option value="Active Update ">Active Update</option>
+                      <option value="Custom Update source">Custom Update source</option>
+                    </select>
+                    
+                   
+                  </div>
                 </td>
                 <td className="con5" style={{ textAlign: "center" }}>
-                  <img src="images/tab1.png" id="super" alt="" />
+                  <img src="images/tab1.png"alt="" />
                 </td>
               </tr>
+
               <tr className="con5">
                 <td className="con5">Smart Protection Server</td>
                 <td className="con5">
@@ -620,6 +615,158 @@ export default function Apex41({
                   <img src="images/tab1.png" id="sep7" alt="" />
                 </td>
               </tr>
+
+              <tr className="con5">
+                <td className="con5" colSpan={4}>Agent Distribution</td>
+
+              </tr>
+              <tr className="con5">
+                <td className="con5">Patterns Update Status </td>
+                <td className="con5">Up to Date </td>
+                <td className="con5" id="uptodate">
+                  Up to Date:-{" "}
+                  <input
+                    type="number"
+                    id="patterns_update_status_uptodate"
+                    name="patterns_update_status_uptodate"
+                    style={{ width: "25%" }}
+                    onChange={(e) => {
+                      handleChange(e);
+                      superman(e, 'patterns_update_status_uptodate', "outdated", "apeximgsuperman", "super", "8");
+                    }}
+                  />
+                  Outdated:-{" "}
+                  <input
+                    type="number"
+                    id="outdated"
+                    name="outdated"
+                    style={{ width: "25%" }}
+                    onChange={(e) => {
+                      handleChange(e);
+                      superman(e, 'patterns_update_status_uptodate', "outdated", "apeximgsuperman", "super", "8");
+
+                    }}
+                  />
+                </td>
+                <td className="con5" style={{ textAlign: "center" }}>
+                  <img src="images/tab1.png" id="super" alt="" />
+                </td>
+              </tr>
+
+              <tr className="con5">
+                <td className="con5">Program Version</td>
+                <td className="con5">Up to Date </td>
+                <td className="con5" id="uptodate">
+                  Up to Date:-{" "}
+                  <input
+                    type="number"
+                    id="program_version_status_uptodate"
+                    name="program_version_status_uptodate"
+                    style={{ width: "25%" }}
+                    onChange={(e) => {
+                      handleChange(e);
+                      superman(e, 'program_version_status_uptodate', "outdated1", "program_version", "super1", "common0");
+
+                    }}
+                  />
+                  Outdated:-{" "}
+                  <input
+                    type="number"
+                    id="outdated1"
+                    name="outdated1"
+                    style={{ width: "25%" }}
+                    onChange={(e) => {
+                      handleChange(e);
+                      superman(e, 'program_version_status_uptodate', "outdated1", "program_version", "super1", "common0");
+                    }}
+                  />
+                </td>
+                <td className="con5" style={{ textAlign: "center" }}>
+                  <img src="images/tab1.png" id="super1" alt="" />
+                </td>
+              </tr>
+
+              <tr className="con5">
+                <td className="con5">Agent Required Restart for Clean-up</td>
+                <td className="con5">No</td>
+                <td className="con5" id="uptodate">
+                  <input
+                    type="number"
+                    id="agentDistribution1"
+                    name="agentDistribution1"
+                    style={{ width: "40%" }}
+                    onChange={(e) => {
+                      agentDistributionFun(e,1);
+                      handleChange(e);
+                    }}
+                  />
+                </td>
+                <td className="con5" style={{ textAlign: "center" }}>
+                  <img src="images/tab1.png" id="sepAg1" alt="" />
+                </td>
+              </tr>
+              <tr className="con5">
+                <td className="con5">Agent Required Restart for Update</td>
+                <td className="con5">No</td>
+                <td className="con5" id="uptodate">
+                  <input
+                    type="number"
+                    id="agentDistribution2"
+                    name="agentDistribution2"
+                    style={{ width: "40%" }}
+                    onChange={(e) => {
+                      agentDistributionFun(e,2);
+                      handleChange(e);
+                    }}
+                  />
+                </td>
+                <td className="con5" style={{ textAlign: "center" }}>
+                  <img src="images/tab1.png" id="sepAg2" alt="" />
+                </td>
+              </tr>
+
+              <tr className="con5">
+                <td className="con5">Legacy Systems (7 & 8.1)</td>
+                <td className="con5">No</td>
+                <td className="con5" id="uptodate">
+                  <input
+                    type="number"
+                    id="agentDistribution3"
+                    name="agentDistribution3"
+                    style={{ width: "40%" }}
+                    onChange={(e) => {
+                      agentDistributionFun(e,3);
+                      handleChange(e);
+                    }}
+                  />
+                </td>
+                <td className="con5" style={{ textAlign: "center" }}>
+                  <img src="images/tab1.png" id="sepAg3" alt="" />
+                </td>
+              </tr>
+
+              <tr className="con5">
+                <td className="con5">Windows Server Platform</td>
+                <td className="con5">No</td>
+                <td className="con5" id="uptodate">
+                  <input
+                    type="number"
+                    id="agentDistribution4"
+                    name="agentDistribution4"
+                    style={{ width: "40%" }}
+                    onChange={(e) => {
+                      agentDistributionFun(e,4);
+                      handleChange(e);
+                    }}
+                  />
+                </td>
+                <td className="con5" style={{ textAlign: "center" }}>
+                  <img src="images/tab1.png" id="sepAg4" alt="" />
+                </td>
+              </tr>
+
+
+
             </tbody>
           </table>
         </div>

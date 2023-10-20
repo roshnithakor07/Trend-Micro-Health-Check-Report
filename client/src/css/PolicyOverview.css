@@ -79,3 +79,8 @@
     cursor: pointer;
     margin-bottom: 10px; 
 }
+
+.disableSection {
+    opacity: 0.5;
+    pointer-events: none
+}

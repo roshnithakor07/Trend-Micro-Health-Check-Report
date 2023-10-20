@@ -14,8 +14,8 @@ const { getReportpdf } = require('./report');
 const { getES } = require('./ExecutiveSummary');
 const { apex41pdf } = require('./apex41');
 const { apex43pdf } = require('./apex43');
-const { getPo1 } = require("./po1");
-const { getPo2 } = require('./po2');
+const { getPo1 } = require("./policyOverview1");
+const { getPo2 } = require('./policyOverview2');
 const { getREQ } = require('./Recommendation');
 const { getRecommendedProcedure } = require("./recommendedProcedure")
 const { getCharts } = require("./chart")
@@ -258,9 +258,7 @@ const getTrendMicroReportDocx = async (req, res) => {
     res.setHeader('Content-Disposition', 'attachment; filename=My Document.docx');
     res.send(Buffer.from(b64string, 'base64'));
 
-    Packer.toBuffer(doc).then((buffer) => {
-        fs.writeFileSync("My Document.docx", buffer);
-    })
+  
 
 
 }

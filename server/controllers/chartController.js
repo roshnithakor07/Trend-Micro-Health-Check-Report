@@ -360,6 +360,7 @@ const saveDatafurtherinformation = async (req, res) => {
 
 function createChart(l, d, title, img, type = 'bar') {
 
+    console.log(title)
     let piePadding = {
         "bottom": 0,
         "top": 50,

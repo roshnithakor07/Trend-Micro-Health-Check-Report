@@ -4,9 +4,9 @@ function PolicyOverviewLogic1() {
 
     const {
         rsummary10, rsummary11, rsummary13, rsummary14, rsummary161, rsummary162, rsummary17, rsummary18, rsummary19, rsummary20, rsummary21, rsummary22, rsummary23, rsummary29,
-        rsummary51BM1, rsummary51BM2, rsummary51BM3, rsummary51BM5, rsummary51BM6, rsummary51BM7, rsummary51BM8, rsummary51BM10,
-        rsummary52ML1, rsummary52ML2, rsummary53, rsummary54, rsummary55, rsummary56,
-        rsummaryVP, rsummaryDC, rsummaryAC, rsummaryVP1
+        rsummary53SC1, rsummary53SC2, rsummary53SC3, rsummary54, rsummary56, rsummaryDC, rsummaryAC, rsummaryVP, rsummaryVP1, rsummaryVP2,
+        rsummary51BM2, rsummary54WR,
+        rsummary56PS1, rsummary56PS2, rsummary56PS3, rsummary56PS4,
     } = ExcutiveSummery()
 
 
@@ -126,12 +126,23 @@ function PolicyOverviewLogic1() {
         tab52ML1: tab1,
         tab52ML2: tab1,
         tab52ML3: tab1,
-        tab53: tab1,
+
+        tab53SC1: tab1,
+        tab53SC2: tab1,
+        tab53SC3: tab1,
+        tab53SC4: tab1,
+
         tab54: tab1,
+        tab54WR: tab1,
+
         tab55: tab1,
-        tab56: tab1,
+        tab56PS1: tab1,
+        tab56PS2: tab1,
+        tab56PS3: tab1,
+        tab56PS4: tab1,
         tab59: tab1,
         tabVP: tab1,
+        tabVP1: tab1,
         tabDC: tab1,
         tabAC: tab1,
 
@@ -766,7 +777,6 @@ function PolicyOverviewLogic1() {
         var value = select.options[select.selectedIndex].value;
         var value1 = select1.options[select1.selectedIndex].value;
 
-        console.log(value1)
 
         if (value === "Enabled" && value1 === "Advanced clean-up") {
             myPo1ImgData[img] = tab1;
@@ -934,6 +944,7 @@ function PolicyOverviewLogic1() {
     const fiftyoneFunction = (e, id1, id2, idVal, tab, req1, req2) => {
         let optionBM1 = document.getElementById(id1).value;
         let optionBM2 = document.getElementById(id2).value;
+        let bmDisableClass = document.getElementsByClassName("bmDisableClass");
 
         if (optionBM1 === "Enabled") {
             if (optionBM2 === "Known threats" || optionBM2 === "Log Only") {
@@ -950,7 +961,12 @@ function PolicyOverviewLogic1() {
                 setcheckPolicyOverviewES(--checkPolicyOverviewES)
                 checkPolicyOverview()
                 closeValue1("rsummary51BM2")
+
             }
+
+            // for (let i = 0; i < bmDisableClass.length; i++) {
+            //     bmDisableClass[i].classList.remove("disableSection")
+            // }
 
         } else if (e.target.value === "Yes") {
             myPo1ImgData[tab] = tab4;
@@ -965,6 +981,10 @@ function PolicyOverviewLogic1() {
             checkPolicyOverview()
             addValue1(req1, req2)
             closeValue1("rsummary51BM2")
+            // for (let i = 0; i < bmDisableClass.length; i++) {
+            //     bmDisableClass[i].classList.add("disableSection")
+            // }
+
         }
 
     }
@@ -1018,29 +1038,83 @@ function PolicyOverviewLogic1() {
     };
 
     //Suspicious Connection	
-    const fiftythreeFunction = (e) => {
+    const fiftythreeFunction = (e, no, id1, id2, sep, tab, req1, req2) => {
+        let suspicious_Connection1 = document.getElementById(id1).value;
+        let suspicious_Connection2 = document.getElementById(id2).value;
+        let userDefinedBlocked = document.getElementsByClassName('userDefinedBlocked');
         let a = "Enabled";
-        if (e.target.value === a) {
-            myPo1ImgData.tab53 = tab1;
-            document.getElementById("sep53").src = tab1;
-            setcheckPolicyOverviewES(--checkPolicyOverviewES)
-            checkPolicyOverview()
 
-        } else {
-            myPo1ImgData.tab53 = tab3;
-            document.getElementById("sep53").src = tab3;
-            setcheckPolicyOverviewES(++checkPolicyOverviewES)
-            checkPolicyOverview()
-            addValue1('rSummary53', rsummary53)
+        if (no === 3) {
+            if (e.target.value === a) {
+                myPo1ImgData[tab] = tab1;
+                document.getElementById(sep).src = tab1;
+                setcheckPolicyOverviewES(--checkPolicyOverviewES)
+                checkPolicyOverview()
+                closeValue1(req1)
+            } else {
+                myPo1ImgData[tab] = tab3;
+                document.getElementById(sep).src = tab3;
+                setcheckPolicyOverviewES(++checkPolicyOverviewES)
+                checkPolicyOverview()
+                addValue1(req1, req2)
+            }
+        }
+
+        if (no === 0 || no === 2) {
+            if (suspicious_Connection1 === a) {
+                if (suspicious_Connection2 === "Block") {
+                    myPo1ImgData[tab] = tab1;
+                    document.getElementById(sep).src = tab1;
+                    setcheckPolicyOverviewES(--checkPolicyOverviewES)
+                    checkPolicyOverview()
+                } else {
+                    myPo1ImgData[tab] = tab2;
+                    document.getElementById(sep).src = tab2;
+                    setcheckPolicyOverviewES(++checkPolicyOverviewES)
+                    checkPolicyOverview()
+                }
+                userDefinedBlocked[no].classList.remove("disableSection")
+                userDefinedBlocked[no + 1].classList.remove("disableSection")
+                closeValue1(req1)
+
+            } else {
+                myPo1ImgData[tab] = tab3;
+                document.getElementById(sep).src = tab3;
+                setcheckPolicyOverviewES(++checkPolicyOverviewES)
+                checkPolicyOverview()
+                addValue1(req1, req2)
+                userDefinedBlocked[no].classList.add("disableSection")
+                userDefinedBlocked[no + 1].classList.add("disableSection")
+
+
+            }
         }
 
     };
 
     //Web Reputation
-    const fiftyfourFunction = (e) => {
+    const fiftyfourFunction = (e, no) => {
 
         let a = document.getElementById('56').value;
         let b = document.getElementById('58').value
+        //let web_reputation3 = document.getElementById('web_reputation3').value
+
+        if (no === 2) {
+            if (e.target.value === "Enabled") {
+                myPo1ImgData["tab54WR"] = tab3;
+                document.getElementById("sep54WR").src = tab3;
+                setcheckPolicyOverviewES(++checkPolicyOverviewES);
+                checkPolicyOverview();
+                addValue1('rsummary54wr', rsummary54WR)
+            } else {
+                setcheckPolicyOverviewES(--checkPolicyOverviewES);
+                checkPolicyOverview();
+                myPo1ImgData["tab54WR"] = tab1;
+                document.getElementById("sep54WR").src = tab1;
+                closeValue1('rsummary54wr')
+            }
+        }
+
 
         if (a === "Enabled") {
             setcheckPolicyOverviewES(--checkPolicyOverviewES);
@@ -1066,39 +1140,92 @@ function PolicyOverviewLogic1() {
 
     //Firewall
     const fiftyfiveFunction = (e) => {
-        let a = "Enabled";
-        if (e.target.value === a) {
+        if (e.target.value === "Enabled") {
             myPo1ImgData.tab55 = tab1;
             document.getElementById("sep55").src = tab1;
-            setcheckPolicyOverviewES(--checkPolicyOverviewES)
-            checkPolicyOverview()
-            closeValue1("rSummary55")
         } else {
             myPo1ImgData.tab55 = tab4;
             document.getElementById("sep55").src = tab4;
-            addValue1('rSummary55', rsummary55)
-            setcheckPolicyOverviewES(++checkPolicyOverviewES)
-            checkPolicyOverview()
         }
     };
 
     //Agent Self-Protection	
-    const fiftysixFunction = (e) => {
+    const fiftysixFunction = (e, no) => {
+        let value = e.target.value
         let a = "Enabled";
+        let req = "rsummary56ps1"
+        let sep = "sepAg1"
+        let tab = ""
 
-        if (e.target.value === a) {
-            myPo1ImgData.tab56 = tab1;
-            document.getElementById("sep56").src = tab1;
-            setcheckPolicyOverviewES(--checkPolicyOverviewES)
-            checkPolicyOverview()
-            closeValue1("rSummary56")
-        } else {
-            myPo1ImgData.tab56 = tab3;
-            document.getElementById("sep56").src = tab3;
-            setcheckPolicyOverviewES(++checkPolicyOverviewES)
-            checkPolicyOverview()
-            addValue1('rSummary56', rsummary56)
+        const addSen = (value, sep, tab, req1, req2) => {
+            if (value === a || value ===`All components (including hotfixes and the agent program)`) {
+                myPo1ImgData[tab] = tab1;
+                document.getElementById(sep).src = tab1;
+                setcheckPolicyOverviewES(--checkPolicyOverviewES)
+                checkPolicyOverview()
+                closeValue1(req1)
+            }
+            else {
+                myPo1ImgData[tab] = tab2;
+                document.getElementById(sep).src = tab2;
+                setcheckPolicyOverviewES(++checkPolicyOverviewES)
+                checkPolicyOverview()
+                addValue1(req1, req2)
+            }
+
         }
+
+        switch (no) {
+            case 1:
+                req = "rsummary56ps1"
+                sep = "sep56PS1"
+                tab = "tab56PS1"
+                addSen(value, sep, tab, req, rsummary56PS1[0])
+                break;
+
+            case 2:
+                req = "rsummary56ps2"
+                sep = "sep56PS2"
+                tab = "tab56PS2"
+                addSen(value, sep, tab, req, rsummary56PS1[1])
+                break;
+
+            case 3:
+                req = "rsummary56ps3"
+                sep = "sep56PS3"
+                tab = "tab56PS3"
+
+                if (value === "Disabled") {
+                    myPo1ImgData[tab] = tab1;
+                    document.getElementById(sep).src = tab1;
+                    setcheckPolicyOverviewES(--checkPolicyOverviewES)
+                    checkPolicyOverview()
+                    closeValue1("rsummary56ps3")
+                }
+                else {
+                    myPo1ImgData[tab] = tab2;
+                    document.getElementById(sep).src = tab2;
+                    setcheckPolicyOverviewES(++checkPolicyOverviewES)
+                    checkPolicyOverview()
+                    addValue1("rsummary56ps3", rsummary56PS2)
+                }
+                
+                break;
+
+
+            case 4:
+                req = "rsummary56ps4"
+                sep = "sep56PS4"
+                tab = "tab56PS4"
+                addSen(value, sep, tab, req, rsummary56PS4)
+                break;
+
+            default:
+                break;
+        }
+
+
+
 
     };
 
@@ -1219,41 +1346,75 @@ function PolicyOverviewLogic1() {
     };
 
 
-    const vulnerabilityProtectionFun = (e) => {
+    const vulnerabilityProtectionFun = (e, no) => {
+        let vulnerability_protection = document.getElementById("vulnerability_protection").value;
+        let vp_mode = document.getElementById("vp_mode").value;
+        let classOfVP = document.getElementsByClassName("showVpModes");
 
-        if (e.target.value === "Enabled") {
-            myPo1ImgData.tabVP = tab1;
-            document.getElementById("sepVP").src = tab1;
-            setcheckPolicyOverviewES(--checkPolicyOverviewES)
-            document.getElementById('showVpModes').style.display = "inline"
-            checkPolicyOverview()
-            closeValue1("rSummaryVP")
-        } else {
-            myPo1ImgData.tabVP = tab3;
-            document.getElementById("sepVP").src = tab3;
-            document.getElementById('showVpModes').style.display = "none"
-            setcheckPolicyOverviewES(++checkPolicyOverviewES)
-            checkPolicyOverview()
-            addValue1('rSummaryVP', rsummaryVP)
-        }
+
+        if (no === 2) {
+
+            if (e.target.value === "Recommended") {
+                myPo1ImgData.tabVP1 = tab1;
+                document.getElementById("sepVP1").src = tab1;
+                setcheckPolicyOverviewES(--checkPolicyOverviewES)
+                checkPolicyOverview()
+                closeValue1("rSummaryVP2")
+            } else {
+
+                myPo1ImgData.tabVP1 = tab2;
+                document.getElementById("sepVP1").src = tab2;
+                setcheckPolicyOverviewES(++checkPolicyOverviewES)
+                checkPolicyOverview()
+                addValue1('rSummaryVP2', rsummaryVP2)
+            }
+        };
+
+        if (no === 1) {
+            if (vulnerability_protection === "Enabled") {
+
+                if (vp_mode === "Tap") {
+                    myPo1ImgData.tabVP = tab2;
+                    document.getElementById("sepVP").src = tab2;
+                    setcheckPolicyOverviewES(++checkPolicyOverviewES)
+                    checkPolicyOverview()
+                    addValue1('rSummaryVP1', rsummaryVP1)
+                } else {
+                    myPo1ImgData.tabVP = tab1;
+                    document.getElementById("sepVP").src = tab1;
+                    setcheckPolicyOverviewES(--checkPolicyOverviewES)
+                    checkPolicyOverview()
+                    closeValue1("rSummaryVP1")
+                }
+
+                for (let i = 0; i < classOfVP.length; i++) {
+
+                    classOfVP[i].style.opacity = 1;
+                    classOfVP[i].style.pointerEvents = "auto"
+                }
+                closeValue1("rSummaryVP")
+
+            } else {
+                console.log("hhhhh")
+                myPo1ImgData.tabVP = tab3;
+                document.getElementById("sepVP").src = tab3;
+                for (let i = 0; i < classOfVP.length; i++) {
+
+                    classOfVP[i].style.opacity = 0.5;
+                    classOfVP[i].style.pointerEvents = "none"
+                }
+
+                setcheckPolicyOverviewES(++checkPolicyOverviewES)
+                checkPolicyOverview()
+                addValue1('rSummaryVP', rsummaryVP)
+                setReqSummarySenPolicy1Arr(prevValues => prevValues.filter(value => value.label !== 'rSummaryVP1'));
+                setReqSummarySenPolicy1Arr(prevValues => prevValues.filter(value => value.label !== 'rSummaryVP2'));
+            }
+        };
+
     }
 
-    const vulnerabilityProtectionModeFun = (e) => {
 
-        if (e.target.value === "Inline") {
-            myPo1ImgData.tabVP = tab1;
-            document.getElementById("sepVP").src = tab1;
-            setcheckPolicyOverviewES(--checkPolicyOverviewES)
-            checkPolicyOverview()
-            closeValue1("rSummaryVP")
-        } else {
-            myPo1ImgData.tabVP = tab2;
-            document.getElementById("sepVP").src = tab2;
-            setcheckPolicyOverviewES(++checkPolicyOverviewES)
-            checkPolicyOverview()
-            addValue1('rSummaryVP', rsummaryVP1)
-        }
-    }
 
     const deviceControlFun = (e) => {
         if (e.target.value === "Enabled") {
@@ -1327,7 +1488,6 @@ function PolicyOverviewLogic1() {
         fiftysixFunction,
         fiftynineFunction,
         vulnerabilityProtectionFun,
-        vulnerabilityProtectionModeFun,
         deviceControlFun,
         applicationControlFun,
     }

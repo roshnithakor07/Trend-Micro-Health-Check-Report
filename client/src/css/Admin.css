@@ -9,7 +9,6 @@
     font-family: 'Poppins', sans-serif;
 } */
 
-
 :root {
     /* ===== Colors ===== */
     --primary-color: #0E4BF1;
@@ -28,8 +27,6 @@
     --tran-03: all 0.3s ease;
     --tran-03: all 0.2s ease;
 }
-
-
 
 .body {
     min-height: 100vh;
@@ -283,7 +280,7 @@ nav.close li a .link-name {
     left: 20px;
 }
 
-.tabcontent {
+.dashboard {
     position: relative;
     left: 250px;
     background-color: var(--panel-color);
@@ -291,15 +288,14 @@ nav.close li a .link-name {
     width: calc(100% - 250px);
     padding: 10px 14px;
     transition: var(--tran-05);
-    color:var(--text-color);;
 }
 
-nav.close~.tabcontent {
+nav.close~.dashboard {
     left: 73px;
     width: calc(100% - 73px);
 }
 
-.tabcontent .top {
+.dashboard .top {
     position: fixed;
     top: 0;
     left: 250px;
@@ -313,18 +309,18 @@ nav.close~.tabcontent {
     z-index: 10;
 }
 
-nav.close~.tabcontent .top {
+nav.close~.dashboard .top {
     left: 73px;
     width: calc(100% - 73px);
 }
 
-.tabcontent .top .sidebar-toggle {
+.dashboard .top .sidebar-toggle {
     font-size: 26px;
     color: var(--text-color);
     cursor: pointer;
 }
 
-.tabcontent .top .search-box {
+.dashboard .top .search-box {
     position: relative;
     height: 45px;
     max-width: 600px;
@@ -361,7 +357,7 @@ nav.close~.tabcontent .top {
     border-radius: 50%;
 }
 
-.tabcontent .dash-content {
+.dashboard .dash-content {
     padding-top: 50px;
 }
 
@@ -495,22 +491,22 @@ nav.close~.tabcontent .top {
         pointer-events: auto;
     }
 
-    nav~.tabcontent {
+    nav~.dashboard {
         left: 73px;
         width: calc(100% - 73px);
     }
 
-    nav.close~.tabcontent {
+    nav.close~.dashboard {
         left: 250px;
         width: calc(100% - 250px);
     }
 
-    nav~.tabcontent .top {
+    nav~.dashboard .top {
         left: 73px;
         width: calc(100% - 73px);
     }
 
-    nav.close~.tabcontent .top {
+    nav.close~.dashboard .top {
         left: 250px;
         width: calc(100% - 250px);
     }
@@ -562,22 +558,22 @@ nav.close~.tabcontent .top {
         pointer-events: none;
     }
 
-    nav~.tabcontent {
+    nav~.dashboard {
         left: 0;
         width: 100%;
     }
 
-    nav.close~.tabcontent {
+    nav.close~.dashboard {
         left: 73px;
         width: calc(100% - 73px);
     }
 
-    nav~.tabcontent .top {
+    nav~.dashboard .top {
         left: 0;
         width: 100%;
     }
 
-    nav.close~.tabcontent .top {
+    nav.close~.dashboard .top {
         left: 0;
         width: 100%;
     }

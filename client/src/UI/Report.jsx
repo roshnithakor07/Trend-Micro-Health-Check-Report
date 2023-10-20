@@ -12,7 +12,7 @@ import useApexOneLogic41 from "../Logic/Apex41Logic";
 import useApexOneLogic43 from "../Logic/Apex43Logic";
 import Po1Logic from '../Logic/Policy1Logic'
 import Po2Logic from '../Logic/Policy2Logic';
-import {useState} from "react";
+import { useState } from "react";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import { green } from "@mui/material/colors";
@@ -64,7 +64,7 @@ function Report() {
   ]
   );
 
-  const {
+  let {
     cName,
     reportTypeName,
     visible,
@@ -98,6 +98,7 @@ function Report() {
     sixFunction,
     sevenFunction,
     myApex41ImgData,
+    agentDistributionFun
   } = useApexOneLogic41();
 
   const {
@@ -118,7 +119,7 @@ function Report() {
   } = useApexOneLogic43();
 
   const {
-   
+
     summarySenPolicy1Arr, setSummarySenPolicy1Arr,
     reqSummarySenPolicy1Arr, setReqSummarySenPolicy1Arr,
     closePolicyOverviewTable,
@@ -156,7 +157,6 @@ function Report() {
     fiftysixFunction,
     fiftynineFunction,
     vulnerabilityProtectionFun,
-    vulnerabilityProtectionModeFun,
     deviceControlFun,
     applicationControlFun,
   } = Po1Logic();
@@ -196,125 +196,29 @@ function Report() {
     vulnerabilityProtectionFun1,
     deviceControlFun1,
     applicationControlFun1,
-    vulnerabilityProtectionModeFun1,
     exception51Fun1,
 
   } = Po2Logic();
 
 
-  let apex41Imgs = [
-    "apexmemory",
-    "apeximgsos",
-    "apeximglicense_date",
-    "apeximgversions",
-    "apeximgDeployed_Agents",
-    "apeximgCertified_Safe_Software_Service",
-    "apeximgapex_central_integration",
-    "apeximgglobal_agents_settings1",
-    "apeximgglobal_agents_settings2",
-    "apeximgglobal_agents_settings3",
-    "apeximgsuperman",
-    "apeximgagent_scheduled_updates",
-    "apeximgnotification",
-  ];
-
-  let apex43Imgs = [
-    "apex43memory",
-    "apex43sos",
-    "tab60",
-    "tab6060",
-    "tab61",
-    "tab62",
-    "tab63",
-    "tab64",
-    "tab65",
-    "tab66",
-    "tab67",
-  ];
-
-  for (const i of apex41Imgs) {
-    myReportData[i] = myApex41ImgData[i];
+  for (const key in myPo1ImgData) {
+    myReportData[key] = myPo1ImgData[key]
   }
 
-  for (const i of apex43Imgs) {
-    myReportData[i] = myApex43ImgData[i];
+  for (const key in myApex41ImgData) {
+    myReportData[key] = myApex41ImgData[key]
+  }
+  for (const key in myApex41ImgData) {
+    myReportData[key] = myApex41ImgData[key]
+  }
+  for (const key in myApex43ImgData) {
+    myReportData[key] = myApex43ImgData[key]
+  }
+  for (const key in myPo2ImgData) {
+    myPolicy2[key] = myPo2ImgData[key]
   }
 
-  let policyOneImg = [
-    "tab8",
-    "tab9",
-    "tab10",
-    "tab11",
-    "tab12",
-    "tab13",
-    "tab14",
-    "tab15",
-    "tab16",
-    "tab17",
-    "tab18",
-    "tab19",
-    "tab20",
-    "tab21",
-    "tab22",
-    "tab23",
-    "tab24",
-    "tab25",
-    "tab26",
-    "tab27",
-    "tab28",
-    "tab29",
-    "tab30",
-    "tab31",
-    "tab32",
-    "tab33",
-    "tab34",
-    "tab35",
-    "tab36",
-    "tab37",
-    "tab38",
-    "tab39",
-    "tab40",
-    "tab41",
-    "tab42",
-    "tab43",
-    "tab44",
-    "tab45",
-    "tab46",
-    "tab47",
-    "tab48",
-    "tab49",
-    "tab50",
-    "tab51BM1",
-    "tab51BM2",
-    "tab51BM3",
-    "tab51BM4",
-    "tab51BM5",
-    "tab51BM6",
-    "tab51BM7",
-    "tab51BM8",
-
-    "tab52ML1",
-    "tab52ML2",
-    "tab52ML3",
-    "tab53",
-    "tab54",
-    "tab55",
-    "tab56",
-    "tab59",
-    "tabVP",
-    "tabDC",
-    "tabAC"
-  ];
-
-
-  for (const i of policyOneImg) {
-    myReportData[i] = myPo1ImgData[i];
-  }
-
-  for (const i of policyOneImg) {
-    myPolicy2[i] = myPo2ImgData[i];
-  }
-
+  
   //popup update logic
 
   const addValue = (chartDesId) => {
@@ -473,8 +377,6 @@ function Report() {
     document.getElementById(chartDesId).value = "";
     setchartDess("")
   }
-
-
 
   const closePopup = () => {
     setIsPopupOpen(false);
@@ -840,15 +742,14 @@ function Report() {
     closePopup();
   };
 
+  console.log(myReportData)
 
   myReportData["allApex41ES"] = JSON.stringify(summarySenArr);
   myReportData["allApex43ES"] = JSON.stringify(summarySenApex43Arr);
   myReportData["allApex41ReqSummary"] = JSON.stringify(reqSummarySenArr);
   myReportData["allApex43ReqSummary"] = JSON.stringify(reqSummarySenApex43Arr);
+  //myReportData["checkPolicyOverviewTwoAdded"] = myPo1ImgData["checkPolicyOverviewTwoAdded"];
 
-  // myReportData["eSummaryPolicyOverview"] = myPo1ImgData["eSummaryPolicyOverview"];
-  myReportData["checkPolicyOverviewTwoAdded"] = myPo1ImgData["checkPolicyOverviewTwoAdded"];
-  // myReportData["extraEsummarySentences"] = JSON.stringify(PointArr);
 
 
   const commonSummarySen = reqSummarySenPolicy1Arr.filter((item1) => {
@@ -938,11 +839,12 @@ function Report() {
             handleVersions,
             sixFunction,
             sevenFunction,
+            agentDistributionFun
           }}
         />
 
         <PolicyOverview1 myData={{
-       
+
           handleChange,
           handlePolicyOverviewName,
           showComponent,
@@ -974,7 +876,6 @@ function Report() {
           fiftysixFunction,
           fiftynineFunction,
           vulnerabilityProtectionFun,
-          vulnerabilityProtectionModeFun,
           deviceControlFun,
           applicationControlFun,
         }} />
@@ -1026,7 +927,6 @@ function Report() {
             vulnerabilityProtectionFun1,
             deviceControlFun1,
             applicationControlFun1,
-            vulnerabilityProtectionModeFun1,
             exception51Fun1,
           }} />
         )}

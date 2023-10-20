@@ -181,7 +181,7 @@ function useApexOneLogic43() {
 
 
         let a = `Your Trend Micro Apex central license is valid till ${monthName} ${l.getDate()},${l.getFullYear()}.`
-        let b = `Your Trend Micro Apex central license will expire soon. Please get in touch with the Trend Micro account manager to start the renewal process.`
+        let b = `Your Trend Micro Apex central license will expire on ${monthName} ${l.getDate()},${l.getFullYear()}. Please get in touch with the Trend Micro account manager to start the renewal process.`
         addValue("2", a)
         addValue1("2", b)
       }

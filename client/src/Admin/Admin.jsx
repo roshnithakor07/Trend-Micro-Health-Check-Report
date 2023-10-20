@@ -8,7 +8,7 @@ const save = green[900];
 export default function Admin() {
     const { topTenData, myReportData, handleToggle, handleModeToggle, handleDeleteReport } = AdminLogic()
 
-    console.log(topTenData)
+    
     return (
         <>
 
@@ -118,10 +118,10 @@ export default function Admin() {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {topTenData.map((element, index) => (
+                                            {myReportData.map((element, index) => (
                                                 <tr key={element._id}>
                                                     <td>{index + 1}</td>
-                                                    <td>{element.companyName}</td>
+                                                    <td>{element.cName}</td>
                                                     <td>{element.report_type}</td>
                                                     <td>{element.pb}</td>
                                                     <td>{element.report_date}</td>

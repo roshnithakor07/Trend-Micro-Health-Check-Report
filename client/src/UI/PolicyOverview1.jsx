@@ -36,13 +36,11 @@ export default function PolicyOverview1(
         fiftysixFunction,
         fiftynineFunction,
         vulnerabilityProtectionFun,
-        vulnerabilityProtectionModeFun,
+
         deviceControlFun,
         applicationControlFun,
 
     } }) {
-
-    const sep8 = useId();
 
 
     const {
@@ -52,7 +50,7 @@ export default function PolicyOverview1(
         rsummary27,
         rsummary28,
         rsummary51BM1, rsummary51BM2, rsummary51BM3, rsummary51BM5, rsummary51BM6, rsummary51BM7, rsummary51BM8, rsummary51BM10,
-        rsummary52ML1, rsummary52ML2,
+        rsummary52ML1, rsummary52ML2, rsummary53SC1, rsummary53SC2, rsummary53SC3,
     } = ExcutiveSummery();
 
     return (
@@ -2283,7 +2281,7 @@ export default function PolicyOverview1(
 
 
                             </tr>
-                            <tr className="con6">
+                            <tr className="con6 bmDisableClass" >
                                 <td className="con6">
                                     Ransomware Protection
                                     <br />
@@ -2326,7 +2324,7 @@ export default function PolicyOverview1(
                                     <img src="images/tab1.png" id="sep51BM2" alt="" />
                                 </td>
                             </tr>
-                            <tr className="con6">
+                            <tr className="con6 bmDisableClass" >
                                 <td className="con6">
                                     Enable - Block processes commonly associated with ransomware
                                 </td>
@@ -2348,7 +2346,7 @@ export default function PolicyOverview1(
                                     <img src="images/tab1.png" id="sep51BM3" alt="" />
                                 </td>
                             </tr>
-                            <tr className="con6">
+                            <tr className="con6 bmDisableClass">
                                 <td className="con6">
                                     Enable - program inspection to detect and block compromised executable files
                                 </td>
@@ -2369,7 +2367,7 @@ export default function PolicyOverview1(
                                     <img src="images/tab1.png" id="sep51BM4" alt="" />
                                 </td>
                             </tr>
-                            <tr className="con6">
+                            <tr className="con6 bmDisableClass">
 
                                 <td className="con6">
                                     Anti-exploit Protection<br />
@@ -2477,130 +2475,237 @@ export default function PolicyOverview1(
                             </tr>
 
                             {/* Predictive Machine Learning start */}
-                            <tr className="con6">
-                                <td className="con6" rowSpan={"3"}>Predictive Machine Learning</td>
-                                <td className="con6">Enable - Predictive Machine Learning</td>
-                                <td className="con6">
-                                    <div>
-                                        <select
-                                            id="54"
-                                            onChange={(e) => {
-                                                fiftytwoFunction(e, "sep52ML1", "tab52ML1", "rsummary52ML1", rsummary52ML1);
-                                                handleChange(e);
-                                            }}
-                                            name="predictiveMl1"
-                                        >
-                                            <option value="Enabled">Enabled</option>
-                                            <option value="Disabled">Disabled</option>
-                                        </select>
-                                        {" "}
-                                        Predictive Machine Learning
-                                    </div>
-                                </td>
-                                <td className="con6" style={{ textAlign: "center" }}>
-                                    <img src="images/tab1.png" id="sep52ML1" alt="" />
-                                </td>
-                            </tr>
 
-                            <tr className="con6">
-                                <td className="con6">Action <br /> File: quarantine <br /> Process: Terminate</td>
-                                <td className="con6">
-                                    <div>
-                                        Action Set <br /> File:{" "}
-                                        <select
-                                            id="54"
-                                            onChange={(e) => {
-                                                fiftytwoFunction(e, "sep52ML2", "tab52ML2", "rsummary52ML2", rsummary52ML2);
-                                                handleChange(e);
-                                            }}
-                                            name="predictiveMl2"
-                                        >
-                                            <option value="Quarantine">Quarantine</option>
-                                            <option value="Log Only">Log Only</option>
+                            <>
 
-                                        </select>
-                                    </div>
-                                    <div>
-                                        Process:{" "}
-                                        <select
-                                            id="541"
-                                            onChange={(e) => {
-                                                fiftytwoFunction(e, "sep52ML2", "tab52ML2", "rsummary52ML2", rsummary52ML2);
-                                                handleChange(e);
-                                            }}
-                                            name="predictiveMl3"
-                                        >
-                                            <option value="Terminate">Terminate</option>
-                                            <option value="Log Only">Log Only</option>
+                                <tr className="con6">
+                                    <td className="con6" rowSpan={"3"}>Predictive Machine Learning</td>
+                                    <td className="con6">Enable - Predictive Machine Learning</td>
+                                    <td className="con6">
+                                        <div>
+                                            <select
+                                                id="54"
+                                                onChange={(e) => {
+                                                    fiftytwoFunction(e, "sep52ML1", "tab52ML1", "rsummary52ML1", rsummary52ML1);
+                                                    handleChange(e);
+                                                }}
+                                                name="predictiveMl1"
+                                            >
+                                                <option value="Enabled">Enabled</option>
+                                                <option value="Disabled">Disabled</option>
+                                            </select>
+                                            {" "}
+                                            Predictive Machine Learning
+                                        </div>
+                                    </td>
+                                    <td className="con6" style={{ textAlign: "center" }}>
+                                        <img src="images/tab1.png" id="sep52ML1" alt="" />
+                                    </td>
+                                </tr>
 
-                                        </select>
-                                    </div>
-                                </td>
-                                <td className="con6" style={{ textAlign: "center" }}>
-                                    <img src="images/tab1.png" id="sep52ML2" alt="" />
-                                </td>
-                            </tr>
+                                <tr className="con6">
+                                    <td className="con6">Action <br /> File: quarantine <br /> Process: Terminate</td>
+                                    <td className="con6">
+                                        <div>
+                                            Action Set <br /> File:{" "}
+                                            <select
+                                                id="54"
+                                                onChange={(e) => {
+                                                    fiftytwoFunction(e, "sep52ML2", "tab52ML2", "rsummary52ML2", rsummary52ML2);
+                                                    handleChange(e);
+                                                }}
+                                                name="predictiveMl2"
+                                            >
+                                                <option value="Quarantine">Quarantine</option>
+                                                <option value="Log Only">Log Only</option>
 
-                            <tr className="con6">
+                                            </select>
+                                        </div>
+                                        <div>
+                                            Process:{" "}
+                                            <select
+                                                id="541"
+                                                onChange={(e) => {
+                                                    fiftytwoFunction(e, "sep52ML2", "tab52ML2", "rsummary52ML2", rsummary52ML2);
+                                                    handleChange(e);
+                                                }}
+                                                name="predictiveMl3"
+                                            >
+                                                <option value="Terminate">Terminate</option>
+                                                <option value="Log Only">Log Only</option>
 
-                                <td className="con6">Exception (specify exception if any)</td>
-                                <td className="con6">
-                                    <div>
-                                        <select
-                                            onChange={(e) => {
-                                                //exception51Fun(e, "sep52ML2Policy2", "tab52ML2");
-                                                fiftytwoFunction(e, "sep52ML3", "tab52ML3", "", "");
-                                                handleChange(e);
-                                            }}
-                                            name="predictiveMl4"
-                                        >
-                                            <option value="No">No</option>
-                                            <option value="Yes">Yes</option>
-                                        </select> {" "} exceptions added
-                                    </div>
-                                </td>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td className="con6" style={{ textAlign: "center" }}>
+                                        <img src="images/tab1.png" id="sep52ML2" alt="" />
+                                    </td>
+                                </tr>
+
+                                <tr className="con6">
+
+                                    <td className="con6">Exception (specify exception if any)</td>
+                                    <td className="con6">
+                                        <div>
+                                            <select
+                                                onChange={(e) => {
+                                                    //exception51Fun(e, "sep52ML2Policy2", "tab52ML2");
+                                                    fiftytwoFunction(e, "sep52ML3", "tab52ML3", "", "");
+                                                    handleChange(e);
+                                                }}
+                                                name="predictiveMl4"
+                                            >
+                                                <option value="No">No</option>
+                                                <option value="Yes">Yes</option>
+                                            </select> {" "} exceptions added
+                                        </div>
+                                    </td>
 
 
-                                <td className="con6" style={{ textAlign: "center" }}>
-                                    <img src="images/tab1.png" id="sep52ML3" alt="" />
-                                </td>
+                                    <td className="con6" style={{ textAlign: "center" }}>
+                                        <img src="images/tab1.png" id="sep52ML3" alt="" />
+                                    </td>
 
-                            </tr>
+                                </tr>
+                            </>
                             {/* Predictive Machine Learning end */}
 
-                            <tr className="con6">
-                                <td className="con6">Suspicious Connection</td>
-                                <td className="con6">Enable with Block option</td>
-                                <td className="con6">
+                            {/* Suspicious Connection start */}
+
+                            <>
+                            {/* const fiftythreeFunction = (e,no,id1,id2,sep,tab,req1,req2) */}
+                                <tr className="con6">
+                                    <td className="con6" rowSpan={4}>Suspicious Connection</td>
+                                    <td className="con6">Enable - Detect network connections made to addresses in the Global C&C IP list</td>
+                                    <td className="con6">
+                                        <div>
+                                            <select
+                                                id="suspicious_Connection1"
+                                                onChange={(e) => {
+                                                    fiftythreeFunction(e,0,"suspicious_Connection1","suspicious_Connection2","sep53SC1","tab53SC1","rsummary53SC1",rsummary53SC1);
+                                                    handleChange(e);
+                                                }}
+                                                name="suspicious_Connection1"
+                                            >
+                                                <option value="Enabled">Enabled</option>
+                                                <option value="Disabled">Disabled</option>
+                                            </select>
+                                            {" "}with  {" "} 
+                                            <select
+                                                className='userDefinedBlocked'
+                                                id="suspicious_Connection2"
+                                                onChange={(e) => {
+                                                    fiftythreeFunction(e,0,"suspicious_Connection1","suspicious_Connection2","sep53SC1","tab53SC1","rsummary53SC1",rsummary53SC1);
+                                                    handleChange(e);
+                                                }}
+                                                name="suspicious_Connection2"
+                                            >
+                                                <option value="Block">Block</option>
+                                                <option value="Log Only">Log Only</option>
+
+                                            </select>{" "}option.
+                                        </div>
+                                    </td>
+                                    <td className="con6" style={{ textAlign: "center" }}>
+                                        <img src="images/tab1.png" id="sep53SC1" alt="" />
+                                    </td>
+                                </tr>
+
+                                <tr className="con6 userDefinedBlocked">
+                                    <td className="con6">Enable - Log and allow access to User-defined Blocked IP list addresses</td>
+                                    <td className="con6">
                                     <div>
                                         <select
-                                            id="55"
+                                            id=""
                                             onChange={(e) => {
-                                                fiftythreeFunction(e);
+                                                //fiftythreeFunction(e,1,"suspicious_Connection1","suspicious_Connection2","sep53SC2","tab53SC2","","");
                                                 handleChange(e);
                                             }}
-                                            name="suspicious_Connection"
+                                            name="suspicious_Connection3"
                                         >
                                             <option value="Enabled">Enabled</option>
                                             <option value="Disabled">Disabled</option>
                                         </select>
-                                        {" "}with Block option.
-                                    </div>
-                                </td>
-                                <td className="con6" style={{ textAlign: "center" }}>
-                                    <img src="images/tab1.png" id="sep53" alt="" />
-                                </td>
-                            </tr>
+                                        </div>
+                                    </td>
+                                    <td className="con6" style={{ textAlign: "center" }}>
+                                        <img src="images/tab1.png" id="sep53SC2" alt="" />
+                                    </td>
+                                </tr>
+
+                                <tr className="con6">
+                               
+                                    <td className="con6">Enable - Detect connections using malware network fingerprinting</td>
+                                    <td className="con6">
+                                        <div>
+                                            <select
+                                                id="suspicious_Connection4"
+                                                onChange={(e) => {
+                                                    fiftythreeFunction(e,2,"suspicious_Connection4","suspicious_Connection5","sep53SC3","tab53SC3","rsummary53SC2",rsummary53SC2);
+                                                    handleChange(e);
+                                                }}
+                                                name="suspicious_Connection4"
+                                            >
+                                                <option value="Enabled">Enabled</option>
+                                                <option value="Disabled">Disabled</option>
+                                            </select>
+                                            {" "}with  {" "} 
+                                            <select
+                                                className='userDefinedBlocked'
+                                                id="suspicious_Connection5"
+                                                onChange={(e) => { 
+                                                    fiftythreeFunction(e,2,"suspicious_Connection4","suspicious_Connection5","sep53SC3","tab53SC3","rsummary53SC2",rsummary53SC2);
+                                                    handleChange(e);
+                                                }}
+                                                name="suspicious_Connection5"
+                                            >
+                                                <option value="Block">Block</option>
+                                                <option value="Log Only">Log Only</option>
+
+                                            </select>{" "}option.
+                                        </div>
+                                    </td>
+                                    <td className="con6" style={{ textAlign: "center" }}>
+                                        <img src="images/tab1.png" id="sep53SC3" alt="" />
+                                    </td>
+                                </tr>
+
+                                <tr className="con6">
+                                    <td className="con6">Enable - Clean suspicious connections when a C&C callback is detected</td>
+                                    <td className="con6">
+                                    <div>
+                                        <select
+                                            id="suspicious_Connection6"
+                                            className='userDefinedBlocked'
+                                            onChange={(e) => {
+                                                fiftythreeFunction(e,3,"suspicious_Connection6","suspicious_Connection6","sep53SC4","tab53SC4","rsummary53SC3",rsummary53SC3);
+                                                handleChange(e);
+                                            }}
+                                            name="suspicious_Connection6"
+                                        >
+                                            <option value="Enabled">Enabled</option>
+                                            <option value="Disabled">Disabled</option>
+                                        </select>
+                                        </div>
+                                    </td>
+                                    <td className="con6" style={{ textAlign: "center" }}>
+                                        <img src="images/tab1.png" id="sep53SC4" alt="" />
+                                    </td>
+                                </tr>
+
+                            </>
+
+                            {/* Suspicious Connection end */}
 
                             <tr className="con6">
-                                <td className="con6">Vulnerability Protection</td>
-                                <td className="con6">Enable</td>
+                                <td className="con6" rowSpan={2}>Vulnerability Protection</td>
+                                <td className="con6">Enable with Inline Mode</td>
                                 <td className="con6">
                                     <div>
                                         <select
-                                            id="55"
+                                            id="vulnerability_protection"
                                             onChange={(e) => {
-                                                vulnerabilityProtectionFun(e);
+                                                vulnerabilityProtectionFun(e, 1);
                                                 handleChange(e);
                                             }}
                                             name="vulnerability_protection"
@@ -2609,13 +2714,13 @@ export default function PolicyOverview1(
                                             <option value="Disabled">Disabled</option>
                                         </select>
 
-                                        <span id='showVpModes'>
+                                        <span className='showVpModes'>
                                             {" with "}
-
                                             <select
+
                                                 id="vp_mode"
                                                 onChange={(e) => {
-                                                    vulnerabilityProtectionModeFun(e);
+                                                    vulnerabilityProtectionFun(e, 1);
                                                     handleChange(e);
                                                 }}
                                                 name="vp_mode"
@@ -2630,6 +2735,18 @@ export default function PolicyOverview1(
                                 </td>
                                 <td className="con6" style={{ textAlign: "center" }}>
                                     <img src="images/tab1.png" id="sepVP" alt="" />
+                                </td>
+                            </tr>
+                            <tr className="con6 showVpModes" >
+                                <td className="con6">Profile: Recommended</td>
+                                <td className="con6">
+                                    Profile:{"  "}
+                                    <input type="radio" name="vpProfile" value={"Recommended"} onChange={(e) => { handleChange(e); vulnerabilityProtectionFun(e, 2); }} defaultChecked />Recommended
+                                    {"   "} {"   "}
+                                    <input type="radio" name="vpProfile" value={"Aggressive"} onChange={(e) => { handleChange(e); vulnerabilityProtectionFun(e, 2); }} />Aggressive
+                                </td>
+                                <td className="con6" style={{ textAlign: "center" }}>
+                                    <img src="images/tab1.png" id="sepVP1" alt="" />
                                 </td>
                             </tr>
 
@@ -2656,8 +2773,11 @@ export default function PolicyOverview1(
                                     <img src="images/tab1.png" id="sepDC" alt="" />
                                 </td>
                             </tr>
+
+                            {/* Web Reputation */}
+                            <>
                             <tr className="con6">
-                                <td className="con6">Web Reputation</td>
+                                <td className="con6" rowSpan={2}>Web Reputation</td>
                                 <td className="con6">
                                     Enable for Internal and External agents with Security Level Medium
                                 </td>
@@ -2668,7 +2788,7 @@ export default function PolicyOverview1(
                                         name="web_reputation1"
                                         onChange={(e) => {
                                             handleChange(e);
-                                            fiftyfourFunction(e);
+                                            fiftyfourFunction(e,1);
                                         }}
                                     >
                                         <option value="Enabled">Enabled</option>
@@ -2682,7 +2802,7 @@ export default function PolicyOverview1(
                                         name="web_reputation2"
                                         onChange={(e) => {
                                             handleChange(e);
-                                            fiftyfourFunction(e);
+                                            fiftyfourFunction(e,1);
                                         }}
                                     >
                                         <option>Medium</option>
@@ -2695,20 +2815,58 @@ export default function PolicyOverview1(
                                 </td>
                             </tr>
                             <tr className="con6">
+                               
+                                <td className="con6">
+                                Disabled
+                                </td>
+                                <td className="con6">
+                                    {" "}
+                                    <select
+                                        id="web_reputation3"
+                                        name="web_reputation3"
+                                        onChange={(e) => {
+                                            handleChange(e);
+                                            fiftyfourFunction(e,2);
+                                        }}
+                                    >
+                                        <option value="Disabled">Disabled</option>
+                                        <option value="Enabled">Enabled</option>
+                                    </select>
+                                    {" "}
+                                    assessment mode        
+                                </td>
+                                <td className="con6" style={{ textAlign: "center" }}>
+                                    <img src="images/tab1.png" id="sep54WR" alt="" />
+                                </td>
+                            </tr>
+                            </>
+
+                            <tr className="con6">
                                 <td className="con6">Application Control</td>
                                 <td className="con6">Enable</td>
                                 <td className="con6">
                                     <div>
                                         <select
-                                            id="55"
+                                            id=""
                                             onChange={(e) => {
                                                 applicationControlFun(e);
                                                 handleChange(e);
                                             }}
-                                            name="application_control"
+                                            name="application_control1"
                                         >
                                             <option value="Enabled">Enabled</option>
                                             <option value="Disabled">Disabled</option>
+                                        </select>
+                                         {" with "}
+                                        <select
+                                            id=""
+                                            onChange={(e) => {
+                                                handleChange(e);
+                                            }}
+                                            name="application_control2"
+                                        >
+                                            <option value="Allow Mode">Allow Mode</option>
+                                            <option value="Lockdown Mode">Lockdown Mode</option>
                                         </select>
 
                                     </div>
@@ -2741,29 +2899,105 @@ export default function PolicyOverview1(
                                 </td>
                             </tr>
 
+                            {/* Privilege and other Settings */}
+                            <>
                             <tr className="con6">
-                                <td className="con6">Agent Self-Protection</td>
+                                <td className="con6" rowSpan={4}>Privilege and Other Settings</td>
                                 <td className="con6">
-                                    Enable Self-Protection with a password.
+                                Agent Unload and Unlock with password
                                 </td>
                                 <td className="con6">
                                     <select
                                         id="60"
-                                        name="agent_self_protection"
+                                        name="agent_self_protection1"
                                         onChange={(e) => {
-                                            fiftysixFunction(e);
+                                            fiftysixFunction(e,1);
                                             handleChange(e);
                                         }}
                                     >
-                                        <option>Enabled</option>
-                                        <option>Disabled</option>
+                                        <option value = "Enabled">Enabled</option>
+                                        <option value = "Disabled">Disabled</option>
                                     </select>{" "}
-                                    Self-Protection with a password.
+                                    Agent Unload and Unlock with password
                                 </td>
                                 <td className="con6" style={{ textAlign: "center" }}>
-                                    <img src="images/tab1.png" id="sep56" alt="" />
+                                    <img src="images/tab1.png" id="sep56PS1" alt="" />
                                 </td>
                             </tr>
+                            <tr className="con6">
+                                <td className="con6">
+                                Agent Uninstallation with password
+                                </td>
+                                <td className="con6">
+                                    <select
+                                        id="60"
+                                        name="agent_self_protection2"
+                                        onChange={(e) => {
+                                            fiftysixFunction(e,2);
+                                            handleChange(e);
+                                        }}
+                                    >
+                                       <option value = "Enabled">Enabled</option>
+                                        <option value = "Disabled">Disabled</option>
+                                    </select>{" "}
+                                    Agent Uninstallation with password
+                                </td>
+                                <td className="con6" style={{ textAlign: "center" }}>
+                                    <img src="images/tab1.png" id="sep56PS2" alt="" />
+                                </td>
+                            </tr>
+
+                            <tr className="con6">
+                                <td className="con6">
+                                Disable - Co-exist Mode Agent Conversion
+                                </td>
+                                <td className="con6">
+                                    <select
+                                        id="60"
+                                        name="agent_self_protection3"
+                                        onChange={(e) => {
+                                            fiftysixFunction(e,3);
+                                            handleChange(e);
+                                        }}
+                                    >
+                                        <option value = "Disabled">Disabled</option>
+                                       <option value = "Enabled">Enabled</option>
+                                    </select>{" "}
+                                    Co-exist Mode Agent Conversion
+                                </td>
+                                <td className="con6" style={{ textAlign: "center" }}>
+                                    <img src="images/tab1.png" id="sep56PS3" alt="" />
+                                </td>
+                            </tr>
+
+                            <tr className="con6">
+                                <td className="con6">
+                                Update Settings: All Component
+                                </td>
+                                <td className="con6">
+                                Security Agents only update the following components:
+                                {" "}
+                                    <select
+                                        id="60"
+                                        name="agent_self_protection4"
+                                        onChange={(e) => {
+                                            fiftysixFunction(e,4);
+                                            handleChange(e);
+                                        }}
+                                    >
+                                        <option value="All components (including hotfixes and the agent program)">All components {"("}including hotfixes and the agent program{")"}</option>
+                                        <option value="Pattern Files">Pattern Files</option>
+                                        <option value="Pattern File, Engine, Driver">Pattern File, Engine, Driver</option>
+                                    </select>{" "}
+                                   
+                                </td>
+                                <td className="con6" style={{ textAlign: "center" }}>
+                                    <img src="images/tab1.png" id="sep56PS4" alt="" />
+                                </td>
+                            </tr>
+                            
+                            
+                            </>
 
                             <tr className="con6">
                                 <td className="con6">Additional Service</td>

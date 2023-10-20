@@ -33,6 +33,7 @@ export default function FurtherInformation() {
 
   }, []);
 
+
   useEffect(() => {
     async function executeFunctions() {
       await Promise.all([

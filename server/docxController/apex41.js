@@ -681,9 +681,38 @@ const apex41pdf = async (req, res) => {
                 // "Agent scheduled updates"
                 new TableRow({
                     children: [
-                        new TableCell({ children: [new Paragraph("Agent scheduled updates")] }),
+                        new TableCell({ 
+                            verticalAlign: VerticalAlign.CENTER,
+                            rowSpan : 2,
+                            children: [
+                                new Paragraph({
+                                      
+                                        text : "Agent scheduled updates"
+                                })
+                            ] }),
                         new TableCell({ children: [new Paragraph("Enabled")] }),
                         new TableCell({ children: [new Paragraph(ASU)] }),
+                        new TableCell({
+                            verticalAlign: VerticalAlign.CENTER,
+                            children: [
+                                new Paragraph({
+                                    alignment: AlignmentType.CENTER,
+                                    children: [
+                                        new ImageRun({
+                                            data: fs.readFileSync(Report[0].apeximgagent_scheduled_updates || tab1),
+                                            transformation: transformation
+                                        }),
+                                    ],
+                                }),
+                            ],
+                        }),
+                    ],
+                }),
+
+                new TableRow({
+                    children: [
+                        new TableCell({ children: [new Paragraph("Update Source")] }),
+                        new TableCell({ children: [new Paragraph(`${Report[0].agent_scheduled_updates1}`)] }),
                         new TableCell({
                             verticalAlign: VerticalAlign.CENTER,
                             children: [

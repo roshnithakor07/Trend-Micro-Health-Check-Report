@@ -26,6 +26,7 @@ app.use("/pdf" ,pdf);
 app.use("/docx" ,docx);
 
 app.get('/',function(req,res,next){
+    console.log("this is sample data")
     res.send("<h1>this is home page</h1>");
 });
 

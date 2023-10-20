@@ -17,33 +17,9 @@ function useApexOneLogic41() {
   let tab4 = "images/tab4.png";
 
 
-  let [summarySenArr, setSummarySenArr] = useState([
-    { label: "common0", description: "(input) Agents have outdated Program versions out of (input) agents." },
-    { label: "common1", description: "(input) endpoints are required to restart for the update." },
-    { label: "common2", description: `(input) endpoints (input-name-of-endpoints) are required to restart for cleanup.` },
-    { label: "common3", description: "(input) agents (input) are using the Windows servers platform." },
-    { label: "common4", description: "(input) agents are installed on the Windows 7 (Legacy OS) platform." },
-    { label: "common5", description: "(input) endpoints are without policy." },
+  let [summarySenArr, setSummarySenArr] = useState([]);
 
-  ]);
-
-  let [reqSummarySenArr, setReqSummarySenArr] = useState([
-    {
-      label: "common0", description: `(input) Agents have outdated Program versions out of (input) agents keep all agent program versions updated. Minimum OS Version requirement for the latest Apex One SaaS agent version:`,
-      linkTitle: "https://success.trendmicro.com/dcx/s/solution/000291904?language=en_US",
-      link: "https://success.trendmicro.com/dcx/s/solution/000291904?language=en_US"
-    },
-    { label: "common1", description: "(input) endpoints are required to restart for the update. Apex One Agents may need to reboot for engine updates. Recommend restarting those endpoints.", linkTitle: "", link: "" },
-    { label: "common2", description: `(input) endpoints (input) are required to restart for cleanup.`, linkTitle: "", link: "" },
-    {
-      label: "common3", description: `(input) agents are installed on the Windows 7 (Legacy OS) platform, recommended to upgrade it to the latest OS. For the Windows 7 & 8.1 machines End-of-Support`,
-      linkTitle: "https://success.trendmicro.com/dcx/s/solution/000291687?language=en_US&sfdcIFrameOrigin=null",
-      link: "https://success.trendmicro.com/dcx/s/solution/000291687?language=en_US&sfdcIFrameOrigin=null"
-    },
-
-    { label: "common4", description: `(input) agents (input) are using the Windows servers platform. recommended to use Cloud One Workload Security for better protection of the server.`, linkTitle: "", link: "" },
-    { label: "common5", description: "(input) Endpoints are without policy, recommended to apply policy to all endpoints on priority for better protection.", linkTitle: "", link: "" }
-  ]);
+  let [reqSummarySenArr, setReqSummarySenArr] = useState([]);
 
   let [globalAgentsSettings, setglobalAgentsSettings] = useState(0);
 
@@ -62,6 +38,11 @@ function useApexOneLogic41() {
     apeximgsuperman: tab1,
     apeximgagent_scheduled_updates: tab1,
     apeximgnotification: tab1,
+    program_version : tab1,
+    tabAg1 : tab1,
+    tabAg2 : tab1,
+    tabAg3 : tab1,
+    tabAg4 : tab1,
 
   });
 
@@ -191,7 +172,7 @@ function useApexOneLogic41() {
         document.getElementById("sep0").src = tab2;
 
         let a = `Your Trend Micro Apex One license is valid till ${monthName} ${l.getDate()},${l.getFullYear()}.`;
-        let b = `Your Trend Micro Apex One license will expire soon. Please get in touch with the Trend Micro account manager to start the renewal process.`;
+        let b = `Your Trend Micro Apex One license will expire on ${monthName} ${l.getDate()},${l.getFullYear()}. Please get in touch with the Trend Micro account manager to start the renewal process.`;
 
         addValue("2", a);
         addValue1("2", b);
@@ -343,23 +324,24 @@ function useApexOneLogic41() {
 
 
   //Patterns Update Status - 8
-  const superman = (event) => {
-    document.getElementById("super").style.textAlign = "center";
-    var x = document.getElementById("outdated").value;
-    var y = document.getElementById("patterns_update_status_uptodate").value;
+  const superman = (e, id1, id2, tab, sep, req) => {
+
+    var y = document.getElementById(id1).value;
+    var x = document.getElementById(id2).value;
+    let a = (id2 === "outdated") ? `${x} agents have outdated patterns older than 7 days out of ${y} agents.` : `${x} Agents have outdated Program versions out of ${y} agents.`;
+    let b = (id2 === "outdated") ? `${x} Agents have smart scan pattern version older than 7 days out of ${y}, recommended to keep all patterns up to date.` : `${x} Agents have outdated Program versions out of ${y} agents keep all agent program versions updated. Minimum OS Version requirement for the latest Apex One SaaS agent version:`;
 
     if (x >= 1) {
-      myApex41ImgData.apeximgsuperman = tab2;
-      document.getElementById("super").src = tab2;
-      let a = `${x} agents have outdated patterns older than 7 days out of ${y} agents.`;
-      let b = `${x} Agents have smart scan pattern version older than 7 days out of ${y}, recommended to keep all patterns up to date.`;
-      addValue("8", a);
-      addValue1("8", b);
+      myApex41ImgData[tab] = tab2;
+      document.getElementById(sep).src = tab2;
+      if (id2 === "outdated") { addValue1(req, b) } else { addValue1(req, b, "https://success.trendmicro.com/dcx/s/solution/000291904?language=en_US", "https://success.trendmicro.com/dcx/s/solution/000291904?language=en_US") }
+      addValue(req, a);
+      addValue1(req, b);
     } else {
       myApex41ImgData.apeximgsuperman = tab1;
-      document.getElementById("super").src = tab1;
-      closeValue("8");
-      closeValue1("8");
+      document.getElementById(sep).src = tab1;
+      closeValue(req);
+      closeValue1(req);
     }
   };
 
@@ -418,6 +400,92 @@ function useApexOneLogic41() {
   };
 
 
+  const agentDistributionFun = (e, no) => {
+    let count = Number(e.target.value)
+    let a = ""
+    let b = ""
+    let req = ""
+    let sep = "sepAg1"
+    let link = ""
+    let linkTitle = ""
+    let tab = ""
+
+
+    const addSen = (a, b, req,sep, linkTitle, link,tab) => {
+      if (count > 0) {
+        document.getElementById(sep).src = tab2
+        myApex41ImgData[tab] = tab2
+        addValue(req, a)
+        addValue1(req, b, linkTitle, link)
+      } else {
+        myApex41ImgData[tab] = tab1
+        document.getElementById(sep).src = tab1
+        closeValue(req)
+        closeValue1(req)
+      }
+    }
+
+    switch (no) {
+      case 1:
+        a = `${e.target.value} endpoints are required to restart for cleanup.`;
+        b = `${e.target.value} endpoints are required to restart for cleanup. Recommeded to take restart of those endpoints.`
+        req = "common1"
+        sep = "sepAg1"
+        link = ""
+        linkTitle = ""
+        tab = "tabAg1"
+
+        addSen(a, b, req,sep, linkTitle, link,tab)
+        break;
+
+      case 2:
+        a = `${e.target.value} endpoints are required to restart for the update.`;
+        b = `${e.target.value} endpoints are required to restart for the update. Apex One Agents may need to reboot for engine updates. Recommend restarting those endpoints.`
+        req = "common2"
+        sep = "sepAg2"
+        tab = "tabAg2"
+        link = ""
+        linkTitle = ""
+        addSen(a, b, req,sep, linkTitle, link,tab)
+
+        break;
+
+      case 3:
+        a = `${e.target.value} agents are installed on the Windows 7 (Legacy OS) platform.`;
+        b = `${e.target.value} agents are installed on the Windows 7 (Legacy OS) platform, recommended to upgrade it to the latest OS. For the Windows 7 & 8.1 machines End-of-Support`
+        req = "common3"
+        sep = "sepAg3"
+        tab = "tabAg3"
+        link = "https://success.trendmicro.com/dcx/s/solution/000291687?language=en_US&sfdcIFrameOrigin=null"
+        linkTitle = "https://success.trendmicro.com/dcx/s/solution/000291687?language=en_US&sfdcIFrameOrigin=null"
+        addSen(a, b, req,sep, linkTitle, link,tab)
+
+        break;
+
+      case 4:
+        a = `${e.target.value} agents are installed on the Windows server platform.`;
+        b = `${e.target.value} agents installed on Windows server platform recommended to use Deep Security / Cloud One Workload Security for the advanced protection for servers.`
+        req = "common4"
+        sep = "sepAg4"
+        tab = "tabAg4"
+        link = ""
+        linkTitle = ""
+        addSen(a, b, req,sep, linkTitle, link,tab)
+
+        break;
+
+      default:
+        break;
+    }
+
+
+
+
+
+
+
+  }
+
 
   return {
     reqSummarySenArr,
@@ -437,6 +505,7 @@ function useApexOneLogic41() {
     sixFunction,
     sevenFunction,
     myApex41ImgData,
+    agentDistributionFun
   };
 }
 

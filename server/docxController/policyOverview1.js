@@ -22,7 +22,6 @@ const getPo1 = async (req, res) => {
 
     let policyTitle = ""
 
-    
 
     if (Report[0].checkPolicyOverviewTwoAdded === true) {
         policyTitle = `4.2.1 Policy Overview: 01 ${Report[0].OverviewPolicyName1} Policy`;
@@ -478,7 +477,7 @@ const getPo1 = async (req, res) => {
                             alignment: AlignmentType.CENTER,
                             children: [
                                 new ImageRun({
-                                    data: fs.readFileSync(data[3].image || data[3]),
+                                    data: fs.readFileSync(data[3].image || data[3] || tab1),
                                     transformation: transformation
                                 }),
                             ],
@@ -713,6 +712,8 @@ const getPo1 = async (req, res) => {
         tablesOfRows.push(createTableRow(rowData, 8))
     }
 
+    //Predictive Machine Learning
+
     tablesOfRows.push(
         new TableRow({
             children: [
@@ -780,20 +781,65 @@ const getPo1 = async (req, res) => {
     )
 
 
-    const threePart = [['Suspicious Connection', 'Enable with Block option', `${Report[0].suspicious_Connection} with Block option`, { image: `${Report[0].tab53}`, style: "imgStyle", width: 15 }],
-    ['Web Reputation', 'Enable for Internal and External agents with Security Level Medium', `${Report[0].web_reputation1} with Security Level ${Report[0].web_reputation2}`, { image: `${Report[0].tab54}`, style: "imgStyle", width: 15 }],
-    ['Vulnerability Protection', 'Enable', `${vp_mode}`, { image: `${Report[0].tabVP}`, style: "imgStyle", width: 15 }],
-    ['Device Control', 'Enable', `${Report[0].device_control}`, { image: `${Report[0].tabDC}`, style: "imgStyle", width: 15 }],
+    //Suspicious Connection
+    const suspiciousConnection = [
+        [{ text: 'Suspicious Connection', rowSpan: 4, margin: [0, 100, 0, 0] }, 'Enable - Detect network connections made to addresses in the Global C&C IP list', `${Report[0].suspicious_Connection1} with ${Report[0].suspicious_Connection2} option`, { image: `${Report[0].tab53SC1}`, style: "imgStyle", width: 15 }],
+        ['', 'Enable - Log and allow access to User-defined Blocked IP list addresses', Report[0].suspicious_Connection3, { image: tab1, style: "imgStyle", width: 15 }],
+        ['', 'Enable - Detect connections using malware network fingerprinting', `${Report[0].suspicious_Connection4} with ${Report[0].suspicious_Connection5} option`, { image: `${Report[0].tab53SC3}`, style: "imgStyle", width: 15 }],
+        ['', 'Enable - Clean suspicious connections when a C&C callback is detected', Report[0].suspicious_Connection6, { image: `${Report[0].tab53SC4}`, style: "imgStyle", width: 15 }],
+    ]
 
-    ['Application Control', 'Enable', `${Report[0].application_control}`, { image: `${Report[0].tabAC}`, style: "imgStyle", width: 15 }],
-    ['Firewall', 'Enable (Optional)', `${Report[0].firewall}`, { image: `${Report[0].tab55}`, style: "imgStyle", width: 15 }],
-    ['Agent Self-Protection', 'Enable Self-Protection with a password.', `${Report[0].agent_self_protection}`, { image: `${Report[0].tab56}`, style: "imgStyle", width: 15 }],
+    includeFirstCell = true;
+    for (const rowData of suspiciousConnection) {
+        tablesOfRows.push(createTableRow(rowData, 4))
+    }
+
+    //Vulnerability Protection
+
+    const vulnerabilityProtection = [
+        [{ text: 'Vulnerability Protection', rowSpan: 2, margin: [0, 50, 0, 0] }, 'Enable with Inline Mode', `${vp_mode}`, { image: `${Report[0].tabVP}`, style: "imgStyle", width: 15 }],
+        ["", 'Profile: Recommended', `Profile: ${Report[0].vpProfile}`, { image: `${Report[0].tabVP1}`, style: "imgStyle", width: 15 }],
+    ]
+
+    includeFirstCell = true;
+    for (const rowData of vulnerabilityProtection) {
+        tablesOfRows.push(createTableRow(rowData, 2))
+    }
+
+    const webReputation = [
+        [{ text: 'Web Reputation', rowSpan: 2, margin: [0, 50, 0, 0] }, 'Enable for Internal and External agents with Security Level Medium', `${Report[0].web_reputation1} with Security Level ${Report[0].web_reputation2}`, { image: `${Report[0].tab54}`, style: "imgStyle", width: 15 }],
+        ['', 'Disabled', `${Report[0].web_reputation3} assessment mode`, { image: `${Report[0].tab54WR}`, style: "imgStyle", width: 15 }],
+    ]
+    includeFirstCell = true;
+    for (const rowData of webReputation) {
+        tablesOfRows.push(createTableRow(rowData, 2))
+    }
+
+    const threePart = [
+        ['Device Control', 'Enable', `${Report[0].device_control}`, { image: `${Report[0].tabDC}`, style: "imgStyle", width: 15 }],
+        ['Application Control', 'Enable', `${Report[0].application_control1} with ${Report[0].application_control2}`, { image: `${Report[0].tabAC}`, style: "imgStyle", width: 15 }],
+        ['Firewall', 'Enable (Optional)', `${Report[0].firewall}`, { image: `${Report[0].tab55}`, style: "imgStyle", width: 15 }],
 
     ]
 
     for (const rowData of threePart) {
         tablesOfRows.push(createTableRow2(rowData))
     }
+
+    const agentSelfProtection = [
+
+        [{ text: 'Privilege and Other Settings', rowSpan: 4, margin: [0, 100, 0, 0] }, 'Enable - Self-Protection with a password', `${Report[0].agent_self_protection1}`, { image: `${Report[0].tab56PS1}`, style: "imgStyle", width: 15 }],
+        ['', 'Enable - Agent Uninstallation with password', `${Report[0].agent_self_protection2}`, { image: `${Report[0].tab56PS2}`, style: "imgStyle", width: 15 }],
+        ['', 'Disable - Co-exist Mode Agent Conversion', `${Report[0].agent_self_protection3}`, { image: `${Report[0].tab56PS3}`, style: "imgStyle", width: 15 }],
+        ['', 'Update Settings: All Component', `${Report[0].agent_self_protection4}`, { image: `${Report[0].tab56PS4}`, style: "imgStyle", width: 15 }],
+
+    ]
+
+    includeFirstCell = true;
+    for (const rowData of agentSelfProtection) {
+        tablesOfRows.push(createTableRow(rowData, 4))
+    }
+
 
     tablesOfRows.push(
 
