@@ -315,11 +315,17 @@ export default function ChartDemo(props) {
             top5Keys2[i] = transformKey(top5Keys2[i]);
         }
 
-
         //for Actions
         function formatArray(arr) {
+  
+            if(arr.length <= 0 || arr.length === 1){
+                if(arr[0] === undefined || arr[0] === ""){
+                    return "";
+                }
+            }
+
             if (arr.length === 1) {
-                return "and was " + arr[0].toString() + " successfully."
+                return "and was " + arr[0]+ " successfully."
             } else if (arr.length === 2) {
                 return "and was " + arr.join(', ').replace(/,([^,]*)$/, ' and$1') + " successfully.";
             }

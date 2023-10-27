@@ -84,6 +84,8 @@ export default function SmartScan(props) {
             if (value !== "N/A" && value !== "" && parseFloat(value) >= 10) {
                 count[value] = (count[value] || 0) + 1;
             }
+
+
         }
 
         for (const val of Object.values(mainCount)) {
@@ -104,7 +106,7 @@ export default function SmartScan(props) {
         let totatSevenPattern = Object.keys(count)
         //totatSevenPattern = totatSevenPattern.filter(item => item !== "N/A" && parseFloat(item) >= 10)
         totatSevenPattern = totatSevenPattern.sort()
-        console.log(patternDays)
+
         let days = patternDays;
         let last7Pattern = totatSevenPattern.slice(-days);
 
@@ -114,7 +116,6 @@ export default function SmartScan(props) {
             sum1 += count[last7Pattern[i]]
             console.log(last7Pattern[i], count[last7Pattern[i]])
         }
-
 
         tablePatternData[0] = (sum1)
         tablePatternData[1] = ((sum - sum1))

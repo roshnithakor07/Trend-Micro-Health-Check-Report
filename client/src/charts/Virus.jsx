@@ -364,6 +364,12 @@ export default function Virus(props) {
 
         // for EndPoints
         function formatEndpoints(arr) {
+            if (arr.length <= 0 || arr.length === 1) {
+                if (arr[0] === undefined || arr[0] === "") {
+                  return "no endpoint,";
+                }
+              }
+
             if (arr.length === 1) {
                 return "the " + arr[0] + " endpoint,"
             } else if (arr.length === 2) {
@@ -381,10 +387,17 @@ export default function Virus(props) {
 
         //for Actions
         function formatArray(arr) {
+
+            if (arr.length <= 0 || arr.length === 1) {
+                if (arr[0] === undefined || arr[0] === "") {
+                  return "no action required";
+                }
+              }
+
             const text = "the files were successfully "
             if (arr.length === 1) {
                 if (arr[0] === actionName) { return arr[0] }
-                else { return (text + arr[0].toString()) };
+                else { return (text + arr[0]) };
             } else if (arr.length === 2) {
                 return text + arr.join(', ').replace(/,([^,]*)$/, ' and$1');
             }

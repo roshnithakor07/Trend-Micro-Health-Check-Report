@@ -13,7 +13,7 @@ const save = green[900];
 
 export default function Ag(props) {
   const { agApi } = Endpoints();
-  let ag = ["Platform", "Agent Program", "Agent Distribution Table"];
+  let ag = ["Platform", "Agent Program"];
   const [dataPoints, setDataPoints] = useState([1, 2, 3])
   const [columnsNames, setCoulmnsName] = useState("Platform");
   //const [filter_column, setFilterColumn] = useState(10)
@@ -23,19 +23,17 @@ export default function Ag(props) {
   const [x, setX] = useState([]);
   const [y1, setY1] = useState([]);
   const [myChart, setMyChart] = useState("")
-  const [agTableData, setagTableData] = useState({
-    "patternsUpdateStatus": [0, 0],
-    "programVersion": [0, 0, 0],
-    "agentForCleanup": 0,
-    "agentForUpdate": 0,
-    "agentForUpdateAndCleanup": 0,
-    "legacySystems": 0,
-    "windowsServerPlatform": 0
-  })
 
 
   //chart-Points
-  const [PointArr, setPointArr] = useState([]);
+  const [PointArr, setPointArr] = useState([
+    "(INPUT) endpoints  are required to restart for the update.",
+    "(INPUT) endpoints (NAMES-OF-ENDPOINTS) are required restart for cleanup.",
+    "(INPUT) Agents have outdated Program versions out of (INPUT) agents. ",
+    "(INPUT) agents have outdated patterns older than 7 days out of (INPUT) agents.",
+    "(INPUT) agents (NAMES-OF-AGENTS) are using the Windows servers platform.",
+    "(INPUT) agents are installed on the Windows 7 (Legacy OS) platform. ",
+  ]);
 
   const [updatechartDes, setUpdatechartDes] = useState("");;
   const [updateLinkId, setUpdateLinkId] = useState("");
@@ -52,6 +50,9 @@ export default function Ag(props) {
     agent_Program_Count: "[]",
     chartDescription: "[]",
   });
+
+  let topValue = {}
+  let arr = [], count = {}
 
 
   const form1 = (event) => {
@@ -70,74 +71,8 @@ export default function Ag(props) {
   ));
 
   const load = (e) => {
-
-    if (e.target.value === "select" || e.target.value === ag[2]) return;
-    if (e.target.value === ag[1]) {
-      let count = {}
-      for (const d of dataPoints) {
-        const value = d["Restart Required"];
-        if (value !== "N/A" && value !== "") {
-          count[value] = (count[value] || 0) + 1;
-        }
-      }
-
-      setagTableData(prevState => ({
-        ...prevState,
-        "agentForCleanup": count['Yes (cleanup)'],
-        "agentForUpdate": count['Yes (update)'],
-        // "agentForUpdateAndCleanup": windowServerSum
-      }))
-
-      let top10Data = [], sum = 0;
-      count = {}
-
-      let mainCount = {}
-
-
-      for (const d of dataPoints) {
-        const value = d["Smart Scan Agent Pattern"];
-        if (value !== "") {
-          mainCount[value] = (mainCount[value] || 0) + 1;
-      }
-      if (value !== "N/A" && value !== "" && parseFloat(value) >= 10) {
-          count[value] = (count[value] || 0) + 1;
-      }
-
-      }
-
-      for (const val of Object.values(count)) {
-        sum += val
-      }
-
-      for (const [key, value] of Object.entries(count)) {
-        top10Data.push({ key, value });
-      }
-
-      top10Data.sort((a, b) => b.value - a.value);
-
-      let totatSevenPattern = Object.keys(count)
-      //totatSevenPattern = totatSevenPattern.filter(item => item !== "N/A" && parseFloat(item) >= 10)
-      totatSevenPattern = totatSevenPattern.sort()
-
-      let last7Pattern = totatSevenPattern.slice(-7);
-
-      let sum1 = 0;
-
-      for (let i = 0; i < 7; i++) {
-        sum1 += count[last7Pattern[i]]
-        console.log(last7Pattern[i], count[last7Pattern[i]])
-      }
-
-      setagTableData(prevState => ({
-        ...prevState,
-        "patternsUpdateStatus": [(sum - sum1), (sum1)],
-      }))
-
-      console.log(sum)
-    }
-
+    if (e.target.value === "select") return;
     setCoulmnsName(e.target.value)
-    let arr = [], count = {}
 
     dataPoints.map(function (d) {
       return arr.push(d[e.target.value]);
@@ -151,68 +86,30 @@ export default function Ag(props) {
       }
     }
 
+    let y = Object.values(count);
 
-    const top10Data = [];
-    let windowServerSum = 0, windowLegacySum = 0
-
-
-    let maxValue = ['14.0.00000', 0];
-    let programVersionSum = 0;
-
-    for (const [key, value] of Object.entries(count)) {
-      top10Data.push({ key, value });
-
-      if (key.includes("Windows 8.1") || key.includes("Windows 7")) {
-        windowLegacySum += value;
-      } else if (key.includes("Windows Server")) {
-        windowServerSum += value;
-      }
-
-      if (e.target.value === ag[1]) {
-        programVersionSum += value
-        function customCompare(s) {
-          const parts = s.split('.').map(Number);
-          return parts;
-        }
-
-        if (customCompare(key) > customCompare(maxValue[0])) {
-          maxValue[0] = key;
-          maxValue[1] = value;
-        }
-
-
-
-        setagTableData(prevState => ({
-          ...prevState,
-          "programVersion": [programVersionSum - maxValue[1], maxValue[1]]
-        }))
-
-
-      }
-
+    if (e.target.value !== "Platform") {
+      y = y.slice(0, 10)
     }
 
 
-    if (e.target.value === ag[0]) {
-      setagTableData(prevState => ({
-        ...prevState,
-        "legacySystems": windowLegacySum,
-        "windowsServerPlatform": windowServerSum
-      }))
+    y.sort(function (a, b) {
+      return b - a;
+    });
 
-    }
-    top10Data.sort((a, b) => b.value - a.value);
-    let keys = []
-    let values = []
-
-    if (e.target.value === "Platform") {
-      keys = top10Data.slice(0).map(item => item.key);
-      values = top10Data.slice(0).map(item => item.value);
-    } else {
-      keys = top10Data.slice(0, 10).map(item => item.key);
-      values = top10Data.slice(0, 10).map(item => item.value);
+    function getObjKey(obj, value) {
+      //console.log(obj);
+      let key = Object.keys(obj).find((key) => obj[key] === value);
+      topValue[key] = value;
+      obj[key] = 0;
     }
 
+    for (let i = 0; i < y.length; i++) {
+      getObjKey(count, y[i]);
+    }
+
+    const keys = Object.keys(topValue);
+    const values = Object.values(topValue);
     setX(keys);
     setY1(values);
     setLableData(keys);
@@ -254,14 +151,15 @@ export default function Ag(props) {
     </span>
   ));
 
+
   function handleSubmit() {
+
     const link = [...PointArr];
 
     if (columnsNames === "Platform") {
 
       myChartData["platform"] = JSON.stringify(x);
       myChartData["platform_count"] = JSON.stringify(y1);
-
 
       var existingTable = document.getElementById('documentV');
       if (existingTable) {
@@ -327,26 +225,14 @@ export default function Ag(props) {
       table.appendChild(tr);
       document.getElementById('wrapper-child00').appendChild(table)
     } else if (columnsNames === "Agent Program") {
+      link[0] = `${x[0]} is the latest agent Program version recommended to upgrade all the older agents to the latest version.`
 
-      link[0] = `${x[0]} is the latest agent Program version recommended to upgrade all the older agents to the latest version.`;
-      link[1] = `${agTableData["agentForCleanup"]} endpoints are required to restart for the update.`;
-      link[2] = `${agTableData["agentForUpdate"]} endpoints are required restart for cleanup.`;
-      link[3] = `${agTableData["patternsUpdateStatus"][0]} agents have outdated patterns older than 7 days out of ${agTableData["patternsUpdateStatus"][1]} agents.`;
-      link[4] = `${agTableData["programVersion"][0]} Agents have outdated Program versions out of ${agTableData["programVersion"][1]} agents.`;
-      link[5] = `${agTableData["windowsServerPlatform"]} agents are using the Windows servers platform.`;
-      link[6] = `${agTableData["legacySystems"]} agents are installed on the Windows 7 (Legacy OS) platform.`;
+      setPointArr(link)
 
       myChartData["agent_Program"] = JSON.stringify(x);
       myChartData["agent_Program_Count"] = JSON.stringify(y1);
       createChart(x, y1)
-
-    } else if (columnsNames === ag[2]) {
-
-      document.getElementById("wrapper02").style.display = "block";
-
     }
-
-    setPointArr(link)
     //setSum(sum)
   }
 
@@ -409,6 +295,8 @@ export default function Ag(props) {
       },
     }));
 
+
+
   }
 
   const handleCharts = () => {
@@ -460,15 +348,13 @@ export default function Ag(props) {
     closePopup()
   }
 
-  const closePopup = () => { setIsPopupOpen(false) };
-
+  const closePopup = () => { setIsPopupOpen(false) }
   const openPopup = (e, index, chartDes, no) => {
     setIsPopupOpen(true);
     setUpdatechartDes(chartDes);
     setUpdateLinkId(index);
     console.log(index, no)
   };
-
 
   return (
     <>
@@ -477,7 +363,6 @@ export default function Ag(props) {
         <h3 >{props.chartTitle}</h3>
         <div className="chartMenu">
           <ul id="chartMenuItem">
-
             <li>
               <form id="myForm0" className="c-0">
                 <input
@@ -502,10 +387,11 @@ export default function Ag(props) {
               </div>
             </li>
 
+
+
             <li>
               <Button variant="contained" onClick={handleSubmit} color="primary">Create</Button>
             </li>
-
           </ul>
         </div>
 
@@ -535,7 +421,7 @@ export default function Ag(props) {
 
               <div className="showLinks">
                 {PointArr.map((artist, index) => (
-                  <ul key={index} >
+                  <ul key={artist} >
                     <li>
                       {artist}
                     </li>
@@ -559,169 +445,6 @@ export default function Ag(props) {
 
           </div>
 
-          <div className="chart-wrapper" id="wrapper02">
-            <table id="documentV1">
-              <tbody>
-                <tr className="con5">
-                  <td className="con5" colSpan={4}>Agent Distribution</td>
-                </tr>
-                <tr className="con5">
-                  <td className="con5">Patterns Update Status </td>
-                  <td className="con5">Up to Date </td>
-                  <td className="con5" id="uptodate">
-                    Up to Date:-{" "}
-                    <input
-                      type="number"
-                      id="patterns_update_status_uptodate"
-                      name="patterns_update_status_uptodate"
-                      value={agTableData["patternsUpdateStatus"][1]}
-                      style={{ width: "25%" }}
-                      onChange={(e) => {
-                        //handleChange(e);
-                        //superman(e, 'patterns_update_status_uptodate', "outdated", "apeximgsuperman", "super", "8");
-                      }}
-                    />
-                    Outdated:-{" "}
-                    <input
-                      type="number"
-                      id="outdated"
-                      name="outdated"
-                      style={{ width: "25%" }}
-                      value={agTableData["patternsUpdateStatus"][0]}
-                      onChange={(e) => {
-                        //handleChange(e);
-                        //superman(e, 'patterns_update_status_uptodate', "outdated", "apeximgsuperman", "super", "8");
-
-                      }}
-                    />
-                  </td>
-                  <td className="con5" style={{ textAlign: "center" }}>
-                    <img src="images/tab1.png" id="super" alt="" />
-                  </td>
-                </tr>
-
-                <tr className="con5">
-                  <td className="con5">Program Version</td>
-                  <td className="con5">Up to Date </td>
-                  <td className="con5" id="uptodate">
-                    Up to Date:-{" "}
-                    <input
-                      type="number"
-                      id="program_version_status_uptodate"
-                      name="program_version_status_uptodate"
-                      style={{ width: "25%" }}
-                      value={agTableData['programVersion'][1]}
-                      onChange={(e) => {
-                        //handleChange(e);
-                        //superman(e, 'program_version_status_uptodate', "outdated1", "program_version", "super1", "common0");
-
-                      }}
-                    />
-                    Outdated:-{" "}
-                    <input
-                      type="number"
-                      id="outdated1"
-                      name="outdated1"
-                      style={{ width: "25%" }}
-                      value={agTableData['programVersion'][0]}
-                      onChange={(e) => {
-                        //handleChange(e);
-                        //superman(e, 'program_version_status_uptodate', "outdated1", "program_version", "super1", "common0");
-                      }}
-                    />
-                  </td>
-                  <td className="con5" style={{ textAlign: "center" }}>
-                    <img src="images/tab1.png" id="super1" alt="" />
-                  </td>
-                </tr>
-
-                <tr className="con5">
-                  <td className="con5">Agent Required Restart for Clean-up</td>
-                  <td className="con5">No</td>
-                  <td className="con5" id="uptodate">
-                    <input
-                      type="number"
-                      id="agentDistribution1"
-                      name="agentDistribution1"
-                      value={agTableData["agentForCleanup"]}
-                      style={{ width: "40%" }}
-                      onChange={(e) => {
-                        //agentDistributionFun(e, 1);
-                        //handleChange(e);
-                      }}
-                    />
-                  </td>
-                  <td className="con5" style={{ textAlign: "center" }}>
-                    <img src="images/tab1.png" id="sepAg1" alt="" />
-                  </td>
-                </tr>
-                <tr className="con5">
-                  <td className="con5">Agent Required Restart for Update</td>
-                  <td className="con5">No</td>
-                  <td className="con5" id="uptodate">
-                    <input
-                      type="number"
-                      id="agentDistribution2"
-                      value={agTableData["agentForUpdate"]}
-                      name="agentDistribution2"
-                      style={{ width: "40%" }}
-                      onChange={(e) => {
-                        //agentDistributionFun(e, 2);
-                        //handleChange(e);
-                      }}
-                    />
-                  </td>
-                  <td className="con5" style={{ textAlign: "center" }}>
-                    <img src="images/tab1.png" id="sepAg2" alt="" />
-                  </td>
-                </tr>
-
-                <tr className="con5">
-                  <td className="con5">Legacy Systems (7 & 8.1)</td>
-                  <td className="con5">No</td>
-                  <td className="con5" id="uptodate">
-                    <input
-                      type="number"
-                      id="agentDistribution3"
-                      name="agentDistribution3"
-                      style={{ width: "40%" }}
-                      value={agTableData["legacySystems"]}
-                      onChange={(e) => {
-                        //agentDistributionFun(e, 3);
-                        //handleChange(e);
-                      }}
-                    />
-                  </td>
-                  <td className="con5" style={{ textAlign: "center" }}>
-                    <img src="images/tab1.png" id="sepAg3" alt="" />
-                  </td>
-                </tr>
-
-                <tr className="con5">
-                  <td className="con5">Windows Server Platform</td>
-                  <td className="con5">No</td>
-                  <td className="con5" id="uptodate">
-                    <input
-                      type="number"
-                      id="agentDistribution4"
-                      name="agentDistribution4"
-                      style={{ width: "40%" }}
-                      value={agTableData["windowsServerPlatform"]}
-                      onChange={(e) => {
-                        //agentDistributionFun(e, 4);
-                        //handleChange(e);
-                      }}
-                    />
-                  </td>
-                  <td className="con5" style={{ textAlign: "center" }}>
-                    <img src="images/tab1.png" id="sepAg4" alt="" />
-                  </td>
-                </tr>
-
-              </tbody>
-            </table>
-
-          </div>
 
         </div>
 

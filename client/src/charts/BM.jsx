@@ -180,13 +180,13 @@ export default function BM(props) {
     if (e.target.value === "select") return;
     setCoulmnsName(e.target.value);
 
-    const count = {},mainCount = {};
+    const count = {}, mainCount = {};
     for (const d of dataPoints) {
       const value = d[e.target.value];
-      
+
       if (value !== "") {
         mainCount[value] = (mainCount[value] || 0) + 1;
-    }
+      }
       if (value !== "N/A" && value !== "") {
         count[value] = (count[value] || 0) + 1;
       }
@@ -388,7 +388,14 @@ export default function BM(props) {
 
     // for EndPoints
     function formatEndpoints(arr) {
+      if (arr.length <= 0 || arr.length === 1) {
+        if (arr[0] === undefined || arr[0] === "") {
+          return "no endpoint,";
+        }
+      }
+
       if (arr.length === 1) {
+        
         return "the " + arr[0] + " endpoint,"
       } else if (arr.length === 2) {
         return arr.join(', ').replace(/,([^,]*)$/, ' and$1') + " endpoints,";
@@ -406,8 +413,14 @@ export default function BM(props) {
     //for Actions
     function formatArray(arr) {
 
+      if (arr.length <= 0 || arr.length === 1) {
+        if (arr[0] === undefined || arr[0] === "") {
+          return "<NO ACTION DETECTED>";
+        }
+      }
+
       if (arr.length === 1) {
-        return arr[0].toString();
+        return arr[0];
 
       } else if (arr.length === 2) {
         return arr.join(', ').replace(/,([^,]*)$/, ' and$1');

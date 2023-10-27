@@ -18,6 +18,8 @@ export default function WR(props) {
     url_count: "[]",
     endpoint: "[]",
     endpoint_count: "[]",
+    action: "[]",
+    action_count: "[]",
     protocol: "[]",
     protocol_count: "[]",
     chartTypes: "[]",
@@ -29,15 +31,15 @@ export default function WR(props) {
     total_detection: 0,
     chartDescription: '[]',
     chartSubPoints: "[]",
-    showChart: "[false,false,false]",
+    showChart: "[false,false,false,false]",
   });
 
-  let canavaId = ["myChart31", "myChart32", "myChart33"];
+  let canavaId = ["myChart31", "myChart32", "myChart33", "myChart34"];
 
-  let wrapperId = ["wrapper31", "wrapper32", "wrapper33"];
+  let wrapperId = ["wrapper31", "wrapper32", "wrapper33", "wrapper34"];
   let cTitle = "Web Reputation Detections";
-  let vm = ['URL', 'Product Entity', "Action"]
-  const wrText = ['Top 10 URL Detections in WRS', 'Top 10 Endpoints in WRS Detection', 'Action'];
+  let vm = ['URL', 'Product Entity', "Action", "Protocol"]
+  const wrText = ['Top 10 URL Detections in WRS', 'Top 10 Endpoints in WRS Detection', 'Action', "Protocol Detection"];
   const [total_detection, setTotalDetections] = useState(0)
 
   const [chartFirstLine, setChartFirstLine] = useState("")
@@ -47,7 +49,7 @@ export default function WR(props) {
   const [columnsNames, setCoulmnsName] = useState(vm[0]);
   const [lable, setLableData] = useState([])
   const [data, setData] = useState([])
-  const [showChart, setShowChart] = useState([false, false, false])
+  const [showChart, setShowChart] = useState([false, false, false, false])
 
   const [x, setX] = useState([]);
   const [y1, setY1] = useState([]);
@@ -362,6 +364,12 @@ export default function WR(props) {
 
     // for EndPoints
     function formatEndpoints(arr) {
+
+      if (arr.length <= 0 || arr.length === 1) {
+        if (arr[0] === undefined || arr[0] === "") {
+          return "no endpoint,";
+        }
+      }
       if (arr.length === 1) {
         return "the " + arr[0] + " endpoint,"
       } else if (arr.length === 2) {
@@ -379,9 +387,17 @@ export default function WR(props) {
 
     //for Actions
     function formatArray(arr) {
-      const text = "and the files were successfully "
+
+      if (arr.length <= 0 || arr.length === 1) {
+        if (arr[0] === undefined || arr[0] === "") {
+          return " and no action required by Apex One";
+        }
+      }
+
+      const text = "and the files were successfully ";
+    
       if (arr.length === 1) {
-        return text + arr[0].toString() + " by Apex One."
+        return text + arr[0] + " by Apex One."
       } else if (arr.length === 2) {
         return text + arr.join(', ').replace(/,([^,]*)$/, ' and$1') + " by Apex One.";
       }
@@ -457,9 +473,15 @@ export default function WR(props) {
     } else if (columnsNames === vm[2]) {
       link[2] = true
       createCharts(2, x, y1, wrapperId[2], canavaId[2])
+      myChartData['action'] = JSON.stringify(x)
+      myChartData['action_count'] = JSON.stringify(y1)
+
+    }
+    else if (columnsNames === vm[3]) {
+      link[3] = true
+      createCharts(3, x, y1, wrapperId[3], canavaId[3])
       myChartData['protocol'] = JSON.stringify(x)
       myChartData['protocol_count'] = JSON.stringify(y1)
-
     }
 
     setPointArr(link1);
@@ -941,6 +963,17 @@ export default function WR(props) {
               </div>
 
             </div>
+          </div>
+
+          <div className="chart-wrapper" id="wrapper34">
+            <div className="close-icon1" onClick={(e) => { closeChart(e, "wrapper34", 3) }}>✖</div>
+            <canvas
+              id="myChart34"
+              className="myChart"
+              width="400"
+              height="400"
+            ></canvas>
+
           </div>
 
         </div>

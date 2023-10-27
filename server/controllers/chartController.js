@@ -29,7 +29,7 @@ let ipsText = [
 ];
 let ssText = ["Smart Scan Agent Pattern"];
 let ccText = ["Endpoints Having C&C Detection", "C&C Callbacks Address"];
-const wrText = ['Top 10 URL Detections in WRS', 'Top 10 Endpoints in WRS Detection', 'Action'];
+const wrText = ['Top 10 URL Detections in WRS', 'Top 10 Endpoints in WRS Detection', 'Action', "Protocol Detection"];
 
 
 //mainChart 
@@ -159,7 +159,8 @@ const getwrModel = async (req, res) => {
 
         createChart(urls, JSON.parse(wr1[0].url_count), wrText[0], "wr_img1", chartTypes[0])
         createChart(JSON.parse(wr1[0].endpoint), JSON.parse(wr1[0].endpoint_count), wrText[1], "wr_img2", chartTypes[1])
-        createChart(JSON.parse(wr1[0].protocol), JSON.parse(wr1[0].protocol_count), wrText[2], "wr_img3", chartTypes[2])
+        createChart(JSON.parse(wr1[0].action), JSON.parse(wr1[0].action_count), wrText[2], "wr_img3", chartTypes[2])
+        createChart(JSON.parse(wr1[0].protocol), JSON.parse(wr1[0].protocol_count), wrText[3], "wr_img4", chartTypes[3])
 
         res.json(wr1);
     } catch (error) {

@@ -420,9 +420,15 @@ export default function IP(props) {
 
     //for Actions
     function formatArray(arr) {
+      if (arr.length <= 0 || arr.length === 1) {
+        if (arr[0] === undefined || arr[0] === "") {
+          return "";
+        }
+      }
+
       const text = "the files were successfully "
       if (arr.length === 1) {
-        return text + arr[0].toString()
+        return text + arr[0];
       } else if (arr.length === 2) {
         return text + arr.join(', ').replace(/,([^,]*)$/, ' and$1');
       }

@@ -343,6 +343,7 @@ function useApexOneLogic41() {
       closeValue(req);
       closeValue1(req);
     }
+    
   };
 
   //Agent scheduled updates - 9

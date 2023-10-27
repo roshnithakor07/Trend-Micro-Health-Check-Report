@@ -561,12 +561,12 @@ export default function Apex41({
                       <option value="Active Update ">Active Update</option>
                       <option value="Custom Update source">Custom Update source</option>
                     </select>
-                    
-                   
+
+
                   </div>
                 </td>
                 <td className="con5" style={{ textAlign: "center" }}>
-                  <img src="images/tab1.png"alt="" />
+                  <img src="images/tab1.png" alt="" />
                 </td>
               </tr>
 
@@ -696,7 +696,7 @@ export default function Apex41({
                     name="agentDistribution1"
                     style={{ width: "40%" }}
                     onChange={(e) => {
-                      agentDistributionFun(e,1);
+                      agentDistributionFun(e, 1);
                       handleChange(e);
                     }}
                   />
@@ -715,7 +715,7 @@ export default function Apex41({
                     name="agentDistribution2"
                     style={{ width: "40%" }}
                     onChange={(e) => {
-                      agentDistributionFun(e,2);
+                      agentDistributionFun(e, 2);
                       handleChange(e);
                     }}
                   />
@@ -735,7 +735,7 @@ export default function Apex41({
                     name="agentDistribution3"
                     style={{ width: "40%" }}
                     onChange={(e) => {
-                      agentDistributionFun(e,3);
+                      agentDistributionFun(e, 3);
                       handleChange(e);
                     }}
                   />
@@ -755,7 +755,7 @@ export default function Apex41({
                     name="agentDistribution4"
                     style={{ width: "40%" }}
                     onChange={(e) => {
-                      agentDistributionFun(e,4);
+                      agentDistributionFun(e, 4);
                       handleChange(e);
                     }}
                   />
@@ -764,8 +764,6 @@ export default function Apex41({
                   <img src="images/tab1.png" id="sepAg4" alt="" />
                 </td>
               </tr>
-
-
 
             </tbody>
           </table>

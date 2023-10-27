@@ -739,6 +739,21 @@ const getCharts = async (req, res) => {
 
         };
 
+        if (showChartsWr[3]) {
+            wrChart.push(
+                new Paragraph({
+                    style: 'image-style',
+                    children: [
+                        new ImageRun({
+                            data: fs.readFileSync(`${chartFolderName}/wr_img4.png`),
+                            transformation: transformation
+                        })
+                    ]
+                }),
+            )
+
+        };
+
     };
 
     // 5.5 IPS

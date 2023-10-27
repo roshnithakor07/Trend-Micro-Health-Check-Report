@@ -89,6 +89,8 @@ const wrSchema = new mongoose.Schema({
     endpoint_count: { type: String, default: "" },
     protocol: { type: String, default: "" },
     protocol_count: { type: String, default: "" },
+    action: { type: String, default: "" },
+    action_count: { type: String, default: "" },
     chartDescription: { type: String, default: "[]" },
     chartTypes: { type: String, default: "" },
     chartFirstLine: { type: String, default: "" },
