@@ -50,7 +50,7 @@ export default function FurtherInformation() {
       console.log('All charts generated completed.');
       setTimeout(() => {
         setDataFetched(false);
-      }, 5000);
+      }, 20000);
     }
     executeFunctions();
   }, []);

@@ -78,7 +78,7 @@ function ExcutiveSummery() {
     let rsummary54WR = "Web Reputation is enabled in Assessment mode recommended to disable it, When in Assessment mode, Security Agents allow access to all websites. For any accessed website that violates the configured Security Level setting, the Security Agent logs the event."
     let rsummary55 = "The firewall is disabled, recommended to enable it (Optional). Firewall policies allow you to block or allow certain types of network traffic not specified in a policy exception. A policy also defines which Apex One Firewall features are enabled or disabled. Assign the policy to one or multiple Firewall profiles."
     let rsummary56PS1 = ["Agent Self-Protection is Disabled, recommended to enable it to prevent unauthorized agent Uninstallation and Unloading.","Agent Uninstallation with password is Disabled, recommended to enable it to prevent unauthorized agent Uninstallation and Unloading."]
-    let rsummary56PS2 = "Agent installs in co-exist mode recommended to use fully functional Security Agents so, all modules can activate in a single agent for better protection."
+    let rsummary56PS2 = "Agent installed in co-exist mode recommended to use fully functional Security Agents so, all modules can activate in a single agent for better protection."
     let rsummary56PS3 = "in Privilege and other settings, Security Agents only update the Pattern files recommended to update all components."
     let rsummary56PS4 = "in Privilege and other settings, Security Agents only update the Pattern files, Engine, and Drivers recommended to update all components."
     

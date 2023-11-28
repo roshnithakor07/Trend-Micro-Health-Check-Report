@@ -1,26 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Papa from "papaparse";
 import Button from "@mui/material/Button";
 import axios from "axios";
 import Chart from "chart.js/auto";
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import Endpoints from '../API/Endpoints'
-import { Input } from "@mui/material";
+
 
 export default function SmartScan(props) {
     const { smartscanApi } = Endpoints();
 
     const [patternDays, setPatternDays] = useState(7)
-    let vm = ["Smart Scan Agent Pattern"];
+    let vm = ["Smart Scan Agent Pattern", "Virus Pattern"];
 
     //database data : 
     const [myChartData, setMycharts] = useState({
         r_id: "",
         ssap: "[]",
         ssap_count: "[]",
+        virus_pattern: "[]",
+        virus_pattern_count: '[]',
         chartFirstLine: '',
         total_detection: 0,
-        tablePatternData: "[]",
+        tablePatternData: "[0,0,0]",
+        tablePatternData1: "[0,0,0]",
         patternDays: 7
     });
 
@@ -46,8 +49,6 @@ export default function SmartScan(props) {
         `Older than ${patternDays} Days Pattern updated agents`,
         'Total Agents'
     ];
-
-
 
     const form1 = (event) => {
         // Passing file data (event.target.files[0]) to parse using Papa.parse
@@ -129,7 +130,6 @@ export default function SmartScan(props) {
     };
 
 
-
     const handleCheckboxChange = (e) => {
         if (!e.target.checked) {
             const updatedX = x.filter((item) => item !== e.target.value);
@@ -165,81 +165,131 @@ export default function SmartScan(props) {
         </span>
     ));
 
-    const handleDes = (e) => {
-        setMycharts((prev) => ({
-            ...prev, [e.target.name]: e.target.value
-
-        }))
-
-    }
 
     const handleSubmit = () => {
-        myChartData.tablePatternData = JSON.stringify(tablePatternData);
 
-        createCharts(x, y1)
-        myChartData['ssap'] = JSON.stringify(x)
-        myChartData['ssap_count'] = JSON.stringify(y1)
+        if (columnsNames === vm[0]) {
+            myChartData.tablePatternData = JSON.stringify(tablePatternData);
+            createCharts(0, x, y1, 'wrapper82', "myChart82", "Smart Scan Agent Pattern")
 
-        var existingTable = document.getElementById('documentV1');
-        if (existingTable) {
-            existingTable.remove();
+            myChartData['ssap'] = JSON.stringify(x)
+            myChartData['ssap_count'] = JSON.stringify(y1)
+
+            var existingTable = document.getElementById('documentV1');
+            if (existingTable) {
+                existingTable.remove();
+            }
+
+            var table = document.createElement('table');
+            table.id = "documentV1"
+
+            for (var j = 0; j < 3; j++) {
+                var tr = document.createElement('tr');
+                var td1 = document.createElement('td');
+                var td2 = document.createElement('td');
+
+                var text1 = document.createTextNode(smartScanTable[j]);
+                var text2 = document.createTextNode(tablePatternData[j]);
+                td2.style.textAlign = "center";
+
+                // Create edit button for text2
+                var editButton1 = document.createElement("button");
+                editButton1.textContent = "Edit";
+                editButton1.onclick = createEditFunction(td2, text2, j);
+                editButton1.style.outline = "none"
+                editButton1.style.border = "none"
+                editButton1.style.padding = " 2px 10px"
+                editButton1.style.marginLeft = "10px"
+
+                td1.appendChild(text1);
+                td2.appendChild(text2);
+                td2.appendChild(editButton1);
+
+                tr.appendChild(td1);
+                tr.appendChild(td2);
+                table.appendChild(tr);
+            }
+
+            function createEditFunction(td, textNode, j) {
+                return function () {
+                    var newText = prompt("Edit the text:", textNode.nodeValue);
+                    if (newText !== null) {
+                        textNode.nodeValue = newText;
+                        tablePatternData[j] = newText;
+                    }
+                    myChartData.tablePatternData = JSON.stringify(tablePatternData);
+                };
+            }
+
+            document.getElementById("wrapper81").style.display = "block";
+            document.getElementById('wrapper81').appendChild(table);
+        } else if (columnsNames === vm[1]) {
+            myChartData.tablePatternData1 = JSON.stringify(tablePatternData);
+            if (x.length === 0) { return alert("No virus Scan data Found..!!") }
+
+            createCharts(1, x, y1, 'wrapper83', "myChart83", "Virus Scan")
+            myChartData['virus_pattern'] = JSON.stringify(x)
+            myChartData['virus_pattern_count'] = JSON.stringify(y1)
+
+            var existingTable = document.getElementById('documentV');
+            if (existingTable) {
+                existingTable.remove();
+            }
+
+            var table = document.createElement('table');
+            table.id = "documentV"
+
+            for (var j = 0; j < 3; j++) {
+                var tr = document.createElement('tr');
+                var td1 = document.createElement('td');
+                var td2 = document.createElement('td');
+
+                var text1 = document.createTextNode(smartScanTable[j]);
+                var text2 = document.createTextNode(tablePatternData[j]);
+                td2.style.textAlign = "center";
+
+                // Create edit button for text2
+                var editButton1 = document.createElement("button");
+                editButton1.textContent = "Edit";
+                editButton1.onclick = createEditFunction(td2, text2, j);
+                editButton1.style.outline = "none"
+                editButton1.style.border = "none"
+                editButton1.style.padding = " 2px 10px"
+                editButton1.style.marginLeft = "10px"
+
+                td1.appendChild(text1);
+                td2.appendChild(text2);
+                td2.appendChild(editButton1);
+
+                tr.appendChild(td1);
+                tr.appendChild(td2);
+                table.appendChild(tr);
+            }
+
+            function createEditFunction(td, textNode, j) {
+                return function () {
+                    var newText = prompt("Edit the text:", textNode.nodeValue);
+                    if (newText !== null) {
+                        textNode.nodeValue = newText;
+                        tablePatternData[j] = newText;
+                    }
+                    myChartData.tablePatternData1 = JSON.stringify(tablePatternData);
+                };
+            }
+
+            document.getElementById("wrapper84").style.display = "block";
+            document.getElementById('wrapper84').appendChild(table);
+
         }
-
-        var table = document.createElement('table');
-        table.id = "documentV1"
-
-        for (var j = 0; j < 3; j++) {
-            var tr = document.createElement('tr');
-            var td1 = document.createElement('td');
-            var td2 = document.createElement('td');
-
-            var text1 = document.createTextNode(smartScanTable[j]);
-            var text2 = document.createTextNode(tablePatternData[j]);
-            td2.style.textAlign = "center";
-
-            // Create edit button for text2
-            var editButton1 = document.createElement("button");
-            editButton1.textContent = "Edit";
-            editButton1.onclick = createEditFunction(td2, text2, j);
-            editButton1.style.outline = "none"
-            editButton1.style.border = "none"
-            editButton1.style.padding = " 2px 10px"
-            editButton1.style.marginLeft = "10px"
-
-            td1.appendChild(text1);
-            td2.appendChild(text2);
-            td2.appendChild(editButton1);
-
-            tr.appendChild(td1);
-            tr.appendChild(td2);
-            table.appendChild(tr);
-        }
-
-
-        // Function to handle editing the cell
-        function createEditFunction(td, textNode, j) {
-            return function () {
-                var newText = prompt("Edit the text:", textNode.nodeValue);
-                if (newText !== null) {
-                    textNode.nodeValue = newText;
-                    tablePatternData[j] = newText;
-                }
-                myChartData.tablePatternData = JSON.stringify(tablePatternData);
-            };
-        }
-
-        document.getElementById("wrapper81").style.display = "block";
-        document.getElementById('wrapper81').appendChild(table);
     }
 
-    function createCharts(x, y1) {
-        document.getElementById("wrapper82").style.display = "block";
+    function createCharts(no, x, y1, divId, chartId, title) {
+        document.getElementById(divId).style.display = "block";
         Chart.register(ChartDataLabels);
+        const ctx = document.getElementById(chartId).getContext("2d");
 
-        const ctx = document.getElementById("myChart82").getContext("2d");
-
-        if (myChart[0]) {
-            myChart[0].destroy(); // Destroy existing chart if it exists
+        if (myChart[no]) {
+            myChart[no].destroy(); // Destroy existing chart if it exists
         }
 
         const newChart = new Chart(ctx, {
@@ -276,7 +326,7 @@ export default function SmartScan(props) {
                     },
                     title: {
                         display: true,
-                        text: "Smart Scan Agent Pattern",
+                        text: title,
                         position: 'top',
                         align: 'center',
                         font: {
@@ -300,7 +350,7 @@ export default function SmartScan(props) {
             },
         });
 
-        myChart[0] = newChart;
+        myChart[no] = newChart;
     }
 
     //process database
@@ -393,10 +443,7 @@ export default function SmartScan(props) {
 
                 <div className="main-chart">
 
-                    <div className="chart-wrapper" id="wrapper81">
-
-
-                    </div>
+                    <div className="chart-wrapper" id="wrapper81"></div>
                     <div className="chart-wrapper" id="wrapper82">
                         <canvas
                             id="myChart82"
@@ -405,11 +452,22 @@ export default function SmartScan(props) {
                             aria-label="Hello ARIA World"
                             role="img"
                         ></canvas>
-                        <div id="points">
-                            <textarea type="text" id="first82" className="chartDes" spellCheck="false" name="first82" onChange={handleDes}></textarea>
-                            <textarea type="text" id="second82" className="chartDes" spellCheck="false" name="second82" onChange={handleDes}></textarea>
-                        </div>
+
                     </div>
+
+                    <div className="chart-wrapper" id="wrapper84"></div>
+
+                    <div className="chart-wrapper" id="wrapper83">
+                        <canvas
+                            id="myChart83"
+                            width="500"
+                            height="500"
+                            aria-label="Hello ARIA World"
+                            role="img"
+                        ></canvas>
+
+                    </div>
+
 
 
                 </div>

@@ -27,3 +27,7 @@ code {
   margin: 0 12px;
   /* box-shadow: rgba(210, 214, 215, 0.534) 0px 22px 70px 1px; */
 }
+
+input[type = "file"],select, img{
+   cursor:pointer;
+}

@@ -59,18 +59,6 @@ function AdminLogic() {
     const topTenData = myReportData.slice(-10);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
     return { topTenData,myReportData, handleToggle, handleModeToggle, handleDeleteReport }
 }
 

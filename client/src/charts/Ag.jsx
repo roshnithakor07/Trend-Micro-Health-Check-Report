@@ -13,7 +13,7 @@ const save = green[900];
 
 export default function Ag(props) {
   const { agApi } = Endpoints();
-  let ag = ["Platform", "Agent Program", "Agent Distribution Table"];
+  let ag = ["Platform", "Agent Program"];
   const [dataPoints, setDataPoints] = useState([1, 2, 3])
   const [columnsNames, setCoulmnsName] = useState("Platform");
   //const [filter_column, setFilterColumn] = useState(10)
@@ -33,7 +33,8 @@ export default function Ag(props) {
     "windowsServerPlatform": 0
   })
 
-
+  let [summarySenArr, setSummarySenArr] = useState([]);
+  let [reqSummarySenArr, setReqSummarySenArr] = useState([]);
   //chart-Points
   const [PointArr, setPointArr] = useState([]);
 
@@ -41,7 +42,7 @@ export default function Ag(props) {
   const [updateLinkId, setUpdateLinkId] = useState("");
   const [chartDes, setchartDess] = useState("");
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-
+  const [popupIndex, setPopIndex] = useState(0)
 
   const [myChartData, setMycharts] = useState({
     r_id: "",
@@ -70,7 +71,6 @@ export default function Ag(props) {
   ));
 
   const load = (e) => {
-
     if (e.target.value === "select" || e.target.value === ag[2]) return;
     if (e.target.value === ag[1]) {
       let count = {}
@@ -83,8 +83,8 @@ export default function Ag(props) {
 
       setagTableData(prevState => ({
         ...prevState,
-        "agentForCleanup": count['Yes (cleanup)'],
-        "agentForUpdate": count['Yes (update)'],
+        "agentForCleanup": count['Yes (cleanup)'] === undefined ? 0 : count['Yes (cleanup)'],
+        "agentForUpdate": count['Yes (update)'] === undefined ? 0 : count['Yes (update)'],
         // "agentForUpdateAndCleanup": windowServerSum
       }))
 
@@ -98,14 +98,14 @@ export default function Ag(props) {
         const value = d["Smart Scan Agent Pattern"];
         if (value !== "") {
           mainCount[value] = (mainCount[value] || 0) + 1;
-      }
-      if (value !== "N/A" && value !== "" && parseFloat(value) >= 10) {
+        }
+        if (value !== "N/A" && value !== "" && parseFloat(value) >= 10) {
           count[value] = (count[value] || 0) + 1;
-      }
+        }
 
       }
 
-      for (const val of Object.values(count)) {
+      for (const val of Object.values(mainCount)) {
         sum += val
       }
 
@@ -119,50 +119,60 @@ export default function Ag(props) {
       //totatSevenPattern = totatSevenPattern.filter(item => item !== "N/A" && parseFloat(item) >= 10)
       totatSevenPattern = totatSevenPattern.sort()
 
-      let last7Pattern = totatSevenPattern.slice(-7);
+      let days = 7;
+      let last7Pattern = totatSevenPattern.slice(-days);
 
       let sum1 = 0;
 
-      for (let i = 0; i < 7; i++) {
+      for (let i = 0; i < days; i++) {
         sum1 += count[last7Pattern[i]]
         console.log(last7Pattern[i], count[last7Pattern[i]])
       }
 
       setagTableData(prevState => ({
         ...prevState,
-        "patternsUpdateStatus": [(sum - sum1), (sum1)],
+        "patternsUpdateStatus": [(sum - sum1), sum1, (sum)],
       }))
 
-      console.log(sum)
+
     }
 
     setCoulmnsName(e.target.value)
-    let arr = [], count = {}
+    let arr = [], count = {}, mainCount = {}, sum = 0;
 
     dataPoints.map(function (d) {
       return arr.push(d[e.target.value]);
     });
 
     for (const element of arr) {
+
+      if (element !== "") {
+        mainCount[element] = (mainCount[element] || 0) + 1;
+      }
+
       if (count[element]) {
         count[element] += 1;
       } else {
         count[element] = 1;
       }
+
     }
 
+    for (const val of Object.values(mainCount)) {
+      sum += val
+    }
 
     const top10Data = [];
     let windowServerSum = 0, windowLegacySum = 0
 
 
-    let maxValue = ['14.0.00000', 0];
     let programVersionSum = 0;
-
+    let max = 0;
+    let storeMaxVersion = 0, storeMaxValue = 0;
     for (const [key, value] of Object.entries(count)) {
       top10Data.push({ key, value });
 
-      if (key.includes("Windows 8.1") || key.includes("Windows 7")) {
+      if (key.includes("Windows 8.1") || key.includes("Windows 7") || key.includes("Windows 8")) {
         windowLegacySum += value;
       } else if (key.includes("Windows Server")) {
         windowServerSum += value;
@@ -170,21 +180,15 @@ export default function Ag(props) {
 
       if (e.target.value === ag[1]) {
         programVersionSum += value
-        function customCompare(s) {
-          const parts = s.split('.').map(Number);
-          return parts;
+        let store = Number(key.slice(5))
+        if (store > max) {
+          max = store;
+          storeMaxVersion = key;
+          storeMaxValue = value;
         }
-
-        if (customCompare(key) > customCompare(maxValue[0])) {
-          maxValue[0] = key;
-          maxValue[1] = value;
-        }
-
-
-
         setagTableData(prevState => ({
           ...prevState,
-          "programVersion": [programVersionSum - maxValue[1], maxValue[1]]
+          "programVersion": [programVersionSum - storeMaxValue, storeMaxValue, sum, storeMaxVersion]
         }))
 
 
@@ -255,7 +259,9 @@ export default function Ag(props) {
   ));
 
   function handleSubmit() {
-    const link = [...PointArr];
+    let link = [...summarySenArr];
+    let link1 = [...PointArr];
+    let link2 = [...reqSummarySenArr];
 
     if (columnsNames === "Platform") {
 
@@ -327,26 +333,52 @@ export default function Ag(props) {
       table.appendChild(tr);
       document.getElementById('wrapper-child00').appendChild(table)
     } else if (columnsNames === "Agent Program") {
+      document.getElementById("wrapper02").style.display = "block";
+      document.getElementById("summary_sentences").style.display = "block";
 
-      link[0] = `${x[0]} is the latest agent Program version recommended to upgrade all the older agents to the latest version.`;
-      link[1] = `${agTableData["agentForCleanup"]} endpoints are required to restart for the update.`;
-      link[2] = `${agTableData["agentForUpdate"]} endpoints are required restart for cleanup.`;
-      link[3] = `${agTableData["patternsUpdateStatus"][0]} agents have outdated patterns older than 7 days out of ${agTableData["patternsUpdateStatus"][1]} agents.`;
-      link[4] = `${agTableData["programVersion"][0]} Agents have outdated Program versions out of ${agTableData["programVersion"][1]} agents.`;
-      link[5] = `${agTableData["windowsServerPlatform"]} agents are using the Windows servers platform.`;
-      link[6] = `${agTableData["legacySystems"]} agents are installed on the Windows 7 (Legacy OS) platform.`;
+      link = []
+      link1 = []
+      link2 = []
+
+      link1.push(`${agTableData["programVersion"][3]} is the latest agent Program version recommended to upgrade all the older agents to the latest version.`);
+      if (agTableData["agentForCleanup"] !== 0) {
+        link.push(`${agTableData["agentForUpdate"]} endpoints are required restart for cleanup.`);
+        link2.push(`${agTableData["agentForCleanup"]} endpoints are required to restart for cleanup. Recommeded to take restart of those endpoints.`)
+      }
+
+      if (agTableData["agentForUpdate"] !== 0) {
+        link.push(`${agTableData["agentForUpdate"]} endpoints are required to restart for the update.`);
+        link2.push(`${agTableData["agentForUpdate"]} endpoints are required to restart for the update. Apex One Agents may need to reboot for engine updates. Recommend restarting those endpoints.`)
+      }
+      if (agTableData["patternsUpdateStatus"][0] !== 0) {
+        link.push(`${agTableData["patternsUpdateStatus"][0]} agents have outdated patterns older than 7 days out of ${agTableData["patternsUpdateStatus"][2]} agents.`);
+        link2.push(`${agTableData["patternsUpdateStatus"][0]} Agents have smart scan patterns version older than 7 days out of ${agTableData["patternsUpdateStatus"][2]}, recommended to keep all patterns up to date.`)
+      }
+      if (agTableData["programVersion"][0] !== 0) {
+        link.push(`${agTableData["programVersion"][0]} Agents have outdated Program versions out of ${agTableData["programVersion"][2]} agents.`);
+        link2.push(`${agTableData["programVersion"][0]} Agents have outdated Program versions out of ${agTableData["programVersion"][2]} agents keep all agent program versions updated. Minimum OS Version requirement for the latest Apex One SaaS agent version: https://success.trendmicro.com/dcx/s/solution/000291904?language=en_US`)
+      }
+      if (agTableData["windowsServerPlatform"] !== 0) {
+        link.push(`${agTableData["windowsServerPlatform"]} agents are using the Windows servers platform.`);
+        link2.push(`${agTableData["windowsServerPlatform"]} agent installed on Windows server platform recommended to use Deep Security / Cloud One Workload Security for the advanced protection for servers.`)
+      }
+      if (agTableData["legacySystems"] !== 0) {
+        link.push(`${agTableData["legacySystems"]} agents are installed on the Windows 7 (Legacy OS) platform.`);
+        link2.push(`${agTableData["legacySystems"]} Agents are installed on the Windows 8.1 (Legacy OS) platform, recommended to upgrade it to the latest OS. For the Windows 7 & 8.1 machines End-of-Support: https://success.trendmicro.com/dcx/s/solution/000291687? language=en_US&sfdcIFrameOrigin=null`)
+      }
+
+      link.push(`(input) endpoints are without policy.`)
+      link2.push(`(input) Endpoints are without policy, recommended to apply policy to all endpoints on priority for better protection.`)
 
       myChartData["agent_Program"] = JSON.stringify(x);
       myChartData["agent_Program_Count"] = JSON.stringify(y1);
       createChart(x, y1)
 
-    } else if (columnsNames === ag[2]) {
-
-      document.getElementById("wrapper02").style.display = "block";
-
     }
 
-    setPointArr(link)
+    setSummarySenArr(link)
+    setPointArr(link1)
+    setReqSummarySenArr(link2)
     //setSum(sum)
   }
 
@@ -414,6 +446,8 @@ export default function Ag(props) {
   const handleCharts = () => {
     myChartData["r_id"] = props.report_id;
     myChartData["chartDescription"] = JSON.stringify(PointArr);
+    myChartData['agExecutiveSummary'] = JSON.stringify(summarySenArr);
+    myChartData['agReq'] = JSON.stringify(reqSummarySenArr);
 
     const getProductById = async (e) => {
       try {
@@ -443,18 +477,56 @@ export default function Ag(props) {
 
   const deletePopup = (e, index, linkArrNo) => {
 
-    const link1 = [...PointArr];
-    link1.splice(index, 1);
-    setPointArr(link1);
+    switch (linkArrNo) {
+      case 0:
+        const link1 = [...PointArr];
+        link1.splice(index, 1);
+        setPointArr(link1);
+        break;
+
+      case 1:
+        const link2 = [...summarySenArr];
+        link2.splice(index, 1);
+        setSummarySenArr(link2);
+        break;
+
+      case 2:
+        const link3 = [...reqSummarySenArr];
+        link3.splice(index, 1);
+        setReqSummarySenArr(link3);
+        break;
+
+      default:
+        break;
+    }
+
 
   };
 
   const updateValue = () => {
+    switch (popupIndex) {
+      case 0:
+        const link1 = [...PointArr];
+        link1[updateLinkId] = updatechartDes;
+        setPointArr(link1);
+        break;
 
-    const link1 = [...PointArr];
+      case 1:
+        const link2 = [...summarySenArr];
+        link2[updateLinkId] = updatechartDes;
+        setSummarySenArr(link2);
+        break;
 
-    link1[updateLinkId] = updatechartDes;
-    setPointArr(link1);
+      case 2:
+        const link3 = [...reqSummarySenArr];
+        link3[updateLinkId] = updatechartDes;
+        setReqSummarySenArr(link3);
+        break;
+
+      default:
+        break;
+    }
+
     setUpdatechartDes("");
     setUpdateLinkId('');
     closePopup()
@@ -466,7 +538,7 @@ export default function Ag(props) {
     setIsPopupOpen(true);
     setUpdatechartDes(chartDes);
     setUpdateLinkId(index);
-    console.log(index, no)
+    setPopIndex(no)
   };
 
 
@@ -553,9 +625,6 @@ export default function Ag(props) {
                 ))}
               </div>
             </div>
-
-
-
 
           </div>
 
@@ -727,6 +796,69 @@ export default function Ag(props) {
 
         <br />
         <br />
+
+        <div className="summary_sentences" id="summary_sentences" style={{ position: "relative" }}>
+          <h4 style={{ color: "#49858F" }} className="report-heading2">
+            Executive Summary
+          </h4>
+
+
+          <div className="container8">
+
+            {summarySenArr.map((artist, index) => (
+              <ul key={index} >
+                <li>
+                  {artist}
+                </li>
+
+                <li className="handle-icons">
+                  <img src="images/edit.png" onClick={(e) => {
+                    openPopup(e, index, artist, 1);
+                  }} alt="" srcSet="" />
+
+                  <img src="images/delete.png" onClick={(e) => {
+                    deletePopup(e, index, 1);
+                  }} alt="" srcSet="" />
+                </li>
+              </ul>
+            ))}
+
+
+
+
+          </div>
+
+          <h4 style={{ color: "#49858F" }} className="report-heading2">
+            Recommendations
+          </h4>
+
+          <div className="container8">
+
+            {reqSummarySenArr.map((artist, index) => (
+              <ul key={index} >
+                <li>
+                  {artist}
+                </li>
+
+                <li className="handle-icons">
+                  <img src="images/edit.png" onClick={(e) => {
+                    openPopup(e, index, artist, 2);
+                  }} alt="" srcSet="" />
+
+                  <img src="images/delete.png" onClick={(e) => {
+                    deletePopup(e, index, 2);
+                  }} alt="" srcSet="" />
+                </li>
+              </ul>
+            ))}
+
+
+
+
+          </div>
+
+        </div>
+
         <Button onClick={handleCharts} variant="contained" color="success" className="Chartbutton" id="Chartbutton" >
           Save Data
         </Button>

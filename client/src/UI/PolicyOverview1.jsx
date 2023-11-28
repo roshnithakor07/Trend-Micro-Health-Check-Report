@@ -2250,9 +2250,8 @@ export default function PolicyOverview1(
                                     <select
                                         id='bm1'
                                         onChange={(e) => {
-                                            fiftyoneFunction(e, "bm1", "bm2", "sep51BM1", "tab51BM1", "rsummary51BM1", rsummary51BM1);
+                                            fiftyoneFunction(e,1);
                                             handleChange(e);
-
                                         }}
                                         name="bm1"
                                     >
@@ -2264,7 +2263,7 @@ export default function PolicyOverview1(
                                     <select
                                         id='bm2'
                                         onChange={(e) => {
-                                            fiftyoneFunction(e, "bm1", "bm2", "sep51BM1", "tab51BM1", "rsummary51BM2", rsummary51BM2);
+                                            fiftyoneFunction(e,1);
                                             handleChange(e);
 
                                         }}
@@ -2279,13 +2278,13 @@ export default function PolicyOverview1(
                                     <img src="images/tab1.png" id="sep51BM1" alt="" />
                                 </td>
 
-
                             </tr>
                             <tr className="con6 bmDisableClass" >
                                 <td className="con6">
                                     Ransomware Protection
                                     <br />
                                     Enable - Protect documents against unauthorized encryption or modification
+                                    <br />
                                     Enable - Automatically backup and restore files changed by suspicious programs
                                 </td>
 
@@ -2293,7 +2292,7 @@ export default function PolicyOverview1(
                                     <select
                                         id="bm3"
                                         onChange={(e) => {
-                                            fiftyoneFunction(e, "bm3", "bm4", "sep51BM2", "tab51BM2", "rsummary51BM3", rsummary51BM3);
+                                            fiftyoneFunction(e, 2);
                                             handleChange(e);
                                         }}
                                         name="bm3"
@@ -2308,6 +2307,7 @@ export default function PolicyOverview1(
                                     <select
                                         id="bm4"
                                         onChange={(e) => {
+                                            fiftyoneFunction(e, 2);
                                             handleChange(e);
                                         }}
                                         name="bm4"
@@ -2317,7 +2317,6 @@ export default function PolicyOverview1(
                                     </select>
                                     {" "}
                                     Automatically back up and restore files changed by suspicious programs
-
 
                                 </td>
                                 <td className="con6" style={{ textAlign: "center" }}>
@@ -2332,8 +2331,8 @@ export default function PolicyOverview1(
                                     <select
                                         id='bm5'
                                         onChange={(e) => {
-                                            // fiftyoneFunction(e, "sep51BM3", "tab51BM3");
-                                            fiftyoneFunction(e, "bm5", "bm5", "sep51BM3", "tab51BM3", "rsummary51BM5", rsummary51BM5);
+                                           
+                                            fiftyoneFunction(e,3);
                                             handleChange(e);
                                         }}
                                         name="bm5"
@@ -2354,7 +2353,7 @@ export default function PolicyOverview1(
                                     <select
                                         id='bm6'
                                         onChange={(e) => {
-                                            fiftyoneFunction(e, "bm6", "bm6", "sep51BM4", "tab51BM4", "rsummary51BM6", rsummary51BM6);
+                                            fiftyoneFunction(e,4);
                                             handleChange(e);
                                         }}
                                         name="bm6"
@@ -2377,7 +2376,7 @@ export default function PolicyOverview1(
                                     <select
                                         id="bm7"
                                         onChange={(e) => {
-                                            fiftyoneFunction(e, "bm7", "bm7", "sep51BM5", "tab51BM5", "rsummary51BM7", rsummary51BM7);
+                                            fiftyoneFunction(e,5);
                                             handleChange(e);
                                         }}
                                         name="bm7"
@@ -2403,7 +2402,7 @@ export default function PolicyOverview1(
                                     <select
                                         id='bm8'
                                         onChange={(e) => {
-                                            fiftyoneFunction(e, "bm8", "bm9", "sep51BM6", "tab51BM6", "rsummary51BM8", rsummary51BM8);
+                                            fiftyoneFunction(e,6);
                                             handleChange(e);
                                         }}
                                         name="bm8"
@@ -2417,7 +2416,7 @@ export default function PolicyOverview1(
                                     <select
                                         id='bm9'
                                         onChange={(e) => {
-                                            fiftyoneFunction(e, "bm8", "bm9", "sep51BM6", "tab51BM6", "", "");
+                                            fiftyoneFunction(e,6);
                                             handleChange(e);
                                         }}
                                         name="bm9"
@@ -2438,7 +2437,7 @@ export default function PolicyOverview1(
                                     <select
                                         id="bm10"
                                         onChange={(e) => {
-                                            fiftyoneFunction(e, "bm10", "bm10", "sep51BM7", "tab51BM7", "rsummary51BM10", rsummary51BM10);
+                                            fiftyoneFunction(e,7);
                                             handleChange(e);
                                         }}
                                         name="bm10"
@@ -2460,7 +2459,7 @@ export default function PolicyOverview1(
                                     <select
                                         id='bm11'
                                         onChange={(e) => {
-                                            fiftyoneFunction(e, "bm11", "bm11", "sep51BM8", "tab51BM8", "", "");
+                                            fiftyoneFunction(e, 8);
                                             handleChange(e);
                                         }}
                                         name="bm11"

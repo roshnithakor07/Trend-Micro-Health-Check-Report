@@ -5,8 +5,9 @@ function PolicyOverviewLogic1() {
     const {
         rsummary10, rsummary11, rsummary13, rsummary14, rsummary161, rsummary162, rsummary17, rsummary18, rsummary19, rsummary20, rsummary21, rsummary22, rsummary23, rsummary29,
         rsummary53SC1, rsummary53SC2, rsummary53SC3, rsummary54, rsummary56, rsummaryDC, rsummaryAC, rsummaryVP, rsummaryVP1, rsummaryVP2,
-        rsummary51BM2, rsummary54WR,
+        rsummary54WR,
         rsummary56PS1, rsummary56PS2, rsummary56PS3, rsummary56PS4,
+        rsummary51BM1, rsummary51BM2, rsummary51BM3, rsummary51BM5, rsummary51BM6, rsummary51BM7, rsummary51BM8, rsummary51BM10,
     } = ExcutiveSummery()
 
 
@@ -215,49 +216,61 @@ function PolicyOverviewLogic1() {
     }
 
     //nameOfPolicy 0 & 11
-    const FileToScanFunction = (x, policyNameNo, arrNo, summaryNo) => {
-        let data = arrNo === 0 ? 11 : 0;
-        let a = `In ${nameOfPolicy[0].join(', ').replace(/,([^,]*)$/, ' and$1')} Scan and policy settings, ${rsummary11[0]}`
-        let b = `In ${nameOfPolicy[11].join(', ').replace(/,([^,]*)$/, ' and$1')} Scan and policy settings, ${rsummary11[1]}`
+    const FileToScanFunction = (x, policyNameNo, arrNo) => {
 
-        if (x === undefined) {
-            if (nameOfPolicy[0].includes(policyNameArr[policyNameNo])) {
+        let link = [...nameOfPolicy]
+        let revArr = arrNo === 0 ? 11 : 0;
+
+        if (arrNo === undefined) {
+
+            if (link[0].includes(x)) {
+
                 checkServiceAvl(policyNameNo, 0)
             }
-            if (nameOfPolicy[11].includes(policyNameArr[policyNameNo])) {
+            if (link[11].includes(x)) {
                 checkServiceAvl(policyNameNo, 11)
             }
-        }
-        else {
-            if (nameOfPolicy[data].includes(x)) {
-                checkServiceAvl(policyNameNo, data)
+
+        } else {
+            link[arrNo].push(x)
+            if (link[revArr].includes(x)) {
+                checkServiceAvl(policyNameNo, revArr)
             }
-            if (nameOfPolicy[arrNo].includes(x)) { }
-            else if (nameOfPolicy[arrNo].includes("")) { }
-            else nameOfPolicy[arrNo].push(x)
+        }
+        setnameOfPolicy(link)
+
+        let a = `In ${nameOfPolicy[0].join(', ').replace(/,([^,]*)$/, ' and$1')} Scan and policy settings, ${rsummary11[0]}`
+        let b = `In ${nameOfPolicy[11].join(', ').replace(/,([^,]*)$/, ' and$1')} Scan and policy settings, ${rsummary11[1]}`
+        
+        if (nameOfPolicy[0].length > 0) {
+            const existingIndex = reqSummarySenPolicy1Arr.findIndex(item => item.label === "rSummary110");
+
+            if (existingIndex !== -1) {
+                reqSummarySenPolicy1Arr[existingIndex].description = a;
+            } else {
+                setReqSummarySenPolicy1Arr(prevArr => [...prevArr, { label: "rSummary110", description: a }]);
+            }
+
+        } else {
+            setReqSummarySenPolicy1Arr(prevValues => prevValues.filter(value => value.label !== 'rSummary110'));
         }
 
+        if (nameOfPolicy[11].length > 0) {
+            const existingIndex = reqSummarySenPolicy1Arr.findIndex(item => item.label === "rSummary111");
+            if (existingIndex !== -1) {
+                reqSummarySenPolicy1Arr[existingIndex].description = b;
+            } else {
+                setReqSummarySenPolicy1Arr(prevArr => [...prevArr, { label: "rSummary111", description: b}]);
+            }
 
-        console.log(nameOfPolicy[0])
-        if (nameOfPolicy[0].length >= 1) {
-            let a = `In ${nameOfPolicy[0].join(', ').replace(/,([^,]*)$/, ' and$1')} Scan and policy settings, ${rsummary11[0]}`
-            addValue1(`rSummary11${0}`, a)
-        }
-        else {
-            setReqSummarySenPolicy1Arr(prevValues => prevValues.filter(value => value.label !== `rSummary11${0}`));
+        } else {
+            setReqSummarySenPolicy1Arr(prevValues => prevValues.filter(value => value.label !== 'rSummary111'));
         }
 
-        console.log(nameOfPolicy[11])
-        if (nameOfPolicy[11].length >= 1) {
-            let a = `In ${nameOfPolicy[11].join(', ').replace(/,([^,]*)$/, ' and$1')} Scan and policy settings, ${rsummary11[1]}`
-            addValue1(`rSummary11${1}`, a)
-        }
-        else {
-            setReqSummarySenPolicy1Arr(prevValues => prevValues.filter(value => value.label !== `rSummary11${1}`));
-        }
 
 
     }
+
 
 
     //nameOfPolicy 1
@@ -360,6 +373,7 @@ function PolicyOverviewLogic1() {
             values = [{ label: 'rSummary152', description: b }];
             setReqSummarySenPolicy1Arr(prevValues => prevValues.filter(value => value.label !== 'rSummary151'));
         }
+
         setReqSummarySenPolicy1Arr(prevValues => {
             const updatedValues = prevValues.map(prevVal => {
                 const matchingValue = values.find(val => val.label === prevVal.label);
@@ -373,6 +387,8 @@ function PolicyOverviewLogic1() {
             const newValues = values.filter(val => !prevValues.some(prevVal => prevVal.label === val.label));
             return [...updatedValues, ...newValues];
         });
+
+
     }
 
     //Action Setting tables
@@ -409,13 +425,14 @@ function PolicyOverviewLogic1() {
 
         if (policyActionArr[0].length > 0) {
             const existingIndex = reqSummarySenPolicy1Arr.findIndex(item => item.label === "rSummary161");
-            console.log(existingIndex)
+
             if (existingIndex !== -1) {
                 reqSummarySenPolicy1Arr[existingIndex].description = a;
             } else {
 
                 setReqSummarySenPolicy1Arr(prevArr => [...prevArr, { label: "rSummary161", description: a }]);
             }
+
         } else {
             setReqSummarySenPolicy1Arr(prevValues => prevValues.filter(value => value.label !== 'rSummary161'));
         }
@@ -586,33 +603,18 @@ function PolicyOverviewLogic1() {
             myPo1ImgData[img] = tab1;
             setcheckPolicyOverviewES(--checkPolicyOverviewES)
             checkPolicyOverview()
-            // setcheckFileToScan(--checkFileToScan)
-            const updatedValues = [0, 0];
-            if (checkFileToScan[0] !== 0) {
-                updatedValues[0] = --checkFileToScan[0]
-                FileToScanFunction(undefined, PolicyNameNo, 0, 0)
-            }
-            if (checkFileToScan[1] !== 0) {
-                updatedValues[1] = --checkFileToScan[1]
-                FileToScanFunction(undefined, PolicyNameNo, 11, 1)
-            }
-            setcheckFileToScan(updatedValues);
-
+            FileToScanFunction(policyNameArr[PolicyNameNo], PolicyNameNo, undefined)
         } else {
-            if (e.target.value === "File types Scanned by IntelliScan") {
-                const updatedValues = [++checkFileToScan[0], checkFileToScan[1]];
-                setcheckFileToScan(updatedValues);
-                FileToScanFunction(policyNameArr[PolicyNameNo], PolicyNameNo, 0, 0)
-            } else {
-                const updatedValues = [checkFileToScan[0], ++checkFileToScan[1]];
-                setcheckFileToScan(updatedValues);
-                FileToScanFunction(policyNameArr[PolicyNameNo], PolicyNameNo, 11, 1)
-            }
             myPo1ImgData[img] = tab2;
             document.getElementById(idVal).src = tab2;
             setcheckPolicyOverviewES(++checkPolicyOverviewES)
             checkPolicyOverview()
 
+            if (e.target.value === "Files with Specific Extention") {
+                FileToScanFunction(policyNameArr[PolicyNameNo], PolicyNameNo, 11)
+            } else {
+                FileToScanFunction(policyNameArr[PolicyNameNo], PolicyNameNo, 0)
+            }
         }
     };
 
@@ -633,6 +635,7 @@ function PolicyOverviewLogic1() {
             document.getElementById(idVal).src = tab2;
             myPo1ImgData[img] = tab2;
             addValue1(rS, rsummery)
+
 
         }
     };
@@ -726,8 +729,6 @@ function PolicyOverviewLogic1() {
         let radio1 = document.getElementById(r1);
         let radio2 = document.getElementById(r2);
 
-
-
         let action = (radio1.checked) ? "activeAction" : "sameaction";
         if (radio1.checked === true || radio2.checked === true) {
             console.log(radio1.checked)
@@ -770,13 +771,10 @@ function PolicyOverviewLogic1() {
     //Damage Cleanup Services with Advanced clean up 18
 
     const eighteenFunction = (e, idVal, img, no, r1, r2) => {
-
-
         var select = document.getElementById(r1);
         var select1 = document.getElementById(r2);
         var value = select.options[select.selectedIndex].value;
         var value1 = select1.options[select1.selectedIndex].value;
-
 
         if (value === "Enabled" && value1 === "Advanced clean-up") {
             myPo1ImgData[img] = tab1;
@@ -940,52 +938,108 @@ function PolicyOverviewLogic1() {
     //BM - 51 - 59
 
     //Behavior Monitoring
+    const fiftyoneFunction = (e, no) => {
 
-    const fiftyoneFunction = (e, id1, id2, idVal, tab, req1, req2) => {
-        let optionBM1 = document.getElementById(id1).value;
-        let optionBM2 = document.getElementById(id2).value;
-        let bmDisableClass = document.getElementsByClassName("bmDisableClass");
+        const closeAllSentences = () => {
+            setReqSummarySenPolicy1Arr(prevValues => prevValues.filter(value => value.label !== "rsummary51BM2"));
+            setReqSummarySenPolicy1Arr(prevValues => prevValues.filter(value => value.label !== "rsummary51BM3"));
+            setReqSummarySenPolicy1Arr(prevValues => prevValues.filter(value => value.label !== "rsummary51BM5"));
+            setReqSummarySenPolicy1Arr(prevValues => prevValues.filter(value => value.label !== "rsummary51BM6"));
+            setReqSummarySenPolicy1Arr(prevValues => prevValues.filter(value => value.label !== "rsummary51BM7"));
+        }
 
-        if (optionBM1 === "Enabled") {
-            if (optionBM2 === "Known threats" || optionBM2 === "Log Only") {
-                if (req1 !== "" || req1 !== "") {
+        const add = (e, id1, id2, idVal, tab, req1, req2) => {
+            let optionBM1 = document.getElementById(id1).value;
+            let optionBM2 = document.getElementById(id2).value;
+            let bmDisableClass = document.getElementsByClassName("bmDisableClass");
+
+
+            if (optionBM1 === "Enabled") {
+                if (optionBM2 === "Known threats") {
                     addValue1("rsummary51BM2", rsummary51BM2)
+                    document.getElementById(idVal).src = tab2;
+                    myPo1ImgData[tab] = tab2;
+                    setcheckPolicyOverviewES(++checkPolicyOverviewES)
+                    checkPolicyOverview()
+                } else if (optionBM2 === "Disabled" || optionBM2 === "Log Only") {
+                    document.getElementById(idVal).src = tab2;
+                    myPo1ImgData[tab] = tab2;
                 }
-                document.getElementById(idVal).src = tab2;
-                myPo1ImgData[tab] = tab2;
-                setcheckPolicyOverviewES(++checkPolicyOverviewES)
-                checkPolicyOverview()
+                else {
+                    document.getElementById(idVal).src = tab1;
+                    myPo1ImgData[tab] = tab1;
+                    setcheckPolicyOverviewES(--checkPolicyOverviewES)
+                    checkPolicyOverview()
+                    if (no === 1) { closeValue1("rsummary51BM2") }
+                }
+
+                setReqSummarySenPolicy1Arr(prevValues => prevValues.filter(value => value.label !== req1))
+                if (no === 1) {
+                    for (let i = 0; i < bmDisableClass.length; i++) {
+                        bmDisableClass[i].classList.remove("disableSection")
+                    }
+                }
+
             } else {
-                document.getElementById(idVal).src = tab1;
-                myPo1ImgData[tab] = tab1;
+                if (no === 7) {
+                    document.getElementById(idVal).src = tab4;
+                    myPo1ImgData[tab] = tab4;
+                } else {
+                    document.getElementById(idVal).src = tab3;
+                    myPo1ImgData[tab] = tab3;
+                }
                 setcheckPolicyOverviewES(--checkPolicyOverviewES)
                 checkPolicyOverview()
-                closeValue1("rsummary51BM2")
+                addValue1(req1, req2)
+                if (no === 1) {
+                    for (let i = 0; i < bmDisableClass.length; i++) {
+                        bmDisableClass[i].classList.add("disableSection")
+                    }
+                    closeAllSentences()
+                }
 
             }
-
-            // for (let i = 0; i < bmDisableClass.length; i++) {
-            //     bmDisableClass[i].classList.remove("disableSection")
-            // }
-
-        } else if (e.target.value === "Yes") {
-            myPo1ImgData[tab] = tab4;
-            document.getElementById(idVal).src = tab4;
-        } else if (e.target.value === "No") {
-            myPo1ImgData[tab] = tab1;
-            document.getElementById(idVal).src = tab1;
-        } else {
-            document.getElementById(idVal).src = tab3;
-            myPo1ImgData[tab] = tab3;
-            setcheckPolicyOverviewES(--checkPolicyOverviewES)
-            checkPolicyOverview()
-            addValue1(req1, req2)
-            closeValue1("rsummary51BM2")
-            // for (let i = 0; i < bmDisableClass.length; i++) {
-            //     bmDisableClass[i].classList.add("disableSection")
-            // }
-
         }
+
+
+
+        switch (no) {
+            case 1:
+                add(e, "bm1", "bm2", "sep51BM1", "tab51BM1", "rsummary51BM1", rsummary51BM1)
+                break;
+            case 2:
+                add(e, "bm3", "bm4", "sep51BM2", "tab51BM2", "rsummary51BM3", rsummary51BM3);
+                break;
+            case 3:
+                add(e, "bm5", "bm5", "sep51BM3", "tab51BM3", "rsummary51BM5", rsummary51BM5)
+                break;
+            case 4: add(e, "bm6", "bm6", "sep51BM4", "tab51BM4", "rsummary51BM6", rsummary51BM6);
+                break;
+            case 5: add(e, "bm7", "bm7", "sep51BM5", "tab51BM5", "rsummary51BM7", rsummary51BM7);
+                break;
+            case 6:
+                add(e, "bm8", "bm9", "sep51BM6", "tab51BM6", "rsummary51BM8", rsummary51BM8);
+                break;
+            case 7:
+                add(e, "bm10", "bm10", "sep51BM7", "tab51BM7", "rsummary51BM10", rsummary51BM10);
+                break;
+            case 8:
+                if (e.target.value === "Yes") {
+                    myPo1ImgData["tab51BM8"] = tab4;
+                    document.getElementById("sep51BM8").src = tab4;
+                } else {
+                    myPo1ImgData["tab51BM8"] = tab1;
+                    document.getElementById("sep51BM8").src = tab1;
+                }
+
+                break;
+
+            default:
+                break;
+        }
+
+
+
 
     }
 
@@ -1158,7 +1212,7 @@ function PolicyOverviewLogic1() {
         let tab = ""
 
         const addSen = (value, sep, tab, req1, req2) => {
-            if (value === a || value ===`All components (including hotfixes and the agent program)`) {
+            if (value === a || value === `All components (including hotfixes and the agent program)`) {
                 myPo1ImgData[tab] = tab1;
                 document.getElementById(sep).src = tab1;
                 setcheckPolicyOverviewES(--checkPolicyOverviewES)
@@ -1209,7 +1263,7 @@ function PolicyOverviewLogic1() {
                     checkPolicyOverview()
                     addValue1("rsummary56ps3", rsummary56PS2)
                 }
-                
+
                 break;
 
 

@@ -15,6 +15,7 @@ function ReportLogic() {
 
   let [myReportData, setReportData] = useState(
     {
+      
       allApex41ExecutiveSummary: "[]",
       allApex41ReqSummary: "[]",
       allApex43ExecutiveSummary: "[]",
@@ -71,6 +72,7 @@ function ReportLogic() {
       total_deployed_licensed: "0",
       certified_safe_software_service: "Enabled",
       apex_central_integration: "Yes",
+      apex_central_integration1: "Yes",
       global_agents_settings1: "Yes",
       global_agents_settings2: "Enabled",
       global_agents_settings3: "Enabled",
@@ -78,19 +80,16 @@ function ReportLogic() {
       patterns_update_status_uptodate: "0",
       outdated: "0",
       agent_scheduled_updates: "Enabled",
-      agent_scheduled_updates1 : "Active Update",
+      agent_scheduled_updates1: "Active Update",
       agent_scheduled_updates_daily: "00:00",
       agent_scheduled_updates_option: "Daily",
       timePeriod: "",
       smart_portection_server: "Integrated SPS",
       notification: "Enabled",
-      program_version_status_uptodate : "0",
-      outdated1: "0",
-      agentDistribution1 : "0",
-      agentDistribution2 : "0",
-      agentDistribution3 : "0",
-      agentDistribution4 : "0",
-      
+      inactiveAgentCleanup: "Enabled",
+      dataBaseConfiguration1: 'Yes',
+      dataBaseConfiguration2: 'Daily',
+
       //apexone 41 img
       apexmemory: tab1,
       apeximgsos: tab1,
@@ -99,17 +98,15 @@ function ReportLogic() {
       apeximgDeployed_Agents: tab1,
       apeximgCertified_Safe_Software_Service: tab1,
       apeximgapex_central_integration: tab1,
+      apeximgapex_central_integration1: tab1,
       apeximgglobal_agents_settings1: tab1,
       apeximgglobal_agents_settings2: tab1,
       apeximgglobal_agents_settings3: tab1,
       apeximgsuperman: tab1,
       apeximgagent_scheduled_updates: tab1,
       apeximgnotification: tab1,
-      // program_version : tab1,
-      // tabAg1 : tab1,
-      // tabAg2 : tab1,
-      // tabAg3 : tab1,
-      // tabAg4 : tab1,
+      apeximgInActiveAgentCleanup : tab1,
+      tabDB : tab1,
 
       //apex43
       sos2: "Windows Server 2019",
@@ -554,7 +551,7 @@ function ReportLogic() {
     web_reputation2: "Medium",
     web_reputation3: "Disabled",
     application_control1: "Enabled",
-    application_control2 : "Allow Mode",
+    application_control2: "Allow Mode",
     firewall: "Enabled",
     agent_self_protection1: "Enabled",
     agent_self_protection2: "Enabled",

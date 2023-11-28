@@ -18,7 +18,9 @@ export default function Apex41({
     handleVersions,
     sixFunction,
     sevenFunction,
-    agentDistributionFun,
+    handleDatabaseBackup,
+    inActiveAgentCleanup
+
   }
 }) {
   return (
@@ -385,7 +387,7 @@ export default function Apex41({
               </tr>
 
               <tr className="con5">
-                <td className="con5">Apex Central Integration</td>
+                <td className="con5" rowSpan={2}>Apex Central Integration</td>
                 <td className="con5">Register Apex One to Apex Central</td>
                 <td className="con5">
                   <div>
@@ -393,7 +395,7 @@ export default function Apex41({
                       id="4"
                       name="apex_central_integration"
                       onChange={(e) => {
-                        threeFunction(e);
+                        threeFunction(e, 1);
                         handleChange(e);
                       }}
                     >
@@ -404,6 +406,28 @@ export default function Apex41({
                 </td>
                 <td className="con5" style={{ textAlign: "center" }}>
                   <img src="images/tab1.png" id="sep3" alt="" />
+                </td>
+              </tr>
+
+              <tr className="con5">
+                <td className="con5">Yes - Apex Central certificate</td>
+                <td className="con5">
+                  <div>
+                    <select
+                      id="4"
+                      name="apex_central_integration1"
+                      onChange={(e) => {
+                        threeFunction(e, 2);
+                        handleChange(e);
+                      }}
+                    >
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                </td>
+                <td className="con5" style={{ textAlign: "center" }}>
+                  <img src="images/tab1.png" id="sep3ACI" alt="" />
                 </td>
               </tr>
               <tr className="con5">
@@ -470,29 +494,63 @@ export default function Apex41({
                 </td>
               </tr>
               {visible && (
-                <tr className="con5">
-                  <td className="con5">
-                    Enable Smart Protection Service Proxy
-                  </td>
-                  <td className="con5">
-                    <div>
-                      <select
-                        id="global_agents_settings4"
-                        name="global_agents_settings4"
+                <>
+                  <tr className="con5">
+                    <td className="con5">
+                      Enable Smart Protection Service Proxy
+                    </td>
+                    <td className="con5">
+                      <div>
+                        <select
+                          id="global_agents_settings4"
+                          name="global_agents_settings4"
+                          onChange={(e) => {
+                            fiveFunction1(e);
+                            handleChange(e);
+                          }}
+                        >
+                          <option value="Enabled">Enabled</option>
+                          <option value="Disabled">Disabled</option>
+                        </select>
+                      </div>
+                    </td>
+                    <td className="con5" style={{ textAlign: "center" }}>
+                      <img src="images/tab1.png" id="sep5GA" alt="" />
+                    </td>
+                  </tr>
+                  <tr className="con5">
+                    <td className="con5">Patterns Update Status </td>
+                    <td className="con5">Up to Date </td>
+                    <td className="con5" id="uptodate">
+                      Up to Date:-{" "}
+                      <input
+                        type="number"
+                        id="patterns_update_status_uptodate"
+                        name="patterns_update_status_uptodate"
+                        style={{ width: "25%" }}
                         onChange={(e) => {
-                          fiveFunction1(e);
                           handleChange(e);
+                          superman(e);
                         }}
-                      >
-                        <option value="Enabled">Enabled</option>
-                        <option value="Disabled">Disabled</option>
-                      </select>
-                    </div>
-                  </td>
-                  <td className="con5" style={{ textAlign: "center" }}>
-                    <img src="images/tab1.png" id="sep5GA" alt="" />
-                  </td>
-                </tr>
+                      />
+                      Outdated:-{" "}
+                      <input
+                        type="number"
+                        id="outdated"
+                        name="outdated"
+                        style={{ width: "25%" }}
+                        onChange={(e) => {
+                          handleChange(e);
+                          superman(e);
+
+                        }}
+                      />
+                    </td>
+                    <td className="con5" style={{ textAlign: "center" }}>
+                      <img src="images/tab1.png" id="super" alt="" />
+                    </td>
+                  </tr>
+                </>
               )}
 
               <tr className="con5">
@@ -569,7 +627,6 @@ export default function Apex41({
                   <img src="images/tab1.png" alt="" />
                 </td>
               </tr>
-
               <tr className="con5">
                 <td className="con5">Smart Protection Server</td>
                 <td className="con5">
@@ -617,153 +674,88 @@ export default function Apex41({
               </tr>
 
               <tr className="con5">
-                <td className="con5" colSpan={4}>Agent Distribution</td>
-
-              </tr>
-              <tr className="con5">
-                <td className="con5">Patterns Update Status </td>
-                <td className="con5">Up to Date </td>
-                <td className="con5" id="uptodate">
-                  Up to Date:-{" "}
-                  <input
-                    type="number"
-                    id="patterns_update_status_uptodate"
-                    name="patterns_update_status_uptodate"
-                    style={{ width: "25%" }}
-                    onChange={(e) => {
-                      handleChange(e);
-                      superman(e, 'patterns_update_status_uptodate', "outdated", "apeximgsuperman", "super", "8");
-                    }}
-                  />
-                  Outdated:-{" "}
-                  <input
-                    type="number"
-                    id="outdated"
-                    name="outdated"
-                    style={{ width: "25%" }}
-                    onChange={(e) => {
-                      handleChange(e);
-                      superman(e, 'patterns_update_status_uptodate', "outdated", "apeximgsuperman", "super", "8");
-
-                    }}
-                  />
+                <td className="con5">Inactive agent cleanup</td>
+                <td className="con5">Enabled</td>
+                <td className="con5">
+                  <div>
+                    <select
+                      id=""
+                      name="inactiveAgentCleanup"
+                      onChange={(e) => {
+                        inActiveAgentCleanup(e);
+                        handleChange(e);
+                      }}
+                    >
+                      <option value="Enabled">Enabled</option>
+                      <option value="Disabled">Disabled</option>
+                    </select>
+                  </div>
                 </td>
                 <td className="con5" style={{ textAlign: "center" }}>
-                  <img src="images/tab1.png" id="super" alt="" />
+                  <img src="images/tab1.png" id="sepIAC" alt="" />
                 </td>
               </tr>
 
-              <tr className="con5">
-                <td className="con5">Program Version</td>
-                <td className="con5">Up to Date </td>
-                <td className="con5" id="uptodate">
-                  Up to Date:-{" "}
-                  <input
-                    type="number"
-                    id="program_version_status_uptodate"
-                    name="program_version_status_uptodate"
-                    style={{ width: "25%" }}
-                    onChange={(e) => {
-                      handleChange(e);
-                      superman(e, 'program_version_status_uptodate', "outdated1", "program_version", "super1", "common0");
 
-                    }}
-                  />
-                  Outdated:-{" "}
-                  <input
-                    type="number"
-                    id="outdated1"
-                    name="outdated1"
-                    style={{ width: "25%" }}
-                    onChange={(e) => {
-                      handleChange(e);
-                      superman(e, 'program_version_status_uptodate', "outdated1", "program_version", "super1", "common0");
-                    }}
-                  />
-                </td>
-                <td className="con5" style={{ textAlign: "center" }}>
-                  <img src="images/tab1.png" id="super1" alt="" />
-                </td>
-              </tr>
+              {visible && (
+                <>
+                  <tr className="con5">
+                    <td className="con5" colSpan={4}>Data Base Configuration</td>
+                  </tr>
 
-              <tr className="con5">
-                <td className="con5">Agent Required Restart for Clean-up</td>
-                <td className="con5">No</td>
-                <td className="con5" id="uptodate">
-                  <input
-                    type="number"
-                    id="agentDistribution1"
-                    name="agentDistribution1"
-                    style={{ width: "40%" }}
-                    onChange={(e) => {
-                      agentDistributionFun(e, 1);
-                      handleChange(e);
-                    }}
-                  />
-                </td>
-                <td className="con5" style={{ textAlign: "center" }}>
-                  <img src="images/tab1.png" id="sepAg1" alt="" />
-                </td>
-              </tr>
-              <tr className="con5">
-                <td className="con5">Agent Required Restart for Update</td>
-                <td className="con5">No</td>
-                <td className="con5" id="uptodate">
-                  <input
-                    type="number"
-                    id="agentDistribution2"
-                    name="agentDistribution2"
-                    style={{ width: "40%" }}
-                    onChange={(e) => {
-                      agentDistributionFun(e, 2);
-                      handleChange(e);
-                    }}
-                  />
-                </td>
-                <td className="con5" style={{ textAlign: "center" }}>
-                  <img src="images/tab1.png" id="sepAg2" alt="" />
-                </td>
-              </tr>
+                  <tr className="con5">
+                    <td className="con5">Database Backup</td>
+                    <td className="con5">Yes</td>
+                    <td className="con5">
+                      <div>
+                        <select
+                          id="8"
+                          name="dataBaseConfiguration1"
+                          onChange={(e) => {
+                            handleChange(e);
+                            handleDatabaseBackup(e);
+                          }}
+                        >
+                          <option value="Yes">Yes</option>
+                          <option value="No">No</option>
+                        </select>
+                      </div>
+                    </td>
+                    <td className="con5" style={{ textAlign: "center" }}>
+                      <img src="images/tab1.png" id="sepDB" alt="" />
+                    </td>
+                  </tr>
 
-              <tr className="con5">
-                <td className="con5">Legacy Systems (7 & 8.1)</td>
-                <td className="con5">No</td>
-                <td className="con5" id="uptodate">
-                  <input
-                    type="number"
-                    id="agentDistribution3"
-                    name="agentDistribution3"
-                    style={{ width: "40%" }}
-                    onChange={(e) => {
-                      agentDistributionFun(e, 3);
-                      handleChange(e);
-                    }}
-                  />
-                </td>
-                <td className="con5" style={{ textAlign: "center" }}>
-                  <img src="images/tab1.png" id="sepAg3" alt="" />
-                </td>
-              </tr>
+                  <tr className="con5" id="backupScheduled">
+                    <td className="con5">Backup Scheduled</td>
+                    <td className="con5">Depend on Customer</td>
+                    <td className="con5" >
 
-              <tr className="con5">
-                <td className="con5">Windows Server Platform</td>
-                <td className="con5">No</td>
-                <td className="con5" id="uptodate">
-                  <input
-                    type="number"
-                    id="agentDistribution4"
-                    name="agentDistribution4"
-                    style={{ width: "40%" }}
-                    onChange={(e) => {
-                      agentDistributionFun(e, 4);
-                      handleChange(e);
-                    }}
-                  />
-                </td>
-                <td className="con5" style={{ textAlign: "center" }}>
-                  <img src="images/tab1.png" id="sepAg4" alt="" />
-                </td>
-              </tr>
+                      <div>
+                        <select
+                          id="8"
+                          name="dataBaseConfiguration2"
+                          onChange={(e) => {
+                            handleChange(e);
+                          }}
+                        >
+                          <option value="Daily">Daily</option>
+                          <option value="Hourly">Hourly</option>
+                          <option value="Weekly">Weekly</option>
+                          <option value="Monthly">Monthly</option>
+                        </select>
+                      </div>
+
+                    </td>
+                    <td className="con5" style={{ textAlign: "center" }}>
+                      <img src="images/tab4.png" id="super1" alt="" />
+                    </td>
+                  </tr>
+                </>
+              )}
+
+
+
 
             </tbody>
           </table>

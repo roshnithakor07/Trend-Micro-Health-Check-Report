@@ -1,46 +1,31 @@
-import { useId } from 'react';
+import React from 'react'
+import { store } from '../store'
+import { useSelector, useDispatch } from 'react-redux'
+import { decrement, increment } from '../Slices/counter'
 
 export default function Demo() {
-    const tab1 = "images/tab1.png";
-    const tab2 = "images/tab2.png";
-    const tab3 = "images/tab3.png";
-    const tab4 = "images/tab4.png";
+    const count = useSelector((state) => state.counter.value)
+    const dispatch = useDispatch()
 
-    const passwordHintId = useId();
-
-    const Image = () => {
-        return <img src="images/tab1.png" id={passwordHintId} alt="" />
-    }
-
+    console.log(count)
+  
     return (
-        <>
-
-
-            <label>
-                1st function
-                <input
-                    type="number"
-                    aria-describedby={passwordHintId}
-                />
-            </label>
-            <p >
-            <Image />
-            </p>
-
-            <label>
-                2ndst function
-                <input
-                   
-                    type="number"
-                    aria-describedby={passwordHintId}
-                />
-            </label>
-            <p >
-            <Image />
-            </p>
-
-        </>
-    );
-
-}
-
+      <div>
+        <div>
+          <button
+            aria-label="Increment value"
+            onClick={() => dispatch(increment())}
+          >
+            Increment
+          </button>
+          <span>{count}</span>
+          <button
+            aria-label="Decrement value"
+            onClick={() => dispatch(decrement())}
+          >
+            Decrement
+          </button>
+        </div>
+      </div>
+    )
+  }

@@ -1,5 +1,5 @@
 
-const {ReportModel} = require('../Models/reportModel')
+const { ReportModel } = require('../Models/reportModel')
 const moment = require('moment')
 const Jimp = require("jimp");
 const fs = require('fs');
@@ -7,6 +7,7 @@ const { ImageRun, HeadingLevel, Paragraph, TextRun, AlignmentType,
     Table, TableRow, TableCell, WidthType, VerticalAlign } = require("docx");
 
 let tab1 = "images/tab1.png";
+let tab4 = "images/tab4.png";
 
 const transformation = {
     width: 20,
@@ -58,7 +59,32 @@ const apex41pdf = async (req, res) => {
         ASU = { text: `${Report[0].agent_scheduled_updates}` };
     }
 
-   
+    let showBackupScheduled = [new TableRow({
+        children: [
+            new TableCell({ children: [new Paragraph("Backup Scheduled")] }),
+            new TableCell({ children: [new Paragraph("Depend on Customer")] }),
+            new TableCell({ children: [new Paragraph(Report[0].dataBaseConfiguration2)] }),
+            new TableCell({
+                verticalAlign: VerticalAlign.CENTER,
+                children: [
+                    new Paragraph({
+                        alignment: AlignmentType.CENTER,
+                        children: [
+                            new ImageRun({
+                                data: fs.readFileSync(tab4),
+                                transformation: transformation
+                            }),
+                        ],
+                    }),
+                ],
+            }),
+        ],
+    })];
+    if (Report[0].dataBaseConfiguration1 === "No") {
+        showBackupScheduled = []
+    }
+
+
 
     const preReport = [];
     let global_agents_settings = [
@@ -123,6 +149,8 @@ const apex41pdf = async (req, res) => {
         new Paragraph({ style: "common-space", text: `Apex one SaaS provisioned ${Report[0].cName} to manage a total of ${Report[0].total_service} clients.` })
 
     ]
+
+    let showDataBaseConfiguration = []
 
     if (Report[0].report_type === "On-Premises") {
 
@@ -394,8 +422,74 @@ const apex41pdf = async (req, res) => {
                             ],
                         }),
                     ],
-                })
+                }),
+
+                // "Patterns Update Status"
+                new TableRow({
+                    children: [
+                        new TableCell({ children: [new Paragraph("Patterns Update Status")] }),
+                        new TableCell({ children: [new Paragraph("Up to Date")] }),
+                        new TableCell({ children: [new Paragraph(`Up to Date- ${Report[0].patterns_update_status_uptodate} Outdated- ${Report[0].outdated}`)] }),
+                        new TableCell({
+                            verticalAlign: VerticalAlign.CENTER,
+                            children: [
+                                new Paragraph({
+                                    alignment: AlignmentType.CENTER,
+                                    children: [
+                                        new ImageRun({
+                                            data: fs.readFileSync(Report[0].apeximgsuperman),
+                                            transformation: transformation
+                                        }),
+                                    ],
+                                }),
+                            ],
+                        }),
+                    ],
+                }),
             )
+
+
+        showDataBaseConfiguration.push(
+            //Data Base Configuration
+            new TableRow({
+                children: [
+                    new TableCell({
+                        columnSpan: 4,
+                        children: [new Paragraph("Data Base Configuration")]
+                    }),
+
+                ],
+            }),
+
+            //Database Backup
+            new TableRow({
+                children: [
+                    new TableCell({ children: [new Paragraph("Database Backup")] }),
+                    new TableCell({ children: [new Paragraph("Yes")] }),
+                    new TableCell({ children: [new Paragraph(Report[0].dataBaseConfiguration1)] }),
+                    new TableCell({
+                        verticalAlign: VerticalAlign.CENTER,
+                        children: [
+                            new Paragraph({
+                                alignment: AlignmentType.CENTER,
+                                children: [
+                                    new ImageRun({
+                                        data: fs.readFileSync(Report[0].tabDB || tab1),
+                                        transformation: transformation
+                                    }),
+                                ],
+                            }),
+                        ],
+                    }),
+                ],
+            }),
+
+
+
+            //Backup Scheduled
+            ...showBackupScheduled
+
+        )
 
     }
 
@@ -408,7 +502,7 @@ const apex41pdf = async (req, res) => {
                 before: 220,
             },
             keepLines: true,
-            
+
         }),
 
         new Paragraph({
@@ -437,7 +531,7 @@ const apex41pdf = async (req, res) => {
             text: '4.1 Apex One Configuration Overview',
             heading: HeadingLevel.HEADING_2,
             keepLines: true,
-            
+
             spacing: {
                 after: 230,
             }
@@ -628,33 +722,10 @@ const apex41pdf = async (req, res) => {
                     ],
                 }),
 
-                // "Patterns Update Status"
-                new TableRow({
-                    children: [
-                        new TableCell({ children: [new Paragraph("Patterns Update Status")] }),
-                        new TableCell({ children: [new Paragraph("Up to Date")] }),
-                        new TableCell({ children: [new Paragraph(`Up to Date- ${Report[0].patterns_update_status_uptodate} Outdated- ${Report[0].outdated}`)] }),
-                        new TableCell({
-                            verticalAlign: VerticalAlign.CENTER,
-                            children: [
-                                new Paragraph({
-                                    alignment: AlignmentType.CENTER,
-                                    children: [
-                                        new ImageRun({
-                                            data: fs.readFileSync(Report[0].apeximgsuperman),
-                                            transformation: transformation
-                                        }),
-                                    ],
-                                }),
-                            ],
-                        }),
-                    ],
-                }),
-
                 //Apex Central Integration
                 new TableRow({
                     children: [
-                        new TableCell({ children: [new Paragraph("Apex Central Integration")] }),
+                        new TableCell({ rowSpan: 2, verticalAlign: VerticalAlign.CENTER, children: [new Paragraph("Apex Central Integration")] }),
                         new TableCell({ children: [new Paragraph("Register Apex One to Apex Central")] }),
                         new TableCell({ children: [new Paragraph(Report[0].apex_central_integration)] }),
                         new TableCell({
@@ -663,9 +734,30 @@ const apex41pdf = async (req, res) => {
                                 new Paragraph({
                                     alignment: AlignmentType.CENTER,
                                     children: [
-
                                         new ImageRun({
                                             data: fs.readFileSync(Report[0].apeximgapex_central_integration || tab1),
+                                            transformation: transformation
+                                        }),
+                                    ],
+                                }),
+                            ],
+
+                        }),
+                    ],
+                }),
+                new TableRow({
+                    children: [
+                        new TableCell({ children: [new Paragraph("Yes - Apex Central certificate")] }),
+                        new TableCell({ children: [new Paragraph(Report[0].apex_central_integration1)] }),
+                        new TableCell({
+                            verticalAlign: VerticalAlign.CENTER,
+                            children: [
+                                new Paragraph({
+                                    alignment: AlignmentType.CENTER,
+                                    children: [
+
+                                        new ImageRun({
+                                            data: fs.readFileSync(Report[0].apeximgapex_central_integration1 || tab1),
                                             transformation: transformation
                                         }),
                                     ],
@@ -681,15 +773,16 @@ const apex41pdf = async (req, res) => {
                 // "Agent scheduled updates"
                 new TableRow({
                     children: [
-                        new TableCell({ 
+                        new TableCell({
                             verticalAlign: VerticalAlign.CENTER,
-                            rowSpan : 2,
+                            rowSpan: 2,
                             children: [
                                 new Paragraph({
-                                      
-                                        text : "Agent scheduled updates"
+
+                                    text: "Agent scheduled updates"
                                 })
-                            ] }),
+                            ]
+                        }),
                         new TableCell({ children: [new Paragraph("Enabled")] }),
                         new TableCell({ children: [new Paragraph(ASU)] }),
                         new TableCell({
@@ -776,6 +869,32 @@ const apex41pdf = async (req, res) => {
                     ],
                 }),
 
+                //InActive Clean up
+
+                new TableRow({
+                    children: [
+                        new TableCell({ children: [new Paragraph("Inactive agent cleanup")] }),
+                        new TableCell({ children: [new Paragraph("Enabled")] }),
+                        new TableCell({ children: [new Paragraph(Report[0].inactiveAgentCleanup)] }),
+                        new TableCell({
+                            verticalAlign: VerticalAlign.CENTER,
+                            children: [
+                                new Paragraph({
+                                    alignment: AlignmentType.CENTER,
+                                    children: [
+                                        new ImageRun({
+                                            data: fs.readFileSync(Report[0].apeximgInActiveAgentCleanup || tab1),
+                                            transformation: transformation
+                                        }),
+                                    ],
+                                }),
+                            ],
+                        }),
+                    ],
+                }),
+
+
+                ...showDataBaseConfiguration
             ]
 
         })

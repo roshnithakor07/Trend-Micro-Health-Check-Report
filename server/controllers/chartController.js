@@ -27,7 +27,7 @@ let ipsText = [
     "Top 10 Endpoints in IPS Detection",
     "Action",
 ];
-let ssText = ["Smart Scan Agent Pattern"];
+let ssText = ["Smart Scan Agent Pattern", "Virus Scan Detection"];
 let ccText = ["Endpoints Having C&C Detection", "C&C Callbacks Address"];
 const wrText = ['Top 10 URL Detections in WRS', 'Top 10 Endpoints in WRS Detection', 'Action', "Protocol Detection"];
 
@@ -317,6 +317,7 @@ const getsmartscanModel = async (req, res) => {
     try {
         const smartscan1 = await Smartscan.find({}).sort({ _id: -1 }).limit(1);
         createChart(JSON.parse(smartscan1[0].ssap), JSON.parse(smartscan1[0].ssap_count), ssText[0], "ss_img1", "bar")
+        createChart(JSON.parse(smartscan1[0].virus_pattern), JSON.parse(smartscan1[0].virus_pattern_count), ssText[1], "ss_img2", "bar")
         res.json(smartscan1);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -361,7 +362,6 @@ const saveDatafurtherinformation = async (req, res) => {
 
 function createChart(l, d, title, img, type = 'bar') {
 
-    console.log(title)
     let piePadding = {
         "bottom": 0,
         "top": 50,

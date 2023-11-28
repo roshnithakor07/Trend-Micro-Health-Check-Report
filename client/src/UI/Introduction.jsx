@@ -28,6 +28,7 @@ export default function Introduction({
           <h1 id="title">Trend Micro Health Check Endpoint Security</h1>
 
           <select
+          
             name="report_type"
             defaultValue={"On-Premises"}
             id="Endpoints"

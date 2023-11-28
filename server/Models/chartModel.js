@@ -22,7 +22,9 @@ const agSchema = new mongoose.Schema({
     platform_count_sum: { type: Number, default: "" },
     agent_Program: { type: String, default: "" },
     agent_Program_Count: { type: String, default: "" },
-    chartDescription: { type: String, default: "[]" }
+    chartDescription: { type: String, default: "[]" },
+    agExecutiveSummary: { type: String, default: "[]" },
+    agReq: { type: String, default: "[]" }
 });
 
 let Ag = new mongoose.model("Ag", agSchema);
@@ -193,9 +195,12 @@ const smartScanSchema = new mongoose.Schema({
     r_id: { type: String, default: "" },
     ssap: { type: String, default: "" },
     ssap_count: { type: String, default: "" },
+    virus_pattern: { type: String, default: "" },
+    virus_pattern_count: { type: String, default: "" },
     chartFirstLine: { type: String, default: "" },
     total_detection: { type: Number, default: 0 },
     tablePatternData: { type: String, default: "" },
+    tablePatternData1: { type: String, default: "" },
     patternDays: { type: Number, default: 7 }
 
 });

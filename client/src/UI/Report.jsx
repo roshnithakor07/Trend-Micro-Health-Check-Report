@@ -20,6 +20,8 @@ import { green } from "@mui/material/colors";
 const save = green[900];
 
 function Report() {
+
+
   const [chartDes, setchartDess] = useState("");
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [popupIndex, setPopupIndex] = useState("apex41Req");
@@ -98,7 +100,8 @@ function Report() {
     sixFunction,
     sevenFunction,
     myApex41ImgData,
-    agentDistributionFun
+    handleDatabaseBackup,
+    inActiveAgentCleanup
   } = useApexOneLogic41();
 
   const {
@@ -218,7 +221,7 @@ function Report() {
     myPolicy2[key] = myPo2ImgData[key]
   }
 
-  
+
   //popup update logic
 
   const addValue = (chartDesId) => {
@@ -839,7 +842,9 @@ function Report() {
             handleVersions,
             sixFunction,
             sevenFunction,
-            agentDistributionFun
+            handleDatabaseBackup,
+            inActiveAgentCleanup
+
           }}
         />
 
@@ -878,6 +883,7 @@ function Report() {
           vulnerabilityProtectionFun,
           deviceControlFun,
           applicationControlFun,
+
         }} />
 
         <div className="addPolicyOverviewTable" id="addPolicyOverviewTable">

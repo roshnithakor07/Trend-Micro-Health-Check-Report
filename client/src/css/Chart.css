@@ -367,3 +367,7 @@ input[type="file"] {
     font-size: 20px;
     color: red;
 }
+
+#summary_sentences{
+    display: none;
+}

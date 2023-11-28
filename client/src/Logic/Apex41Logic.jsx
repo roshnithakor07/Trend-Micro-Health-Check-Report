@@ -32,18 +32,16 @@ function useApexOneLogic41() {
     apeximgDeployed_Agents: tab1,
     apeximgCertified_Safe_Software_Service: tab1,
     apeximgapex_central_integration: tab1,
+    apeximgapex_central_integration1: tab1,
     apeximgglobal_agents_settings1: tab1,
     apeximgglobal_agents_settings2: tab1,
     apeximgglobal_agents_settings3: tab1,
     apeximgsuperman: tab1,
     apeximgagent_scheduled_updates: tab1,
     apeximgnotification: tab1,
-    program_version : tab1,
-    tabAg1 : tab1,
-    tabAg2 : tab1,
-    tabAg3 : tab1,
-    tabAg4 : tab1,
-
+    tabDB: tab1,
+    apeximgInActiveAgentCleanup : tab1
+    
   });
 
 
@@ -236,22 +234,39 @@ function useApexOneLogic41() {
 
   //Apex Central Integration - 5
 
-  const threeFunction = (event) => {
-    if (event.target.value === "Yes") {
-      myApex41ImgData.apeximgapex_central_integration = tab1;
-      document.getElementById("sep3").src = tab1;
-      closeValue("5");
-      closeValue1("5");
+  const threeFunction = (event, no) => {
 
-    } else {
-      myApex41ImgData.apeximgapex_central_integration = tab2;
-      document.getElementById("sep3").src = tab2;
-      let a = esummary5;
-      let b = rsummary5;
-      addValue("5", a);
-      addValue1("5", b);
+    const add = (tab, sep) => {
+      if (event.target.value === "Yes") {
+        myApex41ImgData[tab] = tab1;
+        document.getElementById(sep).src = tab1;
+        if (no === 1) {
+          closeValue("5");
+          closeValue1("5");
+        }
+      } else {
+        if (no === 1) {
+          addValue("5", esummary5);
+          addValue1("5", rsummary5);
+          myApex41ImgData[tab] = tab2;
+          document.getElementById(sep).src = tab2;
+        } else {
+          myApex41ImgData[tab] = tab4;
+          document.getElementById(sep).src = tab4;
+        }
 
+      }
     }
+
+    switch (no) {
+      case 1: add("apeximgapex_central_integration", "sep3"); break;
+      case 2: add("apeximgapex_central_integration1", "sep3ACI"); break;
+
+      default:
+        break;
+    }
+
+
   };
 
   //Global Agents Settings-1 - 6
@@ -321,29 +336,17 @@ function useApexOneLogic41() {
 
   };
 
-
-
   //Patterns Update Status - 8
-  const superman = (e, id1, id2, tab, sep, req) => {
-
-    var y = document.getElementById(id1).value;
-    var x = document.getElementById(id2).value;
-    let a = (id2 === "outdated") ? `${x} agents have outdated patterns older than 7 days out of ${y} agents.` : `${x} Agents have outdated Program versions out of ${y} agents.`;
-    let b = (id2 === "outdated") ? `${x} Agents have smart scan pattern version older than 7 days out of ${y}, recommended to keep all patterns up to date.` : `${x} Agents have outdated Program versions out of ${y} agents keep all agent program versions updated. Minimum OS Version requirement for the latest Apex One SaaS agent version:`;
-
+  const superman = (e) => {
+    var x = Number(document.getElementById('outdated').value);
     if (x >= 1) {
-      myApex41ImgData[tab] = tab2;
-      document.getElementById(sep).src = tab2;
-      if (id2 === "outdated") { addValue1(req, b) } else { addValue1(req, b, "https://success.trendmicro.com/dcx/s/solution/000291904?language=en_US", "https://success.trendmicro.com/dcx/s/solution/000291904?language=en_US") }
-      addValue(req, a);
-      addValue1(req, b);
+      myApex41ImgData.apeximgsuperman = tab2;
+      document.getElementById('super').src = tab2;
     } else {
       myApex41ImgData.apeximgsuperman = tab1;
-      document.getElementById(sep).src = tab1;
-      closeValue(req);
-      closeValue1(req);
+      document.getElementById('super').src = tab1;
     }
-    
+
   };
 
   //Agent scheduled updates - 9
@@ -400,92 +403,33 @@ function useApexOneLogic41() {
     }
   };
 
+  const handleDatabaseBackup = (event) => {
+    if (event.target.value === "Yes") {
+      myApex41ImgData.tabDB = tab1;
+      document.getElementById("sepDB").src = tab1;
+      document.getElementById("backupScheduled").classList.remove('disableSection');
+      closeValue1("11");
 
-  const agentDistributionFun = (e, no) => {
-    let count = Number(e.target.value)
-    let a = ""
-    let b = ""
-    let req = ""
-    let sep = "sepAg1"
-    let link = ""
-    let linkTitle = ""
-    let tab = ""
-
-
-    const addSen = (a, b, req,sep, linkTitle, link,tab) => {
-      if (count > 0) {
-        document.getElementById(sep).src = tab2
-        myApex41ImgData[tab] = tab2
-        addValue(req, a)
-        addValue1(req, b, linkTitle, link)
-      } else {
-        myApex41ImgData[tab] = tab1
-        document.getElementById(sep).src = tab1
-        closeValue(req)
-        closeValue1(req)
-      }
+    } else {
+      myApex41ImgData.tabDB = tab2;
+      document.getElementById("sepDB").src = tab2;
+      document.getElementById("backupScheduled").classList.add('disableSection');
+      addValue1("11", 'Data base backup is not configured for Apex One & Apex Central server, recommended to configure it. database requires periodical or on-demand backup to prevent data loss during server migration.');
     }
-
-    switch (no) {
-      case 1:
-        a = `${e.target.value} endpoints are required to restart for cleanup.`;
-        b = `${e.target.value} endpoints are required to restart for cleanup. Recommeded to take restart of those endpoints.`
-        req = "common1"
-        sep = "sepAg1"
-        link = ""
-        linkTitle = ""
-        tab = "tabAg1"
-
-        addSen(a, b, req,sep, linkTitle, link,tab)
-        break;
-
-      case 2:
-        a = `${e.target.value} endpoints are required to restart for the update.`;
-        b = `${e.target.value} endpoints are required to restart for the update. Apex One Agents may need to reboot for engine updates. Recommend restarting those endpoints.`
-        req = "common2"
-        sep = "sepAg2"
-        tab = "tabAg2"
-        link = ""
-        linkTitle = ""
-        addSen(a, b, req,sep, linkTitle, link,tab)
-
-        break;
-
-      case 3:
-        a = `${e.target.value} agents are installed on the Windows 7 (Legacy OS) platform.`;
-        b = `${e.target.value} agents are installed on the Windows 7 (Legacy OS) platform, recommended to upgrade it to the latest OS. For the Windows 7 & 8.1 machines End-of-Support`
-        req = "common3"
-        sep = "sepAg3"
-        tab = "tabAg3"
-        link = "https://success.trendmicro.com/dcx/s/solution/000291687?language=en_US&sfdcIFrameOrigin=null"
-        linkTitle = "https://success.trendmicro.com/dcx/s/solution/000291687?language=en_US&sfdcIFrameOrigin=null"
-        addSen(a, b, req,sep, linkTitle, link,tab)
-
-        break;
-
-      case 4:
-        a = `${e.target.value} agents are installed on the Windows server platform.`;
-        b = `${e.target.value} agents installed on Windows server platform recommended to use Deep Security / Cloud One Workload Security for the advanced protection for servers.`
-        req = "common4"
-        sep = "sepAg4"
-        tab = "tabAg4"
-        link = ""
-        linkTitle = ""
-        addSen(a, b, req,sep, linkTitle, link,tab)
-
-        break;
-
-      default:
-        break;
-    }
-
-
-
-
-
-
-
   }
+
+  const inActiveAgentCleanup = (event) => {
+    if (event.target.value === "Enabled") {
+      myApex41ImgData.apeximgInActiveAgentCleanup = tab1;
+      document.getElementById("sepIAC").src = tab1;
+
+    } else {
+      myApex41ImgData.apeximgInActiveAgentCleanup = tab4;
+      document.getElementById("sepIAC").src = tab4
+    }
+  }
+
+
 
 
   return {
@@ -506,7 +450,9 @@ function useApexOneLogic41() {
     sixFunction,
     sevenFunction,
     myApex41ImgData,
-    agentDistributionFun
+    handleDatabaseBackup,
+    inActiveAgentCleanup
+
   };
 }
 

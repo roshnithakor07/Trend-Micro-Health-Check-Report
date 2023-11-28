@@ -131,6 +131,7 @@ const reportSchema = new mongoose.Schema({
     agent_management_tree: { type: String, default: "AD" },
     certified_safe_software_service: { type: String, default: "Enabled" },
     apex_central_integration: { type: String, default: "Yes" },
+    apex_central_integration1: { type: String, default: "Yes" },
     global_agents_settings1: { type: String, default: "Yes" },
     global_agents_settings2: { type: String, default: "Enabled" },
     global_agents_settings3: { type: String, default: "Enabled" },
@@ -144,14 +145,11 @@ const reportSchema = new mongoose.Schema({
     timePeriod: { type: String, default: "" },
     smart_portection_server: { type: String, default: "Integrated SPS" },
     notification: { type: String, default: "Enabled" },
-    program_version_status_uptodate: { type: String, default: "" },
-    outdated1: { type: String, default: "" },
-    agentDistribution1: { type: String, default: "" },
-    agentDistribution2: { type: String, default: "" },
-    agentDistribution3: { type: String, default: "" },
-    agentDistribution4: { type: String, default: "" },
+    inactiveAgentCleanup: { type: String, default: "Enabled" },
+    dataBaseConfiguration1: { type: String, default: "Yes" },
+    dataBaseConfiguration2: { type: String, default: "daily" },
 
-
+    
     // apexone 41 img
     apexmemory: { type: String, default: "images/tab1.png" },
     apeximgsos: { type: String, default: "images/tab1.png" },
@@ -160,17 +158,15 @@ const reportSchema = new mongoose.Schema({
     apeximgDeployed_Agents: { type: String, default: "images/tab1.png" },
     apeximgCertified_Safe_Software_Service: { type: String, default: "images/tab1.png" },
     apeximgapex_central_integration: { type: String, default: "images/tab1.png" },
+    apeximgapex_central_integration1: { type: String, default: "images/tab1.png" },
     apeximgglobal_agents_settings1: { type: String, default: "images/tab1.png" },
     apeximgglobal_agents_settings2: { type: String, default: "images/tab1.png" },
     apeximgglobal_agents_settings3: { type: String, default: "images/tab1.png" },
     apeximgsuperman: { type: String, default: "images/tab1.png" },
     apeximgagent_scheduled_updates: { type: String, default: "images/tab1.png" },
     apeximgnotification: { type: String, default: "images/tab1.png" },
-    program_version: { type: String, default: "images/tab1.png" },
-    tabAg1: { type: String, default: "images/tab1.png" },
-    tabAg2: { type: String, default: "images/tab1.png" },
-    tabAg3: { type: String, default: "images/tab1.png" },
-    tabAg4: { type: String, default: "images/tab1.png" },
+    tabDB: { type: String, default: "images/tab1.png" },
+    apeximgInActiveAgentCleanup: { type: String, default: "images/tab1.png" },
 
     //apex43
     memory3: { type: String, default: '8' },

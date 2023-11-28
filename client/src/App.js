@@ -1,4 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import React, { useEffect } from "react";
+
 
 import Home from "./Admin/Home"
 import Report from "./UI/Report"
@@ -8,9 +10,12 @@ import DownloadTrendMicroReportPdf from './UI/DownloadTrendMicroReportPdf'
 import UpdateReport from './Update/Report'
 import Demo from "./UI/Demo"
 import CreateCharts from "./UI/CreateCharts";
-import Admin from "./Admin/Admin";
+//import Admin from "./Admin/Admin";
 import Work from "./UI/Work";
+import Login from "./Auth/login";
 
+
+import './App.css'
 import './css/Home.css'
 import './css/Introduction1.css'
 import './css/Introduction2.css'
@@ -29,14 +34,32 @@ import ChartDemo from "./UI/ChartDemo";
 
 
 function App() {
+
+  // useEffect(() => {
+  //   window.addEventListener("beforeunload", handleBeforeUnload);
+  //   return () => {
+  //     window.removeEventListener("beforeunload", handleBeforeUnload);
+  //   };
+  // }, []);
+
+  // const handleBeforeUnload = (e) => {
+  //   e.preventDefault();
+  //   const message =
+  //     "Are you sure you want to leave? All provided data will be lost.";
+  //   e.returnValue = message;
+  //   return message;
+  // };
+
+
   return (
     <>
       <Router>
-        <Routes>         
+        <Routes>
+          <Route exact path="/" element={<Report />} />
+          <Route exact path="/login" element={<Login />} />
+
           <Route path='/home' element={<Home />} />
-          <Route path='/work' element={<Work />} />
-          <Route path='/' element={<Report />} />
-          <Route path='/admin' element={<Admin />} />
+          {/* <Route path='/admin' element={<Admin />} /> */}
           <Route path="/charts" element={<Charts />} />
           <Route path="/create-charts" element={<CreateCharts />} />
           <Route path="/update-report/:id" element={<UpdateReport />} />
@@ -45,8 +68,8 @@ function App() {
           <Route path="/further-information" element={<FurtherInformation />} />
           <Route path="/download-health-check-apex-one-report" element={<DownloadTrendMicroReportPdf />} />
 
-        </Routes>
-      </Router>
+        </Routes >
+      </Router >
 
     </>
   );

@@ -1,20 +1,24 @@
-const {ReportModel} = require('../Models/reportModel')
+const { ReportModel } = require('../Models/reportModel')
 const policyModel = require('../Models/policyModel')
 const { HeadingLevel, Paragraph, ExternalHyperlink, TextRun } = require("docx");
-
+const { Ag } = require('../Models/chartModel');
 const getREQ = async (req, res) => {
     const Report = await ReportModel.find({}).sort({ _id: -1 }).limit(1);
     const PolicyModel = await policyModel.find({}).sort({ _id: -1 }).limit(1);
+
+    const ag1 = await Ag.find({}).sort({ _id: -1 }).limit(1);
 
     const apex41 = JSON.parse(Report[0].allApex41ReqSummary);
     const apex43 = JSON.parse(Report[0].allApex43ReqSummary);
     const po1 = JSON.parse(Report[0].allPolicyOneRSummeryArr);
     const common = JSON.parse(Report[0].allCommonPolicySummeryArr);
     const po2 = JSON.parse(Report[0].allPolicyTwoRSummeryArr);
+    const agREQ = JSON.parse(ag1[0].agReq);
 
     const allPolicyOneRSummeryArr = po1.map(i => (new Paragraph({ text: i, style: "bullet-para" })));
     const allPolicyTwoRSummeryArr = po2.map(i => (new Paragraph({ text: i, style: "bullet-para" })));
     const allCommonPolicySummeryArr = common.map(i => (new Paragraph({ text: i, style: "bullet-para" })));
+    const agReqSummeryArr = agREQ.map(i => (new Paragraph({ text: i, style: "bullet-para" })));
 
     let addPo2Summary = [];
 
@@ -43,7 +47,7 @@ const getREQ = async (req, res) => {
                         after: 180,
                     },
                     keepLines: true,
-                    
+
                     children: [new TextRun({ size: "16pt", text: `In ${Report[0].OverviewPolicyName1} Policy: `, bold: true })]
                 }),
                 ...allPolicyOneRSummeryArr
@@ -52,12 +56,12 @@ const getREQ = async (req, res) => {
         if (allPolicyTwoRSummeryArr.length) {
             addPo2Summary.push(
                 new Paragraph({
-                 spacing: {
+                    spacing: {
                         line: 276,
                         before: 220,
                         after: 180,
                     },
-                    keepLines: true,  
+                    keepLines: true,
                     children: [new TextRun({ size: "16pt", text: `In ${PolicyModel[0].OverviewPolicyName1} Policy: `, bold: true })]
                 }),
                 ...allPolicyTwoRSummeryArr
@@ -142,7 +146,7 @@ const getREQ = async (req, res) => {
         console.log("error - ES - APEX43")
     }
 
-    
+
 
     const content = [
         new Paragraph({
@@ -156,6 +160,7 @@ const getREQ = async (req, res) => {
         }),
 
         ...allApexSummaryArr,
+        ...agReqSummeryArr,
         ...allApex43ReqSummary,
         ...addPo2Summary
 

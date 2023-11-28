@@ -20,6 +20,7 @@
     font-size: 20px;
     position: relative;
     top: 5px;
+    cursor: pointer;
 }
 
 .cLogo{

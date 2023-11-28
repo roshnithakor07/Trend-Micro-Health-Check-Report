@@ -1,14 +1,15 @@
 
-const {ReportModel} = require('../Models/reportModel')
+const { ReportModel } = require('../Models/reportModel')
 const moment = require('moment')
 const policyModel = require('../Models/policyModel')
-const { Chart1, Virus, Spyware, Bm, Dc, Ips, Wr, Cc } = require('../Models/chartModel');
+const { Chart1, Ag, Virus, Spyware, Bm, Dc, Ips, Wr, Cc } = require('../Models/chartModel');
 const { HeadingLevel, Paragraph } = require("docx");
 
 const getES = async (req, res) => {
   const Report = await ReportModel.find({}).sort({ _id: -1 }).limit(1);
   const PolicyModel = await policyModel.find({}).sort({ _id: -1 }).limit(1);
 
+  const ag1 = await Ag.find({}).sort({ _id: -1 }).limit(1);
   const chart1 = await Chart1.find({}).sort({ _id: -1 }).limit(1);
   const virus1 = await Virus.find({}).sort({ _id: -1 }).limit(1);
   const spyware1 = await Spyware.find({}).sort({ _id: -1 }).limit(1);
@@ -25,14 +26,14 @@ const getES = async (req, res) => {
   let arr2 = JSON.parse(Report[0].allApex43ExecutiveSummary)
   let po1 = JSON.parse(Report[0].eSummaryPolicyOverview)
   let po2 = JSON.parse(Report[0].eSummaryPolicyOverview1)
-  // let extraEsummarySen = JSON.parse(Report[0].extraEsummarySen)
+  let agExecutiveSummary = JSON.parse(ag1[0].agExecutiveSummary)
 
 
   const allApexSummaryArr = arr1.map(i => (new Paragraph({ text: i, style: "bullet-para" })));
   const allApex43ExecutiveSummary = arr2.map(i => (new Paragraph({ text: i, style: "bullet-para" })));
   let eSummaryPolicyOverview = po1.map(i => (new Paragraph({ text: i, style: "bullet-para" })));
   const eSummaryPolicyOverview1 = po2.map(i => (new Paragraph({ text: i, style: "bullet-para" })));
-
+  const agES = agExecutiveSummary.map(i => (new Paragraph({ text: i, style: "bullet-para" })));
 
   const displayChartCount = []
 
@@ -54,7 +55,7 @@ const getES = async (req, res) => {
   if (showCharts[6]) {
     displayChartCount.push(new Paragraph({ text: `${cc1[0].total_detection} C&C Callback Detected`, style: "bullet-para" }))
   }
-  
+
   if (showCharts[7]) {
     displayChartCount.push(new Paragraph({ text: `${bm1[0].total_detection} Behaviour Monitoring Detected`, style: "bullet-para" }))
   }
@@ -79,6 +80,7 @@ const getES = async (req, res) => {
       }),
 
       ...allApexSummaryArr,
+      ...agES,
       ...eSummaryPolicyOverview,
       ...eSummaryPolicyOverview1,
       ...allApex43ExecutiveSummary,

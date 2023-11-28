@@ -184,7 +184,7 @@ const getCharts = async (req, res) => {
     const agChart = [], vChart = [], spChart = [], wrChart = [], ipChart = [];
     const dcChart = [], ccChart = [], bmChart = [], ssChart = [];
 
-    
+
     //6.1 AG
     if (showCharts[0]) {
 
@@ -1592,49 +1592,54 @@ const getCharts = async (req, res) => {
 
     // 5.9 SMARTSCAN
     if (showCharts[8]) {
-        let tablePatternData = JSON.parse(smartscan1[0].tablePatternData);
-        const ssTableBody1 = [];
-        let smartScanTable = [
-            `Last ${smartscan1[0].patternDays} days Pattern updated agents`,
-            `Older than ${smartscan1[0].patternDays} Days Pattern updated agents`,
-            'Total Agents'
-        ];
-        for (var i = 0; i < smartScanTable.length; i++) {
+        const createTable = (tablePatternDataName) => {
+            let tablePatternData = JSON.parse(smartscan1[0][tablePatternDataName]);
+            const ssTableBody1 = [];
+            let smartScanTable = [
+                `Last ${smartscan1[0].patternDays} days Pattern updated agents`,
+                `Older than ${smartscan1[0].patternDays} Days Pattern updated agents`,
+                'Total Agents'
+            ];
+            for (var i = 0; i < smartScanTable.length; i++) {
 
-            ssTableBody1.push(
-                new TableRow({
-                    children: [
-                        new TableCell({
-                            verticalAlign: VerticalAlign.CENTER,
-                            width: {
-                                size: 9000,
-                                type: WidthType.DXA,
-                            },
-                            children: [
-                                new Paragraph({
+                ssTableBody1.push(
+                    new TableRow({
+                        children: [
+                            new TableCell({
+                                verticalAlign: VerticalAlign.CENTER,
+                                width: {
+                                    size: 9000,
+                                    type: WidthType.DXA,
+                                },
+                                children: [
+                                    new Paragraph({
 
-                                    text: smartScanTable[i]
-                                })
-                            ]
-                        }),
-                        new TableCell({
-                            verticalAlign: VerticalAlign.CENTER,
-                            width: {
-                                size: 2000,
-                                type: WidthType.DXA,
-                            },
-                            children: [
-                                new Paragraph({
-                                    alignment: AlignmentType.CENTER,
-                                    text: `${tablePatternData[i]}`
-                                })
-                            ]
-                        })
-                    ]
-                })
+                                        text: smartScanTable[i]
+                                    })
+                                ]
+                            }),
+                            new TableCell({
+                                verticalAlign: VerticalAlign.CENTER,
+                                width: {
+                                    size: 2000,
+                                    type: WidthType.DXA,
+                                },
+                                children: [
+                                    new Paragraph({
+                                        alignment: AlignmentType.CENTER,
+                                        text: `${tablePatternData[i]}`
+                                    })
+                                ]
+                            })
+                        ]
+                    })
 
-            )
-        };
+                )
+            };
+
+            return ssTableBody1;
+
+        }
 
 
         ssChart.push(
@@ -1656,7 +1661,7 @@ const getCharts = async (req, res) => {
                 alignment: AlignmentType.CENTER,
 
                 rows: [
-                    ...ssTableBody1
+                    ...createTable("tablePatternData")
                 ]
             }),
 
@@ -1670,6 +1675,38 @@ const getCharts = async (req, res) => {
                 ]
             }),
         );
+
+        
+        if (JSON.parse(smartscan1[0].virus_pattern).length !== 0) {
+            ssChart.push(
+                new Table({
+                    margins: {
+                        top: 60,
+                        bottom: 60,
+                        left: 60,
+                        right: 50
+                    },
+                    alignment: AlignmentType.CENTER,
+
+                    rows: [
+                        ...createTable("tablePatternData1")
+                    ]
+                }),
+
+                new Paragraph({
+                    style: 'image-style',
+                    children: [
+                        new ImageRun({
+                            data: fs.readFileSync(`${chartFolderName}/ss_img2.png`),
+                            transformation: transformation
+                        })
+                    ]
+                }),
+            );
+
+        }
+
+
     }
 
 

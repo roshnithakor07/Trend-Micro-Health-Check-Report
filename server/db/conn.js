@@ -4,8 +4,8 @@ dontenv.config({ path: './config.env' });
 const DB = process.env.DATABASE
 
 mongoose.set('strictQuery', true);
-//mongodb://0.0.0.0:27017/Trend-Micro-health-check-report
-mongoose.connect('mongodb://0.0.0.0:27017/Trend-Micro-health-check-report', {
+//'mongodb://0.0.0.0:27017/Trend-Micro-health-check-report'
+mongoose.connect(DB, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 
