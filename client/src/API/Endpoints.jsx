@@ -1,11 +1,13 @@
 import React from 'react'
 
 function Endpoints() {
+   
     const PORT = 5000;
-    const API = `http://localhost:${PORT}/charts`;
-    const RAPI = `http://localhost:${PORT}/report`;
-    const PAPI = `http://localhost:${PORT}/pdf`;
-    const DAPI = `http://localhost:${PORT}/docx`;
+    const WEB_URL = "https://backend-4k1z.onrender.com";
+    const API = `${WEB_URL}/charts`;
+    const RAPI = `${WEB_URL}/report`;
+    const PAPI = `${WEB_URL}/pdf`;
+    const DAPI = `${WEB_URL}/docx`;
 
 
 
